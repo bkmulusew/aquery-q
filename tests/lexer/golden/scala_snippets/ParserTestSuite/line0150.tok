@@ -1,0 +1,4 @@
+Keyword	DROP	1:1
+Keyword	TRIGGER	1:6
+Identifier	trg_upd	1:14
+EOF		1:21

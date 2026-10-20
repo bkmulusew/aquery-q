@@ -1,0 +1,39 @@
+Identifier	a	1:1
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:4
+NumericLit	0	1:5
+Keyword	/	1:6
+NumericLit	10	1:7
+Keyword	/	1:9
+NumericLit	2020	1:10
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:15
+Identifier	b	1:16
+Date	12/31/9999	1:18
+Identifier	c	1:31
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:34
+NumericLit	1	1:35
+Keyword	/	1:36
+NumericLit	01	1:37
+Keyword	/	1:39
+NumericLit	0000	1:40
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:45
+Identifier	d	1:46
+Date	01/01/0001	1:48
+Identifier	e	1:61
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:64
+NumericLit	4	1:65
+Keyword	/	1:66
+NumericLit	31	1:67
+Keyword	/	1:69
+NumericLit	2020	1:70
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:75
+Identifier	f	1:76
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:79
+NumericLit	2	1:80
+Keyword	/	1:81
+NumericLit	32	1:82
+Keyword	/	1:84
+NumericLit	2020	1:85
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:90
+Identifier	g	1:91
+ErrorToken	*** error: end of input	2:4
+EOF		2:4

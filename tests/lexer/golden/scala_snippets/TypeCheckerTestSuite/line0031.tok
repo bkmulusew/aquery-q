@@ -1,0 +1,6 @@
+Identifier	x	1:1
+Keyword	+	1:3
+Identifier	y	1:5
+Keyword	/	1:7
+Identifier	z	1:9
+EOF		1:10

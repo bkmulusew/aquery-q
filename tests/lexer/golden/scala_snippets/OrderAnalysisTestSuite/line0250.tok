@@ -1,0 +1,9 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t	1:15
+Keyword	WHERE	1:17
+Identifier	c1	1:23
+Keyword	>	1:26
+NumericLit	2	1:28
+EOF		1:29

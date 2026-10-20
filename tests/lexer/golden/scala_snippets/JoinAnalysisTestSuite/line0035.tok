@@ -1,0 +1,11 @@
+Identifier	t1	1:1
+Keyword	as	1:4
+Identifier	t_one	1:7
+Keyword	,	1:12
+Identifier	t2	1:14
+Keyword	INNER	1:17
+Keyword	JOIN	1:23
+Identifier	t3	1:28
+Keyword	USING	1:31
+Identifier	cx	1:37
+EOF		1:39

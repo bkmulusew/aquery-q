@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but 1. found
+
+1. .5 007 3.14 0 42 1.2.3
+^

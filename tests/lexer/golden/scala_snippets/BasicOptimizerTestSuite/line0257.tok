@@ -1,0 +1,8 @@
+Keyword	select	1:1
+Keyword	*	1:8
+Keyword	from	1:10
+Identifier	t	1:15
+Keyword	assuming	1:17
+Keyword	asc	1:26
+Identifier	c2	1:30
+EOF		1:32

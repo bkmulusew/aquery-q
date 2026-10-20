@@ -1,0 +1,8 @@
+Keyword	select	1:1
+Keyword	count	1:8
+Keyword	(	1:13
+Keyword	*	1:14
+Keyword	)	1:15
+Keyword	from	1:17
+Identifier	t	1:22
+EOF		1:23

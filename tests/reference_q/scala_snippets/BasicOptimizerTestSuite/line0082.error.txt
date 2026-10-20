@@ -1,0 +1,4 @@
+[1.2] failure: ``insert'' expected but identifier c2 found
+
+ c2 = 10 AND c5 > 2
+ ^

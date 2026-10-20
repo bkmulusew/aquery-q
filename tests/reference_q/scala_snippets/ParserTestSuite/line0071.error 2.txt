@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier f found
+
+f(g(1,2,3), h()) + (3 + 4)
+^

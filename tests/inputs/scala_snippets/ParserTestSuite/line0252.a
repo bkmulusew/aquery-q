@@ -1,0 +1,7 @@
+
+      SELECT sum(a) as sumA
+      FROM t
+      ASSUMING ASC c1, ASC c2
+      WHERE a > 100 AND b < 20
+      GROUP BY c * 10 as ced HAVING count(d) > 10
+    

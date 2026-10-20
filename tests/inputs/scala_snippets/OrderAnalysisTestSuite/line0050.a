@@ -1,0 +1,1 @@
+FUNCTION f(x, y) { z := max(sums(x)); z + 2 }

@@ -1,0 +1,22 @@
+Identifier	c0	1:1
+Keyword	+	1:4
+Keyword	max	1:6
+Keyword	(	1:9
+Identifier	c1	1:10
+Keyword	)	1:12
+Keyword	*	1:14
+Keyword	CASE	1:16
+Keyword	sums	1:21
+Keyword	(	1:25
+Identifier	c5	1:26
+Keyword	)	1:28
+Keyword	>	1:30
+NumericLit	1	1:32
+Keyword	WHEN	1:34
+Keyword	TRUE	1:39
+Keyword	THEN	1:44
+Identifier	c2	1:49
+Keyword	ELSE	1:52
+NumericLit	100	1:57
+Keyword	END	1:61
+EOF		1:64

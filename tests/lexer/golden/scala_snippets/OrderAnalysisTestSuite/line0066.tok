@@ -1,0 +1,11 @@
+Keyword	FUNCTION	1:1
+Identifier	myFun	1:10
+Keyword	(	1:15
+Identifier	x	1:16
+Keyword	)	1:17
+Keyword	{	1:19
+Identifier	g	1:21
+Keyword	(	1:22
+Keyword	)	1:23
+Keyword	}	1:25
+EOF		1:26

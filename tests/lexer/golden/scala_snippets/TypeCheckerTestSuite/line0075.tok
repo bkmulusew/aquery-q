@@ -1,0 +1,13 @@
+Keyword	CASE	2:9
+Keyword	max	2:14
+Keyword	(	2:17
+Identifier	c2	2:18
+Keyword	)	2:20
+Keyword	*	2:22
+NumericLit	1	2:24
+Keyword	WHEN	3:11
+StringLit	a	3:16
+Keyword	THEN	3:20
+NumericLit	1	3:25
+Keyword	END	4:9
+EOF		5:7

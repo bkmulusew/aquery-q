@@ -1,0 +1,4 @@
+[1.14] failure: ``-'' expected but `SELECT' found
+
+FUNCTION f(){SELECT * FROM t}
+             ^

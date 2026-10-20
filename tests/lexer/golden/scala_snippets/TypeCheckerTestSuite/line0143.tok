@@ -1,0 +1,12 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t1	1:15
+Keyword	,	1:17
+Identifier	t2	1:19
+Identifier	bad	1:22
+Keyword	,	1:25
+Identifier	t3	1:27
+Keyword	as	1:30
+Identifier	bad	1:33
+EOF		1:36

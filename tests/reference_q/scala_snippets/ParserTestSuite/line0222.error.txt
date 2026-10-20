@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier table1 found
+
+table1 as t1 INNER JOIN table2 t2 USING c, table3 
+^

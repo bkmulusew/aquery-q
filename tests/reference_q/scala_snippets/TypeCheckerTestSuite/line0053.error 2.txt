@@ -1,0 +1,5 @@
+[2.9] failure: ``insert'' expected but `CASE' found
+
+        CASE f(c1)
+
+        ^

@@ -1,0 +1,4 @@
+
+         FUNCTION add(x, y) { x + y }
+         FUNCTION myAvg(x) { sum(x) / count(x) }
+      

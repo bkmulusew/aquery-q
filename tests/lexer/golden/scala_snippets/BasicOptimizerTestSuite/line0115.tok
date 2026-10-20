@@ -1,0 +1,8 @@
+Keyword	ASC	1:1
+Identifier	t	1:5
+Keyword	.	1:6
+Identifier	c1	1:7
+Keyword	,	1:9
+Keyword	DESC	1:11
+Identifier	c2	1:16
+EOF		1:18

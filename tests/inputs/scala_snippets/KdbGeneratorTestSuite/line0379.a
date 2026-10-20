@@ -1,0 +1,6 @@
+
+        CREATE TRIGGER trg_sync
+        BEFORE DELETE ON table1
+        REFERENCING OLD TABLE AS deleted
+        DO INSERT INTO audit SELECT * FROM deleted
+      

@@ -1,0 +1,13 @@
+Identifier	x	1:1
+Identifier	_y	1:3
+Identifier	a_b2	1:6
+Identifier	A1	1:11
+Identifier	t	1:14
+Keyword	.	1:15
+Identifier	c1	1:16
+Identifier	t1	1:19
+Keyword	.	1:21
+Identifier	c2	1:22
+Keyword	.	1:24
+Identifier	c3	1:25
+EOF		2:1

@@ -1,0 +1,10 @@
+Keyword	fills	1:1
+Keyword	(	1:6
+StringLit	true	1:7
+Keyword	,	1:13
+Keyword	avgs	1:15
+Keyword	(	1:19
+Identifier	c1	1:20
+Keyword	)	1:22
+Keyword	)	1:23
+EOF		1:24

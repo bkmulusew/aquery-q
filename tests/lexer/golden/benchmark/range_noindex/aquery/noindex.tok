@@ -1,0 +1,11 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	employees	1:15
+Keyword	WHERE	1:25
+Identifier	lat	1:31
+Keyword	BETWEEN	1:35
+NumericLit	150	1:43
+Keyword	AND	1:47
+NumericLit	1150	1:51
+EOF		2:1

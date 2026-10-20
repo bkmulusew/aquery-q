@@ -1,0 +1,12 @@
+Identifier	g	1:1
+Keyword	(	1:2
+Keyword	)	1:3
+Keyword	,	1:4
+Identifier	t1	1:5
+Keyword	,	1:7
+Identifier	t2	1:8
+Keyword	,	1:10
+Identifier	other	1:11
+Keyword	as	1:17
+Identifier	ot	1:20
+EOF		1:22

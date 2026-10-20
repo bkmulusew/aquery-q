@@ -1,0 +1,1 @@
+c2 + c4 * sums(c1 * c2) + max(c6, f(c4, t.c5, sum(t8)))

@@ -1,0 +1,9 @@
+Identifier	c1	1:1
+Keyword	>	1:4
+NumericLit	2	1:6
+Keyword	AND	1:8
+Keyword	sum	1:12
+Keyword	(	1:15
+Identifier	c3	1:16
+Keyword	)	1:18
+EOF		1:19

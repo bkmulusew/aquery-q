@@ -1,0 +1,19 @@
+Keyword	WITH	2:10
+Identifier	t1	3:11
+Keyword	AS	3:14
+Keyword	(	3:17
+Keyword	SELECT	3:18
+Keyword	*	3:25
+Keyword	FROM	3:27
+Identifier	t	3:32
+Keyword	WHERE	3:34
+Keyword	avg	3:40
+Keyword	(	3:43
+Identifier	c1	3:44
+Keyword	)	3:46
+Keyword	)	3:47
+Keyword	SELECT	4:11
+Keyword	*	4:18
+Keyword	FROM	4:20
+Identifier	t1	4:25
+EOF		5:7

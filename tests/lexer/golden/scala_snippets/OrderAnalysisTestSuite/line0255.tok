@@ -1,0 +1,24 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t	1:15
+Keyword	,	1:16
+Identifier	t1	1:18
+Keyword	INNER	1:21
+Keyword	JOIN	1:27
+Identifier	t2	1:32
+Keyword	USING	1:35
+Identifier	c1	1:41
+Keyword	ASSUMING	1:44
+Keyword	ASC	1:53
+Identifier	c1	1:57
+Keyword	,	1:59
+Keyword	DESC	1:61
+Identifier	t	1:66
+Keyword	.	1:67
+Identifier	c2	1:68
+Keyword	WHERE	1:71
+Identifier	c1	1:77
+Keyword	>	1:80
+NumericLit	2	1:82
+EOF		1:83

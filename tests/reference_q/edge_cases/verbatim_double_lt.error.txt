@@ -1,0 +1,4 @@
+[1.15] failure: ``insert'' expected but identifier x found
+
+<q> a<<b </q> x
+              ^

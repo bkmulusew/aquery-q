@@ -1,0 +1,5 @@
+[2.9] failure: ``insert'' expected but identifier t_one found
+
+        t_one.c1 = t2.c1 ; // t_one, t2
+
+        ^

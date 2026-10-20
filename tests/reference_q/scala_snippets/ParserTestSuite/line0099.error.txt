@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but `case' found
+
+case g() WHEN 1 THEN (case WHEN y > 0 then 0 END) END
+^

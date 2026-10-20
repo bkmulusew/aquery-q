@@ -1,0 +1,19 @@
+Keyword	case	1:1
+Identifier	g	1:6
+Keyword	(	1:7
+Keyword	)	1:8
+Keyword	WHEN	1:10
+NumericLit	1	1:15
+Keyword	THEN	1:17
+Keyword	(	1:22
+Keyword	case	1:23
+Keyword	WHEN	1:28
+Identifier	y	1:33
+Keyword	>	1:35
+NumericLit	0	1:37
+Keyword	then	1:39
+NumericLit	0	1:44
+Keyword	END	1:46
+Keyword	)	1:49
+Keyword	END	1:51
+EOF		1:54

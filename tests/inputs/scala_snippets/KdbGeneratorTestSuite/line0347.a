@@ -1,0 +1,8 @@
+
+        CREATE TRIGGER trg_sync
+        AFTER DELETE ON table1
+        REFERENCING OLD TABLE AS deleted
+        DO UPDATE table2
+           SET qty = deleted.qty, note = deleted.note
+           WHERE table2.id = deleted.id
+      

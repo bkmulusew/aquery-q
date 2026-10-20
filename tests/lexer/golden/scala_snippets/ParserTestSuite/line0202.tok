@@ -1,0 +1,9 @@
+Keyword	DELETE	1:1
+Identifier	c1	1:8
+Keyword	FROM	1:11
+Identifier	t	1:16
+Keyword	WHERE	1:18
+Identifier	c1	1:24
+Keyword	>	1:27
+NumericLit	100	1:29
+EOF		1:32

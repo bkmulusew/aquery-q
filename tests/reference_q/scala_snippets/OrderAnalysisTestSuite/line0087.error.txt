@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but `max' found
+
+max(c2 + f(c4 * count(c5)))
+^

@@ -1,0 +1,9 @@
+Keyword	SELECT	1:1
+Identifier	amount	1:8
+Keyword	FROM	2:1
+Identifier	storeOutstanding	2:6
+Keyword	WHERE	3:1
+Identifier	storeid	3:7
+Keyword	=	3:15
+StringLit	10	3:17
+EOF		4:1

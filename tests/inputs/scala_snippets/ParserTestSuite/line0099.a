@@ -1,0 +1,1 @@
+case g() WHEN 1 THEN (case WHEN y > 0 then 0 END) END

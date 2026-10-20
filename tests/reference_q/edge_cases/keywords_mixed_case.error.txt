@@ -1,0 +1,4 @@
+[1.8] failure: ``distinct'' expected but `select' found
+
+SELECT select Select sElEcT FROM from From
+       ^

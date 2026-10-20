@@ -1,0 +1,7 @@
+Identifier	a	1:1
+ErrorToken	*** error: `=' expected but x found	1:4
+Identifier	b	1:6
+Keyword	!=	1:8
+Identifier	c	1:10
+ErrorToken	*** error: `=' expected but \n found	1:13
+EOF		2:1

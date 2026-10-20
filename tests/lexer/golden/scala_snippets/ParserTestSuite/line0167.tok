@@ -1,0 +1,24 @@
+Keyword	UPDATE	1:1
+Identifier	t	1:8
+Keyword	SET	1:10
+Identifier	c1	1:14
+Keyword	=	1:17
+NumericLit	10	1:19
+Keyword	ASSUMING	1:22
+Keyword	ASC	1:31
+Identifier	c	1:35
+Keyword	WHERE	1:37
+Identifier	a	1:43
+Keyword	>	1:45
+NumericLit	10	1:47
+Keyword	GROUP	1:50
+Keyword	BY	1:56
+Identifier	h	1:59
+Keyword	HAVING	1:61
+Keyword	sums	1:68
+Keyword	(	1:72
+Identifier	a	1:73
+Keyword	)	1:74
+Keyword	>	1:76
+NumericLit	10	1:78
+EOF		1:80

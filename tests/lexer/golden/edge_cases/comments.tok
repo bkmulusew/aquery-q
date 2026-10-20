@@ -1,0 +1,10 @@
+Identifier	a	1:1
+Keyword	=	1:3
+NumericLit	1	1:5
+Identifier	b	2:1
+Keyword	=	2:3
+NumericLit	2	2:5
+Identifier	c	3:12
+Keyword	=	3:14
+NumericLit	3	3:16
+EOF		4:1

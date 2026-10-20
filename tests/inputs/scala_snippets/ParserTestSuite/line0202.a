@@ -1,0 +1,1 @@
+DELETE c1 FROM t WHERE c1 > 100

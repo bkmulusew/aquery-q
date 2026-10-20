@@ -1,0 +1,8 @@
+Keyword	FUNCTION	1:1
+Identifier	f	1:10
+Keyword	(	1:11
+Keyword	)	1:12
+Keyword	{	1:13
+NumericLit	2	1:14
+Keyword	}	1:15
+EOF		1:16

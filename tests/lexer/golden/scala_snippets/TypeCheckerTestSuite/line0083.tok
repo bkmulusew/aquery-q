@@ -1,0 +1,10 @@
+Keyword	fills	1:1
+Keyword	(	1:6
+Keyword	max	1:7
+Keyword	(	1:10
+Identifier	c1	1:11
+Keyword	)	1:13
+Keyword	*	1:15
+NumericLit	1	1:17
+Keyword	)	1:18
+EOF		1:19

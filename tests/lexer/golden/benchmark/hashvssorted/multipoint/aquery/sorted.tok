@@ -1,0 +1,10 @@
+Verbatim	\nemp_sorted_hundreds1:`hundreds1 xasc employees;\nemp_sorted_hundreds1:update hundreds1:`s#hundreds1 from emp_sorted_hundreds1;\n	1:1
+Keyword	SELECT	6:1
+Keyword	*	6:8
+Keyword	FROM	6:10
+Identifier	emp_sorted_hundreds1	6:15
+Keyword	WHERE	6:36
+Identifier	hundreds1	6:42
+Keyword	=	6:52
+NumericLit	150	6:54
+EOF		7:1

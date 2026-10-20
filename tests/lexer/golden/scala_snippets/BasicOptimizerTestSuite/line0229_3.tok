@@ -1,0 +1,7 @@
+Keyword	sums	1:1
+Keyword	(	1:5
+Identifier	c2	1:6
+Keyword	)	1:8
+Keyword	>	1:10
+NumericLit	2	1:12
+EOF		1:13

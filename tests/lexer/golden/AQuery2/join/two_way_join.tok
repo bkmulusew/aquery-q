@@ -1,0 +1,18 @@
+Keyword	SELECT	1:1
+Identifier	l_orderkey	1:8
+Keyword	,	1:18
+Identifier	l_partkey	1:20
+Keyword	,	1:29
+Identifier	o_orderdate	1:31
+Keyword	,	1:42
+Identifier	o_orderstatus	1:44
+Keyword	FROM	1:58
+Identifier	lineitem	1:63
+Keyword	,	1:71
+Identifier	orders	1:73
+Keyword	WHERE	1:80
+Identifier	l_orderkey	1:86
+Keyword	=	1:97
+Identifier	o_orderkey	1:99
+Keyword	exec	2:1
+EOF		3:1

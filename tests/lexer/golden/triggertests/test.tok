@@ -1,0 +1,12 @@
+Verbatim	\ntrade:([] sym:`AAPL`MSFT; qty:2 3i; price:10 20f);\n	1:1
+Keyword	update	5:1
+Identifier	trade	5:8
+Keyword	set	5:14
+Identifier	qty	5:18
+Keyword	=	5:22
+NumericLit	5	5:24
+Keyword	where	5:26
+Identifier	sym	5:32
+Keyword	=	5:35
+StringLit	AAPL	5:36
+EOF		5:42

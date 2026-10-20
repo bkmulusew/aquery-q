@@ -1,0 +1,22 @@
+Keyword	CREATE	2:7
+Keyword	TRIGGER	2:14
+Identifier	trg_upd	2:22
+Keyword	AFTER	3:7
+Keyword	UPDATE	3:13
+Keyword	ON	3:20
+Identifier	orders	3:23
+Keyword	REFERENCING	4:7
+Keyword	OLD	4:19
+Keyword	TABLE	4:23
+Keyword	AS	4:29
+Identifier	deleted	4:32
+Keyword	NEW	4:40
+Keyword	TABLE	4:44
+Keyword	AS	4:50
+Identifier	inserted	4:53
+Keyword	DO	5:7
+Keyword	SELECT	5:10
+Keyword	*	5:17
+Keyword	FROM	5:19
+Identifier	inserted	5:24
+EOF		6:5

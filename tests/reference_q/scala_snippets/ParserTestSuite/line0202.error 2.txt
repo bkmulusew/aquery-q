@@ -1,0 +1,4 @@
+[1.18] failure: ``insert'' expected but `WHERE' found
+
+DELETE c1 FROM t WHERE c1 > 100
+                 ^

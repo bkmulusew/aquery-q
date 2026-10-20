@@ -1,0 +1,1 @@
+SELECT first_t.c1 * second_t.c2 FROM t as first_t, t second_t

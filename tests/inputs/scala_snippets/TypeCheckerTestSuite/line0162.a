@@ -1,0 +1,1 @@
+SELECT t.c1 FROM t first_t WHERE c1 > 2

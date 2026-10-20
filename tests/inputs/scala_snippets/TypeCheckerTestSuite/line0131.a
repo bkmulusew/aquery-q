@@ -1,0 +1,5 @@
+
+         WITH
+          t1 AS (SELECT * FROM t WHERE avg(c1))
+          SELECT * FROM t1
+      

@@ -1,0 +1,12 @@
+Keyword	SELECT	1:2
+Keyword	*	1:9
+Keyword	FROM	1:11
+Identifier	t	1:16
+Keyword	INTO	1:18
+Keyword	OUTFILE	1:23
+StringLit	my_test_file.csv	1:31
+Keyword	FIELDS	1:50
+Keyword	TERMINATED	1:57
+Keyword	BY	1:68
+StringLit	,	1:71
+EOF		1:75

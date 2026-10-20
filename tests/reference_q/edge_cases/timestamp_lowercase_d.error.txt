@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier a found
+
+a = '01/02/2020d10:11:12'
+^

@@ -1,0 +1,12 @@
+Identifier	c0	1:1
+Keyword	*	1:4
+Identifier	f	1:6
+Keyword	(	1:7
+Keyword	max	1:8
+Keyword	(	1:11
+Identifier	h	1:12
+Keyword	(	1:13
+Keyword	)	1:14
+Keyword	)	1:15
+Keyword	)	1:16
+EOF		1:17

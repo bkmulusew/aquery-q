@@ -1,0 +1,1 @@
+SELECT * FROM t1 as firstT1, t2 INNER JOIN t2 other_t2 USING cx

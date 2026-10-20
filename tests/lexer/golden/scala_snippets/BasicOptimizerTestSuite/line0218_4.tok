@@ -1,0 +1,5 @@
+Identifier	c4	1:1
+Keyword	IS	1:4
+Keyword	NOT	1:7
+Keyword	NULL	1:11
+EOF		1:15

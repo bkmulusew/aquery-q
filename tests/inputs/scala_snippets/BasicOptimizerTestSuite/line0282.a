@@ -1,0 +1,17 @@
+
+        FUNCTION add(x, y) { x + y }
+        FUNCTION myAvg(x) { sum(x) / count(x) }
+
+        WITH
+          temp1 as (
+            SELECT c1, c2, sum(c3 * maxs(c0)), sum(c8) as myCol FROM
+            some_t ASSUMING ASC c2, ASC c1 WHERE c2 > 2 AND sums(c6) > 2
+            GROUP by c2
+          )
+
+           SELECT c1, add(c2, myCol), myAvg(c0)
+           FROM
+           temp1 INNER JOIN t USING c1 ASSUMING ASC c1, ASC t.c2
+           WHERE t.c3 > 2 AND temp1.c0 > 2 AND add(t.c1, c4) > 2
+           GROUP by c1
+      

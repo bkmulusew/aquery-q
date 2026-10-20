@@ -1,0 +1,15 @@
+Keyword	CREATE	1:1
+Keyword	TRIGGER	1:8
+Identifier	trg_ins	1:16
+Keyword	AFTER	1:24
+Keyword	INSERT	1:30
+Keyword	ON	1:37
+Identifier	orders	1:40
+Keyword	DO	1:47
+Keyword	UPDATE	1:50
+Identifier	orders	1:57
+Keyword	SET	1:64
+Identifier	qty	1:68
+Keyword	=	1:72
+NumericLit	0	1:74
+EOF		1:75

@@ -1,0 +1,26 @@
+Identifier	a	1:1
+Keyword	<=>	1:2
+Identifier	b	1:5
+Identifier	a	1:7
+Keyword	<>	1:8
+Identifier	b	1:10
+Identifier	a	1:12
+Keyword	<=	1:13
+Identifier	b	1:15
+Identifier	a	1:17
+Keyword	>=	1:18
+Identifier	b	1:20
+Identifier	a	1:22
+Keyword	==	1:23
+Identifier	b	1:25
+Identifier	a	1:27
+Keyword	!=	1:28
+Identifier	b	1:30
+Identifier	a	1:32
+Keyword	:=	1:33
+Identifier	b	1:35
+Identifier	a	1:37
+Keyword	:	1:38
+Keyword	:	1:39
+Identifier	b	1:40
+EOF		2:1

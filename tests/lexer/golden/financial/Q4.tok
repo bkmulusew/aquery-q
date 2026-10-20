@@ -1,0 +1,18 @@
+Keyword	SELECT	1:1
+Keyword	avg	1:8
+Keyword	(	1:11
+Identifier	ClosePrice	1:12
+Keyword	)	1:22
+Keyword	AS	1:24
+Identifier	avg_close_price	1:27
+Keyword	FROM	2:1
+Identifier	price	2:6
+Keyword	WHERE	3:1
+Identifier	Id	3:7
+Keyword	IN	3:10
+Identifier	Russell2000	3:13
+Keyword	AND	4:3
+Identifier	TradeDate	4:7
+Keyword	=	4:17
+Identifier	startPeriod	4:19
+EOF		4:30

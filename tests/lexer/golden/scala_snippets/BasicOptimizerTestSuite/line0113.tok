@@ -1,0 +1,13 @@
+Identifier	c1	1:1
+Keyword	=	1:4
+NumericLit	10	1:6
+Keyword	AND	1:9
+Identifier	c2	1:13
+Keyword	<	1:16
+NumericLit	5	1:18
+Keyword	AND	1:20
+Identifier	c6	1:24
+Keyword	IS	1:27
+Keyword	NOT	1:30
+Keyword	NULL	1:34
+EOF		1:38

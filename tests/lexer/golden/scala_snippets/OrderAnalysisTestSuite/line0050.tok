@@ -1,0 +1,23 @@
+Keyword	FUNCTION	1:1
+Identifier	f	1:10
+Keyword	(	1:11
+Identifier	x	1:12
+Keyword	,	1:13
+Identifier	y	1:15
+Keyword	)	1:16
+Keyword	{	1:18
+Identifier	z	1:20
+Keyword	:=	1:22
+Keyword	max	1:25
+Keyword	(	1:28
+Keyword	sums	1:29
+Keyword	(	1:33
+Identifier	x	1:34
+Keyword	)	1:35
+Keyword	)	1:36
+Keyword	;	1:37
+Identifier	z	1:39
+Keyword	+	1:41
+NumericLit	2	1:43
+Keyword	}	1:45
+EOF		1:46

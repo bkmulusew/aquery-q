@@ -1,0 +1,16 @@
+Keyword	SELECT	1:1
+Keyword	SUM	1:8
+Keyword	(	1:11
+Identifier	quantity	1:12
+Keyword	*	1:21
+Identifier	price	1:23
+Keyword	)	1:28
+Keyword	AS	1:30
+Identifier	amount	1:33
+Keyword	FROM	2:1
+Identifier	orders	2:6
+Keyword	WHERE	3:1
+Identifier	storeid	3:7
+Keyword	=	3:15
+StringLit	10	3:17
+EOF		4:1

@@ -1,0 +1,8 @@
+
+        CREATE TRIGGER trg_sync
+        AFTER UPDATE ON table1
+        REFERENCING NEW TABLE AS inserted
+        DO UPDATE table2
+           SET qty = table2.qty + inserted.delta
+           WHERE table2.id = inserted.id AND table2.qty < inserted.limit
+      

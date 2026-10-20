@@ -1,0 +1,5 @@
+[1.1] failure: ``insert'' expected but identifier a found
+
+a = 1 /* this comment
+
+^

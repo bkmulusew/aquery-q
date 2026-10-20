@@ -1,0 +1,17 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t1	1:15
+Keyword	,	1:17
+Identifier	t2	1:19
+Keyword	ASSUMING	1:22
+Keyword	ASC	1:31
+Identifier	t1	1:35
+Keyword	.	1:37
+Identifier	c1	1:38
+Keyword	GROUP	1:41
+Keyword	BY	1:47
+Identifier	t1	1:50
+Keyword	.	1:52
+Identifier	c1	1:53
+EOF		1:55

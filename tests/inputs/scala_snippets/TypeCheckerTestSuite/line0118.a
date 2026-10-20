@@ -1,0 +1,1 @@
+SELECT * FROM t where c2 > 3 AND maxs(c1) * 2

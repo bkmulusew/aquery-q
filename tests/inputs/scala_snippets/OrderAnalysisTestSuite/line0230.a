@@ -1,0 +1,6 @@
+
+         c0 * sums(t.c1) ;
+         max(other.c1 + c2) ;
+         sum(c3) + c0 ;
+         c5 / f(c0 + h(100 + c6))
+      

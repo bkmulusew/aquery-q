@@ -1,0 +1,6 @@
+Identifier	x	1:1
+Keyword	=	1:3
+ErrorToken	*** error: `"' expected but  found	1:8
+Identifier	cd	1:9
+ErrorToken	*** error: end of input	1:14
+EOF		1:14

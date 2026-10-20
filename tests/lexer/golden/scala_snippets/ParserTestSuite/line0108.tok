@@ -1,0 +1,7 @@
+Keyword	CASE	1:1
+Identifier	x	1:6
+Keyword	>	1:8
+NumericLit	2	1:9
+Keyword	THEN	1:11
+NumericLit	3	1:16
+EOF		1:17

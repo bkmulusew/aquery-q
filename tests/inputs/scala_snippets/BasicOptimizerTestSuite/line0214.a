@@ -1,0 +1,1 @@
+SELECT * FROM t WHERE t.c1 = 100 AND c2 > 2 AND sums(c3) > 2 and c4 IS NOT NULL

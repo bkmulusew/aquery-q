@@ -1,0 +1,10 @@
+
+         <q> base:([]c2:1 2 3 4; c3:100 200 300 400) </q>
+         CREATE TABLE t (c1 INT, c2 INT, c3 STRING)
+         INSERT INTO t VALUES(1, 2, "c")
+         INSERT INTO t VALUES(10, 20, "C")
+         INSERT INTO t(c1, c2, c3)
+          SELECT c2, c2, "this is a test" from base
+
+         SELECT * FROM t
+      

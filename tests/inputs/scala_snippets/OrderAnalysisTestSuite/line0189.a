@@ -1,0 +1,1 @@
+c0 + max(c1) * CASE sums(c5) > 1 WHEN TRUE THEN c2 ELSE 100 END

@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier t1 found
+
+t1 as t_one, t2 INNER JOIN t3 USING cx, t4
+^

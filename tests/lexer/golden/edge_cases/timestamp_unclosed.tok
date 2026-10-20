@@ -1,0 +1,5 @@
+Identifier	a	1:1
+Keyword	=	1:3
+ErrorToken	*** error: `'' expected but   found	1:25
+Identifier	x	1:26
+EOF		2:1

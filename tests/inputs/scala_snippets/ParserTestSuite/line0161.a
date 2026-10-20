@@ -1,0 +1,1 @@
+ LOAD DATA INFILE "my_test_file.csv" INTO TABLE t2 FIELDS TERMINATED BY "," 

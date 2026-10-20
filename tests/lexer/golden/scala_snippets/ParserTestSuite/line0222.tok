@@ -1,0 +1,12 @@
+Identifier	table1	1:1
+Keyword	as	1:8
+Identifier	t1	1:11
+Keyword	INNER	1:14
+Keyword	JOIN	1:20
+Identifier	table2	1:25
+Identifier	t2	1:32
+Keyword	USING	1:35
+Identifier	c	1:41
+Keyword	,	1:42
+Identifier	table3	1:44
+EOF		1:51

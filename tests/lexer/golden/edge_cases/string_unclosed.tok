@@ -1,0 +1,4 @@
+Identifier	x	1:1
+Keyword	=	1:3
+ErrorToken	*** error: `"' expected but \n found	1:28
+EOF		2:1

@@ -1,0 +1,8 @@
+Keyword	CREATE	1:1
+Keyword	TABLE	1:8
+Identifier	t	1:14
+Keyword	SELECT	1:16
+Keyword	*	1:23
+Keyword	FROM	1:25
+Identifier	t1	1:30
+EOF		1:32

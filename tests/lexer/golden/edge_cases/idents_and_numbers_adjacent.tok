@@ -1,0 +1,8 @@
+NumericLit	1	1:1
+Identifier	abc	1:2
+Identifier	SELECT1	1:6
+Identifier	select_x	1:14
+Identifier	_	1:23
+Identifier	__x	1:25
+Identifier	x1y2	1:29
+EOF		2:1

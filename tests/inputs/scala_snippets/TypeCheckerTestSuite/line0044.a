@@ -1,0 +1,6 @@
+
+        CASE f(c1)
+          WHEN TRUE THEN 1
+          ELSE 2
+         END
+      

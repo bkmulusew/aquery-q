@@ -1,0 +1,1 @@
+SELECT * FROM t1, t2 bad, t3 as bad

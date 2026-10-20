@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but `case' found
+
+case f(x) WHEN 3 THEN 4 ELSE 5 END
+^

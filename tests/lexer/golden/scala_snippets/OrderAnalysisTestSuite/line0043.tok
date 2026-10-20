@@ -1,0 +1,13 @@
+Identifier	c1	1:1
+Keyword	+	1:4
+Keyword	min	1:6
+Keyword	(	1:9
+NumericLit	100	1:10
+Keyword	,	1:13
+NumericLit	10	1:15
+Keyword	,	1:17
+Identifier	g	1:19
+Keyword	(	1:20
+Keyword	)	1:21
+Keyword	)	1:22
+EOF		1:23

@@ -1,0 +1,10 @@
+Verbatim	\nemp_hash_hundreds1:update hundreds1:`g#hundreds1 from employees;\n	1:1
+Keyword	SELECT	5:1
+Keyword	*	5:8
+Keyword	FROM	5:10
+Identifier	emp_hash_hundreds1	5:15
+Keyword	WHERE	5:34
+Identifier	hundreds1	5:40
+Keyword	=	5:50
+NumericLit	150	5:52
+EOF		6:1

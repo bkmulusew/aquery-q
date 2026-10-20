@@ -1,0 +1,15 @@
+Keyword	FUNCTION	1:1
+Identifier	f	1:10
+Keyword	(	1:11
+Identifier	x	1:12
+Keyword	,	1:13
+Identifier	y	1:15
+Keyword	)	1:16
+Keyword	{	1:18
+Identifier	x	1:20
+Keyword	+	1:22
+Identifier	y	1:24
+Keyword	*	1:26
+Identifier	x	1:28
+Keyword	}	1:30
+EOF		1:31

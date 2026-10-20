@@ -1,0 +1,1 @@
+SELECT c1, t.c2, c3 from t ASSUMING ASC c2 WHERE t.c1 > 100

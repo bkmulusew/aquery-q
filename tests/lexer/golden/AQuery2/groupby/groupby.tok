@@ -1,0 +1,14 @@
+Keyword	SELECT	1:1
+Identifier	hundreds1	1:8
+Keyword	,	1:17
+Keyword	COUNT	1:19
+Keyword	(	1:24
+Keyword	*	1:25
+Keyword	)	1:26
+Keyword	FROM	1:28
+Identifier	employees	1:33
+Keyword	GROUP	1:43
+Keyword	BY	1:49
+Identifier	hundreds1	1:52
+Keyword	exec	2:1
+EOF		3:1

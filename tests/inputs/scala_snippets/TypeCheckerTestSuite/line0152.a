@@ -1,0 +1,1 @@
+SELECT bad.c1, some_t.c2 * st.ok, f(c3 * 2) FROM some_t st

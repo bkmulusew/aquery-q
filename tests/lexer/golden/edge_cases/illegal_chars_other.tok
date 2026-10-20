@@ -1,0 +1,6 @@
+Identifier	a	1:1
+ErrorToken	*** error: illegal character	1:3
+Identifier	b	1:5
+ErrorToken	*** error: illegal character	1:7
+Identifier	c	1:9
+EOF		2:1

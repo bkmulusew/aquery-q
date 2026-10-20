@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier add found
+
+add(t.c1, c4) > 2
+^

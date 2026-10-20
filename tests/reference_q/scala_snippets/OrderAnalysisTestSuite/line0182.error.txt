@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but `sums' found
+
+sums(c1 + max(c4 * f(c0)) + myMax(c4)) + sum(c1 * c2)
+^

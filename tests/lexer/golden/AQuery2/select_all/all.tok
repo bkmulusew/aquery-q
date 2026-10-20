@@ -1,0 +1,6 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	lineitem	1:15
+Keyword	exec	2:1
+EOF		3:1

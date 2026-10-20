@@ -1,0 +1,20 @@
+Keyword	CASE	2:9
+Keyword	maxs	2:14
+Keyword	(	2:18
+Identifier	c4	2:19
+Keyword	)	2:21
+Keyword	>	2:23
+Identifier	c5	2:25
+Keyword	WHEN	3:11
+Keyword	TRUE	3:16
+Keyword	THEN	3:21
+Keyword	sum	3:26
+Keyword	(	3:29
+Identifier	c6	3:30
+Keyword	)	3:32
+Keyword	*	3:34
+Identifier	c7	3:36
+Keyword	ELSE	4:11
+NumericLit	100	4:16
+Keyword	END	5:10
+EOF		6:7

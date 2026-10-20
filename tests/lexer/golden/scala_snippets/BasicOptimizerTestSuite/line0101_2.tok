@@ -1,0 +1,15 @@
+Keyword	sum	1:1
+Keyword	(	1:4
+Identifier	c2	1:5
+Keyword	)	1:7
+Keyword	=	1:9
+NumericLit	10	1:11
+Keyword	AND	1:14
+Identifier	c5	1:18
+Keyword	=	1:21
+NumericLit	10	1:23
+Keyword	AND	1:26
+Identifier	c1	1:30
+Keyword	<	1:33
+NumericLit	10	1:35
+EOF		1:37

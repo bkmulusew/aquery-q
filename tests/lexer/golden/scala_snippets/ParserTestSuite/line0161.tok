@@ -1,0 +1,12 @@
+Keyword	LOAD	1:2
+Keyword	DATA	1:7
+Keyword	INFILE	1:12
+StringLit	my_test_file.csv	1:19
+Keyword	INTO	1:38
+Keyword	TABLE	1:43
+Identifier	t2	1:49
+Keyword	FIELDS	1:52
+Keyword	TERMINATED	1:59
+Keyword	BY	1:70
+StringLit	,	1:73
+EOF		1:77

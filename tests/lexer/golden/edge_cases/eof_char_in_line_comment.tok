@@ -1,0 +1,5 @@
+Identifier	a	1:1
+EOF	<eof>	1:11
+Identifier	b	1:13
+Identifier	c	2:1
+EOF		2:2

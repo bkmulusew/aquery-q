@@ -1,0 +1,11 @@
+Keyword	FUNCTION	1:1
+Identifier	f	1:10
+Keyword	(	1:11
+Keyword	)	1:12
+Keyword	{	1:13
+Keyword	SELECT	1:14
+Keyword	*	1:21
+Keyword	FROM	1:23
+Identifier	t	1:28
+Keyword	}	1:29
+EOF		1:30

@@ -1,0 +1,10 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t	1:15
+Keyword	GROUP	1:17
+Keyword	BY	1:23
+Identifier	c1	1:26
+Keyword	,	1:28
+Identifier	c2	1:30
+EOF		1:32

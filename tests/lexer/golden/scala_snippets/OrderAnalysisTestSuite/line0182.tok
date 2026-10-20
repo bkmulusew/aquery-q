@@ -1,0 +1,27 @@
+Keyword	sums	1:1
+Keyword	(	1:5
+Identifier	c1	1:6
+Keyword	+	1:9
+Keyword	max	1:11
+Keyword	(	1:14
+Identifier	c4	1:15
+Keyword	*	1:18
+Identifier	f	1:20
+Keyword	(	1:21
+Identifier	c0	1:22
+Keyword	)	1:24
+Keyword	)	1:25
+Keyword	+	1:27
+Identifier	myMax	1:29
+Keyword	(	1:34
+Identifier	c4	1:35
+Keyword	)	1:37
+Keyword	)	1:38
+Keyword	+	1:40
+Keyword	sum	1:42
+Keyword	(	1:45
+Identifier	c1	1:46
+Keyword	*	1:49
+Identifier	c2	1:51
+Keyword	)	1:53
+EOF		1:54

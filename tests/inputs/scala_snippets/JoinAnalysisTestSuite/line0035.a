@@ -1,0 +1,1 @@
+t1 as t_one, t2 INNER JOIN t3 USING cx

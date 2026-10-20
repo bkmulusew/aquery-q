@@ -1,0 +1,22 @@
+Keyword	CASE	2:9
+Identifier	f	2:14
+Keyword	(	2:15
+Identifier	c1	2:16
+Keyword	)	2:18
+Keyword	WHEN	3:11
+Keyword	TRUE	3:16
+Keyword	THEN	3:21
+Keyword	CASE	4:13
+Keyword	WHEN	5:15
+Identifier	c1	5:20
+Keyword	>	5:23
+NumericLit	2	5:25
+Keyword	THEN	5:27
+NumericLit	1	5:32
+Keyword	ELSE	6:15
+NumericLit	2	6:20
+Keyword	END	7:13
+Keyword	ELSE	8:11
+Keyword	TRUE	8:16
+Keyword	END	9:10
+EOF		10:7

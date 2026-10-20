@@ -1,0 +1,10 @@
+Verbatim	\nemp_sorted_ssnum:`ssnum xasc employees;\nemp_sorted_ssnum:update ssnum:`s#ssnum from emp_sorted_ssnum;\n	1:1
+Keyword	SELECT	6:1
+Keyword	*	6:8
+Keyword	FROM	6:10
+Identifier	emp_sorted_ssnum	6:15
+Keyword	WHERE	6:32
+Identifier	ssnum	6:38
+Keyword	=	6:44
+NumericLit	150	6:46
+EOF		7:1

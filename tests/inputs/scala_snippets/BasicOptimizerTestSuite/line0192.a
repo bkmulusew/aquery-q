@@ -1,0 +1,4 @@
+
+      SELECT * FROM t1 INNER JOIN t2 USING c1 INNER JOIN t3 USING c3
+      WHERE t1.c1 = 100 AND t1.c2 = t2.c2 AND t1.c1 = t3.c3 AND c4 > 2
+      

@@ -1,0 +1,5 @@
+[1.40] failure: ``STRING'' expected but identifier TEXT found
+
+CREATE TABLE employees(ssnum INT, name TEXT, lat INT, longitude INT, hundreds1 INT, hundreds2 INT)
+
+                                       ^

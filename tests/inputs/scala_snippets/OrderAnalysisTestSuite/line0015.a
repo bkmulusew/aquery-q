@@ -1,0 +1,7 @@
+
+        FUNCTION f(x) { z := 2 ; max(sums(z) * 2) }
+        FUNCTION g() { res := f(1); res + 3 }
+        FUNCTION h(x) { res := 2 * sum(x); res ^ 3 }
+        FUNCTION add(x, y) { x + y }
+        FUNCTION myMax(x) { max(x) }
+      

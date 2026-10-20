@@ -1,0 +1,23 @@
+Keyword	SELECT	1:1
+Identifier	bad	1:8
+Keyword	.	1:11
+Identifier	c1	1:12
+Keyword	,	1:14
+Identifier	some_t	1:16
+Keyword	.	1:22
+Identifier	c2	1:23
+Keyword	*	1:26
+Identifier	st	1:28
+Keyword	.	1:30
+Identifier	ok	1:31
+Keyword	,	1:33
+Identifier	f	1:35
+Keyword	(	1:36
+Identifier	c3	1:37
+Keyword	*	1:40
+NumericLit	2	1:42
+Keyword	)	1:43
+Keyword	FROM	1:45
+Identifier	some_t	1:50
+Identifier	st	1:57
+EOF		1:59

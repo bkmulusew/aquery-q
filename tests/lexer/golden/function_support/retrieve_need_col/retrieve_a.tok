@@ -1,0 +1,17 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	lineitem	1:15
+Keyword	SELECT	2:1
+Identifier	l_orderkey	2:8
+Keyword	,	2:18
+Identifier	l_partkey	2:20
+Keyword	,	2:29
+Identifier	l_suppkey	2:31
+Keyword	,	2:40
+Identifier	l_shipdate	2:42
+Keyword	,	2:52
+Identifier	l_commitdate	2:54
+Keyword	FROM	2:67
+Identifier	lineitem	2:72
+EOF		3:1

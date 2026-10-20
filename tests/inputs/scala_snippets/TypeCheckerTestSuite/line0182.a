@@ -1,0 +1,1 @@
+UPDATE t SET c1 = f(t.c1) ASSUMING ASC c2 WHERE sums(c1 > 2) > 2

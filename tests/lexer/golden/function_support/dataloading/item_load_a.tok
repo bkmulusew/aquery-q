@@ -1,0 +1,23 @@
+Keyword	CREATE	1:1
+Keyword	TABLE	1:8
+Identifier	item	1:14
+Keyword	(	1:18
+Identifier	itemnum	2:3
+Keyword	INT	2:11
+Keyword	,	2:14
+Identifier	price	3:3
+Keyword	FLOAT	3:9
+Keyword	)	4:1
+Keyword	LOAD	6:1
+Keyword	DATA	6:6
+Keyword	INFILE	6:11
+StringLit	/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/item_10_8.csv	6:18
+Keyword	INTO	7:1
+Keyword	TABLE	7:6
+Identifier	item	7:12
+Keyword	FIELDS	8:1
+Keyword	TERMINATED	8:8
+Keyword	BY	8:19
+StringLit	,	8:22
+Verbatim	\nshow item;\n	10:1
+EOF		13:1

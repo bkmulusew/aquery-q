@@ -1,0 +1,6 @@
+
+        CREATE TRIGGER trg_sync
+        AFTER UPDATE ON table1
+        REFERENCING NEW TABLE AS inserted
+        DO UPDATE table2 SET qty = inserted.qty, note = inserted.note WHERE table2.id = inserted.id
+      

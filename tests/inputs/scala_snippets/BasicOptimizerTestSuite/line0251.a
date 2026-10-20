@@ -1,0 +1,1 @@
+SELECT c1, t.c2 * sum(c4 * o.c2) FROM t, other o ASSUMING ASC c2

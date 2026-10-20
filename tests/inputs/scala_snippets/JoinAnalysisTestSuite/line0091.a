@@ -1,0 +1,8 @@
+
+        t_one.c1 = t2.c1 ; // t_one, t2
+        t2.cx IS NOT NULL ; // t2
+        t_one.c3 + t3.c1 = 0 ; // t_one, t3
+        c1 = t.c2 ; // unknown (c1)
+        t2.c3 > 100; // t2
+        t_one.c = 100 // t_one
+      

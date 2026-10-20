@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier c2 found
+
+c2 > 2
+^

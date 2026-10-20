@@ -1,0 +1,7 @@
+Keyword	SELECT	1:1
+Identifier	a	1:8
+EOF	<eof>	1:9
+Identifier	b	1:10
+Keyword	FROM	1:12
+Identifier	t	1:17
+EOF		1:18

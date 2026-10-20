@@ -1,0 +1,16 @@
+Keyword	SELECT	1:1
+Identifier	first_t	1:8
+Keyword	.	1:15
+Identifier	c1	1:16
+Keyword	*	1:19
+Identifier	second_t	1:21
+Keyword	.	1:29
+Identifier	c2	1:30
+Keyword	FROM	1:33
+Identifier	t	1:38
+Keyword	as	1:40
+Identifier	first_t	1:43
+Keyword	,	1:50
+Identifier	t	1:52
+Identifier	second_t	1:54
+EOF		1:62

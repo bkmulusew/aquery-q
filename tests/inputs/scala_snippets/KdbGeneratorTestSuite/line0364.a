@@ -1,0 +1,6 @@
+
+        CREATE TRIGGER trg_sync
+        AFTER DELETE ON table1
+        REFERENCING OLD TABLE AS deleted
+        DO DELETE FROM table2 WHERE table2.id = deleted.id
+      

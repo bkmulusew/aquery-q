@@ -1,0 +1,1 @@
+SELECT * FROM t WHERE sums(c1) > 2 AND c4 = 2

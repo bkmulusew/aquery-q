@@ -1,0 +1,1 @@
+UPDATE t SET c1 = bad.c2 * 3 WHERE c1 > 2

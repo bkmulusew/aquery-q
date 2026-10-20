@@ -1,0 +1,7 @@
+Identifier	c1	1:1
+Keyword	+	1:4
+Identifier	f	1:6
+Keyword	(	1:7
+NumericLit	1	1:8
+Keyword	)	1:9
+EOF		1:10

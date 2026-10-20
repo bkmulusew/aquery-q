@@ -1,0 +1,1 @@
+c1 = 10 AND c2 < 5 AND c6 IS NOT NULL

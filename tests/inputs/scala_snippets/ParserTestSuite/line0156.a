@@ -1,0 +1,1 @@
+ SELECT * FROM t INTO OUTFILE "my_test_file.csv" FIELDS TERMINATED BY "," 

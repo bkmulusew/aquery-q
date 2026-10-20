@@ -1,0 +1,9 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	employees	1:15
+Keyword	WHERE	1:25
+Identifier	twentypercent2	1:31
+Keyword	=	1:46
+NumericLit	5	1:48
+EOF		2:1

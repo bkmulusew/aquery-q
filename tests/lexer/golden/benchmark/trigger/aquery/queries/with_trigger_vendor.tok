@@ -1,0 +1,9 @@
+Keyword	SELECT	1:1
+Identifier	amount	1:8
+Keyword	FROM	2:1
+Identifier	vendorOutstanding	2:6
+Keyword	WHERE	3:1
+Identifier	vendorid	3:7
+Keyword	=	3:16
+StringLit	10	3:18
+EOF		4:1

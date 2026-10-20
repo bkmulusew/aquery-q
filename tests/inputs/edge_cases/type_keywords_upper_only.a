@@ -1,0 +1,1 @@
+CREATE TABLE t (a INT, b int, c FLOAT, d float, e STRING, f string, g BOOLEAN, h boolean, i DATE, j date, k TIMESTAMP, l timestamp)

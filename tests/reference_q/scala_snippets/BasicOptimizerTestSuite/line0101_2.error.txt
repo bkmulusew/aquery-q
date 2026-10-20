@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but `sum' found
+
+sum(c2) = 10 AND c5 = 10 AND c1 < 10
+^

@@ -1,0 +1,5 @@
+[2.10] failure: ``insert'' expected but identifier c0 found
+
+         c0 * sums(t.c1) ;
+
+         ^

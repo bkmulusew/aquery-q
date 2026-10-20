@@ -1,0 +1,6 @@
+
+        CASE maxs(c4) > c5
+          WHEN TRUE THEN sum(c6) * c7
+          ELSE 100
+         END
+      

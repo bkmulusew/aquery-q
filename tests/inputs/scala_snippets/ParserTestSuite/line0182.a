@@ -1,0 +1,6 @@
+
+         DELETE FROM t
+         ASSUMING ASC c1
+         WHERE sums(c) > 100
+         GROUP BY a HAVING max(d) > 20
+      

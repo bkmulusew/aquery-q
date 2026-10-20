@@ -1,0 +1,78 @@
+Identifier	a	1:1
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:4
+Keyword	/	1:5
+NumericLit	2	1:6
+Keyword	/	1:7
+NumericLit	2	1:8
+Identifier	E	1:9
+Keyword	-	1:10
+NumericLit	3	1:11
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:13
+Identifier	b	1:14
+ErrorToken	*** error: `'' expected but   found	1:27
+Identifier	c	1:28
+Date	01/02/0002	1:30
+NumericLit	1	1:42
+Keyword	/	1:43
+NumericLit	2	1:44
+Keyword	/	1:45
+NumericLit	2	1:46
+Identifier	E	1:47
+Keyword	+	1:48
+NumericLit	1	1:49
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:51
+Identifier	e	1:52
+ErrorToken	*** error: `'' expected but 0 found	1:65
+NumericLit	00	1:66
+Identifier	D1	1:68
+Keyword	:	1:70
+NumericLit	1	1:71
+Keyword	:	1:72
+NumericLit	1	1:73
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:75
+Identifier	f	1:76
+StringLit	01/01/292278994D01:01:01	1:78
+Identifier	g	1:100
+ErrorToken	*** error: `'' expected but 7 found	1:113
+NumericLit	297	1:114
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:118
+Identifier	h	1:119
+Date	10/02/2020	1:121
+Identifier	i	1:134
+ErrorToken	*** error: `'' expected but 1 found	1:156
+Keyword	/	1:157
+NumericLit	02	1:158
+Keyword	/	1:160
+NumericLit	2020	1:161
+Identifier	D10	1:165
+Keyword	:	1:168
+NumericLit	11	1:169
+Keyword	:	1:171
+NumericLit	12.5	1:172
+Identifier	E3	1:176
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:179
+Identifier	k	1:180
+StringLit	01/02/2020D01:02:03	1:182
+NumericLit	1	1:203
+Keyword	/	1:204
+NumericLit	2	1:205
+Keyword	/	1:206
+NumericLit	2020	1:207
+Identifier	D	1:211
+NumericLit	1	1:213
+Keyword	:	1:214
+NumericLit	2	1:215
+Keyword	:	1:216
+NumericLit	3	1:217
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:219
+Identifier	m	1:220
+ErrorToken	*** error: `'' expected but 1 found	1:242
+NumericLit	2	1:243
+Keyword	/	1:244
+NumericLit	31	1:245
+Keyword	/	1:247
+NumericLit	1582	1:248
+ErrorToken	*** error: unclosed/invalid date/timestamp	1:253
+Identifier	o	1:254
+ErrorToken	*** error: end of input	2:4
+EOF		2:4

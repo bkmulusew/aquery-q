@@ -1,0 +1,1 @@
+SELECT c1 * 2 /"a" as bad FROM t WHERE c1 = 2

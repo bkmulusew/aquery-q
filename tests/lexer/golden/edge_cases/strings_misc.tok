@@ -1,0 +1,6 @@
+StringLit	a	1:1
+StringLit		1:5
+StringLit	with \\ backslash	1:8
+StringLit	it's	1:27
+Identifier	x	1:34
+EOF		2:1

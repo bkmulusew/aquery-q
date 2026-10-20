@@ -1,0 +1,25 @@
+Keyword	CREATE	2:9
+Keyword	TRIGGER	2:16
+Identifier	trg_sync	2:24
+Keyword	AFTER	3:9
+Keyword	DELETE	3:15
+Keyword	ON	3:22
+Identifier	table1	3:25
+Keyword	REFERENCING	4:9
+Keyword	OLD	4:21
+Keyword	TABLE	4:25
+Keyword	AS	4:31
+Identifier	deleted	4:34
+Keyword	DO	5:9
+Keyword	DELETE	5:12
+Keyword	FROM	5:19
+Identifier	table2	5:24
+Keyword	WHERE	5:31
+Identifier	table2	5:37
+Keyword	.	5:43
+Identifier	id	5:44
+Keyword	=	5:47
+Identifier	deleted	5:49
+Keyword	.	5:56
+Identifier	id	5:57
+EOF		6:7

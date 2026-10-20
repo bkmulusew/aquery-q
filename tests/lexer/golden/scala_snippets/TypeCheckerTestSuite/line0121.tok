@@ -1,0 +1,16 @@
+Keyword	SELECT	1:1
+Keyword	sum	1:8
+Keyword	(	1:11
+Identifier	c2	1:12
+Keyword	)	1:14
+Keyword	FROM	1:16
+Identifier	t	1:21
+Keyword	GROUP	1:23
+Keyword	BY	1:29
+Identifier	c3	1:32
+Keyword	HAVING	1:35
+Keyword	sums	1:42
+Keyword	(	1:46
+Identifier	c4	1:47
+Keyword	)	1:49
+EOF		1:50

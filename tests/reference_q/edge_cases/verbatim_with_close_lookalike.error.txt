@@ -1,0 +1,4 @@
+[3.26] failure: end of input
+
+</qq> still q </q> SELECT
+                         ^

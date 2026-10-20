@@ -1,0 +1,8 @@
+
+         2 / h(c0 * sums(c5)) ;
+         CASE c6 > 7
+            WHEN TRUE THEN max(c7)
+            ELSE c8
+          END ;
+         max(c6 / add(c7, 3)) * c8
+      

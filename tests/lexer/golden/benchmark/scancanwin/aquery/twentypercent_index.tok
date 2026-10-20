@@ -1,0 +1,9 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	scanwin_idx_twentypercent1	1:15
+Keyword	WHERE	1:42
+Identifier	twentypercent1	1:48
+Keyword	=	1:63
+NumericLit	5	1:65
+EOF		2:1

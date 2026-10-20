@@ -1,0 +1,6 @@
+Identifier	temp1	1:1
+Keyword	.	1:6
+Identifier	c0	1:7
+Keyword	>	1:10
+NumericLit	2	1:12
+EOF		1:13

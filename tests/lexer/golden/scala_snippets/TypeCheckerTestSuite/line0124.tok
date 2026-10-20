@@ -1,0 +1,5 @@
+Keyword	avg	1:1
+Keyword	(	1:4
+Identifier	c1	1:5
+Keyword	)	1:7
+EOF		1:8

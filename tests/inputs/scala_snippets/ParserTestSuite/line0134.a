@@ -1,0 +1,6 @@
+
+      CREATE TRIGGER trg_upd
+      AFTER UPDATE ON orders
+      REFERENCING OLD TABLE AS deleted NEW TABLE AS inserted
+      DO SELECT * FROM inserted
+    

@@ -1,0 +1,24 @@
+Keyword	DELETE	2:10
+Keyword	FROM	2:17
+Identifier	t	2:22
+Keyword	ASSUMING	3:10
+Keyword	ASC	3:19
+Identifier	c1	3:23
+Keyword	WHERE	4:10
+Keyword	sums	4:16
+Keyword	(	4:20
+Identifier	c	4:21
+Keyword	)	4:22
+Keyword	>	4:24
+NumericLit	100	4:26
+Keyword	GROUP	5:10
+Keyword	BY	5:16
+Identifier	a	5:19
+Keyword	HAVING	5:21
+Keyword	max	5:28
+Keyword	(	5:31
+Identifier	d	5:32
+Keyword	)	5:33
+Keyword	>	5:35
+NumericLit	20	5:37
+EOF		6:7

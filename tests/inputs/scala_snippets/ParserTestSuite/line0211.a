@@ -1,0 +1,1 @@
+FUNCTION f(x){ a := 10; a * 100 }

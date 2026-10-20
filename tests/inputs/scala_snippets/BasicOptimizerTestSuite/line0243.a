@@ -1,0 +1,1 @@
+SELECT c1, c2 * sums(c4 * c3), sum(c7) FROM t ASSUMING ASC c2 WHERE sums(c5) > 2 AND c6 < 2

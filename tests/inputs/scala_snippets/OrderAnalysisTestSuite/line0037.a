@@ -1,0 +1,1 @@
+FUNCTION f(x) { z := g(2); z * 3 }

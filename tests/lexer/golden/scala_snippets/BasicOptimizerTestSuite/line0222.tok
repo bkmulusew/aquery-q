@@ -1,0 +1,16 @@
+Keyword	SELECT	1:1
+Keyword	*	1:8
+Keyword	FROM	1:10
+Identifier	t	1:15
+Keyword	WHERE	1:17
+Keyword	sums	1:23
+Keyword	(	1:27
+Identifier	c1	1:28
+Keyword	)	1:30
+Keyword	>	1:32
+NumericLit	2	1:34
+Keyword	AND	1:36
+Identifier	c4	1:40
+Keyword	=	1:43
+NumericLit	2	1:45
+EOF		1:46

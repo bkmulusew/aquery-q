@@ -1,0 +1,4 @@
+[1.1] failure: ``insert'' expected but identifier h found
+
+h(c1, sums(c2 + max(c4))) * f(c0)
+^
