@@ -1,5 +1,0 @@
-[2.9] failure: ``insert'' expected but identifier c1 found
-
-        c1 = 2;
-
-        ^

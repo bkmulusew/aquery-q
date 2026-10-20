@@ -42,8 +42,23 @@
   "tests/inputs/",(-4 _ relative),".a"};
 
 
+/ skippedInputs[path]
+/   The inputs listed in tests/lexer/divergences.txt (see that file): the
+/   first word of every line that is not blank and not a "#" comment.
+/   returns: list of input paths, e.g. "tests/inputs/edge_cases/x.a"
+.goldenTest.skippedInputs:{[path]
+  lines:read0 hsym `$path;
+  words:{first " " vs x} each lines;
+  words:words where (0 < count each words) and not "#" = first each words;
+  {"tests/inputs/",x} each words};
+
+
 goldenFiles:.goldenTest.findFiles["tests/lexer/golden";".tok"];
 -1 "golden files: ",string count goldenFiles;
+skipped:.goldenTest.skippedInputs "tests/lexer/divergences.txt";
+checked:goldenFiles where not (.goldenTest.inputFor each goldenFiles) in skipped;
+-1 "skipped (listed in tests/lexer/divergences.txt): ",string (count goldenFiles) - count checked;
+goldenFiles:checked;
 
 i:0;
 while[i < count goldenFiles;

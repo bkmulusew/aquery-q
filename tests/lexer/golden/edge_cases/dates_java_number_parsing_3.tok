@@ -31,7 +31,7 @@ Keyword	:	1:72
 NumericLit	1	1:73
 ErrorToken	*** error: unclosed/invalid date/timestamp	1:75
 Identifier	f	1:76
-StringLit	01/01/292278994D01:01:01	1:78
+Timestamp	01/01/292278994D01:01:01	1:78
 Identifier	g	1:100
 ErrorToken	*** error: `'' expected but 7 found	1:113
 NumericLit	297	1:114
@@ -52,7 +52,7 @@ NumericLit	12.5	1:172
 Identifier	E3	1:176
 ErrorToken	*** error: unclosed/invalid date/timestamp	1:179
 Identifier	k	1:180
-StringLit	01/02/2020D01:02:03	1:182
+Timestamp	01/02/2020D01:02:03	1:182
 NumericLit	1	1:203
 Keyword	/	1:204
 NumericLit	2	1:205

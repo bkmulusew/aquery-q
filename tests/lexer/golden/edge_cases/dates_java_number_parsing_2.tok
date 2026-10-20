@@ -16,11 +16,11 @@ ErrorToken	*** error: unclosed/invalid date/timestamp	1:58
 Identifier	e	1:59
 Date	01/02/2020	1:61
 Identifier	f	1:74
-StringLit	01/02/2020D01:02:03	1:76
+Timestamp	01/02/2020D01:02:03	1:76
 Identifier	g	1:98
-StringLit	01/02/2020D10:11:12.	1:100
+Timestamp	01/02/2020D10:11:12.	1:100
 Identifier	h	1:123
-StringLit	01/02/2020D10:11:12.999999999999	1:125
+Timestamp	01/02/2020D10:11:12.999999999999	1:125
 Identifier	i	1:160
 Date	01/02/0202	1:162
 Identifier	j	1:175

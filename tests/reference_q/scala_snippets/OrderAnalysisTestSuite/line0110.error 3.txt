@@ -1,5 +1,0 @@
-[2.9] failure: ``insert'' expected but `CASE' found
-
-        CASE maxs(c4) > c5
-
-        ^

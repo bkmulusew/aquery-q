@@ -1,4 +1,0 @@
-[1.1] failure: ``insert'' expected but identifier c6 found
-
-c6,c1, c2, c3, c0, c8
-^

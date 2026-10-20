@@ -1,5 +1,0 @@
-[2.9] failure: ``insert'' expected but identifier f found
-
-        f(c1) * t.c1 ;
-
-        ^

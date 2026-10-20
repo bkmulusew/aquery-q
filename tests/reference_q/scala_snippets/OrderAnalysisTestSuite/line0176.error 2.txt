@@ -1,4 +1,0 @@
-[1.1] failure: ``insert'' expected but `max' found
-
-max(f(c1, c2) + sums(c3))
-^

@@ -27,5 +27,5 @@ NumericLit	60	3:23
 ErrorToken	*** error: unclosed/invalid date/timestamp	3:26
 Identifier	d	4:1
 Keyword	=	4:3
-StringLit	01/02/2020D23:59:59	4:5
+Timestamp	01/02/2020D23:59:59	4:5
 EOF		5:1

@@ -1,4 +1,0 @@
-[1.1] failure: ``insert'' expected but identifier c1 found
-
-c1 + min(100, 10, g())
-^

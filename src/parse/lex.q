@@ -17,8 +17,10 @@
 /   `Keyword     a keyword (SELECT, select, ...) or a delimiter (<=, (, ...)
 /   `Identifier  letter or _, then letters, digits and _
 /   `NumericLit  digits, optionally with a "." and more digits
-/   `StringLit   text between double quotes, or a timestamp (Scala quirk)
+/   `StringLit   text between double quotes
 /   `Date        '01/02/2020', text re-printed as MM/dd/yyyy
+/   `Timestamp   '01/02/2020D10:11:12', re-printed as MM/dd/yyyyDHH:mm:ss
+/                (Scala makes this a StringLit; see README)
 /   `Verbatim    the text between <q> and </q>
 /   `ErrorToken  something that could not be lexed; text is the message
 /   `EOF         a 0x1A byte in the source, and always the last row
@@ -211,22 +213,20 @@
 .aqc.lex.window:{[src;start;width] .aqc.lex.slice[src;start;(count src) & start + width]};
 
 / Rule 5: timestamp.   Scala: '\'' ~> timestamp ~ (('.' ~> rep(digit)).? <~ '\'')
-/ Scala quirk: the token is a StringLit. A fraction is copied as written.
-/     "'1/2/2020D1:2:3.5'" -> StringLit 01/02/2020D01:02:03.5
+/ DIVERGES FROM SCALA on purpose (see README, "Intentional divergences"):
+/   - the token is a Timestamp, not Scala's StringLit;
+/   - no fraction of a second: the closing quote must follow the seconds,
+/     as if Scala's ('.' ~> rep(digit)).? part were not there.
+/     "'1/2/2020D1:2:3'"    -> Timestamp 01/02/2020D01:02:03
+/     "'1/2/2020D1:2:3.5'"  -> fails at the "." ("`'' expected but . found")
 .aqc.lex.timestamp:{[src;start]
   r:.aqc.lex.expect[src;start;"'"];
   if[not r`ok; :r];
   stampText:.aqc.jdate.normaliseTimestamp .aqc.lex.window[src;start + 1;19];
   if[0 = count stampText; :.aqc.lex.fail["Failed to parse datetime";start + 1]];
-  i:start + 1 + 19;
-  fraction:"";
-  if["." = .aqc.lex.charAt[src;i];
-    stop:.aqc.lex.skipWhile[.Q.n;src;i + 1];
-    fraction:.aqc.lex.slice[src;i;stop];
-    i:stop];
-  r:.aqc.lex.expect[src;i;"'"];
+  r:.aqc.lex.expect[src;start + 1 + 19;"'"];
   if[not r`ok; :r];
-  .aqc.lex.ok[`StringLit;stampText,fraction;r`next]};
+  .aqc.lex.ok[`Timestamp;stampText;r`next]};
 
 / Rule 6: date.   Scala: '\'' ~> date <~ '\''
 /     "'01/ 2/2020'" -> Date 01/02/2020

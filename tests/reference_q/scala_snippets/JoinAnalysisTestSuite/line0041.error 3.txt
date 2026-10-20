@@ -1,4 +1,0 @@
-[1.20] failure: end of input
-
-SELECT c1, c2 FROM 
-                   ^

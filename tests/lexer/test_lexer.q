@@ -125,9 +125,20 @@ positions:{[src]
 .test.check["leap day in a leap year"; brief "'02/29/2020'"; enlist "Date 02/29/2020"];
 .test.check["Julian leap year before 1582"; brief "'02/29/1500'"; enlist "Date 02/29/1500"];
 .test.check["short fields are padded"; brief "'1/02/20201'"; enlist "Date 01/02/20201"];
-.test.check["timestamp is a StringLit"; brief "'01/02/2020D10:11:12'"; enlist "StringLit 01/02/2020D10:11:12"];
-.test.check["timestamp fraction is copied"; brief "'01/02/2020D10:11:12.123'"; enlist "StringLit 01/02/2020D10:11:12.123"];
-.test.check["timestamp with a bare dot"; brief "'01/02/2020D10:11:12.'"; enlist "StringLit 01/02/2020D10:11:12."];
+/ Timestamps diverge from Scala on purpose: their own token kind, and no
+/ fraction of a second (see README, "Intentional divergences").
+.test.check["timestamp is a Timestamp token"; brief "'01/02/2020D10:11:12'"; enlist "Timestamp 01/02/2020D10:11:12"];
+/ the 19-character window: "1/2/2020D1:2:3" is 14 characters, then 5 spaces
+.test.check["timestamp fields are re-printed"; brief "'1/2/2020D1:2:3     '"; enlist "Timestamp 01/02/2020D01:02:03"];
+.test.check["timestamp with a fraction: error at the dot";
+  .aqc.lex.formatTokens .aqc.lex.tokens "'01/02/2020D10:11:12.123'";
+  ("ErrorToken\t*** error: `'' expected but . found\t1:21";"NumericLit\t123\t1:22";
+   "ErrorToken\t*** error: unclosed/invalid date/timestamp\t1:26";"EOF\t\t1:26")];
+.test.check["timestamp with a bare dot: error at the dot";
+  .aqc.lex.formatTokens .aqc.lex.tokens "'01/02/2020D10:11:12.' x";
+  ("ErrorToken\t*** error: `'' expected but . found\t1:21";
+   "ErrorToken\t*** error: unclosed/invalid date/timestamp\t1:23";"Identifier\tx\t1:24";"EOF\t\t1:25")];
+.test.check["dates are not affected"; brief "'01/02/2020' '1/2/2020D1:2:3     '"; ("Date 01/02/2020";"Timestamp 01/02/2020D01:02:03")];
 .test.check["invalid date: error, then the pieces are lexed";
   brief "'13/45/2020'";
   ("ErrorToken *** error: unclosed/invalid date/timestamp";"NumericLit 3";"Keyword /";"NumericLit 45";

@@ -1,0 +1,15 @@
+# divergences.txt - inputs whose golden file is NOT checked by test_golden.q.
+#
+# The golden files come from the Scala lexer (tools/TokenDump.java). Where the
+# q lexer differs from Scala ON PURPOSE (see README, "Intentional
+# divergences"), the Scala output is no longer the right answer for these
+# inputs, so test_golden.q skips them. Their behaviour is covered by unit
+# tests in test_lexer.q instead.
+#
+# Format: one path per line, relative to tests/inputs/, then "#" and the
+# reason. Blank lines and lines starting with "#" are ignored.
+
+edge_cases/timestamp_with_nanos.a          # timestamp with a fraction of a second (not supported)
+edge_cases/timestamp_dot_no_digits.a       # timestamp with a bare "." after the seconds (not supported)
+edge_cases/dates_java_number_parsing.a     # '01/02/2020D10:11:12.5x': Scala reads the fraction, q stops at "."
+edge_cases/dates_java_number_parsing_2.a   # timestamps with "." and ".999999999999" fractions

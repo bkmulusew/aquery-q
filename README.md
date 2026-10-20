@@ -66,18 +66,17 @@ and its tests. `tools/` needs Java and is only for regenerating test data.
 2. **Golden files** (`tests/lexer/test_golden.q`): `tools/TokenDump.java`
    runs the real Scala lexer from `aquery.jar` on every file in
    `tests/inputs/` and saves the tokens in `tests/lexer/golden/`. The q
-   lexer must produce exactly the same lines. Golden files are never edited
-   by hand; if the Scala output looks wrong, the q lexer still matches it
-   and the oddity is listed below.
+   lexer must produce exactly the same lines, except for the inputs listed
+   in `tests/lexer/divergences.txt` (see "Intentional divergences").
+   Golden files are never edited by hand; if the Scala output looks
+   wrong, the q lexer still matches it and the oddity is listed below.
 
 The Scala test suites have no lexer-level tests (they test lexer and parser
 together), which is why version 1 relies on golden files.
 
 ## Scala quirks the q lexer copies on purpose
 
-1. **Timestamps are strings.** `'01/02/2020D10:11:12.5'` becomes a
-   `StringLit`, not a timestamp token. The fraction is copied as written,
-   even a bare `.`.
+1. *(Timestamps: no longer copied, see "Intentional divergences" below.)*
 2. **Keywords must be all upper or all lower case.** `SELECT` and `select`
    are keywords; `Select` is an identifier. `INT FLOAT STRING BOOLEAN DATE
    TIMESTAMP` are keywords only in capitals (`int` is an identifier).
@@ -116,6 +115,23 @@ together), which is why version 1 relies on golden files.
     carries on after it. It is not whitespace, and it ends a string, a
     `//` comment and a `/* */` comment (which is then unclosed, see 6);
     inside `<q>...</q>` it is an ordinary character.
+
+## Intentional divergences from Scala
+
+1. **Timestamps are their own token kind.** `'01/02/2020D10:11:12'`
+   gives `Timestamp 01/02/2020D10:11:12`. Scala gives a `StringLit`, so
+   its parser's timestamp rule (`lexical.Timestamp`) can never match.
+2. **No fraction of a second (for now).** The closing quote must follow
+   the seconds: `'01/02/2020D10:11:12.5'` is an error at the `.`, as if
+   Scala's `('.' ~> rep(digit)).?` were not there. Scala accepted
+   fractions and copied them into the `StringLit`.
+
+How this is tested: `tools/TokenDump.java` prints a Scala `StringLit`
+that starts with `'` as `Timestamp` (only timestamps can). Inputs with a
+fraction have no correct Scala output any more; they are listed in
+`tests/lexer/divergences.txt`, `test_golden.q` skips them (and prints how
+many), and unit tests in `test_lexer.q` cover them instead. No input
+outside `tests/inputs/edge_cases/` contains a timestamp.
 
 Not modelled (no test input needs them): Unicode letters/digits in names
 (all inputs are ASCII); a timestamp inside a daylight-saving gap of the

@@ -23,7 +23,7 @@ import edu.nyu.aquery.parse.AqueryParser$;
  *   kind <TAB> text <TAB> line:column
  *
  *   kind   one of: Keyword, Identifier, NumericLit, StringLit, Date,
- *          Verbatim, ErrorToken, EOF
+ *          Timestamp, Verbatim, ErrorToken, EOF (Timestamp: see kindOf)
  *   text   the token's characters. For ErrorToken it is the error message
  *          as the Scala lexer reports it (e.g. "*** error: illegal character").
  *          For EOF it is empty. Backslash, TAB, newline and carriage return
@@ -61,7 +61,7 @@ public class TokenDump {
         // stop too, and print our own EOF line at the end position.
         while (!scanner.atEnd()) {
             Tokens.Token token = (Tokens.Token) scanner.first();
-            printLine(out, kindOf(token), token.chars(), scanner.pos());
+            printLine(out, kindOf(token, scanner.pos()), token.chars(), scanner.pos());
             scanner = scanner.rest();
         }
         printLine(out, "EOF", "", scanner.pos());
@@ -98,10 +98,23 @@ public class TokenDump {
      * "Identifier", "ErrorToken", ...). A Scala case object would compile
      * to a name ending in '$', so strip that just in case.
      */
-    private static String kindOf(Object token) {
+    private static String kindOf(Object token, Position pos) {
         String name = token.getClass().getSimpleName();
         if (name.endsWith("$")) {
             name = name.substring(0, name.length() - 1);
+        }
+        // INTENTIONAL DIVERGENCE (see README, "Intentional divergences"):
+        // the Scala lexer turns a timestamp literal '01/02/2020D10:11:12'
+        // into a StringLit; the q lexer gives it its own kind, Timestamp.
+        // A StringLit that starts with a single quote can only come from
+        // the timestamp rule (real strings use double quotes), so print it
+        // as Timestamp. Its text is unchanged. The q lexer also drops
+        // Scala's fraction-of-a-second support, so inputs with a fraction
+        // can't be checked against this output; tests/lexer/divergences.txt
+        // lists them and test_golden.q skips them.
+        // (pos is where the token starts; its line's text tells us the first character.)
+        if (name.equals("StringLit") && pos.lineContents().charAt(pos.column() - 1) == '\'') {
+            name = "Timestamp";
         }
         return name;
     }
