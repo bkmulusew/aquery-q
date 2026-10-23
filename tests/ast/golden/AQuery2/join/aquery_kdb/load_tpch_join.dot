@@ -1,0 +1,17 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="lineitem"];
+3 [label="l_orderkey:TypeInt,l_partkey:TypeInt,l_suppkey:TypeInt,l_linenumber:TypeInt,l_quantity:TypeFloat,l_extendedprice:TypeFloat,l_discount:TypeFloat,l_tax:TypeFloat,l_returnflag:TypeString,l_linestatus:TypeString,l_shipdate:TypeString,l_commitdate:TypeString,l_receiptdate:TypeString,l_shipinstruct:TypeString,l_shipmode:TypeString,l_comment:TypeString"];
+0 -> 4;
+4 [label="load /Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/tpch/data_sf2/lineitem.tbl into lineitem with | sep"];
+0 -> 5;
+5 [label="create"];
+5 -> 6;
+6 [label="orders"];
+7 [label="o_orderkey:TypeInt,o_custkey:TypeInt,o_orderstatus:TypeString,o_totalprice:TypeFloat,o_orderdate:TypeString,o_orderpriority:TypeString,o_clerk:TypeString,o_shippriority:TypeInt,o_comment:TypeString"];
+0 -> 8;
+8 [label="load /Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/tpch/data_sf2/orders.tbl into orders with | sep"];
+}

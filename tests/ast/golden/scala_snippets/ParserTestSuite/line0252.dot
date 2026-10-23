@@ -1,0 +1,15 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project SUM(a) as sumA"];
+2 -> 3;
+3 [label="group-by c*10 as ced having COUNT(d)>10"];
+3 -> 4;
+4 [label="where a>100, b<20"];
+4 -> 5;
+5 [label="sort: Asc c1, Asc c2"];
+5 -> 6;
+6 [label="t"];
+}

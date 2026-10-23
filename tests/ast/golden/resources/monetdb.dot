@@ -1,0 +1,29 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+nums:([]val:(`int$1e6)?100.00);
+s_asc:asc;
+"];
+0 -> 2;
+2 [label="naive_quantile(v,pct)"];
+2 -> 3;
+3 [label="sorted_v:=s_asc(v);n:=COUNT(v);ix:=pct*n/100-0.5;i:=floor(ix);q_v:=sorted_v(i);f:=ix-i;extra:=0 [label="case"];
+1 [label="if (f!=0) then f*sorted_v(i+1)-f*sorted_v(i)"];
+0 -> 1;
+2 [label="0.0"];
+0 -> 2;
+;LIST(extra+q_v)"];
+0 -> 4;
+4 [label="full-query"];
+4 -> 5;
+5 [label="project naive_quantile(val,95) as q95"];
+5 -> 6;
+6 [label="nums"];
+0 -> 7;
+7 [label="full-query"];
+7 -> 8;
+8 [label="project naive_quantile(val,5) as q5"];
+8 -> 9;
+9 [label="nums"];
+}

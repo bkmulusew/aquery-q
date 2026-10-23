@@ -17,6 +17,8 @@ tests/lexer/test_golden.q
 tests/parser/test_parser.q
 tests/parser/test_rules.q
 tests/parser/test_golden.q
+tests/ast/test_nodes.q
+tests/ast/test_dot.q
 "
 
 status=0

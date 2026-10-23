@@ -1,0 +1,2703 @@
+=== expr	x
+--- children
+[]
+--- allSubExpressions
+List
+  - Id @1:1
+    v: "x"
+=== expr	42
+--- children
+[]
+--- allSubExpressions
+List
+  - IntLit @1:1
+    v: 42
+=== expr	1.5
+--- children
+[]
+--- allSubExpressions
+List
+  - FloatLit @1:1
+    v: 1.5
+=== expr	"text"
+--- children
+[]
+--- allSubExpressions
+List
+  - StringLit @1:1
+    v: "text"
+=== expr	TRUE
+--- children
+[]
+--- allSubExpressions
+List
+  - BooleanLit @1:1
+    v: true
+=== expr	ROWID
+--- children
+[]
+--- allSubExpressions
+List
+  - RowId
+=== expr	t.c
+--- children
+[]
+--- allSubExpressions
+List
+  - ColumnAccess @1:1
+    t: "t"
+    c: "c"
+=== expr	-x
+--- children
+List
+  - Id @1:2
+    v: "x"
+--- allSubExpressions
+List
+  - Id @1:2
+    v: "x"
+  - UnExpr @1:1
+    op: Neg
+    v: Id @1:2
+      v: "x"
+=== expr	NOT(x)
+--- children
+List
+  - Id @1:5
+    v: "x"
+--- allSubExpressions
+List
+  - Id @1:5
+    v: "x"
+  - FunCall @1:1
+    f: "NOT"
+    args: List
+      - Id @1:5
+        v: "x"
+=== expr	1 + x
+--- children
+List
+  - IntLit @1:1
+    v: 1
+  - Id @1:5
+    v: "x"
+--- allSubExpressions
+List
+  - IntLit @1:1
+    v: 1
+  - Id @1:5
+    v: "x"
+  - BinExpr @1:1
+    op: Plus
+    l: IntLit @1:1
+      v: 1
+    r: Id @1:5
+      v: "x"
+=== expr	2 * 3 + 4 / 5 + 7
+--- children
+List
+  - BinExpr @1:1
+    op: Plus
+    l: BinExpr @1:1
+      op: Times
+      l: IntLit @1:1
+        v: 2
+      r: IntLit @1:5
+        v: 3
+    r: BinExpr @1:9
+      op: Div
+      l: IntLit @1:9
+        v: 4
+      r: IntLit @1:13
+        v: 5
+  - IntLit @1:17
+    v: 7
+--- allSubExpressions
+List
+  - IntLit @1:9
+    v: 4
+  - IntLit @1:13
+    v: 5
+  - IntLit @1:1
+    v: 2
+  - IntLit @1:5
+    v: 3
+  - BinExpr @1:1
+    op: Times
+    l: IntLit @1:1
+      v: 2
+    r: IntLit @1:5
+      v: 3
+  - BinExpr @1:9
+    op: Div
+    l: IntLit @1:9
+      v: 4
+    r: IntLit @1:13
+      v: 5
+  - BinExpr @1:1
+    op: Plus
+    l: BinExpr @1:1
+      op: Times
+      l: IntLit @1:1
+        v: 2
+      r: IntLit @1:5
+        v: 3
+    r: BinExpr @1:9
+      op: Div
+      l: IntLit @1:9
+        v: 4
+      r: IntLit @1:13
+        v: 5
+  - IntLit @1:17
+    v: 7
+  - BinExpr @1:1
+    op: Plus
+    l: BinExpr @1:1
+      op: Plus
+      l: BinExpr @1:1
+        op: Times
+        l: IntLit @1:1
+          v: 2
+        r: IntLit @1:5
+          v: 3
+      r: BinExpr @1:9
+        op: Div
+        l: IntLit @1:9
+          v: 4
+        r: IntLit @1:13
+          v: 5
+    r: IntLit @1:17
+      v: 7
+=== expr	f()
+--- children
+[]
+--- allSubExpressions
+List
+  - FunCall @1:1
+    f: "f"
+    args: []
+=== expr	f(a, b + 1, g(c))
+--- children
+List
+  - Id @1:3
+    v: "a"
+  - BinExpr @1:6
+    op: Plus
+    l: Id @1:6
+      v: "b"
+    r: IntLit @1:10
+      v: 1
+  - FunCall @1:13
+    f: "g"
+    args: List
+      - Id @1:15
+        v: "c"
+--- allSubExpressions
+List
+  - Id @1:15
+    v: "c"
+  - Id @1:6
+    v: "b"
+  - IntLit @1:10
+    v: 1
+  - Id @1:3
+    v: "a"
+  - BinExpr @1:6
+    op: Plus
+    l: Id @1:6
+      v: "b"
+    r: IntLit @1:10
+      v: 1
+  - FunCall @1:13
+    f: "g"
+    args: List
+      - Id @1:15
+        v: "c"
+  - FunCall @1:1
+    f: "f"
+    args: List
+      - Id @1:3
+        v: "a"
+      - BinExpr @1:6
+        op: Plus
+        l: Id @1:6
+          v: "b"
+        r: IntLit @1:10
+          v: 1
+      - FunCall @1:13
+        f: "g"
+        args: List
+          - Id @1:15
+            v: "c"
+=== expr	COUNT(*)
+--- children
+List
+  - WildCard
+--- allSubExpressions
+List
+  - WildCard
+  - FunCall @1:1
+    f: "COUNT"
+    args: List
+      - WildCard
+=== expr	x[EVEN]
+--- children
+List
+  - Id @1:1
+    v: "x"
+--- allSubExpressions
+List
+  - Id @1:1
+    v: "x"
+  - ArrayIndex @1:1
+    e: Id @1:1
+      v: "x"
+    ix: Even
+=== expr	(a + b)[EVERY 3]
+--- children
+List
+  - BinExpr @1:2
+    op: Plus
+    l: Id @1:2
+      v: "a"
+    r: Id @1:6
+      v: "b"
+--- allSubExpressions
+List
+  - Id @1:2
+    v: "a"
+  - Id @1:6
+    v: "b"
+  - BinExpr @1:2
+    op: Plus
+    l: Id @1:2
+      v: "a"
+    r: Id @1:6
+      v: "b"
+  - ArrayIndex @1:1
+    e: BinExpr @1:2
+      op: Plus
+      l: Id @1:2
+        v: "a"
+      r: Id @1:6
+        v: "b"
+    ix: Every
+      v: 3
+=== expr	CASE WHEN a > 1 THEN 1 ELSE 0 END
+--- children
+List
+  - IfThen
+    c: BinExpr @1:11
+      op: Gt
+      l: Id @1:11
+        v: "a"
+      r: IntLit @1:15
+        v: 1
+    t: IntLit @1:22
+      v: 1
+  - IntLit @1:29
+    v: 0
+--- allSubExpressions
+List
+  - Id @1:11
+    v: "a"
+  - IntLit @1:15
+    v: 1
+  - BinExpr @1:11
+    op: Gt
+    l: Id @1:11
+      v: "a"
+    r: IntLit @1:15
+      v: 1
+  - IntLit @1:22
+    v: 1
+  - IfThen
+    c: BinExpr @1:11
+      op: Gt
+      l: Id @1:11
+        v: "a"
+      r: IntLit @1:15
+        v: 1
+    t: IntLit @1:22
+      v: 1
+  - IntLit @1:29
+    v: 0
+  - Case @1:1
+    cond: None
+    when: List
+      - IfThen
+        c: BinExpr @1:11
+          op: Gt
+          l: Id @1:11
+            v: "a"
+          r: IntLit @1:15
+            v: 1
+        t: IntLit @1:22
+          v: 1
+    e: Some
+      value: IntLit @1:29
+        v: 0
+=== expr	CASE x WHEN 1 THEN "a" WHEN 2 THEN "b" END
+--- children
+List
+  - Id @1:6
+    v: "x"
+  - IfThen
+    c: IntLit @1:13
+      v: 1
+    t: StringLit @1:20
+      v: "a"
+  - IfThen
+    c: IntLit @1:29
+      v: 2
+    t: StringLit @1:36
+      v: "b"
+--- allSubExpressions
+List
+  - IntLit @1:29
+    v: 2
+  - StringLit @1:36
+    v: "b"
+  - IntLit @1:13
+    v: 1
+  - StringLit @1:20
+    v: "a"
+  - Id @1:6
+    v: "x"
+  - IfThen
+    c: IntLit @1:13
+      v: 1
+    t: StringLit @1:20
+      v: "a"
+  - IfThen
+    c: IntLit @1:29
+      v: 2
+    t: StringLit @1:36
+      v: "b"
+  - Case @1:1
+    cond: Some
+      value: Id @1:6
+        v: "x"
+    when: List
+      - IfThen
+        c: IntLit @1:13
+          v: 1
+        t: StringLit @1:20
+          v: "a"
+      - IfThen
+        c: IntLit @1:29
+          v: 2
+        t: StringLit @1:36
+          v: "b"
+    e: None
+=== expr	CASE WHEN a THEN b END
+--- children
+List
+  - IfThen
+    c: Id @1:11
+      v: "a"
+    t: Id @1:18
+      v: "b"
+--- allSubExpressions
+List
+  - Id @1:11
+    v: "a"
+  - Id @1:18
+    v: "b"
+  - IfThen
+    c: Id @1:11
+      v: "a"
+    t: Id @1:18
+      v: "b"
+  - Case @1:1
+    cond: None
+    when: List
+      - IfThen
+        c: Id @1:11
+          v: "a"
+        t: Id @1:18
+          v: "b"
+    e: None
+=== expr	a + b * c - sums(d, e) / max(f)
+--- children
+List
+  - BinExpr @1:1
+    op: Plus
+    l: Id @1:1
+      v: "a"
+    r: BinExpr @1:5
+      op: Times
+      l: Id @1:5
+        v: "b"
+      r: Id @1:9
+        v: "c"
+  - BinExpr @1:13
+    op: Div
+    l: FunCall @1:13
+      f: "SUMS"
+      args: List
+        - Id @1:18
+          v: "d"
+        - Id @1:21
+          v: "e"
+    r: FunCall @1:26
+      f: "MAX"
+      args: List
+        - Id @1:30
+          v: "f"
+--- allSubExpressions
+List
+  - Id @1:30
+    v: "f"
+  - Id @1:18
+    v: "d"
+  - Id @1:21
+    v: "e"
+  - FunCall @1:13
+    f: "SUMS"
+    args: List
+      - Id @1:18
+        v: "d"
+      - Id @1:21
+        v: "e"
+  - FunCall @1:26
+    f: "MAX"
+    args: List
+      - Id @1:30
+        v: "f"
+  - Id @1:5
+    v: "b"
+  - Id @1:9
+    v: "c"
+  - Id @1:1
+    v: "a"
+  - BinExpr @1:5
+    op: Times
+    l: Id @1:5
+      v: "b"
+    r: Id @1:9
+      v: "c"
+  - BinExpr @1:1
+    op: Plus
+    l: Id @1:1
+      v: "a"
+    r: BinExpr @1:5
+      op: Times
+      l: Id @1:5
+        v: "b"
+      r: Id @1:9
+        v: "c"
+  - BinExpr @1:13
+    op: Div
+    l: FunCall @1:13
+      f: "SUMS"
+      args: List
+        - Id @1:18
+          v: "d"
+        - Id @1:21
+          v: "e"
+    r: FunCall @1:26
+      f: "MAX"
+      args: List
+        - Id @1:30
+          v: "f"
+  - BinExpr @1:1
+    op: Minus
+    l: BinExpr @1:1
+      op: Plus
+      l: Id @1:1
+        v: "a"
+      r: BinExpr @1:5
+        op: Times
+        l: Id @1:5
+          v: "b"
+        r: Id @1:9
+          v: "c"
+    r: BinExpr @1:13
+      op: Div
+      l: FunCall @1:13
+        f: "SUMS"
+        args: List
+          - Id @1:18
+            v: "d"
+          - Id @1:21
+            v: "e"
+      r: FunCall @1:26
+        f: "MAX"
+        args: List
+          - Id @1:30
+            v: "f"
+=== predicate	x IN (1, 2, 3)
+--- children
+List
+  - Id @1:1
+    v: "x"
+  - IntLit @1:7
+    v: 1
+  - IntLit @1:10
+    v: 2
+  - IntLit @1:13
+    v: 3
+--- allSubExpressions
+List
+  - Id @1:1
+    v: "x"
+  - IntLit @1:7
+    v: 1
+  - IntLit @1:10
+    v: 2
+  - IntLit @1:13
+    v: 3
+  - FunCall @1:1
+    f: "IN"
+    args: List
+      - Id @1:1
+        v: "x"
+      - IntLit @1:7
+        v: 1
+      - IntLit @1:10
+        v: 2
+      - IntLit @1:13
+        v: 3
+=== predicate	a BETWEEN 1 AND b
+--- children
+List
+  - Id @1:1
+    v: "a"
+  - IntLit @1:11
+    v: 1
+  - Id @1:17
+    v: "b"
+--- allSubExpressions
+List
+  - Id @1:1
+    v: "a"
+  - IntLit @1:11
+    v: 1
+  - Id @1:17
+    v: "b"
+  - FunCall @1:1
+    f: "BETWEEN"
+    args: List
+      - Id @1:1
+        v: "a"
+      - IntLit @1:11
+        v: 1
+      - Id @1:17
+        v: "b"
+=== query	SELECT a FROM t
+--- children
+List
+  - Table @1:15
+    n: "t"
+    alias: None
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Table @1:15
+      n: "t"
+      alias: None
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Table @1:15
+    n: "t"
+    alias: None
+--- transform renameTables
+Project
+  t: Table
+    n: "t_t"
+    alias: None
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Table
+    n: "t"
+    alias: None
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a AS b, c + 1 FROM t AS x
+--- children
+List
+  - Table @1:27
+    n: "t"
+    alias: Some
+      value: "x"
+--- expr
+List
+  - Id @1:8
+    v: "a"
+  - BinExpr @1:16
+    op: Plus
+    l: Id @1:16
+      v: "c"
+    r: IntLit @1:20
+      v: 1
+--- find Table
+Some
+  value: Table @1:27
+    n: "t"
+    alias: Some
+      value: "x"
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Table @1:27
+      n: "t"
+      alias: Some
+        value: "x"
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: Some
+          value: "b"
+      - Tuple
+        _1: BinExpr @1:16
+          op: Plus
+          l: Id @1:16
+            v: "c"
+          r: IntLit @1:20
+            v: 1
+        _2: None
+  - Table @1:27
+    n: "t"
+    alias: Some
+      value: "x"
+--- transform renameTables
+Project
+  t: Table
+    n: "t_t"
+    alias: Some
+      value: "x"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: Some
+        value: "b"
+    - Tuple
+      _1: BinExpr @1:16
+        op: Plus
+        l: Id @1:16
+          v: "c"
+        r: IntLit @1:20
+          v: 1
+      _2: None
+--- transform dropSort
+Project
+  t: Table
+    n: "t"
+    alias: Some
+      value: "x"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: Some
+        value: "b"
+    - Tuple
+      _1: BinExpr @1:16
+        op: Plus
+        l: Id @1:16
+          v: "c"
+        r: IntLit @1:20
+          v: 1
+      _2: None
+=== query	SELECT * FROM t, u
+--- children
+List
+  - Join @1:15
+    jt: Cross
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:18
+      n: "u"
+      alias: None
+    cond: []
+--- expr
+List
+  - WildCard
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+Some
+  value: Join @1:15
+    jt: Cross
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:18
+      n: "u"
+      alias: None
+    cond: []
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Join @1:15
+      jt: Cross
+      l: Table @1:15
+        n: "t"
+        alias: None
+      r: Table @1:18
+        n: "u"
+        alias: None
+      cond: []
+    ps: List
+      - Tuple
+        _1: WildCard
+        _2: None
+  - Join @1:15
+    jt: Cross
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:18
+      n: "u"
+      alias: None
+    cond: []
+  - Table @1:15
+    n: "t"
+    alias: None
+  - Table @1:18
+    n: "u"
+    alias: None
+--- transform renameTables
+Project
+  t: Join
+    jt: Cross
+    l: Table
+      n: "t_t"
+      alias: None
+    r: Table
+      n: "u_t"
+      alias: None
+    cond: []
+  ps: List
+    - Tuple
+      _1: WildCard
+      _2: None
+--- transform dropSort
+Project
+  t: Join
+    jt: Cross
+    l: Table
+      n: "t"
+      alias: None
+    r: Table
+      n: "u"
+      alias: None
+    cond: []
+  ps: List
+    - Tuple
+      _1: WildCard
+      _2: None
+=== query	SELECT a FROM t INNER JOIN u USING k
+--- children
+List
+  - Join @1:15
+    jt: InnerJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:28
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:36
+        v: "k"
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+Some
+  value: Join @1:15
+    jt: InnerJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:28
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:36
+        v: "k"
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Join @1:15
+      jt: InnerJoinUsing
+      l: Table @1:15
+        n: "t"
+        alias: None
+      r: Table @1:28
+        n: "u"
+        alias: None
+      cond: List
+        - Id @1:36
+          v: "k"
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Join @1:15
+    jt: InnerJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:28
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:36
+        v: "k"
+  - Table @1:15
+    n: "t"
+    alias: None
+  - Table @1:28
+    n: "u"
+    alias: None
+--- transform renameTables
+Project
+  t: Join
+    jt: InnerJoinUsing
+    l: Table
+      n: "t_t"
+      alias: None
+    r: Table
+      n: "u_t"
+      alias: None
+    cond: List
+      - Id @1:36
+        v: "k"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Join
+    jt: InnerJoinUsing
+    l: Table
+      n: "t"
+      alias: None
+    r: Table
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:36
+        v: "k"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a FROM t FULL OUTER JOIN u USING (k, j)
+--- children
+List
+  - Join @1:15
+    jt: FullOuterJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:33
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:42
+        v: "k"
+      - Id @1:45
+        v: "j"
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+Some
+  value: Join @1:15
+    jt: FullOuterJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:33
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:42
+        v: "k"
+      - Id @1:45
+        v: "j"
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Join @1:15
+      jt: FullOuterJoinUsing
+      l: Table @1:15
+        n: "t"
+        alias: None
+      r: Table @1:33
+        n: "u"
+        alias: None
+      cond: List
+        - Id @1:42
+          v: "k"
+        - Id @1:45
+          v: "j"
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Join @1:15
+    jt: FullOuterJoinUsing
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:33
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:42
+        v: "k"
+      - Id @1:45
+        v: "j"
+  - Table @1:15
+    n: "t"
+    alias: None
+  - Table @1:33
+    n: "u"
+    alias: None
+--- transform renameTables
+Project
+  t: Join
+    jt: FullOuterJoinUsing
+    l: Table
+      n: "t_t"
+      alias: None
+    r: Table
+      n: "u_t"
+      alias: None
+    cond: List
+      - Id @1:42
+        v: "k"
+      - Id @1:45
+        v: "j"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Join
+    jt: FullOuterJoinUsing
+    l: Table
+      n: "t"
+      alias: None
+    r: Table
+      n: "u"
+      alias: None
+    cond: List
+      - Id @1:42
+        v: "k"
+      - Id @1:45
+        v: "j"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a FROM t, u INNER JOIN v USING k, w
+--- children
+List
+  - Join @1:15
+    jt: Cross
+    l: Join @1:15
+      jt: InnerJoinUsing
+      l: Join @1:15
+        jt: Cross
+        l: Table @1:15
+          n: "t"
+          alias: None
+        r: Table @1:18
+          n: "u"
+          alias: None
+        cond: []
+      r: Table @1:31
+        n: "v"
+        alias: None
+      cond: List
+        - Id @1:39
+          v: "k"
+    r: Table @1:42
+      n: "w"
+      alias: None
+    cond: []
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+Some
+  value: Join @1:15
+    jt: Cross
+    l: Join @1:15
+      jt: InnerJoinUsing
+      l: Join @1:15
+        jt: Cross
+        l: Table @1:15
+          n: "t"
+          alias: None
+        r: Table @1:18
+          n: "u"
+          alias: None
+        cond: []
+      r: Table @1:31
+        n: "v"
+        alias: None
+      cond: List
+        - Id @1:39
+          v: "k"
+    r: Table @1:42
+      n: "w"
+      alias: None
+    cond: []
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Join @1:15
+      jt: Cross
+      l: Join @1:15
+        jt: InnerJoinUsing
+        l: Join @1:15
+          jt: Cross
+          l: Table @1:15
+            n: "t"
+            alias: None
+          r: Table @1:18
+            n: "u"
+            alias: None
+          cond: []
+        r: Table @1:31
+          n: "v"
+          alias: None
+        cond: List
+          - Id @1:39
+            v: "k"
+      r: Table @1:42
+        n: "w"
+        alias: None
+      cond: []
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Join @1:15
+    jt: Cross
+    l: Join @1:15
+      jt: InnerJoinUsing
+      l: Join @1:15
+        jt: Cross
+        l: Table @1:15
+          n: "t"
+          alias: None
+        r: Table @1:18
+          n: "u"
+          alias: None
+        cond: []
+      r: Table @1:31
+        n: "v"
+        alias: None
+      cond: List
+        - Id @1:39
+          v: "k"
+    r: Table @1:42
+      n: "w"
+      alias: None
+    cond: []
+  - Join @1:15
+    jt: InnerJoinUsing
+    l: Join @1:15
+      jt: Cross
+      l: Table @1:15
+        n: "t"
+        alias: None
+      r: Table @1:18
+        n: "u"
+        alias: None
+      cond: []
+    r: Table @1:31
+      n: "v"
+      alias: None
+    cond: List
+      - Id @1:39
+        v: "k"
+  - Join @1:15
+    jt: Cross
+    l: Table @1:15
+      n: "t"
+      alias: None
+    r: Table @1:18
+      n: "u"
+      alias: None
+    cond: []
+  - Table @1:15
+    n: "t"
+    alias: None
+  - Table @1:18
+    n: "u"
+    alias: None
+  - Table @1:31
+    n: "v"
+    alias: None
+  - Table @1:42
+    n: "w"
+    alias: None
+--- transform renameTables
+Project
+  t: Join
+    jt: Cross
+    l: Join
+      jt: InnerJoinUsing
+      l: Join
+        jt: Cross
+        l: Table
+          n: "t_t"
+          alias: None
+        r: Table
+          n: "u_t"
+          alias: None
+        cond: []
+      r: Table
+        n: "v_t"
+        alias: None
+      cond: List
+        - Id @1:39
+          v: "k"
+    r: Table
+      n: "w_t"
+      alias: None
+    cond: []
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Join
+    jt: Cross
+    l: Join
+      jt: InnerJoinUsing
+      l: Join
+        jt: Cross
+        l: Table
+          n: "t"
+          alias: None
+        r: Table
+          n: "u"
+          alias: None
+        cond: []
+      r: Table
+        n: "v"
+        alias: None
+      cond: List
+        - Id @1:39
+          v: "k"
+    r: Table
+      n: "w"
+      alias: None
+    cond: []
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a FROM f(1, 2)
+--- children
+List
+  - BottomApply @1:15
+    f: "f"
+    args: List
+      - IntLit @1:17
+        v: 1
+      - IntLit @1:20
+        v: 2
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: BottomApply @1:15
+      f: "f"
+      args: List
+        - IntLit @1:17
+          v: 1
+        - IntLit @1:20
+          v: 2
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - BottomApply @1:15
+    f: "f"
+    args: List
+      - IntLit @1:17
+        v: 1
+      - IntLit @1:20
+        v: 2
+--- transform renameTables
+Project
+  t: BottomApply
+    f: "f"
+    args: List
+      - IntLit @1:17
+        v: 1
+      - IntLit @1:20
+        v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: BottomApply
+    f: "f"
+    args: List
+      - IntLit @1:17
+        v: 1
+      - IntLit @1:20
+        v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT DISTINCT a FROM t
+--- children
+List
+  - Project
+    t: Table @1:24
+      n: "t"
+      alias: None
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: None
+--- expr
+[]
+--- find Table
+Some
+  value: Table @1:24
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - TopApply @1:1
+    f: "DISTINCT"
+    t: Project
+      t: Table @1:24
+        n: "t"
+        alias: None
+      ps: List
+        - Tuple
+          _1: Id @1:17
+            v: "a"
+          _2: None
+  - Project
+    t: Table @1:24
+      n: "t"
+      alias: None
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: None
+  - Table @1:24
+    n: "t"
+    alias: None
+--- transform renameTables
+TopApply
+  f: "DISTINCT"
+  t: Project
+    t: Table
+      n: "t_t"
+      alias: None
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: None
+--- transform dropSort
+TopApply
+  f: "DISTINCT"
+  t: Project
+    t: Table
+      n: "t"
+      alias: None
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: None
+=== query	SELECT a FROM t ASSUMING ASC a, DESC b
+--- children
+List
+  - SortBy
+    t: Table @1:15
+      n: "t"
+      alias: None
+    os: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:30
+          v: "a"
+      - Tuple
+        _1: Desc
+        _2: Id @1:38
+          v: "b"
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+Some
+  value: SortBy
+    t: Table @1:15
+      n: "t"
+      alias: None
+    os: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:30
+          v: "a"
+      - Tuple
+        _1: Desc
+        _2: Id @1:38
+          v: "b"
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: SortBy
+      t: Table @1:15
+        n: "t"
+        alias: None
+      os: List
+        - Tuple
+          _1: Asc
+          _2: Id @1:30
+            v: "a"
+        - Tuple
+          _1: Desc
+          _2: Id @1:38
+            v: "b"
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+--- transform renameTables
+Project
+  t: SortBy
+    t: Table
+      n: "t_t"
+      alias: None
+    os: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:30
+          v: "a"
+      - Tuple
+        _1: Desc
+        _2: Id @1:38
+          v: "b"
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Table
+    n: "t"
+    alias: None
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a FROM t WHERE a > 1 AND b < 2
+--- children
+List
+  - Filter
+    t: Table @1:15
+      n: "t"
+      alias: None
+    fs: List
+      - BinExpr @1:23
+        op: Gt
+        l: Id @1:23
+          v: "a"
+        r: IntLit @1:27
+          v: 1
+      - BinExpr @1:33
+        op: Lt
+        l: Id @1:33
+          v: "b"
+        r: IntLit @1:37
+          v: 2
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Filter
+      t: Table @1:15
+        n: "t"
+        alias: None
+      fs: List
+        - BinExpr @1:23
+          op: Gt
+          l: Id @1:23
+            v: "a"
+          r: IntLit @1:27
+            v: 1
+        - BinExpr @1:33
+          op: Lt
+          l: Id @1:33
+            v: "b"
+          r: IntLit @1:37
+            v: 2
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Filter
+    t: Table @1:15
+      n: "t"
+      alias: None
+    fs: List
+      - BinExpr @1:23
+        op: Gt
+        l: Id @1:23
+          v: "a"
+        r: IntLit @1:27
+          v: 1
+      - BinExpr @1:33
+        op: Lt
+        l: Id @1:33
+          v: "b"
+        r: IntLit @1:37
+          v: 2
+  - Table @1:15
+    n: "t"
+    alias: None
+--- transform renameTables
+Project
+  t: Filter
+    t: Table
+      n: "t_t"
+      alias: None
+    fs: List
+      - BinExpr @1:23
+        op: Gt
+        l: Id @1:23
+          v: "a"
+        r: IntLit @1:27
+          v: 1
+      - BinExpr @1:33
+        op: Lt
+        l: Id @1:33
+          v: "b"
+        r: IntLit @1:37
+          v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Filter
+    t: Table
+      n: "t"
+      alias: None
+    fs: List
+      - BinExpr @1:23
+        op: Gt
+        l: Id @1:23
+          v: "a"
+        r: IntLit @1:27
+          v: 1
+      - BinExpr @1:33
+        op: Lt
+        l: Id @1:33
+          v: "b"
+        r: IntLit @1:37
+          v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a FROM t ASSUMING ASC a WHERE sums(b) > 1
+--- children
+List
+  - Filter
+    t: SortBy
+      t: Table @1:15
+        n: "t"
+        alias: None
+      os: List
+        - Tuple
+          _1: Asc
+          _2: Id @1:30
+            v: "a"
+    fs: List
+      - BinExpr @1:38
+        op: Gt
+        l: FunCall @1:38
+          f: "SUMS"
+          args: List
+            - Id @1:43
+              v: "b"
+        r: IntLit @1:48
+          v: 1
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+Some
+  value: SortBy
+    t: Table @1:15
+      n: "t"
+      alias: None
+    os: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:30
+          v: "a"
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: Filter
+      t: SortBy
+        t: Table @1:15
+          n: "t"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @1:30
+              v: "a"
+      fs: List
+        - BinExpr @1:38
+          op: Gt
+          l: FunCall @1:38
+            f: "SUMS"
+            args: List
+              - Id @1:43
+                v: "b"
+          r: IntLit @1:48
+            v: 1
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - Filter
+    t: SortBy
+      t: Table @1:15
+        n: "t"
+        alias: None
+      os: List
+        - Tuple
+          _1: Asc
+          _2: Id @1:30
+            v: "a"
+    fs: List
+      - BinExpr @1:38
+        op: Gt
+        l: FunCall @1:38
+          f: "SUMS"
+          args: List
+            - Id @1:43
+              v: "b"
+        r: IntLit @1:48
+          v: 1
+--- transform renameTables
+Project
+  t: Filter
+    t: SortBy
+      t: Table
+        n: "t_t"
+        alias: None
+      os: List
+        - Tuple
+          _1: Asc
+          _2: Id @1:30
+            v: "a"
+    fs: List
+      - BinExpr @1:38
+        op: Gt
+        l: FunCall @1:38
+          f: "SUMS"
+          args: List
+            - Id @1:43
+              v: "b"
+        r: IntLit @1:48
+          v: 1
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: Filter
+    t: Table
+      n: "t"
+      alias: None
+    fs: List
+      - BinExpr @1:38
+        op: Gt
+        l: FunCall @1:38
+          f: "SUMS"
+          args: List
+            - Id @1:43
+              v: "b"
+        r: IntLit @1:48
+          v: 1
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT a, sum(b) FROM t GROUP BY a
+--- children
+List
+  - GroupBy
+    t: Table @1:23
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:34
+          v: "a"
+        _2: None
+    having: []
+--- expr
+List
+  - Id @1:8
+    v: "a"
+  - FunCall @1:11
+    f: "SUM"
+    args: List
+      - Id @1:15
+        v: "b"
+--- find Table
+Some
+  value: Table @1:23
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: GroupBy
+      t: Table @1:23
+        n: "t"
+        alias: None
+      gs: List
+        - Tuple
+          _1: Id @1:34
+            v: "a"
+          _2: None
+      having: []
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+      - Tuple
+        _1: FunCall @1:11
+          f: "SUM"
+          args: List
+            - Id @1:15
+              v: "b"
+        _2: None
+  - GroupBy
+    t: Table @1:23
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:34
+          v: "a"
+        _2: None
+    having: []
+  - Table @1:23
+    n: "t"
+    alias: None
+--- transform renameTables
+Project
+  t: GroupBy
+    t: Table
+      n: "t_t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:34
+          v: "a"
+        _2: None
+    having: []
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+    - Tuple
+      _1: FunCall @1:11
+        f: "SUM"
+        args: List
+          - Id @1:15
+            v: "b"
+      _2: None
+--- transform dropSort
+Project
+  t: GroupBy
+    t: Table
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:34
+          v: "a"
+        _2: None
+    having: []
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+    - Tuple
+      _1: FunCall @1:11
+        f: "SUM"
+        args: List
+          - Id @1:15
+            v: "b"
+      _2: None
+=== query	SELECT a FROM t GROUP BY a, b AS c HAVING count(b) > 1 AND sum(c) < 2
+--- children
+List
+  - GroupBy
+    t: Table @1:15
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:26
+          v: "a"
+        _2: None
+      - Tuple
+        _1: Id @1:29
+          v: "b"
+        _2: Some
+          value: "c"
+    having: List
+      - BinExpr @1:43
+        op: Gt
+        l: FunCall @1:43
+          f: "COUNT"
+          args: List
+            - Id @1:49
+              v: "b"
+        r: IntLit @1:54
+          v: 1
+      - BinExpr @1:60
+        op: Lt
+        l: FunCall @1:60
+          f: "SUM"
+          args: List
+            - Id @1:64
+              v: "c"
+        r: IntLit @1:69
+          v: 2
+--- expr
+List
+  - Id @1:8
+    v: "a"
+--- find Table
+Some
+  value: Table @1:15
+    n: "t"
+    alias: None
+--- find SortBy
+None
+--- find Join
+None
+--- takeWhile notSortBy
+List
+  - Project @1:1
+    t: GroupBy
+      t: Table @1:15
+        n: "t"
+        alias: None
+      gs: List
+        - Tuple
+          _1: Id @1:26
+            v: "a"
+          _2: None
+        - Tuple
+          _1: Id @1:29
+            v: "b"
+          _2: Some
+            value: "c"
+      having: List
+        - BinExpr @1:43
+          op: Gt
+          l: FunCall @1:43
+            f: "COUNT"
+            args: List
+              - Id @1:49
+                v: "b"
+          r: IntLit @1:54
+            v: 1
+        - BinExpr @1:60
+          op: Lt
+          l: FunCall @1:60
+            f: "SUM"
+            args: List
+              - Id @1:64
+                v: "c"
+          r: IntLit @1:69
+            v: 2
+    ps: List
+      - Tuple
+        _1: Id @1:8
+          v: "a"
+        _2: None
+  - GroupBy
+    t: Table @1:15
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:26
+          v: "a"
+        _2: None
+      - Tuple
+        _1: Id @1:29
+          v: "b"
+        _2: Some
+          value: "c"
+    having: List
+      - BinExpr @1:43
+        op: Gt
+        l: FunCall @1:43
+          f: "COUNT"
+          args: List
+            - Id @1:49
+              v: "b"
+        r: IntLit @1:54
+          v: 1
+      - BinExpr @1:60
+        op: Lt
+        l: FunCall @1:60
+          f: "SUM"
+          args: List
+            - Id @1:64
+              v: "c"
+        r: IntLit @1:69
+          v: 2
+  - Table @1:15
+    n: "t"
+    alias: None
+--- transform renameTables
+Project
+  t: GroupBy
+    t: Table
+      n: "t_t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:26
+          v: "a"
+        _2: None
+      - Tuple
+        _1: Id @1:29
+          v: "b"
+        _2: Some
+          value: "c"
+    having: List
+      - BinExpr @1:43
+        op: Gt
+        l: FunCall @1:43
+          f: "COUNT"
+          args: List
+            - Id @1:49
+              v: "b"
+        r: IntLit @1:54
+          v: 1
+      - BinExpr @1:60
+        op: Lt
+        l: FunCall @1:60
+          f: "SUM"
+          args: List
+            - Id @1:64
+              v: "c"
+        r: IntLit @1:69
+          v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+--- transform dropSort
+Project
+  t: GroupBy
+    t: Table
+      n: "t"
+      alias: None
+    gs: List
+      - Tuple
+        _1: Id @1:26
+          v: "a"
+        _2: None
+      - Tuple
+        _1: Id @1:29
+          v: "b"
+        _2: Some
+          value: "c"
+    having: List
+      - BinExpr @1:43
+        op: Gt
+        l: FunCall @1:43
+          f: "COUNT"
+          args: List
+            - Id @1:49
+              v: "b"
+        r: IntLit @1:54
+          v: 1
+      - BinExpr @1:60
+        op: Lt
+        l: FunCall @1:60
+          f: "SUM"
+          args: List
+            - Id @1:64
+              v: "c"
+        r: IntLit @1:69
+          v: 2
+  ps: List
+    - Tuple
+      _1: Id @1:8
+        v: "a"
+      _2: None
+=== query	SELECT DISTINCT a AS b, f(c) FROM t x, u INNER JOIN v USING (k, j) ASSUMING ASC a, DESC t.b WHERE a > 1 AND b NOT BETWEEN 1 AND 3 GROUP BY a AS g HAVING sum(b) > 2 AND x
+--- children
+List
+  - Project
+    t: GroupBy
+      t: Filter
+        t: SortBy
+          t: Join @1:35
+            jt: InnerJoinUsing
+            l: Join @1:35
+              jt: Cross
+              l: Table @1:35
+                n: "t"
+                alias: Some
+                  value: "x"
+              r: Table @1:40
+                n: "u"
+                alias: None
+              cond: []
+            r: Table @1:53
+              n: "v"
+              alias: None
+            cond: List
+              - Id @1:62
+                v: "k"
+              - Id @1:65
+                v: "j"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:81
+                v: "a"
+            - Tuple
+              _1: Desc
+              _2: ColumnAccess @1:89
+                t: "t"
+                c: "b"
+        fs: List
+          - BinExpr @1:99
+            op: Gt
+            l: Id @1:99
+              v: "a"
+            r: IntLit @1:103
+              v: 1
+          - FunCall @1:109
+            f: "NOT"
+            args: List
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @1:109
+                    v: "b"
+                  - IntLit @1:123
+                    v: 1
+                  - IntLit @1:129
+                    v: 3
+      gs: List
+        - Tuple
+          _1: Id @1:140
+            v: "a"
+          _2: Some
+            value: "g"
+      having: List
+        - BinExpr @1:154
+          op: Gt
+          l: FunCall @1:154
+            f: "SUM"
+            args: List
+              - Id @1:158
+                v: "b"
+          r: IntLit @1:163
+            v: 2
+        - Id @1:169
+          v: "x"
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: Some
+          value: "b"
+      - Tuple
+        _1: FunCall @1:25
+          f: "f"
+          args: List
+            - Id @1:27
+              v: "c"
+        _2: None
+--- expr
+[]
+--- find Table
+Some
+  value: Table @1:35
+    n: "t"
+    alias: Some
+      value: "x"
+--- find SortBy
+Some
+  value: SortBy
+    t: Join @1:35
+      jt: InnerJoinUsing
+      l: Join @1:35
+        jt: Cross
+        l: Table @1:35
+          n: "t"
+          alias: Some
+            value: "x"
+        r: Table @1:40
+          n: "u"
+          alias: None
+        cond: []
+      r: Table @1:53
+        n: "v"
+        alias: None
+      cond: List
+        - Id @1:62
+          v: "k"
+        - Id @1:65
+          v: "j"
+    os: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:81
+          v: "a"
+      - Tuple
+        _1: Desc
+        _2: ColumnAccess @1:89
+          t: "t"
+          c: "b"
+--- find Join
+Some
+  value: Join @1:35
+    jt: InnerJoinUsing
+    l: Join @1:35
+      jt: Cross
+      l: Table @1:35
+        n: "t"
+        alias: Some
+          value: "x"
+      r: Table @1:40
+        n: "u"
+        alias: None
+      cond: []
+    r: Table @1:53
+      n: "v"
+      alias: None
+    cond: List
+      - Id @1:62
+        v: "k"
+      - Id @1:65
+        v: "j"
+--- takeWhile notSortBy
+List
+  - TopApply @1:1
+    f: "DISTINCT"
+    t: Project
+      t: GroupBy
+        t: Filter
+          t: SortBy
+            t: Join @1:35
+              jt: InnerJoinUsing
+              l: Join @1:35
+                jt: Cross
+                l: Table @1:35
+                  n: "t"
+                  alias: Some
+                    value: "x"
+                r: Table @1:40
+                  n: "u"
+                  alias: None
+                cond: []
+              r: Table @1:53
+                n: "v"
+                alias: None
+              cond: List
+                - Id @1:62
+                  v: "k"
+                - Id @1:65
+                  v: "j"
+            os: List
+              - Tuple
+                _1: Asc
+                _2: Id @1:81
+                  v: "a"
+              - Tuple
+                _1: Desc
+                _2: ColumnAccess @1:89
+                  t: "t"
+                  c: "b"
+          fs: List
+            - BinExpr @1:99
+              op: Gt
+              l: Id @1:99
+                v: "a"
+              r: IntLit @1:103
+                v: 1
+            - FunCall @1:109
+              f: "NOT"
+              args: List
+                - FunCall
+                  f: "BETWEEN"
+                  args: List
+                    - Id @1:109
+                      v: "b"
+                    - IntLit @1:123
+                      v: 1
+                    - IntLit @1:129
+                      v: 3
+        gs: List
+          - Tuple
+            _1: Id @1:140
+              v: "a"
+            _2: Some
+              value: "g"
+        having: List
+          - BinExpr @1:154
+            op: Gt
+            l: FunCall @1:154
+              f: "SUM"
+              args: List
+                - Id @1:158
+                  v: "b"
+            r: IntLit @1:163
+              v: 2
+          - Id @1:169
+            v: "x"
+      ps: List
+        - Tuple
+          _1: Id @1:17
+            v: "a"
+          _2: Some
+            value: "b"
+        - Tuple
+          _1: FunCall @1:25
+            f: "f"
+            args: List
+              - Id @1:27
+                v: "c"
+          _2: None
+  - Project
+    t: GroupBy
+      t: Filter
+        t: SortBy
+          t: Join @1:35
+            jt: InnerJoinUsing
+            l: Join @1:35
+              jt: Cross
+              l: Table @1:35
+                n: "t"
+                alias: Some
+                  value: "x"
+              r: Table @1:40
+                n: "u"
+                alias: None
+              cond: []
+            r: Table @1:53
+              n: "v"
+              alias: None
+            cond: List
+              - Id @1:62
+                v: "k"
+              - Id @1:65
+                v: "j"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:81
+                v: "a"
+            - Tuple
+              _1: Desc
+              _2: ColumnAccess @1:89
+                t: "t"
+                c: "b"
+        fs: List
+          - BinExpr @1:99
+            op: Gt
+            l: Id @1:99
+              v: "a"
+            r: IntLit @1:103
+              v: 1
+          - FunCall @1:109
+            f: "NOT"
+            args: List
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @1:109
+                    v: "b"
+                  - IntLit @1:123
+                    v: 1
+                  - IntLit @1:129
+                    v: 3
+      gs: List
+        - Tuple
+          _1: Id @1:140
+            v: "a"
+          _2: Some
+            value: "g"
+      having: List
+        - BinExpr @1:154
+          op: Gt
+          l: FunCall @1:154
+            f: "SUM"
+            args: List
+              - Id @1:158
+                v: "b"
+          r: IntLit @1:163
+            v: 2
+        - Id @1:169
+          v: "x"
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: Some
+          value: "b"
+      - Tuple
+        _1: FunCall @1:25
+          f: "f"
+          args: List
+            - Id @1:27
+              v: "c"
+        _2: None
+  - GroupBy
+    t: Filter
+      t: SortBy
+        t: Join @1:35
+          jt: InnerJoinUsing
+          l: Join @1:35
+            jt: Cross
+            l: Table @1:35
+              n: "t"
+              alias: Some
+                value: "x"
+            r: Table @1:40
+              n: "u"
+              alias: None
+            cond: []
+          r: Table @1:53
+            n: "v"
+            alias: None
+          cond: List
+            - Id @1:62
+              v: "k"
+            - Id @1:65
+              v: "j"
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @1:81
+              v: "a"
+          - Tuple
+            _1: Desc
+            _2: ColumnAccess @1:89
+              t: "t"
+              c: "b"
+      fs: List
+        - BinExpr @1:99
+          op: Gt
+          l: Id @1:99
+            v: "a"
+          r: IntLit @1:103
+            v: 1
+        - FunCall @1:109
+          f: "NOT"
+          args: List
+            - FunCall
+              f: "BETWEEN"
+              args: List
+                - Id @1:109
+                  v: "b"
+                - IntLit @1:123
+                  v: 1
+                - IntLit @1:129
+                  v: 3
+    gs: List
+      - Tuple
+        _1: Id @1:140
+          v: "a"
+        _2: Some
+          value: "g"
+    having: List
+      - BinExpr @1:154
+        op: Gt
+        l: FunCall @1:154
+          f: "SUM"
+          args: List
+            - Id @1:158
+              v: "b"
+        r: IntLit @1:163
+          v: 2
+      - Id @1:169
+        v: "x"
+  - Filter
+    t: SortBy
+      t: Join @1:35
+        jt: InnerJoinUsing
+        l: Join @1:35
+          jt: Cross
+          l: Table @1:35
+            n: "t"
+            alias: Some
+              value: "x"
+          r: Table @1:40
+            n: "u"
+            alias: None
+          cond: []
+        r: Table @1:53
+          n: "v"
+          alias: None
+        cond: List
+          - Id @1:62
+            v: "k"
+          - Id @1:65
+            v: "j"
+      os: List
+        - Tuple
+          _1: Asc
+          _2: Id @1:81
+            v: "a"
+        - Tuple
+          _1: Desc
+          _2: ColumnAccess @1:89
+            t: "t"
+            c: "b"
+    fs: List
+      - BinExpr @1:99
+        op: Gt
+        l: Id @1:99
+          v: "a"
+        r: IntLit @1:103
+          v: 1
+      - FunCall @1:109
+        f: "NOT"
+        args: List
+          - FunCall
+            f: "BETWEEN"
+            args: List
+              - Id @1:109
+                v: "b"
+              - IntLit @1:123
+                v: 1
+              - IntLit @1:129
+                v: 3
+--- transform renameTables
+TopApply
+  f: "DISTINCT"
+  t: Project
+    t: GroupBy
+      t: Filter
+        t: SortBy
+          t: Join
+            jt: InnerJoinUsing
+            l: Join
+              jt: Cross
+              l: Table
+                n: "t_t"
+                alias: Some
+                  value: "x"
+              r: Table
+                n: "u_t"
+                alias: None
+              cond: []
+            r: Table
+              n: "v_t"
+              alias: None
+            cond: List
+              - Id @1:62
+                v: "k"
+              - Id @1:65
+                v: "j"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:81
+                v: "a"
+            - Tuple
+              _1: Desc
+              _2: ColumnAccess @1:89
+                t: "t"
+                c: "b"
+        fs: List
+          - BinExpr @1:99
+            op: Gt
+            l: Id @1:99
+              v: "a"
+            r: IntLit @1:103
+              v: 1
+          - FunCall @1:109
+            f: "NOT"
+            args: List
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @1:109
+                    v: "b"
+                  - IntLit @1:123
+                    v: 1
+                  - IntLit @1:129
+                    v: 3
+      gs: List
+        - Tuple
+          _1: Id @1:140
+            v: "a"
+          _2: Some
+            value: "g"
+      having: List
+        - BinExpr @1:154
+          op: Gt
+          l: FunCall @1:154
+            f: "SUM"
+            args: List
+              - Id @1:158
+                v: "b"
+          r: IntLit @1:163
+            v: 2
+        - Id @1:169
+          v: "x"
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: Some
+          value: "b"
+      - Tuple
+        _1: FunCall @1:25
+          f: "f"
+          args: List
+            - Id @1:27
+              v: "c"
+        _2: None
+--- transform dropSort
+TopApply
+  f: "DISTINCT"
+  t: Project
+    t: GroupBy
+      t: Filter
+        t: Join
+          jt: InnerJoinUsing
+          l: Join
+            jt: Cross
+            l: Table
+              n: "t"
+              alias: Some
+                value: "x"
+            r: Table
+              n: "u"
+              alias: None
+            cond: []
+          r: Table
+            n: "v"
+            alias: None
+          cond: List
+            - Id @1:62
+              v: "k"
+            - Id @1:65
+              v: "j"
+        fs: List
+          - BinExpr @1:99
+            op: Gt
+            l: Id @1:99
+              v: "a"
+            r: IntLit @1:103
+              v: 1
+          - FunCall @1:109
+            f: "NOT"
+            args: List
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @1:109
+                    v: "b"
+                  - IntLit @1:123
+                    v: 1
+                  - IntLit @1:129
+                    v: 3
+      gs: List
+        - Tuple
+          _1: Id @1:140
+            v: "a"
+          _2: Some
+            value: "g"
+      having: List
+        - BinExpr @1:154
+          op: Gt
+          l: FunCall @1:154
+            f: "SUM"
+            args: List
+              - Id @1:158
+                v: "b"
+          r: IntLit @1:163
+            v: 2
+        - Id @1:169
+          v: "x"
+    ps: List
+      - Tuple
+        _1: Id @1:17
+          v: "a"
+        _2: Some
+          value: "b"
+      - Tuple
+        _1: FunCall @1:25
+          f: "f"
+          args: List
+            - Id @1:27
+              v: "c"
+        _2: None

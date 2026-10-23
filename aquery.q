@@ -4,10 +4,11 @@
 /   bin/l_m64 aquery.q                    load, then stay in the L prompt
 /   bin/l_m64 aquery.q -lex file.a        print the tokens of file.a, exit
 /   bin/l_m64 aquery.q -parse file.a      print the parse tree of file.a, exit
+/   bin/l_m64 aquery.q -p file.a          print file.a as a Graphviz graph, exit
 
-/ Version 1 is the lexer, version 2 the parser (both in src/parse/).
-/ Later versions add the AST, analysis, optimisation and code generation
-/ stages here, in that order.
+/ Version 1 is the lexer, version 2 the parser (both in src/parse/),
+/ version 3 the AST stage (src/ast/). Later versions add code generation,
+/ the runtime, and analysis and optimisation here.
 
 / Other scripts (e.g. the tests) can load this file with \l. They should set
 / .aqc.root to the folder containing aquery.q first, because .z.f (the path
@@ -34,6 +35,11 @@ if[not `root in key `.aqc;
 .aqc.loadFile "src/parse/parser.q";
 .aqc.loadFile "src/parse/rewrite.q";
 
+/ Stage 3: AST helpers (walking and rebuilding parse trees) and the
+/ Graphviz graph of a program.
+.aqc.loadFile "src/ast/nodes.q";
+.aqc.loadFile "src/ast/dot.q";
+
 
 / Command line: "-lex <file>" prints the file's tokens, one per line, in
 / the same format as tests/lexer/golden/*.tok, then exits.
@@ -45,4 +51,11 @@ if[(2 = count .z.x) and "-lex" ~ first .z.x;
 / format as tests/parser/golden/*.ast, then exits.
 if[(2 = count .z.x) and "-parse" ~ first .z.x;
   -1 each .aqc.parse.parseFile .z.x 1;
+  exit 0];
+
+/ Command line: "-p <file>" prints the file as a Graphviz (DOT) graph,
+/ exactly as the jar does (tools/gen_dot_golden.sh, tests/ast/golden/*.dot),
+/ then exits. Draw it with: dot -Tpdf out.dot -o out.pdf
+if[(2 = count .z.x) and "-p" ~ first .z.x;
+  -1 each .aqc.dot.graphFile .z.x 1;
   exit 0];

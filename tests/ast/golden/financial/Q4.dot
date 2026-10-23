@@ -1,0 +1,11 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project AVG(ClosePrice) as avg_close_price"];
+2 -> 3;
+3 [label="where IN(Id,Russell2000), TradeDate==startPeriod"];
+3 -> 4;
+4 [label="price"];
+}

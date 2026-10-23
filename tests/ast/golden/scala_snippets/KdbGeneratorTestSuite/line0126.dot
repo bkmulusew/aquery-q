@@ -1,0 +1,27 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label=" base:([]c1:1000?100; c2:1000?100; c3:1000?100) "];
+0 -> 2;
+2 [label="create"];
+2 -> 3;
+3 [label="aq_t1"];
+4 [label="c1:TypeInt,c2:TypeString,c3:TypeBoolean"];
+0 -> 5;
+5 [label="create"];
+5 -> 6;
+6 [label="aq_t2"];
+7 [label="full-query"];
+7 -> 8;
+8 [label="project c1*2 as c1 ,SUMS(c2) as c2 ,MAX(c3) as max_c3"];
+8 -> 9;
+9 [label="group-by c1"];
+9 -> 10;
+10 [label="where c1>10"];
+10 -> 11;
+11 [label="sort: Asc c3"];
+11 -> 12;
+12 [label="base"];
+0 -> 13;
+13 [label=".aq.c1:{aq_t1}; .aq.c2:{aq_t2};"];
+}

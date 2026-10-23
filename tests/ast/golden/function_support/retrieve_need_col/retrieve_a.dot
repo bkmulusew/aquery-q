@@ -1,0 +1,15 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project *"];
+2 -> 3;
+3 [label="lineitem"];
+0 -> 4;
+4 [label="full-query"];
+4 -> 5;
+5 [label="project l_orderkey ,l_partkey ,l_suppkey ,l_shipdate ,l_commitdate"];
+5 -> 6;
+6 [label="lineitem"];
+}

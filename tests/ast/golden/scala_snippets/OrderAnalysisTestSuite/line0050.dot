@@ -1,0 +1,7 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="f(x,y)"];
+1 -> 2;
+2 [label="z:=MAX(SUMS(x));z+2"];
+}

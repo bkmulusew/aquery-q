@@ -1,0 +1,18 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="f()"];
+1 -> 2;
+2 [label="x:=100*2-3;y:=xpow3;l:=LIST(1,2,3,4,5,6);z:=0 [label="case"];
+1 [label="l"];
+0 -> 1;
+2 [label="if (2) then -1"];
+0 -> 2;
+3 [label="if (3) then 100"];
+0 -> 3;
+4 [label="200"];
+0 -> 4;
+;w:=SUMS(2,l);LIST(SQRT(y),z,w)"];
+0 -> 3;
+3 [label=" .aq.f:f; "];
+}

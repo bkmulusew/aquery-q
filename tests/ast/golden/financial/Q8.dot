@@ -1,0 +1,62 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="covariance(x,y)"];
+1 -> 2;
+2 [label="xmean:=AVG(x);ymean:=AVG(y);AVG(x-xmean*y-ymean)"];
+0 -> 3;
+3 [label="sd(x)"];
+3 -> 4;
+4 [label="SQRT(covariance(x,x))"];
+0 -> 5;
+5 [label="pairCorr(x,y)"];
+5 -> 6;
+6 [label="covariance(x,y)/sd(x)*sd(y)"];
+0 -> 7;
+7 [label="pairCorrEach:pairCorr'"];
+0 -> 8;
+8 [label="
+/ Original Q8 time window. Restore these predicates if you want the old
+/ benchmark range:
+/   AND "];
+0 -> 9;
+9 [label="full-query"];
+10 [label="stocksGrouped(Id,ClosePrice)"];
+9 -> 10;
+11 [label="project Id ,ClosePrice"];
+11 -> 12;
+12 [label="group-by Id"];
+12 -> 13;
+13 [label="where IN(Id,stock10), TradeDate>=startPeriod, TradeDate<=startPeriod+3"];
+13 -> 14;
+14 [label="sort: Asc Id, Asc TradeDate"];
+14 -> 15;
+15 [label="price"];
+10 -> 11;
+16 [label="pairsGrouped(Id1,Id2,ClosePrice1,ClosePrice2)"];
+9 -> 16;
+17 [label="project st1.Id ,st2.Id ,st1.ClosePrice ,st2.ClosePrice"];
+17 -> 18;
+18 [label="Cross"];
+18 -> 19;
+19 [label="stocksGrouped as st1"];
+18 -> 20;
+20 [label="stocksGrouped as st2"];
+18 -> 21;
+21 [label="conds: "];
+16 -> 17;
+22 [label="corrTable(Id1,Id2,corrCoeff)"];
+9 -> 22;
+23 [label="project Id1 ,Id2 ,pairCorrEach(ClosePrice1,ClosePrice2)"];
+23 -> 24;
+24 [label="where Id1!=Id2"];
+24 -> 25;
+25 [label="pairsGrouped"];
+22 -> 23;
+9 -> 26;
+26 [label="project *"];
+26 -> 27;
+27 [label="sort: Asc corrCoeff"];
+27 -> 28;
+28 [label="corrTable"];
+}

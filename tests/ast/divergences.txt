@@ -1,0 +1,5 @@
+# divergences.txt - inputs whose graph (tests/ast/golden/*.dot) the q
+# compiler is not expected to match. One input per line, as a path under
+# tests/inputs/, then a space and the reason. test_dot.q skips them.
+#
+# None so far.

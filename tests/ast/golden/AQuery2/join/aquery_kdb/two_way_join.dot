@@ -1,0 +1,17 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project L.l_orderkey ,L.l_partkey ,O.o_orderdate ,O.o_orderstatus"];
+2 -> 3;
+3 [label="where L.l_orderkey==O.o_orderkey"];
+3 -> 4;
+4 [label="Cross"];
+4 -> 5;
+5 [label="lineitem as L"];
+4 -> 6;
+6 [label="orders as O"];
+4 -> 7;
+7 [label="conds: "];
+}

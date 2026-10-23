@@ -1,0 +1,8 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="t"];
+3 [label="a:TypeInt,b:TypeString"];
+}

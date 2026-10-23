@@ -1,0 +1,15 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+2 [label="DateInfo(startYear,startDate)"];
+1 -> 2;
+3 [label="project getYear(MAX(TradeDate)-365*3) ,MAX(TradeDate)-365*3"];
+3 -> 4;
+4 [label="price"];
+2 -> 3;
+1 -> 5;
+5 [label="project startYear ,startDate"];
+5 -> 6;
+6 [label="DateInfo"];
+}

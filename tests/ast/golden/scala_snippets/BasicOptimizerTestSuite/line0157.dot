@@ -1,0 +1,13 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project *"];
+2 -> 3;
+3 [label="group-by c3*2"];
+3 -> 4;
+4 [label="sort: Asc c1, Asc c2"];
+4 -> 5;
+5 [label="t"];
+}

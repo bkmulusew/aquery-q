@@ -1,0 +1,12 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="table1"];
+3 [label="id:TypeInt,qty:TypeInt"];
+0 -> 4;
+4 [label="trigger trg_drop_me on table1"];
+0 -> 5;
+5 [label="drop trigger trg_drop_me"];
+}

@@ -5,16 +5,19 @@ running on L (an open-source q implementation). The folder is
 self-contained: the L runtime, the original compiler (as a jar, used only
 to make test data), all test inputs and the original Scala tests are inside.
 
-**Version 1 = the lexer only.** It reproduces the Scala lexer's output
-token for token, including its odd corners (see "Scala quirks" below).
-The parser, AST, analysis, optimiser and code generator come in later
-versions.
+**Versions so far:** v1 = the lexer (token for token like Scala,
+including its odd corners, see "Scala quirks" below); v2 = the parser
+(`src/parse/README.md`); v3 = the AST stage: tree helpers and
+the `-p` graph (`src/ast/README.md`). Code generation, the runtime, and analysis and
+optimisation come in later versions.
 
 ## Quick start
 
 ```sh
 sh tests/run_tests.sh                              # all tests (needs only bin/l_m64)
 bin/l_m64 aquery.q -lex tests/inputs/financial/Q1.a   # print tokens of a file
+bin/l_m64 aquery.q -parse tests/inputs/financial/Q1.a # print its parse tree
+bin/l_m64 aquery.q -p tests/inputs/financial/Q1.a     # print it as a Graphviz graph
 bin/l_m64 aquery.q                                 # load the compiler, stay in L
 ```
 
@@ -35,7 +38,7 @@ aquery-q/
 ├── bin/l_m64              L runtime (copy of AQueryKDB/l-runtime/l_m64)
 ├── src/
 │   ├── parse/             v1: util.q, keywords.q, jdate.q, lex.q  (parser in v2)
-│   ├── ast/               planned: README names the Scala files to port
+│   ├── ast/               v3: nodes.q (tree helpers), dot.q (-p graph)
 │   ├── analysis/          planned
 │   ├── optimization/      planned
 │   ├── codegen/           planned
@@ -44,7 +47,7 @@ aquery-q/
 │   ├── run_tests.sh       runs every test file in L; exit 1 on any failure
 │   ├── lib/testing.q      tiny test library (.test.check, .test.finish)
 │   ├── lexer/             v1: test_lexer.q (unit), test_golden.q, golden/*.tok
-│   ├── parser/ ast/ analysis/ optimization/ codegen/   planned (READMEs)
+│   ├── parser/ (v2), ast/ (v3); analysis/ optimization/ codegen/ planned
 │   ├── inputs/            every .a from aquery-master/src/test, Scala test
 │   │                      snippets (scala_snippets/), edge cases (edge_cases/)
 │   ├── reference_q/       the jar's compiled q output for every input
@@ -52,6 +55,8 @@ aquery-q/
 └── tools/
     ├── aquery.jar         the original compiler (reference only)
     ├── TokenDump.java     prints the Scala lexer's tokens for one file
+    ├── HelperDump.java    prints what the Scala AST helpers return (tests/ast)
+    ├── gen_dot_golden.sh  regenerates tests/ast/golden/ (the jar's -p graphs)
     ├── gen_golden.sh      regenerates tests/lexer/golden/ (needs a JDK)
     └── gen_reference_q.sh regenerates tests/reference_q/  (needs a JDK)
 ```

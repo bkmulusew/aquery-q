@@ -1,0 +1,23 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+constYearly:{(count x)#`yearly};
+"];
+0 -> 2;
+2 [label="full-query"];
+3 [label="Target(Id,TradeDate,ClosePrice)"];
+2 -> 3;
+4 [label="project Id ,TradeDate ,ClosePrice"];
+4 -> 5;
+5 [label="where IN(Id,stock10), TradeDate>=startYear10, TradeDate<=startYear10+365*10"];
+5 -> 6;
+6 [label="price"];
+3 -> 4;
+2 -> 7;
+7 [label="project Id ,timeBucket ,constYearly(Id) ,MIN(ClosePrice) ,MAX(ClosePrice) ,AVG(ClosePrice)"];
+7 -> 8;
+8 [label="group-by Id ,getYear(TradeDate) as timeBucket"];
+8 -> 9;
+9 [label="Target"];
+}

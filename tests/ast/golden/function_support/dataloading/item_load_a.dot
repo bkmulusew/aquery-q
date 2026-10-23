@@ -1,0 +1,14 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="item"];
+3 [label="itemnum:TypeInt,price:TypeFloat"];
+0 -> 4;
+4 [label="load /Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/item_10_8.csv into item with , sep"];
+0 -> 5;
+5 [label="
+show item;
+"];
+}

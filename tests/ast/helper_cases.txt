@@ -1,0 +1,51 @@
+# helper_cases.txt - inputs for the AST helper tests (src/ast/nodes.q).
+#
+# One case per line: expr, predicate or query, a TAB, then the text: the
+# name of the Scala grammar rule that parses it. expr and predicate give an
+# expression, query gives a plan.
+# Lines starting with # and empty lines are ignored.
+#
+# tools/gen_helper_golden.sh runs each case through the real Scala code
+# (tools/HelperDump.java) and writes what the Scala helpers return to
+# helper_golden.txt. Add cases here, then regenerate; never edit
+# helper_golden.txt by hand.
+
+# --- expressions: children and allSubExpressions
+expr	x
+expr	42
+expr	1.5
+expr	"text"
+expr	TRUE
+expr	ROWID
+expr	t.c
+expr	-x
+expr	NOT(x)
+expr	1 + x
+expr	2 * 3 + 4 / 5 + 7
+expr	f()
+expr	f(a, b + 1, g(c))
+expr	COUNT(*)
+expr	x[EVEN]
+expr	(a + b)[EVERY 3]
+expr	CASE WHEN a > 1 THEN 1 ELSE 0 END
+expr	CASE x WHEN 1 THEN "a" WHEN 2 THEN "b" END
+expr	CASE WHEN a THEN b END
+expr	a + b * c - sums(d, e) / max(f)
+predicate	x IN (1, 2, 3)
+predicate	a BETWEEN 1 AND b
+
+# --- plans: children, expr, find, takeWhile, transform
+query	SELECT a FROM t
+query	SELECT a AS b, c + 1 FROM t AS x
+query	SELECT * FROM t, u
+query	SELECT a FROM t INNER JOIN u USING k
+query	SELECT a FROM t FULL OUTER JOIN u USING (k, j)
+query	SELECT a FROM t, u INNER JOIN v USING k, w
+query	SELECT a FROM f(1, 2)
+query	SELECT DISTINCT a FROM t
+query	SELECT a FROM t ASSUMING ASC a, DESC b
+query	SELECT a FROM t WHERE a > 1 AND b < 2
+query	SELECT a FROM t ASSUMING ASC a WHERE sums(b) > 1
+query	SELECT a, sum(b) FROM t GROUP BY a
+query	SELECT a FROM t GROUP BY a, b AS c HAVING count(b) > 1 AND sum(c) < 2
+query	SELECT DISTINCT a AS b, f(c) FROM t x, u INNER JOIN v USING (k, j) ASSUMING ASC a, DESC t.b WHERE a > 1 AND b NOT BETWEEN 1 AND 3 GROUP BY a AS g HAVING sum(b) > 2 AND x

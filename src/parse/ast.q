@@ -188,8 +188,10 @@
 .aqc.ast.isNode:{[x] $[99h = type x; `node in key x; 0b]};   / $[...] so key never sees a non-dictionary
 
 / fields[x]
-/   The Scala field names of node x: every key but `node and `pos.
-.aqc.ast.fields:{[x] (key x) except `node`pos};
+/   The Scala field names of node x: every key but `node, `pos and `attr.
+/   `attr holds analysis results (src/ast/nodes.q); like Scala's attr
+/   field it is never printed.
+.aqc.ast.fields:{[x] (key x) except `node`pos`attr};
 
 
 / ---------------------------------------------------------------------------

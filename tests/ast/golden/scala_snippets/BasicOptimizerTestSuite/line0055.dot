@@ -1,0 +1,11 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project *"];
+2 -> 3;
+3 [label="sort: Desc c2"];
+3 -> 4;
+4 [label="t"];
+}

@@ -1,0 +1,11 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project l_orderkey ,l_partkey ,l_suppkey ,l_linenumber ,l_quantity ,l_extendedprice ,l_discount ,l_tax ,l_returnflag ,l_linestatus ,l_shipdate ,l_commitdate ,l_receiptdate ,l_shipinstruct ,l_shipmode ,l_comment ,r_region"];
+2 -> 3;
+3 [label="where r_region==EUROPE"];
+3 -> 4;
+4 [label="lineitemdenormalized"];
+}

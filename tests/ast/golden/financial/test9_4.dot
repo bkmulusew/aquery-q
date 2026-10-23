@@ -1,0 +1,25 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+q9StartYear:{getYear maxTradeDateMinus3Years};
+q9SplitIds:{exec distinct Id from split where Id in "];
+0 -> 2;
+2 [label="full-query"];
+3 [label="divdata(Id,year,total_divs)"];
+2 -> 3;
+4 [label="project Id ,getYear(AnnounceDate) ,SUM(DivAmt)"];
+4 -> 5;
+5 [label="group-by Id ,getYear(AnnounceDate)"];
+5 -> 6;
+6 [label="where IN(Id,Russell2000), getYear(AnnounceDate)>=q9StartYear(), NOT(IN(Id,q9SplitIds()))"];
+6 -> 7;
+7 [label="dividend"];
+3 -> 4;
+2 -> 8;
+8 [label="project Id ,year ,total_divs"];
+8 -> 9;
+9 [label="sort: Asc Id, Asc year"];
+9 -> 10;
+10 [label="divdata"];
+}

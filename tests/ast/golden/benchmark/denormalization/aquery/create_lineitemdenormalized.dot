@@ -1,0 +1,32 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="lineitemdenormalized"];
+3 [label="full-query"];
+3 -> 4;
+4 [label="project L.l_orderkey ,L.l_partkey ,L.l_suppkey ,L.l_linenumber ,L.l_quantity ,L.l_extendedprice ,L.l_discount ,L.l_tax ,L.l_returnflag ,L.l_linestatus ,L.l_shipdate ,L.l_commitdate ,L.l_receiptdate ,L.l_shipinstruct ,L.l_shipmode ,L.l_comment ,R.r_name as r_region"];
+4 -> 5;
+5 [label="where L.l_suppkey==S.s_suppkey, S.s_nationkey==N.n_nationkey, N.n_regionkey==R.r_regionkey"];
+5 -> 6;
+6 [label="Cross"];
+6 -> 7;
+7 [label="Cross"];
+7 -> 8;
+8 [label="Cross"];
+8 -> 9;
+9 [label="lineitem as L"];
+8 -> 10;
+10 [label="supplier as S"];
+8 -> 11;
+11 [label="conds: "];
+7 -> 12;
+12 [label="nation as N"];
+7 -> 13;
+13 [label="conds: "];
+6 -> 14;
+14 [label="region as R"];
+6 -> 15;
+15 [label="conds: "];
+}

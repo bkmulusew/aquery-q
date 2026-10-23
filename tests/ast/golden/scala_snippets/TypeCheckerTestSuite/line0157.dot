@@ -1,0 +1,15 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project t.c1*t.c2"];
+2 -> 3;
+3 [label="Cross"];
+3 -> 4;
+4 [label="t as first_t"];
+3 -> 5;
+5 [label="t as second_t"];
+3 -> 6;
+6 [label="conds: "];
+}

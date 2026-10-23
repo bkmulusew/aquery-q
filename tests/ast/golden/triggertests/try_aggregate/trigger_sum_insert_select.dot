@@ -1,0 +1,36 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="orders"];
+3 [label="id:TypeInt,qty:TypeInt"];
+0 -> 4;
+4 [label="create"];
+4 -> 5;
+5 [label="sum_log"];
+6 [label="total:TypeInt"];
+0 -> 7;
+7 [label="trigger trg_sum_after_insert on orders"];
+0 -> 8;
+8 [label="insert"];
+9 [label="orders"];
+8 -> 9;
+10 [label=""];
+8 -> 10;
+8 -> 11;
+11 [label="(1,10)"];
+0 -> 12;
+12 [label="insert"];
+13 [label="orders"];
+12 -> 13;
+14 [label=""];
+12 -> 14;
+12 -> 15;
+15 [label="(2,20)"];
+0 -> 16;
+16 [label="
+show orders;
+show sum_log;
+"];
+}

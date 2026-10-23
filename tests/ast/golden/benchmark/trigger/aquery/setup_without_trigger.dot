@@ -1,0 +1,33 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="create"];
+1 -> 2;
+2 [label="orders"];
+3 [label="ordernum:TypeInt,itemnum:TypeInt,quantity:TypeInt,price:TypeFloat,storeid:TypeString,vendorid:TypeString"];
+0 -> 4;
+4 [label="create"];
+4 -> 5;
+5 [label="store"];
+6 [label="storeid:TypeString,name:TypeString"];
+0 -> 7;
+7 [label="create"];
+7 -> 8;
+8 [label="item"];
+9 [label="itemnum:TypeInt,price:TypeFloat"];
+0 -> 10;
+10 [label="create"];
+10 -> 11;
+11 [label="vendorOutstanding"];
+12 [label="vendorid:TypeString,amount:TypeFloat"];
+0 -> 13;
+13 [label="create"];
+13 -> 14;
+14 [label="storeOutstanding"];
+15 [label="storeid:TypeString,amount:TypeFloat"];
+0 -> 16;
+16 [label="
+.bench.readLines:{[file] @[read0;`$file;{()}]};
+
+itemFile:"/Users/tianxin/projects/nyu/ms1/research"];
+}

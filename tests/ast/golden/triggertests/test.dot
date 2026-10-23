@@ -1,0 +1,9 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+trade:([] sym:`AAPL`MSFT; qty:2 3i; price:10 20f);
+"];
+0 -> 2;
+2 [label="update on trade"];
+}

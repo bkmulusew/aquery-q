@@ -1,0 +1,21 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+q9StartYear:{getYear maxTradeDateMinus3Years};
+"];
+0 -> 2;
+2 [label="full-query"];
+3 [label="splitdata(Dummy,Id)"];
+2 -> 3;
+4 [label="project 1 ,DISTINCT(Id)"];
+4 -> 5;
+5 [label="where IN(Id,Russell2000), getYear(SplitDate)>=q9StartYear()"];
+5 -> 6;
+6 [label="split"];
+3 -> 4;
+2 -> 7;
+7 [label="project Dummy ,Id"];
+7 -> 8;
+8 [label="splitdata"];
+}

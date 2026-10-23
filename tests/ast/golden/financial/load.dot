@@ -1,0 +1,7 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="
+/ Load financial benchmark data from q binary table files.
+/ Override FINANCIAL_DATAPATH when runni"];
+}

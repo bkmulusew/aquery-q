@@ -1,0 +1,33 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+2 [label="pxdata(Id,TradeDate,HighPrice,LowPrice)"];
+1 -> 2;
+3 [label="project Id ,TradeDate ,HighPrice ,LowPrice"];
+3 -> 4;
+4 [label="where IN(Id,stock1000), BETWEEN(TradeDate,startPeriod,endPeriod)"];
+4 -> 5;
+5 [label="price"];
+2 -> 3;
+6 [label="splitdata(Id,TradeDate,SplitFactor)"];
+1 -> 6;
+7 [label="project Id ,SplitDate ,SplitFactor"];
+7 -> 8;
+8 [label="where IN(Id,stock1000), BETWEEN(SplitDate,startPeriod,endPeriod)"];
+8 -> 9;
+9 [label="split"];
+6 -> 7;
+1 -> 10;
+10 [label="project Id ,TradeDate ,HighPrice-LowPrice as MaxDiff"];
+10 -> 11;
+11 [label="sort: Asc Id, Asc TradeDate"];
+11 -> 12;
+12 [label="InnerJoinUsing"];
+12 -> 13;
+13 [label="pxdata"];
+12 -> 14;
+14 [label="splitdata"];
+12 -> 15;
+15 [label="conds: Id, TradeDate"];
+}

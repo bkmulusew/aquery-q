@@ -1,0 +1,25 @@
+digraph G {
+0 [label="AQuery Entry"];
+0 -> 1;
+1 [label="full-query"];
+1 -> 2;
+2 [label="project *"];
+2 -> 3;
+3 [label="where c1>2"];
+3 -> 4;
+4 [label="sort: Asc c1, Desc t.c2"];
+4 -> 5;
+5 [label="InnerJoinUsing"];
+5 -> 6;
+6 [label="Cross"];
+6 -> 7;
+7 [label="t"];
+6 -> 8;
+8 [label="t1"];
+6 -> 9;
+9 [label="conds: "];
+5 -> 10;
+10 [label="t2"];
+5 -> 11;
+11 [label="conds: c1"];
+}
