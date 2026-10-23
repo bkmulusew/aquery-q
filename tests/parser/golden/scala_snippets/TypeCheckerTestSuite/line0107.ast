@@ -1,0 +1,13 @@
+List
+  - UDF @1:1
+    n: "f"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Right
+        value: FunCall @1:20
+          f: "MAXS"
+          args: List
+            - StringLit @1:25
+              v: "a"

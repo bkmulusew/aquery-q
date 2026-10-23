@@ -1,0 +1,33 @@
+List
+  - Trigger @2:9
+    name: "trg_sync"
+    time: After
+    event: DeleteEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: OldTableRef
+        alias: "deleted"
+    body: Delete @5:12
+      t: "table2"
+      del: Right
+        value: List
+          - BinExpr @6:18
+            op: Eq
+            l: ColumnAccess @6:18
+              t: "table2"
+              c: "id"
+            r: ColumnAccess @6:30
+              t: "deleted"
+              c: "id"
+          - BinExpr @6:45
+            op: Lt
+            l: ColumnAccess @6:45
+              t: "table2"
+              c: "qty"
+            r: ColumnAccess @6:58
+              t: "deleted"
+              c: "limit"
+      order: []
+      groupby: []
+      having: []

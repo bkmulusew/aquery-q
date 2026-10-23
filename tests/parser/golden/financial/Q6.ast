@@ -1,0 +1,318 @@
+List
+  - Query
+    local: List
+      - Tuple
+        _1: "pxdata"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "ClosePrice"
+        _3: Project
+          t: Filter
+            t: Table @4:10
+              n: "price"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @5:11
+                    v: "Id"
+                  - Id @5:17
+                    v: "stock1000"
+              - BinExpr
+                op: Ge
+                l: Id @6:11
+                  v: "TradeDate"
+                r: Id @6:24
+                  v: "start6Mo"
+              - BinExpr
+                op: Lt
+                l: Id @7:11
+                  v: "TradeDate"
+                r: BinExpr
+                  op: Plus
+                  l: Id @7:23
+                    v: "start6Mo"
+                  r: BinExpr
+                    op: Times
+                    l: IntLit @7:34
+                      v: 31
+                    r: IntLit @7:39
+                      v: 6
+          ps: List
+            - Tuple
+              _1: Id @3:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @3:16
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: Id @3:27
+                v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "splitdata"
+        _2: List
+          - "Id"
+          - "SplitDate"
+          - "SplitFactor"
+        _3: Project
+          t: Filter
+            t: Table @12:10
+              n: "split"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @13:11
+                    v: "Id"
+                  - Id @13:17
+                    v: "stock1000"
+              - BinExpr
+                op: Ge
+                l: Id @14:11
+                  v: "SplitDate"
+                r: Id @14:24
+                  v: "start6Mo"
+          ps: List
+            - Tuple
+              _1: Id @11:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @11:16
+                v: "SplitDate"
+              _2: None
+            - Tuple
+              _1: Id @11:27
+                v: "SplitFactor"
+              _2: None
+      - Tuple
+        _1: "splitadj"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "ClosePrice"
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: Join
+                jt: InnerJoinUsing
+                l: Table @19:10
+                  n: "pxdata"
+                  alias: None
+                r: Table @19:28
+                  n: "splitdata"
+                  alias: None
+                cond: List
+                  - Id @19:44
+                    v: "Id"
+              fs: List
+                - BinExpr
+                  op: Lt
+                  l: Id @20:11
+                    v: "TradeDate"
+                  r: Id @20:23
+                    v: "SplitDate"
+            gs: List
+              - Tuple
+                _1: Id @21:14
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: Id @21:18
+                  v: "TradeDate"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @18:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @18:16
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "FIRST"
+                args: List
+                  - BinExpr
+                    op: Times
+                    l: Id @18:33
+                      v: "ClosePrice"
+                    r: FunCall
+                      f: "PRD"
+                      args: List
+                        - Id @18:50
+                          v: "SplitFactor"
+              _2: None
+      - Tuple
+        _1: "avgInfo"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "ClosePrice"
+          - "m21"
+          - "m5"
+        _3: Project
+          t: GroupBy
+            t: SortBy
+              t: Join
+                jt: FullOuterJoinUsing
+                l: Table @31:10
+                  n: "pxdata"
+                  alias: None
+                r: Table @31:33
+                  n: "splitadj"
+                  alias: None
+                cond: List
+                  - Id @31:49
+                    v: "Id"
+                  - Id @31:53
+                    v: "TradeDate"
+              os: List
+                - Tuple
+                  _1: Asc
+                  _2: Id @32:18
+                    v: "Id"
+                - Tuple
+                  _1: Asc
+                  _2: Id @32:26
+                    v: "TradeDate"
+            gs: List
+              - Tuple
+                _1: Id @33:14
+                  v: "Id"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @26:7
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @27:7
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "FILL"
+                args: List
+                  - ColumnAccess @28:12
+                    t: "pxdata"
+                    c: "ClosePrice"
+                  - ColumnAccess @28:31
+                    t: "splitadj"
+                    c: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVGS"
+                args: List
+                  - IntLit @29:12
+                    v: 21
+                  - FunCall
+                    f: "FILL"
+                    args: List
+                      - ColumnAccess @29:21
+                        t: "pxdata"
+                        c: "ClosePrice"
+                      - ColumnAccess @29:40
+                        t: "splitadj"
+                        c: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVGS"
+                args: List
+                  - IntLit @30:12
+                    v: 5
+                  - FunCall
+                    f: "FILL"
+                    args: List
+                      - ColumnAccess @30:20
+                        t: "pxdata"
+                        c: "ClosePrice"
+                      - ColumnAccess @30:39
+                        t: "splitadj"
+                        c: "ClosePrice"
+              _2: None
+    main: Project
+      t: Filter
+        t: BottomApply
+          f: "FLATTEN"
+          args: List
+            - Id @37:14
+              v: "avgInfo"
+        fs: List
+          - BinExpr
+            op: Eq
+            l: Id @38:7
+              v: "Id"
+            r: FunCall
+              f: "PREV"
+              args: List
+                - Id @38:17
+                  v: "Id"
+          - FunCall
+            f: "OR"
+            args: List
+              - BinExpr
+                op: Land
+                l: BinExpr
+                  op: Le
+                  l: FunCall
+                    f: "PREV"
+                    args: List
+                      - Id @40:10
+                        v: "m5"
+                  r: FunCall
+                    f: "PREV"
+                    args: List
+                      - Id @40:22
+                        v: "m21"
+                r: BinExpr
+                  op: Gt
+                  l: Id @40:29
+                    v: "m5"
+                  r: Id @40:34
+                    v: "m21"
+              - BinExpr
+                op: Land
+                l: BinExpr
+                  op: Ge
+                  l: FunCall
+                    f: "PREV"
+                    args: List
+                      - Id @41:10
+                        v: "m5"
+                  r: FunCall
+                    f: "PREV"
+                    args: List
+                      - Id @41:22
+                        v: "m21"
+                r: BinExpr
+                  op: Lt
+                  l: Id @41:29
+                    v: "m5"
+                  r: Id @41:34
+                    v: "m21"
+      ps: List
+        - Tuple
+          _1: Id @36:8
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @36:12
+            v: "TradeDate"
+          _2: Some
+            value: "CrossDate"
+        - Tuple
+          _1: Id @36:36
+            v: "ClosePrice"
+          _2: None

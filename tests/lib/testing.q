@@ -57,6 +57,61 @@
   ok};
 
 
+/ findFiles[dir; suffix]
+/   All files under dir (searched recursively) whose name ends with suffix.
+/   dir:     string, e.g. "tests/lexer/golden"
+/   suffix:  string, e.g. ".tok"
+/   returns: list of paths (strings), sorted
+.test.findFiles:{[dir;suffix]
+  found:();
+  entries:key hsym `$dir;
+  / key on a file returns the file's own name (a symbol atom);
+  / key on a folder returns the list of names inside it
+  if[-11h = type entries; :()];
+  i:0;
+  while[i < count entries;
+    path:dir,"/",string entries i;
+    inside:key hsym `$path;
+    $[11h = type inside;
+      found,:.test.findFiles[path;suffix];
+      if[suffix ~ (neg count suffix)#path; found,:enlist path]];
+    i+:1];
+  asc found};
+
+
+/ inputFor[goldenDir; goldenPath]
+/   The test input that a golden file was made from: the same path under
+/   tests/inputs, ending in ".a" instead of the golden file's ending.
+/     inputFor["tests/parser/golden"; "tests/parser/golden/financial/Q1.ast"]
+/       is "tests/inputs/financial/Q1.a"
+.test.inputFor:{[goldenDir;goldenPath]
+  relative:(1 + count goldenDir) _ goldenPath;   / 1 + for the "/" after goldenDir
+  dot:last where "." = relative;                 / where the ending starts
+  "tests/inputs/",(dot#relative),".a"};
+
+
+/ skippedInputs[path]
+/   The inputs listed in a divergences.txt file (see tests/lexer/ and
+/   tests/parser/): the first word of every line that is not blank and not
+/   a "#" comment.
+/   returns: list of input paths, e.g. "tests/inputs/edge_cases/x.a"
+.test.skippedInputs:{[path]
+  lines:read0 hsym `$path;
+  words:{first " " vs x} each lines;
+  words:words where (0 < count each words) and not "#" = first each words;
+  {"tests/inputs/",x} each words};
+
+
+/ positionOnly[lines]
+/   Parser output lines with the message dropped from a failure, which is
+/   all the parser tests compare for a failure (tests/parser/README.md):
+/     ("FAILURE<TAB>1:5<TAB>msg")  ->  ("FAILURE<TAB>1:5")
+/   A tree is returned as it is.
+.test.positionOnly:{[lines]
+  if[not "FAILURE\t" ~ 8 # first lines; :lines];
+  enlist "\t" sv 2 # "\t" vs first lines};
+
+
 / finish[]
 /   Print "N passed, M failed" and exit the L process:
 /   exit status 0 if every check passed, 1 otherwise.

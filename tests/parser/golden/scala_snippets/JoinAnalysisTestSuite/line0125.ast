@@ -1,0 +1,36 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: SortBy
+          t: Table @1:26
+            n: "t"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:41
+                v: "c2"
+        fs: List
+          - BinExpr @1:50
+            op: Gt
+            l: ColumnAccess @1:50
+              t: "t"
+              c: "c1"
+            r: IntLit @1:57
+              v: 100
+      ps: List
+        - Tuple
+          _1: Id @1:8
+            v: "c1"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @1:12
+            t: "t"
+            c: "c2"
+          _2: None
+        - Tuple
+          _1: Id @1:18
+            v: "c3"
+          _2: None

@@ -1,0 +1,301 @@
+List
+  - VerbatimCode @1:1
+    c: "\nconstWeekly:{(count x)#`weekly};\nconstMonthly:{(count x)#`monthly};\nconstYearly:{(count x)#`yearly};\n"
+  - Query
+    local: List
+      - Tuple
+        _1: "Target"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "ClosePrice"
+        _3: Project
+          t: Filter
+            t: Table @12:7
+              n: "price"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @13:8
+                    v: "Id"
+                  - Id @13:14
+                    v: "stock10"
+              - BinExpr
+                op: Ge
+                l: Id @13:26
+                  v: "TradeDate"
+                r: Id @13:39
+                  v: "startYear10"
+              - BinExpr
+                op: Le
+                l: Id @13:55
+                  v: "TradeDate"
+                r: BinExpr
+                  op: Plus
+                  l: Id @13:68
+                    v: "startYear10"
+                  r: BinExpr
+                    op: Times
+                    l: IntLit @13:82
+                      v: 365
+                    r: IntLit @13:88
+                      v: 10
+          ps: List
+            - Tuple
+              _1: Id @11:2
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @11:6
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: Id @11:16
+                v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "weekly"
+        _2: List
+          - "Id"
+          - "bucket"
+          - "name"
+          - "low"
+          - "high"
+          - "mean"
+        _3: Project
+          t: GroupBy
+            t: Table @21:9
+              n: "Target"
+              alias: None
+            gs: List
+              - Tuple
+                _1: Id @21:25
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getWeek"
+                  args: List
+                    - Id @21:37
+                      v: "TradeDate"
+                _2: Some
+                  value: "timeBucket"
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @16:5
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @17:5
+                v: "timeBucket"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "constWeekly"
+                args: List
+                  - Id @18:17
+                    v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MIN"
+                args: List
+                  - Id @19:9
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MAX"
+                args: List
+                  - Id @20:8
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVG"
+                args: List
+                  - Id @20:25
+                    v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "monthly"
+        _2: List
+          - "Id"
+          - "bucket"
+          - "name"
+          - "low"
+          - "high"
+          - "mean"
+        _3: Project
+          t: GroupBy
+            t: Table @30:10
+              n: "Target"
+              alias: None
+            gs: List
+              - Tuple
+                _1: Id @30:26
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getMonth"
+                  args: List
+                    - Id @30:39
+                      v: "TradeDate"
+                _2: Some
+                  value: "timeBucket"
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @24:5
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @25:5
+                v: "timeBucket"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "constMonthly"
+                args: List
+                  - Id @26:18
+                    v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MIN"
+                args: List
+                  - Id @27:10
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MAX"
+                args: List
+                  - Id @28:9
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVG"
+                args: List
+                  - Id @29:10
+                    v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "yearly"
+        _2: List
+          - "Id"
+          - "bucket"
+          - "name"
+          - "low"
+          - "high"
+          - "mean"
+        _3: Project
+          t: GroupBy
+            t: Table @39:10
+              n: "Target"
+              alias: None
+            gs: List
+              - Tuple
+                _1: Id @39:26
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getYear"
+                  args: List
+                    - Id @39:38
+                      v: "TradeDate"
+                _2: Some
+                  value: "timeBucket"
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @33:5
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @34:5
+                v: "timeBucket"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "constYearly"
+                args: List
+                  - Id @35:17
+                    v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MIN"
+                args: List
+                  - Id @36:10
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "MAX"
+                args: List
+                  - Id @37:9
+                    v: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVG"
+                args: List
+                  - Id @38:10
+                    v: "ClosePrice"
+              _2: None
+    main: Project
+      t: SortBy
+        t: BottomApply
+          f: "CONCATENATE"
+          args: List
+            - Id @41:59
+              v: "weekly"
+            - Id @41:67
+              v: "monthly"
+            - Id @41:76
+              v: "yearly"
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @42:18
+              v: "Id"
+          - Tuple
+            _1: Asc
+            _2: Id @42:26
+              v: "name"
+          - Tuple
+            _1: Asc
+            _2: Id @42:36
+              v: "bucket"
+      ps: List
+        - Tuple
+          _1: Id @41:8
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @41:12
+            v: "bucket"
+          _2: None
+        - Tuple
+          _1: Id @41:20
+            v: "name"
+          _2: None
+        - Tuple
+          _1: Id @41:26
+            v: "low"
+          _2: None
+        - Tuple
+          _1: Id @41:31
+            v: "high"
+          _2: None
+        - Tuple
+          _1: Id @41:37
+            v: "mean"
+          _2: None

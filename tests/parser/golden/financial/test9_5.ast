@@ -1,0 +1,209 @@
+List
+  - VerbatimCode @1:1
+    c: "\nq9StartDate:{maxTradeDateMinus3Years};\nq9StartYear:{getYear maxTradeDateMinus3Years};\nq9SplitIds:{exec distinct Id from split where Id in Russell2000, getYear[SplitDate] >= getYear maxTradeDateMinus3Years};\n"
+  - Query
+    local: List
+      - Tuple
+        _1: "nosplit_avgpx"
+        _2: List
+          - "Id"
+          - "year"
+          - "avg_px"
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: Table @10:10
+                n: "price"
+                alias: None
+              fs: List
+                - FunCall
+                  f: "IN"
+                  args: List
+                    - Id @11:11
+                      v: "Id"
+                    - Id @11:17
+                      v: "Russell2000"
+                - BinExpr
+                  op: Ge
+                  l: Id @12:11
+                    v: "TradeDate"
+                  r: FunCall
+                    f: "q9StartDate"
+                    args: []
+                - FunCall
+                  f: "NOT"
+                  args: List
+                    - FunCall
+                      f: "IN"
+                      args: List
+                        - Id @13:11
+                          v: "Id"
+                        - FunCall
+                          f: "q9SplitIds"
+                          args: []
+            gs: List
+              - Tuple
+                _1: Id @14:14
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getYear"
+                  args: List
+                    - Id @14:26
+                      v: "TradeDate"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @9:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "getYear"
+                args: List
+                  - Id @9:24
+                    v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVG"
+                args: List
+                  - Id @9:40
+                    v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "divdata"
+        _2: List
+          - "Id"
+          - "year"
+          - "total_divs"
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: Table @19:10
+                n: "dividend"
+                alias: None
+              fs: List
+                - FunCall
+                  f: "IN"
+                  args: List
+                    - Id @20:11
+                      v: "Id"
+                    - Id @20:17
+                      v: "Russell2000"
+                - BinExpr
+                  op: Ge
+                  l: FunCall
+                    f: "getYear"
+                    args: List
+                      - Id @21:19
+                        v: "AnnounceDate"
+                  r: FunCall
+                    f: "q9StartYear"
+                    args: []
+                - FunCall
+                  f: "NOT"
+                  args: List
+                    - FunCall
+                      f: "IN"
+                      args: List
+                        - Id @22:11
+                          v: "Id"
+                        - FunCall
+                          f: "q9SplitIds"
+                          args: []
+            gs: List
+              - Tuple
+                _1: Id @23:14
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getYear"
+                  args: List
+                    - Id @23:26
+                      v: "AnnounceDate"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @18:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "getYear"
+                args: List
+                  - Id @18:24
+                    v: "AnnounceDate"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "SUM"
+                args: List
+                  - Id @18:43
+                    v: "DivAmt"
+              _2: None
+    main: Project
+      t: SortBy
+        t: Join
+          jt: InnerJoinUsing
+          l: Table @32:6
+            n: "nosplit_avgpx"
+            alias: None
+          r: Table @32:31
+            n: "divdata"
+            alias: None
+          cond: List
+            - Id @32:46
+              v: "Id"
+            - Id @32:50
+              v: "year"
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @33:14
+              v: "Id"
+          - Tuple
+            _1: Asc
+            _2: Id @33:22
+              v: "year"
+      ps: List
+        - Tuple
+          _1: Id @27:3
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @28:3
+            v: "year"
+          _2: None
+        - Tuple
+          _1: FunCall
+            f: "float"
+            args: List
+              - Id @29:9
+                v: "avg_px"
+          _2: Some
+            value: "avg_px"
+        - Tuple
+          _1: FunCall
+            f: "float"
+            args: List
+              - Id @30:9
+                v: "total_divs"
+          _2: Some
+            value: "total_divs"
+        - Tuple
+          _1: FunCall
+            f: "float"
+            args: List
+              - BinExpr
+                op: Div
+                l: Id @31:9
+                  v: "total_divs"
+                r: Id @31:22
+                  v: "avg_px"
+          _2: Some
+            value: "yield"

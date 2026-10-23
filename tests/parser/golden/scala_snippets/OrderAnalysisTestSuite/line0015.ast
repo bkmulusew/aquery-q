@@ -1,0 +1,91 @@
+List
+  - UDF @2:9
+    n: "f"
+    args: List
+      - "x"
+    cs: List
+      - Left
+        value: Assign
+          n: "z"
+          e: IntLit @2:30
+            v: 2
+      - Right
+        value: FunCall @2:34
+          f: "MAX"
+          args: List
+            - BinExpr @2:38
+              op: Times
+              l: FunCall @2:38
+                f: "SUMS"
+                args: List
+                  - Id @2:43
+                    v: "z"
+              r: IntLit @2:48
+                v: 2
+  - UDF @3:9
+    n: "g"
+    args: []
+    cs: List
+      - Left
+        value: Assign
+          n: "res"
+          e: FunCall @3:31
+            f: "f"
+            args: List
+              - IntLit @3:33
+                v: 1
+      - Right
+        value: BinExpr @3:37
+          op: Plus
+          l: Id @3:37
+            v: "res"
+          r: IntLit @3:43
+            v: 3
+  - UDF @4:9
+    n: "h"
+    args: List
+      - "x"
+    cs: List
+      - Left
+        value: Assign
+          n: "res"
+          e: BinExpr @4:32
+            op: Times
+            l: IntLit @4:32
+              v: 2
+            r: FunCall @4:36
+              f: "SUM"
+              args: List
+                - Id @4:40
+                  v: "x"
+      - Right
+        value: BinExpr @4:44
+          op: Exp
+          l: Id @4:44
+            v: "res"
+          r: IntLit @4:50
+            v: 3
+  - UDF @5:9
+    n: "add"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Right
+        value: BinExpr @5:30
+          op: Plus
+          l: Id @5:30
+            v: "x"
+          r: Id @5:34
+            v: "y"
+  - UDF @6:9
+    n: "myMax"
+    args: List
+      - "x"
+    cs: List
+      - Right
+        value: FunCall @6:29
+          f: "MAX"
+          args: List
+            - Id @6:33
+              v: "x"

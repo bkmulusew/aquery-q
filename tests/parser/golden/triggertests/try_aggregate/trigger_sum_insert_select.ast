@@ -1,0 +1,69 @@
+List
+  - Create @1:1
+    n: "orders"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+  - Create @2:1
+    n: "sum_log"
+    source: Left
+      value: List
+        - Tuple
+          _1: "total"
+          _2: TypeInt
+  - Trigger @4:1
+    name: "trg_sum_after_insert"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Insert @7:4
+      n: "sum_log"
+      order: []
+      modifier: []
+      src: Right
+        value: Query @8:4
+          local: []
+          main: Project @8:4
+            t: Table @9:9
+              n: "inserted"
+              alias: None
+            ps: List
+              - Tuple
+                _1: FunCall @8:11
+                  f: "SUM"
+                  args: List
+                    - Id @8:15
+                      v: "qty"
+                _2: Some
+                  value: "total"
+  - Insert @11:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @11:27
+          v: 1
+        - IntLit @11:30
+          v: 10
+  - Insert @12:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @12:27
+          v: 2
+        - IntLit @12:30
+          v: 20
+  - VerbatimCode @14:1
+    c: "\nshow orders;\nshow sum_log;\n"

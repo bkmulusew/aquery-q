@@ -1,0 +1,185 @@
+List
+  - UDF @2:9
+    n: "add"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Right
+        value: BinExpr @2:30
+          op: Plus
+          l: Id @2:30
+            v: "x"
+          r: Id @2:34
+            v: "y"
+  - UDF @3:9
+    n: "myAvg"
+    args: List
+      - "x"
+    cs: List
+      - Right
+        value: BinExpr @3:29
+          op: Div
+          l: FunCall @3:29
+            f: "SUM"
+            args: List
+              - Id @3:33
+                v: "x"
+          r: FunCall @3:38
+            f: "COUNT"
+            args: List
+              - Id @3:44
+                v: "x"
+  - Query
+    local: List
+      - Tuple
+        _1: "temp1"
+        _2: []
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: SortBy
+                t: Table @8:13
+                  n: "some_t"
+                  alias: None
+                os: List
+                  - Tuple
+                    _1: Asc
+                    _2: Id @8:33
+                      v: "c2"
+                  - Tuple
+                    _1: Asc
+                    _2: Id @8:41
+                      v: "c1"
+              fs: List
+                - BinExpr
+                  op: Gt
+                  l: Id @8:50
+                    v: "c2"
+                  r: IntLit @8:55
+                    v: 2
+                - BinExpr
+                  op: Gt
+                  l: FunCall
+                    f: "SUMS"
+                    args: List
+                      - Id @8:66
+                        v: "c6"
+                  r: IntLit @8:72
+                    v: 2
+            gs: List
+              - Tuple
+                _1: Id @9:22
+                  v: "c2"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @7:20
+                v: "c1"
+              _2: None
+            - Tuple
+              _1: Id @7:24
+                v: "c2"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "SUM"
+                args: List
+                  - BinExpr
+                    op: Times
+                    l: Id @7:32
+                      v: "c3"
+                    r: FunCall
+                      f: "MAXS"
+                      args: List
+                        - Id @7:42
+                          v: "c0"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "SUM"
+                args: List
+                  - Id @7:52
+                    v: "c8"
+              _2: Some
+                value: "myCol"
+    main: Project
+      t: GroupBy
+        t: Filter
+          t: SortBy
+            t: Join
+              jt: InnerJoinUsing
+              l: Table @14:12
+                n: "temp1"
+                alias: None
+              r: Table @14:29
+                n: "t"
+                alias: None
+              cond: List
+                - Id @14:37
+                  v: "c1"
+            os: List
+              - Tuple
+                _1: Asc
+                _2: Id @14:53
+                  v: "c1"
+              - Tuple
+                _1: Asc
+                _2: ColumnAccess @14:61
+                  t: "t"
+                  c: "c2"
+          fs: List
+            - BinExpr
+              op: Gt
+              l: ColumnAccess @15:18
+                t: "t"
+                c: "c3"
+              r: IntLit @15:25
+                v: 2
+            - BinExpr
+              op: Gt
+              l: ColumnAccess @15:31
+                t: "temp1"
+                c: "c0"
+              r: IntLit @15:42
+                v: 2
+            - BinExpr
+              op: Gt
+              l: FunCall
+                f: "add"
+                args: List
+                  - ColumnAccess @15:52
+                    t: "t"
+                    c: "c1"
+                  - Id @15:58
+                    v: "c4"
+              r: IntLit @15:64
+                v: 2
+        gs: List
+          - Tuple
+            _1: Id @16:21
+              v: "c1"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @12:19
+            v: "c1"
+          _2: None
+        - Tuple
+          _1: FunCall
+            f: "add"
+            args: List
+              - Id @12:27
+                v: "c2"
+              - Id @12:31
+                v: "myCol"
+          _2: None
+        - Tuple
+          _1: FunCall
+            f: "myAvg"
+            args: List
+              - Id @12:45
+                v: "c0"
+          _2: None

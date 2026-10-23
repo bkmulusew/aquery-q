@@ -1,0 +1,20 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @2:6
+          n: "vendorOutstanding"
+          alias: None
+        fs: List
+          - BinExpr @3:7
+            op: Eq
+            l: Id @3:7
+              v: "vendorid"
+            r: StringLit @3:18
+              v: "10"
+      ps: List
+        - Tuple
+          _1: Id @1:8
+            v: "amount"
+          _2: None

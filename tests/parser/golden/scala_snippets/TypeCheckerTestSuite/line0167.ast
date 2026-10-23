@@ -1,0 +1,26 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Join @1:38
+        jt: Cross
+        l: Table @1:38
+          n: "t"
+          alias: Some
+            value: "first_t"
+        r: Table @1:52
+          n: "t"
+          alias: Some
+            value: "second_t"
+        cond: []
+      ps: List
+        - Tuple
+          _1: BinExpr @1:8
+            op: Times
+            l: ColumnAccess @1:8
+              t: "first_t"
+              c: "c1"
+            r: ColumnAccess @1:21
+              t: "second_t"
+              c: "c2"
+          _2: None

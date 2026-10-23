@@ -1,0 +1,58 @@
+List
+  - VerbatimCode @1:1
+    c: "\nq9StartYear:{getYear maxTradeDateMinus3Years};\n"
+  - Query
+    local: List
+      - Tuple
+        _1: "splitdata"
+        _2: List
+          - "Dummy"
+          - "Id"
+        _3: Project
+          t: Filter
+            t: Table @8:10
+              n: "split"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @9:11
+                    v: "Id"
+                  - Id @9:17
+                    v: "Russell2000"
+              - BinExpr
+                op: Ge
+                l: FunCall
+                  f: "getYear"
+                  args: List
+                    - Id @10:19
+                      v: "SplitDate"
+                r: FunCall
+                  f: "q9StartYear"
+                  args: []
+          ps: List
+            - Tuple
+              _1: IntLit @7:12
+                v: 1
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "DISTINCT"
+                args: List
+                  - Id @7:24
+                    v: "Id"
+              _2: None
+    main: Project
+      t: Table @14:6
+        n: "splitdata"
+        alias: None
+      ps: List
+        - Tuple
+          _1: Id @13:8
+            v: "Dummy"
+          _2: None
+        - Tuple
+          _1: Id @13:15
+            v: "Id"
+          _2: None

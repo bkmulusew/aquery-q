@@ -1,0 +1,19 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:15
+          n: "employees"
+          alias: None
+        fs: List
+          - BinExpr @1:31
+            op: Eq
+            l: Id @1:31
+              v: "twentypercent2"
+            r: IntLit @1:48
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

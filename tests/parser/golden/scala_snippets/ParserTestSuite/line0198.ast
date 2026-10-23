@@ -1,0 +1,12 @@
+List
+  - Delete @1:1
+    t: "t"
+    del: Left
+      value: List
+        - Id @1:8
+          v: "c1"
+        - Id @1:12
+          v: "c2"
+    order: []
+    groupby: []
+    having: []

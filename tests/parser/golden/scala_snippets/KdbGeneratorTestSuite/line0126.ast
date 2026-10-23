@@ -1,0 +1,74 @@
+List
+  - VerbatimCode @2:9
+    c: " base:([]c1:1000?100; c2:1000?100; c3:1000?100) "
+  - Create @3:9
+    n: "aq_t1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "c1"
+          _2: TypeInt
+        - Tuple
+          _1: "c2"
+          _2: TypeString
+        - Tuple
+          _1: "c3"
+          _2: TypeBoolean
+  - Create @4:9
+    n: "aq_t2"
+    source: Right
+      value: Query @5:11
+        local: []
+        main: Project @5:11
+          t: GroupBy
+            t: Filter
+              t: SortBy
+                t: Table @7:16
+                  n: "base"
+                  alias: None
+                os: List
+                  - Tuple
+                    _1: Asc
+                    _2: Id @7:34
+                      v: "c3"
+              fs: List
+                - BinExpr @7:43
+                  op: Gt
+                  l: Id @7:43
+                    v: "c1"
+                  r: IntLit @7:48
+                    v: 10
+            gs: List
+              - Tuple
+                _1: Id @8:20
+                  v: "c1"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: BinExpr @6:11
+                op: Times
+                l: Id @6:11
+                  v: "c1"
+                r: IntLit @6:16
+                  v: 2
+              _2: Some
+                value: "c1"
+            - Tuple
+              _1: FunCall @6:25
+                f: "SUMS"
+                args: List
+                  - Id @6:30
+                    v: "c2"
+              _2: Some
+                value: "c2"
+            - Tuple
+              _1: FunCall @6:41
+                f: "MAX"
+                args: List
+                  - Id @6:45
+                    v: "c3"
+              _2: Some
+                value: "max_c3"
+  - VerbatimCode @10:9
+    c: ".aq.c1:{aq_t1}; .aq.c2:{aq_t2};"

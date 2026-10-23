@@ -1,0 +1,23 @@
+List
+  - Update @1:1
+    t: "t"
+    assigns: List
+      - Tuple
+        _1: "c1"
+        _2: BinExpr @1:19
+          op: Times
+          l: ColumnAccess @1:19
+            t: "bad"
+            c: "c2"
+          r: IntLit @1:28
+            v: 3
+    order: []
+    where: List
+      - BinExpr @1:36
+        op: Gt
+        l: Id @1:36
+          v: "c1"
+        r: IntLit @1:41
+          v: 2
+    groupby: []
+    having: []

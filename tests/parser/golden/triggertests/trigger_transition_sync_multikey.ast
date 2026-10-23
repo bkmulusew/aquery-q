@@ -1,0 +1,188 @@
+List
+  - Create @1:1
+    n: "table1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "subid"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Create @2:1
+    n: "table2"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "subid"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Insert @4:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:27
+          v: 1
+        - IntLit @4:30
+          v: 10
+        - IntLit @4:34
+          v: 100
+        - StringLit @4:39
+          v: "src_a"
+  - Insert @5:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @5:27
+          v: 1
+        - IntLit @5:30
+          v: 20
+        - IntLit @5:34
+          v: 200
+        - StringLit @5:39
+          v: "src_b"
+  - Insert @6:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @6:27
+          v: 2
+        - IntLit @6:30
+          v: 10
+        - IntLit @6:34
+          v: 300
+        - StringLit @6:39
+          v: "src_c"
+  - Insert @8:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @8:27
+          v: 1
+        - IntLit @8:30
+          v: 10
+        - IntLit @8:34
+          v: 0
+        - StringLit @8:37
+          v: "dest_a"
+  - Insert @9:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @9:27
+          v: 1
+        - IntLit @9:30
+          v: 20
+        - IntLit @9:34
+          v: 0
+        - StringLit @9:37
+          v: "dest_b"
+  - Insert @10:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @10:27
+          v: 2
+        - IntLit @10:30
+          v: 10
+        - IntLit @10:34
+          v: 0
+        - StringLit @10:37
+          v: "dest_c"
+  - Trigger @12:1
+    name: "trg_sync_table2_multikey"
+    time: After
+    event: UpdateEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @15:4
+      t: "table2"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: ColumnAccess @16:14
+            t: "inserted"
+            c: "qty"
+        - Tuple
+          _1: "note"
+          _2: ColumnAccess @16:35
+            t: "inserted"
+            c: "note"
+      order: []
+      where: List
+        - BinExpr @17:10
+          op: Eq
+          l: ColumnAccess @17:10
+            t: "table2"
+            c: "id"
+          r: ColumnAccess @17:22
+            t: "inserted"
+            c: "id"
+        - BinExpr @17:38
+          op: Eq
+          l: ColumnAccess @17:38
+            t: "table2"
+            c: "subid"
+          r: ColumnAccess @17:53
+            t: "inserted"
+            c: "subid"
+      groupby: []
+      having: []
+  - Update @19:1
+    t: "table1"
+    assigns: List
+      - Tuple
+        _1: "qty"
+        _2: IntLit @20:11
+          v: 111
+      - Tuple
+        _1: "note"
+        _2: StringLit @20:23
+          v: "src_a_updated"
+    order: []
+    where: List
+      - BinExpr @21:7
+        op: Eq
+        l: Id @21:7
+          v: "id"
+        r: IntLit @21:12
+          v: 1
+      - BinExpr @21:18
+        op: Eq
+        l: Id @21:18
+          v: "subid"
+        r: IntLit @21:26
+          v: 10
+    groupby: []
+    having: []
+  - VerbatimCode @23:1
+    c: "\nshow table1;\nshow table2;\n"

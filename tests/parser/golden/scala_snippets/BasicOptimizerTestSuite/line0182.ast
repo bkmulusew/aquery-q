@@ -1,0 +1,25 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: GroupBy
+        t: Join @1:15
+          jt: Cross
+          l: Table @1:15
+            n: "t1"
+            alias: None
+          r: Table @1:19
+            n: "t2"
+            alias: None
+          cond: []
+        gs: List
+          - Tuple
+            _1: ColumnAccess @1:31
+              t: "t1"
+              c: "c1"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

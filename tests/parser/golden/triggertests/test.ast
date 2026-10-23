@@ -1,0 +1,20 @@
+List
+  - VerbatimCode @1:1
+    c: "\ntrade:([] sym:`AAPL`MSFT; qty:2 3i; price:10 20f);\n"
+  - Update @5:1
+    t: "trade"
+    assigns: List
+      - Tuple
+        _1: "qty"
+        _2: IntLit @5:24
+          v: 5
+    order: []
+    where: List
+      - BinExpr @5:32
+        op: Eq
+        l: Id @5:32
+          v: "sym"
+        r: StringLit @5:36
+          v: "AAPL"
+    groupby: []
+    having: []

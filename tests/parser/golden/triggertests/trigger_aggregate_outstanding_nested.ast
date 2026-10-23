@@ -1,0 +1,217 @@
+List
+  - Create @1:1
+    n: "orders"
+    source: Left
+      value: List
+        - Tuple
+          _1: "ordernum"
+          _2: TypeInt
+        - Tuple
+          _1: "itemnum"
+          _2: TypeInt
+        - Tuple
+          _1: "quantity"
+          _2: TypeInt
+        - Tuple
+          _1: "lineAmount"
+          _2: TypeInt
+        - Tuple
+          _1: "storeid"
+          _2: TypeString
+        - Tuple
+          _1: "vendorid"
+          _2: TypeString
+  - Create @10:1
+    n: "item"
+    source: Left
+      value: List
+        - Tuple
+          _1: "itemnum"
+          _2: TypeInt
+        - Tuple
+          _1: "price"
+          _2: TypeInt
+  - Create @15:1
+    n: "vendorOutstanding"
+    source: Left
+      value: List
+        - Tuple
+          _1: "vendorid"
+          _2: TypeString
+        - Tuple
+          _1: "amount"
+          _2: TypeInt
+  - Create @20:1
+    n: "storeOutstanding"
+    source: Left
+      value: List
+        - Tuple
+          _1: "storeid"
+          _2: TypeString
+        - Tuple
+          _1: "amount"
+          _2: TypeInt
+  - Insert @25:1
+    n: "item"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @25:25
+          v: 101
+        - IntLit @25:30
+          v: 5
+  - Insert @26:1
+    n: "item"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @26:25
+          v: 102
+        - IntLit @26:30
+          v: 7
+  - Insert @28:1
+    n: "vendorOutstanding"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - StringLit @28:38
+          v: "V1"
+        - IntLit @28:44
+          v: 1000
+  - Insert @29:1
+    n: "vendorOutstanding"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - StringLit @29:38
+          v: "V2"
+        - IntLit @29:44
+          v: 2000
+  - Insert @31:1
+    n: "storeOutstanding"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - StringLit @31:37
+          v: "S1"
+        - IntLit @31:43
+          v: 100
+  - Insert @32:1
+    n: "storeOutstanding"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - StringLit @32:37
+          v: "S2"
+        - IntLit @32:43
+          v: 200
+  - Trigger @34:1
+    name: "updateVendorOutstanding"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @37:4
+      t: "vendorOutstanding"
+      assigns: List
+        - Tuple
+          _1: "amount"
+          _2: BinExpr @38:17
+            op: Plus
+            l: Id @38:17
+              v: "amount"
+            r: ColumnAccess @38:26
+              t: "inserted"
+              c: "lineAmount"
+      order: []
+      where: List
+        - BinExpr @39:10
+          op: Eq
+          l: ColumnAccess @39:10
+            t: "vendorOutstanding"
+            c: "vendorid"
+          r: ColumnAccess @39:39
+            t: "inserted"
+            c: "vendorid"
+      groupby: []
+      having: []
+  - Trigger @41:1
+    name: "updateStoreOutstanding"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @44:4
+      t: "storeOutstanding"
+      assigns: List
+        - Tuple
+          _1: "amount"
+          _2: BinExpr @45:17
+            op: Plus
+            l: Id @45:17
+              v: "amount"
+            r: ColumnAccess @45:26
+              t: "inserted"
+              c: "lineAmount"
+      order: []
+      where: List
+        - BinExpr @46:10
+          op: Eq
+          l: ColumnAccess @46:10
+            t: "storeOutstanding"
+            c: "storeid"
+          r: ColumnAccess @46:37
+            t: "inserted"
+            c: "storeid"
+      groupby: []
+      having: []
+  - Insert @48:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @48:27
+          v: 1
+        - IntLit @48:30
+          v: 101
+        - IntLit @48:35
+          v: 3
+        - IntLit @48:38
+          v: 15
+        - StringLit @48:42
+          v: "S1"
+        - StringLit @48:48
+          v: "V1"
+  - Insert @49:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @49:27
+          v: 2
+        - IntLit @49:30
+          v: 102
+        - IntLit @49:35
+          v: 2
+        - IntLit @49:38
+          v: 14
+        - StringLit @49:42
+          v: "S2"
+        - StringLit @49:48
+          v: "V2"
+  - VerbatimCode @51:1
+    c: "\n.aq.vendor_after:{vendorOutstanding};\n.aq.store_after:{storeOutstanding};\nshow orders;\nshow vendorOutstanding;\nshow storeOutstanding;\n"

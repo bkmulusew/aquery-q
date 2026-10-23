@@ -1,0 +1,11 @@
+List
+  - Create @1:1
+    n: "t"
+    source: Left
+      value: List
+        - Tuple
+          _1: "a"
+          _2: TypeInt
+        - Tuple
+          _1: "b"
+          _2: TypeString

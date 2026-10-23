@@ -1,0 +1,102 @@
+List
+  - VerbatimCode @1:1
+    c: "\nq9StartDate:{maxTradeDateMinus3Years};\nq9SplitIds:{exec distinct Id from split where Id in Russell2000, getYear[SplitDate] >= getYear maxTradeDateMinus3Years};\n"
+  - Query
+    local: List
+      - Tuple
+        _1: "nosplit_avgpx"
+        _2: List
+          - "Id"
+          - "year"
+          - "avg_px"
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: Table @9:10
+                n: "price"
+                alias: None
+              fs: List
+                - FunCall
+                  f: "IN"
+                  args: List
+                    - Id @10:11
+                      v: "Id"
+                    - Id @10:17
+                      v: "Russell2000"
+                - BinExpr
+                  op: Ge
+                  l: Id @11:11
+                    v: "TradeDate"
+                  r: FunCall
+                    f: "q9StartDate"
+                    args: []
+                - FunCall
+                  f: "NOT"
+                  args: List
+                    - FunCall
+                      f: "IN"
+                      args: List
+                        - Id @12:11
+                          v: "Id"
+                        - FunCall
+                          f: "q9SplitIds"
+                          args: []
+            gs: List
+              - Tuple
+                _1: Id @13:14
+                  v: "Id"
+                _2: None
+              - Tuple
+                _1: FunCall
+                  f: "getYear"
+                  args: List
+                    - Id @13:26
+                      v: "TradeDate"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @8:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "getYear"
+                args: List
+                  - Id @8:24
+                    v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVG"
+                args: List
+                  - Id @8:40
+                    v: "ClosePrice"
+              _2: None
+    main: Project
+      t: SortBy
+        t: Table @17:6
+          n: "nosplit_avgpx"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @18:14
+              v: "Id"
+          - Tuple
+            _1: Asc
+            _2: Id @18:22
+              v: "year"
+      ps: List
+        - Tuple
+          _1: Id @16:8
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @16:12
+            v: "year"
+          _2: None
+        - Tuple
+          _1: Id @16:18
+            v: "avg_px"
+          _2: None

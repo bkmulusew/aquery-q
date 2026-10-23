@@ -1,0 +1,19 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:15
+          n: "t"
+          alias: None
+        fs: List
+          - BinExpr @1:23
+            op: Gt
+            l: Id @1:23
+              v: "c1"
+            r: IntLit @1:28
+              v: 2
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

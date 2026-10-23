@@ -1,0 +1,5 @@
+List
+  - Load @1:2
+    file: "my_test_file.csv"
+    t: "t2"
+    sep: ","

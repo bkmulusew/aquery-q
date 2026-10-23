@@ -1,0 +1,39 @@
+List
+  - Trigger @2:9
+    name: "trg_sync"
+    time: After
+    event: UpdateEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @5:12
+      t: "table2"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: BinExpr @6:22
+            op: Plus
+            l: ColumnAccess @6:22
+              t: "inserted"
+              c: "qty"
+            r: IntLit @6:37
+              v: 1
+        - Tuple
+          _1: "note"
+          _2: ColumnAccess @6:47
+            t: "inserted"
+            c: "note"
+      order: []
+      where: List
+        - BinExpr @7:18
+          op: Eq
+          l: ColumnAccess @7:18
+            t: "table2"
+            c: "id"
+          r: ColumnAccess @7:30
+            t: "inserted"
+            c: "id"
+      groupby: []
+      having: []

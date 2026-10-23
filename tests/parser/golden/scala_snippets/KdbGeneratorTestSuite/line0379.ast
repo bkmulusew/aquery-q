@@ -1,0 +1,25 @@
+List
+  - Trigger @2:9
+    name: "trg_sync"
+    time: Before
+    event: DeleteEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: OldTableRef
+        alias: "deleted"
+    body: Insert @5:12
+      n: "audit"
+      order: []
+      modifier: []
+      src: Right
+        value: Query @5:30
+          local: []
+          main: Project @5:30
+            t: Table @5:44
+              n: "deleted"
+              alias: None
+            ps: List
+              - Tuple
+                _1: WildCard
+                _2: None

@@ -1,0 +1,29 @@
+List
+  - Query
+    local: List
+      - Tuple
+        _1: "t1"
+        _2: []
+        _3: Project
+          t: Filter
+            t: Table @3:32
+              n: "t"
+              alias: None
+            fs: List
+              - FunCall
+                f: "AVG"
+                args: List
+                  - Id @3:44
+                    v: "c1"
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+    main: Project
+      t: Table @4:25
+        n: "t1"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

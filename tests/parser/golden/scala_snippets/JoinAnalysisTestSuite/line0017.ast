@@ -1,0 +1,19 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Join @1:15
+        jt: InnerJoinUsing
+        l: Table @1:15
+          n: "t1"
+          alias: None
+        r: Table @1:29
+          n: "t2"
+          alias: None
+        cond: List
+          - Id @1:38
+            v: "c1"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

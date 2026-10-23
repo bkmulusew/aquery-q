@@ -1,0 +1,33 @@
+List
+  - Update @1:1
+    t: "t"
+    assigns: List
+      - Tuple
+        _1: "c1"
+        _2: FunCall @1:19
+          f: "f"
+          args: List
+            - ColumnAccess @1:21
+              t: "t"
+              c: "c1"
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:40
+          v: "c2"
+    where: List
+      - BinExpr @1:49
+        op: Gt
+        l: FunCall @1:49
+          f: "SUMS"
+          args: List
+            - BinExpr @1:54
+              op: Gt
+              l: Id @1:54
+                v: "c1"
+              r: IntLit @1:59
+                v: 2
+        r: IntLit @1:64
+          v: 2
+    groupby: []
+    having: []

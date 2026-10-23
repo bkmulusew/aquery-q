@@ -1,0 +1,822 @@
+List
+  - VerbatimCode @7:1
+    c: "\nn:`int$1e6;\nTicks:([]ID:n?`S`ACME`OTHER`CORP; date:n?.z.D; timestamp:n?.z.P; price:n?100.0);\npointDate:first 1?Ticks`date;\nTicks:`date`ID xasc Ticks;\nTicksWithAttr:update ID:`g#asc ID from Ticks;\nPortfolio:([]ID:`S`ACME`OTHER`CORP; position:1e4+4?1e6);\nPackets:select from ([]src:n?100; dest:n?100; length:n?256; timestamp:.z.P+10*n?`int$1e9) where src<>dest;\nSales:update sales:count[i]?1e6 from ([]month:`month${neg[x]?x}1+`long$`month$.z.D);\nTradedStocks:([]ID:n?`S`ACME`OTHER`CORP; date:n?.z.D);\nHistoricQuotes:update ClosePrice:count[i]?100. from `ID`date xcol distinct TradedStocks;\nbase:([] ID:(count .Q.a)?`S`ACME`OTHER`CORP; name:`$'.Q.a)\n"
+  - Query @28:1
+    local: []
+    main: Project @28:1
+      t: Filter
+        t: SortBy
+          t: Table @29:6
+            n: "Ticks"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @30:18
+                v: "timestamp"
+        fs: List
+          - BinExpr @31:7
+            op: Eq
+            l: Id @31:7
+              v: "ID"
+            r: StringLit @31:12
+              v: "ACME"
+      ps: List
+        - Tuple
+          _1: Id @28:8
+            v: "price"
+          _2: None
+  - Query @35:1
+    local: []
+    main: Project @35:1
+      t: Filter
+        t: SortBy
+          t: Table @36:6
+            n: "Ticks"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @37:18
+                v: "timestamp"
+        fs: List
+          - BinExpr @38:7
+            op: Eq
+            l: Id @38:7
+              v: "ID"
+            r: StringLit @38:10
+              v: "ACME"
+          - BinExpr @39:5
+            op: Eq
+            l: Id @39:5
+              v: "date"
+            r: Id @39:12
+              v: "pointDate"
+      ps: List
+        - Tuple
+          _1: FunCall @35:8
+            f: "MAX"
+            args: List
+              - BinExpr @35:12
+                op: Minus
+                l: Id @35:12
+                  v: "price"
+                r: FunCall @35:20
+                  f: "MINS"
+                  args: List
+                    - Id @35:25
+                      v: "price"
+          _2: Some
+            value: "max_profit"
+  - Query @46:1
+    local: []
+    main: Project @46:1
+      t: GroupBy
+        t: SortBy
+          t: Table @47:6
+            n: "Packets"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @48:18
+                v: "src"
+            - Tuple
+              _1: Desc
+              _2: Id @48:28
+                v: "dest"
+            - Tuple
+              _1: Asc
+              _2: Id @48:38
+                v: "timestamp"
+        gs: List
+          - Tuple
+            _1: Id @49:10
+              v: "src"
+            _2: None
+          - Tuple
+            _1: Id @49:15
+              v: "dest"
+            _2: None
+          - Tuple
+            _1: FunCall @49:21
+              f: "SUMS"
+              args: List
+                - BinExpr @49:26
+                  op: Gt
+                  l: FunCall @49:26
+                    f: "DELTAS"
+                    args: List
+                      - Id @49:33
+                        v: "timestamp"
+                  r: BinExpr @49:47
+                    op: Times
+                    l: IntLit @49:47
+                      v: 120
+                    r: IntLit @49:53
+                      v: 1000000000
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @46:8
+            v: "src"
+          _2: None
+        - Tuple
+          _1: Id @46:13
+            v: "dest"
+          _2: None
+        - Tuple
+          _1: FunCall @46:19
+            f: "AVG"
+            args: List
+              - Id @46:23
+                v: "length"
+          _2: Some
+            value: "len"
+        - Tuple
+          _1: FunCall @46:39
+            f: "COUNT"
+            args: List
+              - Id @46:45
+                v: "timestamp"
+          _2: Some
+            value: "ct"
+  - Query
+    local: List
+      - Tuple
+        _1: "averages"
+        _2: List
+          - "ID"
+          - "date"
+          - "timestamp"
+          - "a21"
+          - "a5"
+        _3: Project
+          t: GroupBy
+            t: SortBy
+              t: Table @61:27
+                n: "Ticks"
+                alias: None
+              os: List
+                - Tuple
+                  _1: Asc
+                  _2: Id @62:22
+                    v: "ID"
+                - Tuple
+                  _1: Asc
+                  _2: Id @62:30
+                    v: "timestamp"
+            gs: List
+              - Tuple
+                _1: Id @63:15
+                  v: "ID"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @60:13
+                v: "ID"
+              _2: None
+            - Tuple
+              _1: Id @60:17
+                v: "date"
+              _2: None
+            - Tuple
+              _1: Id @60:23
+                v: "timestamp"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVGS"
+                args: List
+                  - IntLit @60:40
+                    v: 21
+                  - Id @60:44
+                    v: "price"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "AVGS"
+                args: List
+                  - IntLit @61:12
+                    v: 5
+                  - Id @61:15
+                    v: "price"
+              _2: None
+    main: Project
+      t: Filter
+        t: SortBy
+          t: BottomApply
+            f: "FLATTEN"
+            args: List
+              - Id @65:15
+                v: "averages"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @66:18
+                v: "ID"
+            - Tuple
+              _1: Asc
+              _2: Id @66:26
+                v: "timestamp"
+        fs: List
+          - BinExpr
+            op: Land
+            l: BinExpr
+              op: Land
+              l: BinExpr
+                op: Gt
+                l: Id @67:8
+                  v: "a21"
+                r: Id @67:14
+                  v: "a5"
+              r: BinExpr
+                op: Le
+                l: FunCall
+                  f: "PREV"
+                  args: List
+                    - Id @68:13
+                      v: "a21"
+                r: FunCall
+                  f: "PREV"
+                  args: List
+                    - Id @68:26
+                      v: "a5"
+            r: BinExpr
+              op: Eq
+              l: FunCall
+                f: "PREV"
+                args: List
+                  - Id @69:13
+                    v: "ID"
+              r: Id @69:19
+                v: "ID"
+      ps: List
+        - Tuple
+          _1: Id @64:9
+            v: "ID"
+          _2: None
+        - Tuple
+          _1: Id @64:13
+            v: "date"
+          _2: None
+  - Query @75:1
+    local: []
+    main: Project @75:1
+      t: GroupBy
+        t: SortBy
+          t: Join @76:6
+            jt: InnerJoinUsing
+            l: Table @76:6
+              n: "Ticks"
+              alias: Some
+                value: "t"
+            r: Table @76:25
+              n: "Portfolio"
+              alias: Some
+                value: "p"
+            cond: List
+              - Id @76:43
+                v: "ID"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @77:18
+                v: "timestamp"
+        gs: List
+          - Tuple
+            _1: ColumnAccess @78:10
+              t: "t"
+              c: "ID"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: ColumnAccess @75:8
+            t: "t"
+            c: "ID"
+          _2: Some
+            value: "ID"
+        - Tuple
+          _1: FunCall @75:20
+            f: "LAST"
+            args: List
+              - IntLit @75:25
+                v: 10
+              - Id @75:29
+                v: "price"
+          _2: Some
+            value: "last_price"
+  - Query
+    local: List
+      - Tuple
+        _1: "OneDay"
+        _2: []
+        _3: Project
+          t: Filter
+            t: SortBy
+              t: Table @88:11
+                n: "Ticks"
+                alias: None
+              os: List
+                - Tuple
+                  _1: Asc
+                  _2: Id @89:22
+                    v: "timestamp"
+            fs: List
+              - BinExpr
+                op: Eq
+                l: Id @90:12
+                  v: "date"
+                r: Id @90:19
+                  v: "pointDate"
+          ps: List
+            - Tuple
+              _1: Id @87:13
+                v: "ID"
+              _2: Some
+                value: "ID"
+            - Tuple
+              _1: Id @87:23
+                v: "price"
+              _2: Some
+                value: "price"
+            - Tuple
+              _1: Id @87:39
+                v: "timestamp"
+              _2: Some
+                value: "timestamp"
+    main: Project
+      t: GroupBy
+        t: Filter
+          t: SortBy
+            t: Table @92:7
+              n: "OneDay"
+              alias: None
+            os: List
+              - Tuple
+                _1: Asc
+                _2: Id @93:18
+                  v: "timestamp"
+          fs: List
+            - BinExpr
+              op: Lt
+              l: RowId
+              r: IntLit @94:19
+                v: 1000
+        gs: List
+          - Tuple
+            _1: Id @95:14
+              v: "ID"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @91:9
+            v: "ID"
+          _2: None
+        - Tuple
+          _1: FunCall
+            f: "COUNT"
+            args: List
+              - Id @91:19
+                v: "timestamp"
+          _2: Some
+            value: "ct"
+  - Query @103:1
+    local: []
+    main: Project @103:1
+      t: SortBy
+        t: Table @104:6
+          n: "Sales"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @105:14
+              v: "month"
+      ps: List
+        - Tuple
+          _1: Id @103:8
+            v: "month"
+          _2: None
+        - Tuple
+          _1: FunCall @103:15
+            f: "AVGS"
+            args: List
+              - IntLit @103:20
+                v: 3
+              - Id @103:23
+                v: "sales"
+          _2: Some
+            value: "moving_sales"
+  - Query @111:1
+    local: []
+    main: Project @111:1
+      t: GroupBy
+        t: SortBy
+          t: Join @112:6
+            jt: InnerJoinUsing
+            l: Table @112:6
+              n: "TradedStocks"
+              alias: Some
+                value: "ts"
+            r: Table @113:5
+              n: "HistoricQuotes"
+              alias: Some
+                value: "hq"
+            cond: List
+              - Id @114:9
+                v: "ID"
+              - Id @114:13
+                v: "date"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @115:14
+                v: "date"
+        gs: List
+          - Tuple
+            _1: Id @116:10
+              v: "ID"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @111:8
+            v: "ID"
+          _2: None
+        - Tuple
+          _1: FunCall @111:12
+            f: "AVGS"
+            args: List
+              - IntLit @111:17
+                v: 10
+              - ColumnAccess @111:21
+                t: "hq"
+                c: "ClosePrice"
+          _2: Some
+            value: "avg_price"
+  - Query @121:1
+    local: []
+    main: Project @121:1
+      t: Filter
+        t: SortBy
+          t: Join @122:6
+            jt: InnerJoinUsing
+            l: Table @122:6
+              n: "Ticks"
+              alias: Some
+                value: "t"
+            r: Table @122:25
+              n: "base"
+              alias: Some
+                value: "b"
+            cond: List
+              - Id @122:38
+                v: "ID"
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @123:18
+                v: "name"
+            - Tuple
+              _1: Asc
+              _2: Id @123:28
+                v: "timestamp"
+        fs: List
+          - BinExpr @124:7
+            op: Eq
+            l: Id @124:7
+              v: "name"
+            r: StringLit @124:14
+              v: "x"
+      ps: List
+        - Tuple
+          _1: FunCall @121:8
+            f: "LAST"
+            args: List
+              - Id @121:13
+                v: "price"
+          _2: Some
+            value: "last_price"
+  - Query @127:1
+    local: []
+    main: Project @127:1
+      t: Filter
+        t: Join @127:40
+          jt: InnerJoinUsing
+          l: Table @127:40
+            n: "TicksWithAttr"
+            alias: Some
+              value: "t"
+          r: Table @127:67
+            n: "Portfolio"
+            alias: Some
+              value: "p"
+          cond: List
+            - Id @127:85
+              v: "ID"
+        fs: List
+          - BinExpr @127:94
+            op: Lt
+            l: RowId
+            r: IntLit @127:102
+              v: 1000
+      ps: List
+        - Tuple
+          _1: Id @127:8
+            v: "ID"
+          _2: None
+        - Tuple
+          _1: Id @127:12
+            v: "date"
+          _2: None
+        - Tuple
+          _1: Id @127:18
+            v: "timestamp"
+          _2: None
+        - Tuple
+          _1: Id @127:29
+            v: "price"
+          _2: None
+  - UDF @134:1
+    n: "pythag"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Left
+        value: Assign
+          n: "sqr_x"
+          e: BinExpr @135:13
+            op: Times
+            l: Id @135:13
+              v: "x"
+            r: Id @135:17
+              v: "x"
+      - Left
+        value: Assign
+          n: "sqr_y"
+          e: BinExpr @136:13
+            op: Times
+            l: Id @136:13
+              v: "y"
+            r: Id @136:17
+              v: "y"
+      - Right
+        value: FunCall @137:4
+          f: "SQRT"
+          args: List
+            - BinExpr @137:9
+              op: Plus
+              l: Id @137:9
+                v: "sqr_x"
+              r: Id @137:17
+                v: "sqr_y"
+  - VerbatimCode @140:1
+    c: ".aq.q10:{pythag(3,4)}"
+  - VerbatimCode @142:1
+    c: "\nt1:([]c1:1 2 3; c2:10 20 30);\nt2:([]c1:100 200 300; c2:1000 2000 3000);\ntu1:([]c1:1 1 1 2 2 3 4 4; c2:10 10 20 30 30 60 70 80);\ntu2:([]c1:100 -100 200 300; c2:20 30 10 40);\n"
+  - Create @150:1
+    n: "aq_t1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "c1"
+          _2: TypeInt
+        - Tuple
+          _1: "c2"
+          _2: TypeInt
+  - Insert @152:1
+    n: "aq_t1"
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @152:32
+          v: "c1"
+    modifier: []
+    src: Right
+      value: Query @153:3
+        local: []
+        main: Project @153:3
+          t: Table @153:17
+            n: "t2"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Insert @155:1
+    n: "aq_t1"
+    order: []
+    modifier: List
+      - "c2"
+      - "c1"
+    src: Left
+      value: List
+        - IntLit @155:34
+          v: -1
+        - IntLit @155:38
+          v: -2
+  - Query @157:1
+    local: []
+    main: Project @157:1
+      t: Table @157:15
+        n: "aq_t1"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Create @160:1
+    n: "aq_tu1"
+    source: Right
+      value: Query @161:3
+        local: []
+        main: Project @161:3
+          t: Table @161:17
+            n: "tu1"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Update @163:1
+    t: "aq_tu1"
+    assigns: List
+      - Tuple
+        _1: "c3"
+        _2: FunCall @163:24
+          f: "LAST"
+          args: List
+            - FunCall @163:29
+              f: "SUMS"
+              args: List
+                - Id @163:34
+                  v: "c2"
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @164:14
+          v: "c2"
+    where: List
+      - BinExpr @165:7
+        op: Lt
+        l: Id @165:7
+          v: "c1"
+        r: IntLit @165:12
+          v: 3
+    groupby: List
+      - Id @165:23
+        v: "c1"
+      - Id @165:27
+        v: "c2"
+    having: List
+      - BinExpr @165:37
+        op: Ge
+        l: FunCall @165:37
+          f: "COUNT"
+          args: List
+            - Id @165:43
+              v: "c2"
+        r: IntLit @165:50
+          v: 2
+  - Query @167:1
+    local: []
+    main: Project @167:1
+      t: Table @167:15
+        n: "aq_tu1"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Create @169:1
+    n: "aq_tu2"
+    source: Right
+      value: Query @170:3
+        local: []
+        main: Project @170:3
+          t: Table @170:17
+            n: "tu2"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Update @172:1
+    t: "aq_tu2"
+    assigns: List
+      - Tuple
+        _1: "c3"
+        _2: FunCall @172:24
+          f: "MAX"
+          args: List
+            - Id @172:28
+              v: "c2"
+    order: []
+    where: List
+      - BinExpr @172:38
+        op: Gt
+        l: Id @172:38
+          v: "c1"
+        r: IntLit @172:43
+          v: 0
+    groupby: []
+    having: []
+  - Query @174:1
+    local: []
+    main: Project @174:1
+      t: Table @174:15
+        n: "aq_tu2"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Create @177:1
+    n: "aq_td1"
+    source: Right
+      value: Query @178:3
+        local: []
+        main: Project @178:3
+          t: Table @178:17
+            n: "tu1"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Delete @180:1
+    t: "aq_td1"
+    del: Right
+      value: List
+        - BinExpr @180:42
+          op: Lt
+          l: Id @180:42
+            v: "c1"
+          r: IntLit @180:47
+            v: 3
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @180:33
+          v: "c2"
+    groupby: List
+      - Id @180:58
+        v: "c1"
+    having: List
+      - BinExpr @180:68
+        op: Gt
+        l: FunCall @180:68
+          f: "COUNT"
+          args: List
+            - Id @180:74
+              v: "c2"
+        r: IntLit @180:80
+          v: 1
+  - Query @181:1
+    local: []
+    main: Project @181:1
+      t: Table @181:15
+        n: "aq_td1"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Create @183:1
+    n: "aq_td2"
+    source: Right
+      value: Query @184:3
+        local: []
+        main: Project @184:3
+          t: Table @184:17
+            n: "tu2"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Delete @186:1
+    t: "aq_td2"
+    del: Left
+      value: List
+        - Id @186:8
+          v: "c2"
+    order: []
+    groupby: []
+    having: []
+  - Query @188:1
+    local: []
+    main: Project @188:1
+      t: Table @188:15
+        n: "aq_td2"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

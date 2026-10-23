@@ -1,0 +1,148 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Join @19:6
+          jt: Cross
+          l: Join @19:6
+            jt: Cross
+            l: Join @19:6
+              jt: Cross
+              l: Table @19:6
+                n: "lineitem"
+                alias: Some
+                  value: "L"
+              r: Table @19:21
+                n: "supplier"
+                alias: Some
+                  value: "S"
+              cond: []
+            r: Table @19:36
+              n: "nation"
+              alias: Some
+                value: "N"
+            cond: []
+          r: Table @19:49
+            n: "region"
+            alias: Some
+              value: "R"
+          cond: []
+        fs: List
+          - BinExpr @20:7
+            op: Eq
+            l: ColumnAccess @20:7
+              t: "L"
+              c: "l_suppkey"
+            r: ColumnAccess @20:21
+              t: "S"
+              c: "s_suppkey"
+          - BinExpr @21:7
+            op: Eq
+            l: ColumnAccess @21:7
+              t: "S"
+              c: "s_nationkey"
+            r: ColumnAccess @21:23
+              t: "N"
+              c: "n_nationkey"
+          - BinExpr @22:7
+            op: Eq
+            l: ColumnAccess @22:7
+              t: "N"
+              c: "n_regionkey"
+            r: ColumnAccess @22:23
+              t: "R"
+              c: "r_regionkey"
+          - BinExpr @23:7
+            op: Eq
+            l: ColumnAccess @23:7
+              t: "R"
+              c: "r_name"
+            r: StringLit @23:18
+              v: "EUROPE"
+      ps: List
+        - Tuple
+          _1: ColumnAccess @2:3
+            t: "L"
+            c: "l_orderkey"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @3:3
+            t: "L"
+            c: "l_partkey"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @4:3
+            t: "L"
+            c: "l_suppkey"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @5:3
+            t: "L"
+            c: "l_linenumber"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @6:3
+            t: "L"
+            c: "l_quantity"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @7:3
+            t: "L"
+            c: "l_extendedprice"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @8:3
+            t: "L"
+            c: "l_discount"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @9:3
+            t: "L"
+            c: "l_tax"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @10:3
+            t: "L"
+            c: "l_returnflag"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @11:3
+            t: "L"
+            c: "l_linestatus"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @12:3
+            t: "L"
+            c: "l_shipdate"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @13:3
+            t: "L"
+            c: "l_commitdate"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @14:3
+            t: "L"
+            c: "l_receiptdate"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @15:3
+            t: "L"
+            c: "l_shipinstruct"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @16:3
+            t: "L"
+            c: "l_shipmode"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @17:3
+            t: "L"
+            c: "l_comment"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @18:3
+            t: "R"
+            c: "r_name"
+          _2: None

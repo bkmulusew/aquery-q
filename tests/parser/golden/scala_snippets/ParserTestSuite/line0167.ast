@@ -1,0 +1,33 @@
+List
+  - Update @1:1
+    t: "t"
+    assigns: List
+      - Tuple
+        _1: "c1"
+        _2: IntLit @1:19
+          v: 10
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @1:35
+          v: "c"
+    where: List
+      - BinExpr @1:43
+        op: Gt
+        l: Id @1:43
+          v: "a"
+        r: IntLit @1:47
+          v: 10
+    groupby: List
+      - Id @1:59
+        v: "h"
+    having: List
+      - BinExpr @1:68
+        op: Gt
+        l: FunCall @1:68
+          f: "SUMS"
+          args: List
+            - Id @1:73
+              v: "a"
+        r: IntLit @1:78
+          v: 10

@@ -1,0 +1,21 @@
+List
+  - VerbatimCode @1:1
+    c: "\nemp_sorted_ssnum:`ssnum xasc employees;\nemp_sorted_ssnum:update ssnum:`s#ssnum from emp_sorted_ssnum;\n"
+  - Query @6:1
+    local: []
+    main: Project @6:1
+      t: Filter
+        t: Table @6:15
+          n: "emp_sorted_ssnum"
+          alias: None
+        fs: List
+          - BinExpr @6:38
+            op: Eq
+            l: Id @6:38
+              v: "ssnum"
+            r: IntLit @6:46
+              v: 150
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

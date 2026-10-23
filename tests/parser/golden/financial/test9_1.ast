@@ -1,0 +1,59 @@
+List
+  - Query
+    local: List
+      - Tuple
+        _1: "DateInfo"
+        _2: List
+          - "startYear"
+          - "startDate"
+        _3: Project
+          t: Table @4:10
+            n: "price"
+            alias: None
+          ps: List
+            - Tuple
+              _1: FunCall
+                f: "getYear"
+                args: List
+                  - BinExpr
+                    op: Minus
+                    l: FunCall
+                      f: "MAX"
+                      args: List
+                        - Id @3:24
+                          v: "TradeDate"
+                    r: BinExpr
+                      op: Times
+                      l: IntLit @3:37
+                        v: 365
+                      r: IntLit @3:43
+                        v: 3
+              _2: None
+            - Tuple
+              _1: BinExpr
+                op: Minus
+                l: FunCall
+                  f: "MAX"
+                  args: List
+                    - Id @3:51
+                      v: "TradeDate"
+                r: BinExpr
+                  op: Times
+                  l: IntLit @3:64
+                    v: 365
+                  r: IntLit @3:70
+                    v: 3
+              _2: None
+    main: Project
+      t: Table @8:6
+        n: "DateInfo"
+        alias: None
+      ps: List
+        - Tuple
+          _1: Id @7:8
+            v: "startYear"
+          _2: None
+        - Tuple
+          _1: Id @7:19
+            v: "startDate"
+          _2: None

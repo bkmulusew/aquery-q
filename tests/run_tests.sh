@@ -14,6 +14,9 @@ cd "$ROOT" || exit 1
 TEST_FILES="
 tests/lexer/test_lexer.q
 tests/lexer/test_golden.q
+tests/parser/test_parser.q
+tests/parser/test_rules.q
+tests/parser/test_golden.q
 "
 
 status=0

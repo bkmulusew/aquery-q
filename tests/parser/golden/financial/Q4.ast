@@ -1,0 +1,31 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @2:6
+          n: "price"
+          alias: None
+        fs: List
+          - FunCall @3:7
+            f: "IN"
+            args: List
+              - Id @3:7
+                v: "Id"
+              - Id @3:13
+                v: "Russell2000"
+          - BinExpr @4:7
+            op: Eq
+            l: Id @4:7
+              v: "TradeDate"
+            r: Id @4:19
+              v: "startPeriod"
+      ps: List
+        - Tuple
+          _1: FunCall @1:8
+            f: "AVG"
+            args: List
+              - Id @1:12
+                v: "ClosePrice"
+          _2: Some
+            value: "avg_close_price"

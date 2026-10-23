@@ -1,0 +1,61 @@
+List
+  - Query @2:7
+    local: []
+    main: Project @2:7
+      t: GroupBy
+        t: Filter
+          t: SortBy
+            t: Table @3:12
+              n: "t"
+              alias: None
+            os: List
+              - Tuple
+                _1: Asc
+                _2: Id @4:20
+                  v: "c1"
+              - Tuple
+                _1: Asc
+                _2: Id @4:28
+                  v: "c2"
+          fs: List
+            - BinExpr @5:13
+              op: Gt
+              l: Id @5:13
+                v: "a"
+              r: IntLit @5:17
+                v: 100
+            - BinExpr @5:25
+              op: Lt
+              l: Id @5:25
+                v: "b"
+              r: IntLit @5:29
+                v: 20
+        gs: List
+          - Tuple
+            _1: BinExpr @6:16
+              op: Times
+              l: Id @6:16
+                v: "c"
+              r: IntLit @6:20
+                v: 10
+            _2: Some
+              value: "ced"
+        having: List
+          - BinExpr @6:37
+            op: Gt
+            l: FunCall @6:37
+              f: "COUNT"
+              args: List
+                - Id @6:43
+                  v: "d"
+            r: IntLit @6:48
+              v: 10
+      ps: List
+        - Tuple
+          _1: FunCall @2:14
+            f: "SUM"
+            args: List
+              - Id @2:18
+                v: "a"
+          _2: Some
+            value: "sumA"

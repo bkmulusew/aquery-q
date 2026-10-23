@@ -1,0 +1,70 @@
+List
+  - Create @2:10
+    n: "t"
+    source: Left
+      value: List
+        - Tuple
+          _1: "c1"
+          _2: TypeInt
+        - Tuple
+          _1: "c2"
+          _2: TypeInt
+        - Tuple
+          _1: "c3"
+          _2: TypeString
+  - Insert @3:10
+    n: "t"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @3:31
+          v: 1
+        - IntLit @3:34
+          v: 2
+        - StringLit @3:37
+          v: "c"
+  - Insert @4:10
+    n: "t"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:31
+          v: 10
+        - IntLit @4:35
+          v: 20
+        - StringLit @4:39
+          v: "C"
+  - Save @6:10
+    file: "my_test_file.csv"
+    query: Query @6:10
+      local: []
+      main: Project @6:10
+        t: Table @6:24
+          n: "t"
+          alias: None
+        ps: List
+          - Tuple
+            _1: WildCard
+            _2: None
+    sep: ","
+  - Create @9:10
+    n: "t2"
+    source: Left
+      value: List
+        - Tuple
+          _1: "c1"
+          _2: TypeInt
+        - Tuple
+          _1: "c2"
+          _2: TypeInt
+        - Tuple
+          _1: "c3"
+          _2: TypeString
+  - Load @10:10
+    file: "my_test_file.csv"
+    t: "t2"
+    sep: ","
+  - VerbatimCode @13:9
+    c: " .aq.q0:{t2}; system \"rm -f my_test_file.csv\" "

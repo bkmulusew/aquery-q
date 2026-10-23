@@ -1,0 +1,43 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:15
+          n: "t"
+          alias: None
+        fs: List
+          - BinExpr @1:23
+            op: Eq
+            l: ColumnAccess @1:23
+              t: "t"
+              c: "c1"
+            r: IntLit @1:30
+              v: 100
+          - BinExpr @1:38
+            op: Gt
+            l: Id @1:38
+              v: "c2"
+            r: IntLit @1:43
+              v: 2
+          - BinExpr @1:49
+            op: Gt
+            l: FunCall @1:49
+              f: "SUMS"
+              args: List
+                - Id @1:54
+                  v: "c3"
+            r: IntLit @1:60
+              v: 2
+          - FunCall @1:66
+            f: "NOT"
+            args: List
+              - FunCall
+                f: "NULL"
+                args: List
+                  - Id @1:66
+                    v: "c4"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

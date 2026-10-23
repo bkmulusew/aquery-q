@@ -1,0 +1,12 @@
+# divergences.txt - inputs whose parser golden file is NOT checked by
+# tests/parser/test_golden.q.
+#
+# The golden files come from the Scala parser (tools/AstDump.java). Where the
+# q parser differs from Scala ON PURPOSE (see README, "Intentional
+# divergences"), the Scala output is no longer the right answer for that
+# input, so it is skipped here and covered by unit tests instead.
+#
+# Format: one path per line, relative to tests/inputs/, then "#" and the
+# reason. Blank lines and lines starting with "#" are ignored.
+#
+# (none yet)

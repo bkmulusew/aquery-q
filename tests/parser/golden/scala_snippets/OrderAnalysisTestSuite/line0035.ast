@@ -1,0 +1,24 @@
+List
+  - UDF @1:1
+    n: "f"
+    args: List
+      - "x"
+    cs: List
+      - Left
+        value: Assign
+          n: "z"
+          e: IntLit @1:22
+            v: 2
+      - Right
+        value: FunCall @1:25
+          f: "MAX"
+          args: List
+            - BinExpr @1:29
+              op: Times
+              l: FunCall @1:29
+                f: "SUMS"
+                args: List
+                  - Id @1:34
+                    v: "z"
+              r: IntLit @1:39
+                v: 2

@@ -1,0 +1,140 @@
+List
+  - Create @1:1
+    n: "table1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "delta"
+          _2: TypeInt
+        - Tuple
+          _1: "limit"
+          _2: TypeInt
+  - Create @2:1
+    n: "table2"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Insert @4:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:27
+          v: 1
+        - IntLit @4:30
+          v: 5
+        - IntLit @4:33
+          v: 20
+  - Insert @5:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @5:27
+          v: 2
+        - IntLit @5:30
+          v: 7
+        - IntLit @5:33
+          v: 50
+  - Insert @7:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @7:27
+          v: 1
+        - IntLit @7:30
+          v: 10
+        - StringLit @7:34
+          v: "dest1"
+  - Insert @8:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @8:27
+          v: 2
+        - IntLit @8:30
+          v: 100
+        - StringLit @8:35
+          v: "dest2"
+  - Trigger @10:1
+    name: "trg_sync_mixed_expr"
+    time: After
+    event: UpdateEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @13:4
+      t: "table2"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: BinExpr @14:14
+            op: Plus
+            l: ColumnAccess @14:14
+              t: "table2"
+              c: "qty"
+            r: ColumnAccess @14:27
+              t: "inserted"
+              c: "delta"
+      order: []
+      where: List
+        - BinExpr @15:10
+          op: Eq
+          l: ColumnAccess @15:10
+            t: "table2"
+            c: "id"
+          r: ColumnAccess @15:22
+            t: "inserted"
+            c: "id"
+        - BinExpr @15:38
+          op: Lt
+          l: ColumnAccess @15:38
+            t: "table2"
+            c: "qty"
+          r: ColumnAccess @15:51
+            t: "inserted"
+            c: "limit"
+      groupby: []
+      having: []
+  - Update @17:1
+    t: "table1"
+    assigns: List
+      - Tuple
+        _1: "delta"
+        _2: IntLit @18:13
+          v: 9
+      - Tuple
+        _1: "limit"
+        _2: IntLit @18:24
+          v: 25
+    order: []
+    where: List
+      - BinExpr @19:7
+        op: Eq
+        l: Id @19:7
+          v: "id"
+        r: IntLit @19:12
+          v: 1
+    groupby: []
+    having: []
+  - VerbatimCode @21:1
+    c: "\nshow table1;\nshow table2;\n"

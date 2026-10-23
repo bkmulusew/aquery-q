@@ -1,0 +1,21 @@
+List
+  - VerbatimCode @1:1
+    c: "\nemp_hash_hundreds1:update hundreds1:`g#hundreds1 from employees;\n"
+  - Query @5:1
+    local: []
+    main: Project @5:1
+      t: Filter
+        t: Table @5:15
+          n: "emp_hash_hundreds1"
+          alias: None
+        fs: List
+          - BinExpr @5:40
+            op: Eq
+            l: Id @5:40
+              v: "hundreds1"
+            r: IntLit @5:52
+              v: 150
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

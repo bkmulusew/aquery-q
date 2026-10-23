@@ -1,0 +1,77 @@
+List
+  - VerbatimCode @2:10
+    c: " base:([]c2:1 2 3 4; c3:100 200 300 400) "
+  - Create @3:10
+    n: "t"
+    source: Left
+      value: List
+        - Tuple
+          _1: "c1"
+          _2: TypeInt
+        - Tuple
+          _1: "c2"
+          _2: TypeInt
+        - Tuple
+          _1: "c3"
+          _2: TypeString
+  - Insert @4:10
+    n: "t"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:31
+          v: 1
+        - IntLit @4:34
+          v: 2
+        - StringLit @4:37
+          v: "c"
+  - Insert @5:10
+    n: "t"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @5:31
+          v: 10
+        - IntLit @5:35
+          v: 20
+        - StringLit @5:39
+          v: "C"
+  - Insert @6:10
+    n: "t"
+    order: []
+    modifier: List
+      - "c1"
+      - "c2"
+      - "c3"
+    src: Right
+      value: Query @7:11
+        local: []
+        main: Project @7:11
+          t: Table @7:48
+            n: "base"
+            alias: None
+          ps: List
+            - Tuple
+              _1: Id @7:18
+                v: "c2"
+              _2: None
+            - Tuple
+              _1: Id @7:22
+                v: "c2"
+              _2: None
+            - Tuple
+              _1: StringLit @7:26
+                v: "this is a test"
+              _2: None
+  - Query @9:10
+    local: []
+    main: Project @9:10
+      t: Table @9:24
+        n: "t"
+        alias: None
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

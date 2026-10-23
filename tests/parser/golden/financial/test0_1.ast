@@ -1,0 +1,82 @@
+List
+  - Query
+    local: List
+      - Tuple
+        _1: "Target"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "ClosePrice"
+        _3: Project
+          t: Filter
+            t: Table @4:10
+              n: "price"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @5:11
+                    v: "Id"
+                  - Id @5:17
+                    v: "stock10"
+              - BinExpr
+                op: Ge
+                l: Id @6:11
+                  v: "TradeDate"
+                r: Id @6:24
+                  v: "startYear10"
+              - BinExpr
+                op: Le
+                l: Id @7:11
+                  v: "TradeDate"
+                r: BinExpr
+                  op: Plus
+                  l: Id @7:24
+                    v: "startYear10"
+                  r: BinExpr
+                    op: Times
+                    l: IntLit @7:38
+                      v: 365
+                    r: IntLit @7:44
+                      v: 10
+          ps: List
+            - Tuple
+              _1: Id @3:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @3:16
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: Id @3:27
+                v: "ClosePrice"
+              _2: None
+    main: Project
+      t: SortBy
+        t: Table @11:6
+          n: "Target"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @12:14
+              v: "Id"
+          - Tuple
+            _1: Asc
+            _2: Id @12:22
+              v: "TradeDate"
+      ps: List
+        - Tuple
+          _1: Id @10:8
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @10:12
+            v: "TradeDate"
+          _2: None
+        - Tuple
+          _1: Id @10:23
+            v: "ClosePrice"
+          _2: None

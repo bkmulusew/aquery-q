@@ -1,0 +1,19 @@
+List
+  - UDF @1:1
+    n: "myFun"
+    args: List
+      - "x"
+    cs: List
+      - Right
+        value: BinExpr @1:21
+          op: Plus
+          l: FunCall @1:21
+            f: "h"
+            args: List
+              - Id @1:23
+                v: "x"
+          r: FunCall @1:28
+            f: "SUM"
+            args: List
+              - Id @1:32
+                v: "x"

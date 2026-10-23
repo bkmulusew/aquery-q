@@ -1,0 +1,22 @@
+List
+  - VerbatimCode @1:1
+    c: "\nemployee\n"
+  - Query @4:1
+    local: []
+    main: Project @4:1
+      t: Join @5:6
+        jt: InnerJoinUsing
+        l: Table @5:6
+          n: "employee"
+          alias: None
+        r: Table @5:26
+          n: "techdept"
+          alias: None
+        cond: List
+          - Id @5:41
+            v: "dept"
+      ps: List
+        - Tuple
+          _1: Id @4:8
+            v: "ssnum"
+          _2: None

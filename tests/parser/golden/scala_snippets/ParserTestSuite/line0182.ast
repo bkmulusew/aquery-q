@@ -1,0 +1,32 @@
+List
+  - Delete @2:10
+    t: "t"
+    del: Right
+      value: List
+        - BinExpr @4:16
+          op: Gt
+          l: FunCall @4:16
+            f: "SUMS"
+            args: List
+              - Id @4:21
+                v: "c"
+          r: IntLit @4:26
+            v: 100
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @3:23
+          v: "c1"
+    groupby: List
+      - Id @5:19
+        v: "a"
+    having: List
+      - BinExpr @5:28
+        op: Gt
+        l: FunCall @5:28
+          f: "MAX"
+          args: List
+            - Id @5:32
+              v: "d"
+        r: IntLit @5:37
+          v: 20

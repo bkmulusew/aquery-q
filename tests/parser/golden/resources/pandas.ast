@@ -1,0 +1,207 @@
+List
+  - VerbatimCode @1:1
+    c: "\nnr:10000;\nnc:10;\nrandf:{x?1000.0};\ndf_frame:flip (`$\"c\",/:string til nc)!flip (nr;nc)#randf nr * nc;\nbool_arr:nr?01b;\ndf_groupby:([]key1:nr?`A`B`C; key2:nr?`one`two; value1:randf nr; value2:randf nr; value3:randf nr);\ns_value_counts:([] val:`int$randf nr);\ndf_groupby_multi_python:([] key1:nr?10; key2:nr?10; data1:randf nr; data2:randf nr);\nmdf1:df_frame;\nmdf2:df_frame;\ndf_multi_join:update A:randf nr, B:randf nr, C:randf nr, D:randf nr from delete data1, data2 from df_groupby_multi_python;\ndf_join:df_groupby_multi_python;\ns_std:([]val:randf nr);\n"
+  - Query @22:1
+    local: []
+    main: Project @22:1
+      t: Filter
+        t: Table @22:15
+          n: "df_frame"
+          alias: None
+        fs: List
+          - Id @22:30
+            v: "bool_arr"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @30:1
+    local: []
+    main: Project @30:1
+      t: GroupBy
+        t: Table @32:6
+          n: "df_groupby"
+          alias: None
+        gs: List
+          - Tuple
+            _1: Id @32:26
+              v: "key1"
+            _2: None
+          - Tuple
+            _1: Id @32:32
+              v: "key2"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @30:8
+            v: "key1"
+          _2: None
+        - Tuple
+          _1: Id @30:14
+            v: "key2"
+          _2: None
+        - Tuple
+          _1: FunCall @31:3
+            f: "AVG"
+            args: List
+              - Id @31:7
+                v: "value1"
+          _2: Some
+            value: "value1"
+        - Tuple
+          _1: FunCall @31:26
+            f: "var"
+            args: List
+              - Id @31:30
+                v: "value1"
+          _2: Some
+            value: "value2"
+        - Tuple
+          _1: FunCall @31:49
+            f: "SUM"
+            args: List
+              - Id @31:53
+                v: "value3"
+          _2: Some
+            value: "value3"
+  - Query @39:1
+    local: []
+    main: Project @39:1
+      t: GroupBy
+        t: Table @39:43
+          n: "s_value_counts"
+          alias: None
+        gs: List
+          - Tuple
+            _1: Id @39:67
+              v: "val"
+            _2: Some
+              value: "kval"
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @39:8
+            v: "kval"
+          _2: Some
+            value: "val"
+        - Tuple
+          _1: FunCall @39:21
+            f: "COUNT"
+            args: List
+              - Id @39:27
+                v: "val"
+          _2: Some
+            value: "ct"
+  - Query @46:1
+    local: []
+    main: Project @46:1
+      t: GroupBy
+        t: Table @46:43
+          n: "df_groupby_multi_python"
+          alias: None
+        gs: List
+          - Tuple
+            _1: Id @46:76
+              v: "key1"
+            _2: None
+          - Tuple
+            _1: Id @46:82
+              v: "key2"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @46:8
+            v: "key1"
+          _2: None
+        - Tuple
+          _1: Id @46:14
+            v: "key2"
+          _2: None
+        - Tuple
+          _1: FunCall @46:20
+            f: "SUM"
+            args: List
+              - Id @46:24
+                v: "data1"
+          _2: Some
+            value: "val"
+  - Query @53:1
+    local: []
+    main: Project @53:1
+      t: BottomApply @53:15
+        f: "CONCATENATE"
+        args: List
+          - Id @53:27
+            v: "mdf1"
+          - Id @53:33
+            v: "mdf2"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @61:1
+    local: []
+    main: Project @61:1
+      t: Join @61:50
+        jt: InnerJoinUsing
+        l: Table @61:50
+          n: "df_join"
+          alias: None
+        r: Table @61:69
+          n: "df_multi_join"
+          alias: None
+        cond: List
+          - Id @61:90
+            v: "key1"
+          - Id @61:96
+            v: "key2"
+      ps: List
+        - Tuple
+          _1: Id @61:8
+            v: "key1"
+          _2: None
+        - Tuple
+          _1: Id @61:14
+            v: "key2"
+          _2: None
+        - Tuple
+          _1: Id @61:20
+            v: "A"
+          _2: None
+        - Tuple
+          _1: Id @61:23
+            v: "B"
+          _2: None
+        - Tuple
+          _1: Id @61:26
+            v: "C"
+          _2: None
+        - Tuple
+          _1: Id @61:29
+            v: "D"
+          _2: None
+        - Tuple
+          _1: Id @61:32
+            v: "data1"
+          _2: None
+        - Tuple
+          _1: Id @61:39
+            v: "data2"
+          _2: None
+  - Query @68:1
+    local: []
+    main: Project @68:1
+      t: Table @68:33
+        n: "s_std"
+        alias: None
+      ps: List
+        - Tuple
+          _1: FunCall @68:8
+            f: "dev"
+            args: List
+              - Id @68:12
+                v: "val"
+          _2: Some
+            value: "std_dev"

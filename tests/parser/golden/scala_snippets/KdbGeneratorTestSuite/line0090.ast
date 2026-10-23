@@ -1,0 +1,91 @@
+List
+  - UDF @2:9
+    n: "f"
+    args: []
+    cs: List
+      - Left
+        value: Assign
+          n: "x"
+          e: BinExpr @3:16
+            op: Minus
+            l: BinExpr @3:16
+              op: Times
+              l: IntLit @3:16
+                v: 100
+              r: IntLit @3:22
+                v: 2
+            r: IntLit @3:26
+              v: 3
+      - Left
+        value: Assign
+          n: "y"
+          e: BinExpr @4:16
+            op: Exp
+            l: Id @4:16
+              v: "x"
+            r: IntLit @4:20
+              v: 3
+      - Left
+        value: Assign
+          n: "l"
+          e: FunCall @5:16
+            f: "LIST"
+            args: List
+              - IntLit @5:21
+                v: 1
+              - IntLit @5:23
+                v: 2
+              - IntLit @5:25
+                v: 3
+              - IntLit @5:27
+                v: 4
+              - IntLit @5:29
+                v: 5
+              - IntLit @5:31
+                v: 6
+      - Left
+        value: Assign
+          n: "z"
+          e: Case @7:13
+            cond: Some
+              value: Id @7:18
+                v: "l"
+            when: List
+              - IfThen
+                c: IntLit @8:20
+                  v: 2
+                t: IntLit @8:27
+                  v: -1
+              - IfThen
+                c: IntLit @9:20
+                  v: 3
+                t: IntLit @9:27
+                  v: 100
+            e: Some
+              value: IntLit @10:20
+                v: 200
+      - Left
+        value: Assign
+          n: "w"
+          e: FunCall @12:16
+            f: "SUMS"
+            args: List
+              - IntLit @12:21
+                v: 2
+              - Id @12:24
+                v: "l"
+      - Right
+        value: FunCall @13:11
+          f: "LIST"
+          args: List
+            - FunCall @13:16
+              f: "SQRT"
+              args: List
+                - Id @13:21
+                  v: "y"
+            - Id @13:25
+              v: "z"
+            - Id @13:28
+              v: "w"
+  - VerbatimCode @14:11
+    c: " .aq.f:f; "

@@ -1,0 +1,84 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @19:6
+          n: "lineitemdenormalized"
+          alias: None
+        fs: List
+          - BinExpr @20:7
+            op: Eq
+            l: Id @20:7
+              v: "r_region"
+            r: StringLit @20:18
+              v: "EUROPE"
+      ps: List
+        - Tuple
+          _1: Id @2:3
+            v: "l_orderkey"
+          _2: None
+        - Tuple
+          _1: Id @3:3
+            v: "l_partkey"
+          _2: None
+        - Tuple
+          _1: Id @4:3
+            v: "l_suppkey"
+          _2: None
+        - Tuple
+          _1: Id @5:3
+            v: "l_linenumber"
+          _2: None
+        - Tuple
+          _1: Id @6:3
+            v: "l_quantity"
+          _2: None
+        - Tuple
+          _1: Id @7:3
+            v: "l_extendedprice"
+          _2: None
+        - Tuple
+          _1: Id @8:3
+            v: "l_discount"
+          _2: None
+        - Tuple
+          _1: Id @9:3
+            v: "l_tax"
+          _2: None
+        - Tuple
+          _1: Id @10:3
+            v: "l_returnflag"
+          _2: None
+        - Tuple
+          _1: Id @11:3
+            v: "l_linestatus"
+          _2: None
+        - Tuple
+          _1: Id @12:3
+            v: "l_shipdate"
+          _2: None
+        - Tuple
+          _1: Id @13:3
+            v: "l_commitdate"
+          _2: None
+        - Tuple
+          _1: Id @14:3
+            v: "l_receiptdate"
+          _2: None
+        - Tuple
+          _1: Id @15:3
+            v: "l_shipinstruct"
+          _2: None
+        - Tuple
+          _1: Id @16:3
+            v: "l_shipmode"
+          _2: None
+        - Tuple
+          _1: Id @17:3
+            v: "l_comment"
+          _2: None
+        - Tuple
+          _1: Id @18:3
+            v: "r_region"
+          _2: None

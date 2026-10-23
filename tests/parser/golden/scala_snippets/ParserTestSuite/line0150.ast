@@ -1,0 +1,3 @@
+List
+  - DropTrigger @1:1
+    name: "trg_upd"

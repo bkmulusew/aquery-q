@@ -1,0 +1,32 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: GroupBy
+        t: SortBy
+          t: Table @1:15
+            n: "t"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:30
+                v: "c1"
+            - Tuple
+              _1: Asc
+              _2: Id @1:38
+                v: "c2"
+        gs: List
+          - Tuple
+            _1: BinExpr @1:50
+              op: Times
+              l: Id @1:50
+                v: "c3"
+              r: IntLit @1:55
+                v: 2
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

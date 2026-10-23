@@ -1,0 +1,27 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: GroupBy
+        t: Table @1:21
+          n: "t"
+          alias: None
+        gs: List
+          - Tuple
+            _1: Id @1:32
+              v: "c3"
+            _2: None
+        having: List
+          - FunCall @1:42
+            f: "SUMS"
+            args: List
+              - Id @1:47
+                v: "c4"
+      ps: List
+        - Tuple
+          _1: FunCall @1:8
+            f: "SUM"
+            args: List
+              - Id @1:12
+                v: "c2"
+          _2: None

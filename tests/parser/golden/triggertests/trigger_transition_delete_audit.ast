@@ -1,0 +1,99 @@
+List
+  - Create @1:1
+    n: "table1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Create @2:1
+    n: "audit"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Insert @4:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:27
+          v: 1
+        - IntLit @4:30
+          v: 10
+        - StringLit @4:34
+          v: "src_old"
+  - Insert @5:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @5:27
+          v: 2
+        - IntLit @5:30
+          v: 20
+        - StringLit @5:34
+          v: "src2"
+  - Trigger @7:1
+    name: "trg_audit_deleted"
+    time: Before
+    event: DeleteEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: OldTableRef
+        alias: "deleted"
+    body: Insert @10:4
+      n: "audit"
+      order: []
+      modifier: []
+      src: Right
+        value: Query @11:4
+          local: []
+          main: Project @11:4
+            t: Table @11:30
+              n: "deleted"
+              alias: None
+            ps: List
+              - Tuple
+                _1: Id @11:11
+                  v: "id"
+                _2: None
+              - Tuple
+                _1: Id @11:15
+                  v: "qty"
+                _2: None
+              - Tuple
+                _1: Id @11:20
+                  v: "note"
+                _2: None
+  - Delete @13:1
+    t: "table1"
+    del: Right
+      value: List
+        - BinExpr @14:7
+          op: Eq
+          l: Id @14:7
+            v: "id"
+          r: IntLit @14:12
+            v: 1
+    order: []
+    groupby: []
+    having: []
+  - VerbatimCode @16:1
+    c: "\nshow table1;\nshow audit;\n"

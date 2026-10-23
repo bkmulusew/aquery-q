@@ -1,0 +1,58 @@
+List
+  - Query @2:7
+    local: []
+    main: Project @2:7
+      t: Filter
+        t: Join @2:21
+          jt: InnerJoinUsing
+          l: Join @2:21
+            jt: InnerJoinUsing
+            l: Table @2:21
+              n: "t1"
+              alias: None
+            r: Table @2:35
+              n: "t2"
+              alias: None
+            cond: List
+              - Id @2:44
+                v: "c1"
+          r: Table @2:58
+            n: "t3"
+            alias: None
+          cond: List
+            - Id @2:67
+              v: "c3"
+        fs: List
+          - BinExpr @3:13
+            op: Eq
+            l: ColumnAccess @3:13
+              t: "t1"
+              c: "c1"
+            r: IntLit @3:21
+              v: 100
+          - BinExpr @3:29
+            op: Eq
+            l: ColumnAccess @3:29
+              t: "t1"
+              c: "c2"
+            r: ColumnAccess @3:37
+              t: "t2"
+              c: "c2"
+          - BinExpr @3:47
+            op: Eq
+            l: ColumnAccess @3:47
+              t: "t1"
+              c: "c1"
+            r: ColumnAccess @3:55
+              t: "t3"
+              c: "c3"
+          - BinExpr @3:65
+            op: Gt
+            l: Id @3:65
+              v: "c4"
+            r: IntLit @3:70
+              v: 2
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

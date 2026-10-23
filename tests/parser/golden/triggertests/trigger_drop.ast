@@ -1,0 +1,40 @@
+List
+  - Create @1:1
+    n: "table1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+  - Trigger @3:1
+    name: "trg_drop_me"
+    time: After
+    event: UpdateEvent
+    table: "table1"
+    refs: []
+    body: Update @5:4
+      t: "table1"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: BinExpr @6:14
+            op: Plus
+            l: Id @6:14
+              v: "qty"
+            r: IntLit @6:20
+              v: 1
+      order: []
+      where: List
+        - BinExpr @7:10
+          op: Eq
+          l: Id @7:10
+            v: "id"
+          r: IntLit @7:15
+            v: 1
+      groupby: []
+      having: []
+  - DropTrigger @9:1
+    name: "trg_drop_me"

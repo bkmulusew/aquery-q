@@ -1,0 +1,32 @@
+List
+  - UDF @2:10
+    n: "add"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Right
+        value: BinExpr @2:31
+          op: Plus
+          l: Id @2:31
+            v: "x"
+          r: Id @2:35
+            v: "y"
+  - UDF @3:10
+    n: "myAvg"
+    args: List
+      - "x"
+    cs: List
+      - Right
+        value: BinExpr @3:30
+          op: Div
+          l: FunCall @3:30
+            f: "SUM"
+            args: List
+              - Id @3:34
+                v: "x"
+          r: FunCall @3:39
+            f: "COUNT"
+            args: List
+              - Id @3:45
+                v: "x"

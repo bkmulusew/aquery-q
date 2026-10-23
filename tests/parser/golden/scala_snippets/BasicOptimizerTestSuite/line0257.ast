@@ -1,0 +1,17 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: SortBy
+        t: Table @1:15
+          n: "t"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @1:30
+              v: "c2"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

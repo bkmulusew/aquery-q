@@ -1,0 +1,35 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Table @1:50
+        n: "some_t"
+        alias: Some
+          value: "st"
+      ps: List
+        - Tuple
+          _1: ColumnAccess @1:8
+            t: "bad"
+            c: "c1"
+          _2: None
+        - Tuple
+          _1: BinExpr @1:16
+            op: Times
+            l: ColumnAccess @1:16
+              t: "some_t"
+              c: "c2"
+            r: ColumnAccess @1:28
+              t: "st"
+              c: "ok"
+          _2: None
+        - Tuple
+          _1: FunCall @1:35
+            f: "f"
+            args: List
+              - BinExpr @1:37
+                op: Times
+                l: Id @1:37
+                  v: "c3"
+                r: IntLit @1:42
+                  v: 2
+          _2: None

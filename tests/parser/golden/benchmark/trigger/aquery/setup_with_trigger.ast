@@ -1,0 +1,141 @@
+List
+  - Create @1:1
+    n: "orders"
+    source: Left
+      value: List
+        - Tuple
+          _1: "ordernum"
+          _2: TypeInt
+        - Tuple
+          _1: "itemnum"
+          _2: TypeInt
+        - Tuple
+          _1: "quantity"
+          _2: TypeInt
+        - Tuple
+          _1: "price"
+          _2: TypeFloat
+        - Tuple
+          _1: "storeid"
+          _2: TypeString
+        - Tuple
+          _1: "vendorid"
+          _2: TypeString
+  - Create @10:1
+    n: "store"
+    source: Left
+      value: List
+        - Tuple
+          _1: "storeid"
+          _2: TypeString
+        - Tuple
+          _1: "name"
+          _2: TypeString
+  - Create @15:1
+    n: "item"
+    source: Left
+      value: List
+        - Tuple
+          _1: "itemnum"
+          _2: TypeInt
+        - Tuple
+          _1: "price"
+          _2: TypeFloat
+  - Create @20:1
+    n: "vendorOutstanding"
+    source: Left
+      value: List
+        - Tuple
+          _1: "vendorid"
+          _2: TypeString
+        - Tuple
+          _1: "amount"
+          _2: TypeFloat
+  - Create @25:1
+    n: "storeOutstanding"
+    source: Left
+      value: List
+        - Tuple
+          _1: "storeid"
+          _2: TypeString
+        - Tuple
+          _1: "amount"
+          _2: TypeFloat
+  - VerbatimCode @30:1
+    c: "\n.bench.readLines:{[file] @[read0;`$file;{()}]};\n\nitemFile:\"/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/item_fractal_10_7.csv\";\nitemLines:.bench.readLines itemFile;\nif[0<count itemLines;\n  itemParsed:\",\" vs' 1_ itemLines;\n  item,:flip `itemnum`price!(\n    \"J\"$ first each itemParsed;\n    \"F\"$ itemParsed[;1]\n    )\n  ];\n\nstoreFile:\"/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/store_fractal_10_7.csv\";\nstoreLines:.bench.readLines storeFile;\nif[0<count storeLines;\n  storeParsed:\",\" vs' 1_ storeLines;\n  store,:flip `storeid`name!(\n    `$ first each storeParsed;\n    `$ storeParsed[;1]\n    )\n  ];\n\nvendorOutstandingFile:\"/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/vendorOutstanding_fractal_10_7.csv\";\nvendorOutstandingLines:.bench.readLines vendorOutstandingFile;\nif[0<count vendorOutstandingLines;\n  vendorOutstandingParsed:\",\" vs' 1_ vendorOutstandingLines;\n  vendorOutstanding,:flip `vendorid`amount!(\n    `$ first each vendorOutstandingParsed;\n    \"F\"$ vendorOutstandingParsed[;1]\n    )\n  ];\nstoreOutstandingFile:\"/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/storeOutstanding_fractal_10_7.csv\";\nstoreOutstandingLines:.bench.readLines storeOutstandingFile;\nif[0<count storeOutstandingLines;\n  storeOutstandingParsed:\",\" vs' 1_ storeOutstandingLines;\n  storeOutstanding,:flip `storeid`amount!(\n    `$ first each storeOutstandingParsed;\n    \"F\"$ storeOutstandingParsed[;1]\n    )\n  ];\n\nordersFile:\"/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/order_fractal_10_7.csv\";\nordersLines:.bench.readLines ordersFile;\nif[0<count ordersLines;\n  ordersParsed:\",\" vs' 1_ ordersLines;\n  orders,:flip `ordernum`itemnum`quantity`price`storeid`vendorid!(\n    \"J\"$ ordersParsed[;0];\n    \"J\"$ ordersParsed[;1];\n    \"J\"$ ordersParsed[;2];\n    \"F\"$ ordersParsed[;3];\n    `$ ordersParsed[;4];\n    `$ ordersParsed[;5]\n    )\n  ];\n"
+  - Trigger @87:1
+    name: "updateVendorOutstanding"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @90:4
+      t: "vendorOutstanding"
+      assigns: List
+        - Tuple
+          _1: "amount"
+          _2: BinExpr @91:17
+            op: Plus
+            l: Id @91:17
+              v: "amount"
+            r: BinExpr @91:26
+              op: Times
+              l: ColumnAccess @91:26
+                t: "inserted"
+                c: "quantity"
+              r: ColumnAccess @91:46
+                t: "inserted"
+                c: "price"
+      order: []
+      where: List
+        - BinExpr @92:10
+          op: Eq
+          l: ColumnAccess @92:10
+            t: "vendorOutstanding"
+            c: "vendorid"
+          r: ColumnAccess @92:39
+            t: "inserted"
+            c: "vendorid"
+      groupby: []
+      having: []
+  - Trigger @94:1
+    name: "updateStoreOutstanding"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @97:4
+      t: "storeOutstanding"
+      assigns: List
+        - Tuple
+          _1: "amount"
+          _2: BinExpr @98:17
+            op: Plus
+            l: Id @98:17
+              v: "amount"
+            r: BinExpr @98:26
+              op: Times
+              l: ColumnAccess @98:26
+                t: "inserted"
+                c: "quantity"
+              r: ColumnAccess @98:46
+                t: "inserted"
+                c: "price"
+      order: []
+      where: List
+        - BinExpr @99:10
+          op: Eq
+          l: ColumnAccess @99:10
+            t: "storeOutstanding"
+            c: "storeid"
+          r: ColumnAccess @99:37
+            t: "inserted"
+            c: "storeid"
+      groupby: []
+      having: []

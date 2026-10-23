@@ -1,0 +1,151 @@
+List
+  - VerbatimCode @1:1
+    c: "\nnums:([]val:(`int$1e6)?100.00);\ns_asc:asc;\n"
+  - UDF @7:1
+    n: "naive_quantile"
+    args: List
+      - "v"
+      - "pct"
+    cs: List
+      - Left
+        value: Assign
+          n: "sorted_v"
+          e: FunCall @8:15
+            f: "s_asc"
+            args: List
+              - Id @8:21
+                v: "v"
+      - Left
+        value: Assign
+          n: "n"
+          e: FunCall @9:8
+            f: "COUNT"
+            args: List
+              - Id @9:14
+                v: "v"
+      - Left
+        value: Assign
+          n: "ix"
+          e: BinExpr @10:9
+            op: Minus
+            l: BinExpr @10:10
+              op: Div
+              l: BinExpr @10:10
+                op: Times
+                l: Id @10:10
+                  v: "pct"
+                r: Id @10:16
+                  v: "n"
+              r: IntLit @10:20
+                v: 100
+            r: FloatLit @10:27
+              v: 0.5
+      - Left
+        value: Assign
+          n: "i"
+          e: FunCall @11:8
+            f: "floor"
+            args: List
+              - Id @11:14
+                v: "ix"
+      - Left
+        value: Assign
+          n: "q_v"
+          e: FunCall @12:10
+            f: "sorted_v"
+            args: List
+              - Id @12:19
+                v: "i"
+      - Left
+        value: Assign
+          n: "f"
+          e: BinExpr @13:8
+            op: Minus
+            l: Id @13:8
+              v: "ix"
+            r: Id @13:13
+              v: "i"
+      - Left
+        value: Assign
+          n: "extra"
+          e: Case @14:12
+            cond: None
+            when: List
+              - IfThen
+                c: BinExpr @14:22
+                  op: Neq
+                  l: Id @14:22
+                    v: "f"
+                  r: IntLit @14:27
+                    v: 0
+                t: BinExpr @15:5
+                  op: Minus
+                  l: BinExpr @15:5
+                    op: Times
+                    l: Id @15:5
+                      v: "f"
+                    r: FunCall @15:9
+                      f: "sorted_v"
+                      args: List
+                        - BinExpr @15:18
+                          op: Plus
+                          l: Id @15:18
+                            v: "i"
+                          r: IntLit @15:22
+                            v: 1
+                  r: BinExpr @15:27
+                    op: Times
+                    l: Id @15:27
+                      v: "f"
+                    r: FunCall @15:31
+                      f: "sorted_v"
+                      args: List
+                        - Id @15:40
+                          v: "i"
+            e: Some
+              value: FloatLit @16:10
+                v: 0.0
+      - Right
+        value: FunCall @18:3
+          f: "LIST"
+          args: List
+            - BinExpr @18:8
+              op: Plus
+              l: Id @18:8
+                v: "extra"
+              r: Id @18:16
+                v: "q_v"
+  - Query @21:1
+    local: []
+    main: Project @21:1
+      t: Table @21:44
+        n: "nums"
+        alias: None
+      ps: List
+        - Tuple
+          _1: FunCall @21:8
+            f: "naive_quantile"
+            args: List
+              - Id @21:23
+                v: "val"
+              - IntLit @21:28
+                v: 95
+          _2: Some
+            value: "q95"
+  - Query @23:1
+    local: []
+    main: Project @23:1
+      t: Table @23:42
+        n: "nums"
+        alias: None
+      ps: List
+        - Tuple
+          _1: FunCall @23:8
+            f: "naive_quantile"
+            args: List
+              - Id @23:23
+                v: "val"
+              - IntLit @23:28
+                v: 5
+          _2: Some
+            value: "q5"

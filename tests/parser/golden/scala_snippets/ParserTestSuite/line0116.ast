@@ -1,0 +1,14 @@
+List
+  - Create @1:1
+    n: "t"
+    source: Right
+      value: Query @1:16
+        local: []
+        main: Project @1:16
+          t: Table @1:30
+            n: "t1"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None

@@ -1,0 +1,21 @@
+List
+  - VerbatimCode @1:1
+    c: "\nemp_sorted_hundreds1:`hundreds1 xasc employees;\nemp_sorted_hundreds1:update hundreds1:`s#hundreds1 from emp_sorted_hundreds1;\n"
+  - Query @6:1
+    local: []
+    main: Project @6:1
+      t: Filter
+        t: Table @6:15
+          n: "emp_sorted_hundreds1"
+          alias: None
+        fs: List
+          - BinExpr @6:42
+            op: Eq
+            l: Id @6:42
+              v: "hundreds1"
+            r: IntLit @6:54
+              v: 150
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

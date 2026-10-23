@@ -1,0 +1,21 @@
+List
+  - UDF @1:1
+    n: "f"
+    args: List
+      - "x"
+    cs: List
+      - Left
+        value: Assign
+          n: "z"
+          e: FunCall @1:22
+            f: "g"
+            args: List
+              - IntLit @1:24
+                v: 2
+      - Right
+        value: BinExpr @1:28
+          op: Times
+          l: Id @1:28
+            v: "z"
+          r: IntLit @1:32
+            v: 3

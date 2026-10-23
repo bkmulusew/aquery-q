@@ -1,0 +1,46 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Join @6:6
+          jt: Cross
+          l: Table @6:6
+            n: "lineitem"
+            alias: Some
+              value: "L"
+          r: Table @6:21
+            n: "orders"
+            alias: Some
+              value: "O"
+          cond: []
+        fs: List
+          - BinExpr @7:7
+            op: Eq
+            l: ColumnAccess @7:7
+              t: "L"
+              c: "l_orderkey"
+            r: ColumnAccess @7:22
+              t: "O"
+              c: "o_orderkey"
+      ps: List
+        - Tuple
+          _1: ColumnAccess @2:3
+            t: "L"
+            c: "l_orderkey"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @3:3
+            t: "L"
+            c: "l_partkey"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @4:3
+            t: "O"
+            c: "o_orderdate"
+          _2: None
+        - Tuple
+          _1: ColumnAccess @5:3
+            t: "O"
+            c: "o_orderstatus"
+          _2: None

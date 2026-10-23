@@ -1,0 +1,132 @@
+List
+  - Query
+    local: List
+      - Tuple
+        _1: "pxdata"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "HighPrice"
+          - "LowPrice"
+        _3: Project
+          t: Filter
+            t: Table @4:10
+              n: "price"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @5:11
+                    v: "Id"
+                  - Id @5:17
+                    v: "stock1000"
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @6:11
+                    v: "TradeDate"
+                  - Id @6:29
+                    v: "startPeriod"
+                  - Id @6:45
+                    v: "endPeriod"
+          ps: List
+            - Tuple
+              _1: Id @3:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @3:16
+                v: "TradeDate"
+              _2: None
+            - Tuple
+              _1: Id @3:27
+                v: "HighPrice"
+              _2: None
+            - Tuple
+              _1: Id @3:38
+                v: "LowPrice"
+              _2: None
+      - Tuple
+        _1: "splitdata"
+        _2: List
+          - "Id"
+          - "TradeDate"
+          - "SplitFactor"
+        _3: Project
+          t: Filter
+            t: Table @11:10
+              n: "split"
+              alias: None
+            fs: List
+              - FunCall
+                f: "IN"
+                args: List
+                  - Id @12:11
+                    v: "Id"
+                  - Id @12:17
+                    v: "stock1000"
+              - FunCall
+                f: "BETWEEN"
+                args: List
+                  - Id @13:11
+                    v: "SplitDate"
+                  - Id @13:29
+                    v: "startPeriod"
+                  - Id @13:45
+                    v: "endPeriod"
+          ps: List
+            - Tuple
+              _1: Id @10:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @10:16
+                v: "SplitDate"
+              _2: None
+            - Tuple
+              _1: Id @10:27
+                v: "SplitFactor"
+              _2: None
+    main: Project
+      t: SortBy
+        t: Join
+          jt: InnerJoinUsing
+          l: Table @17:6
+            n: "pxdata"
+            alias: None
+          r: Table @17:24
+            n: "splitdata"
+            alias: None
+          cond: List
+            - Id @17:41
+              v: "Id"
+            - Id @17:45
+              v: "TradeDate"
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @18:14
+              v: "Id"
+          - Tuple
+            _1: Asc
+            _2: Id @18:22
+              v: "TradeDate"
+      ps: List
+        - Tuple
+          _1: Id @16:8
+            v: "Id"
+          _2: None
+        - Tuple
+          _1: Id @16:12
+            v: "TradeDate"
+          _2: None
+        - Tuple
+          _1: BinExpr
+            op: Minus
+            l: Id @16:23
+              v: "HighPrice"
+            r: Id @16:35
+              v: "LowPrice"
+          _2: Some
+            value: "MaxDiff"

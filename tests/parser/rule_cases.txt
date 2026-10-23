@@ -1,0 +1,182 @@
+# rule_cases.txt - inputs for the parser's rule tests.
+#
+# One case per line: the name of a rule in AqueryParser.scala, a TAB, then
+# the text to parse with that rule (the whole text must be used).
+# Lines starting with # and empty lines are ignored.
+#
+# tools/gen_rule_golden.sh runs each case through the real Scala parser
+# (tools/RuleDump.java) and writes what it built to rule_golden.txt.
+# Add cases here, then regenerate; never edit rule_golden.txt by hand.
+
+# --- query: SELECT ... FROM ... [ASSUMING] [WHERE] [GROUP BY [HAVING]]
+query	SELECT a FROM t
+query	select a, b AS c FROM t
+query	SELECT * FROM t AS x
+query	SELECT * FROM t x
+query	SELECT DISTINCT a FROM t
+query	SELECT a FROM t, u, v
+query	SELECT a FROM t INNER JOIN u USING k
+query	SELECT a FROM t FULL OUTER JOIN u USING (k, j)
+query	SELECT a FROM t INNER JOIN u USING ()
+query	SELECT a FROM t, u INNER JOIN v USING k, w
+query	SELECT a FROM f(1, 2)
+query	SELECT a FROM t ASSUMING ASC a, DESC b
+query	SELECT a FROM t WHERE a > 1 AND b < 2
+query	SELECT a FROM t WHERE a between 1 and 2
+query	SELECT a, sum(b) FROM t GROUP BY a
+query	SELECT a FROM t GROUP BY a, b AS c HAVING count(b) > 1 AND sum(c) < 2
+query	SELECT DISTINCT a AS b, f(c) FROM t x, u INNER JOIN v USING (k, j) ASSUMING ASC a, DESC t.b WHERE a > 1 AND b NOT BETWEEN 1 AND 3 GROUP BY a AS g HAVING sum(b) > 2 AND x
+# failures
+query	select a, t.d e FROM t
+query	SELECT a FROM f(x) AS y
+query	SELECT a FROM t GROUP BY a HAVING x and y
+query	SELECT a FROM t GROUP BY a HAVING x IS NULL
+query	SELECT a FROM t GROUP a
+query	SELECT FROM t
+query	SELECT a FROM
+query	SELECT a FROM t ASSUMING a
+query	SELECT a FROM t WHERE
+query	SELECT a FROM t,
+query	SELECT a FROM t INNER JOIN u
+query	SELECT a FROM t WHERE a > 1 GROUP BY a ASSUMING ASC a
+
+# --- topApply: SHOW / EXEC ARRAYS / DISTINCT applied to a whole query
+topApply	SHOW(SELECT a FROM t)
+topApply	EXEC ARRAYS (SELECT a FROM t)
+topApply	exec arrays(select a from t)
+topApply	DISTINCT(SELECT a FROM t)
+topApply	SELECT a FROM t
+topApply	SHOW SELECT a FROM t
+topApply	EXEC (SELECT a FROM t)
+
+# --- fullQuery: optional WITH local queries, then the main query
+fullQuery	SELECT a FROM t
+fullQuery	WITH x AS (SELECT a FROM t) SELECT a FROM x
+fullQuery	WITH q1(a,b) AS (SELECT * FROM f(1)) q2 AS (SHOW(SELECT a FROM q1)) SELECT a FROM q2
+fullQuery	WITH x AS (SELECT a FROM t), y AS (SELECT a FROM t) SELECT a FROM y
+fullQuery	WITH SELECT a FROM t
+fullQuery	WITH x() AS (SELECT a FROM t) SELECT a FROM x
+localQuery	x(a, b) AS (SELECT a FROM t)
+localQuery	x AS SELECT a FROM t
+
+# --- from: tables, function calls and joins
+from	t
+from	t AS u
+from	t u
+from	f()
+from	t, u INNER JOIN v USING a FULL OUTER JOIN w USING (b)
+simpleTable	t AS
+using	(a, b)
+using	a
+using	()
+using	(a.b)
+
+# --- where and predicate
+where	a = 1 AND b IN c AND d NOT IN (1, 2, 3) AND e LIKE "x%"
+where	a = 1 and b = 2
+where	x BETWEEN 1 AND 2 AND y
+where	a AND
+predicate	x IS TRUE
+predicate	x IS NOT FALSE
+predicate	x IS NULL
+predicate	x is not null
+predicate	(a, b) OVERLAPS (c, d)
+predicate	(a, b) NOT OVERLAPS (c, d)
+predicate	x IN (1)
+predicate	x IN (1, 2)
+predicate	x NOT LIKE y
+predicate	x BETWEEN 1 AND
+predicate	x IS 3
+predicate	x
+predicate	(a, b) OVERLAPS c
+
+# --- order, group by, projection
+order	ASC a, DESC f(b)
+order	asc t.a
+order	a
+groupBy	a, b AS c
+groupBy	a AS
+projection	a + 1 AS b
+projection	a b
+
+# --- create: a schema or a query
+create	CREATE TABLE t (a INT, b FLOAT, c STRING, d DATE, e TIMESTAMP, f BOOLEAN)
+create	CREATE TABLE t SELECT a FROM u
+create	CREATE TABLE t AS SELECT a FROM u
+create	create table t (a int)
+create	CREATE TABLE t ()
+schema	(a INT)
+
+# --- insert
+insert	INSERT INTO t VALUES (1, "a", 2.5)
+insert	INSERT INTO t (a, b) VALUES (1, 2)
+insert	INSERT INTO t () VALUES ()
+insert	INSERT INTO t ASSUMING ASC a SELECT a FROM u
+insert	INSERT INTO t SELECT * FROM u WHERE x > 1
+insert	INSERT INTO t VALUES 1
+
+# --- update
+update	UPDATE t SET a = 1, b = b + 1
+update	UPDATE t SET a = 1 ASSUMING ASC b WHERE c > 2 GROUP BY d, e HAVING sum(a) > 1 AND count(b) < 3
+update	UPDATE t SET a = 1 GROUP BY d
+update	UPDATE t SET a == 1
+update	UPDATE t SET
+
+# --- delete: rows (FROM ... WHERE) or columns (DELETE a, b FROM t)
+delete	DELETE FROM t
+delete	DELETE FROM t WHERE a > 1 AND b IS NULL
+delete	DELETE FROM t ASSUMING DESC a GROUP BY b HAVING count(a) > 1
+delete	DELETE FROM t GROUP BY b
+delete	DELETE a, b FROM t
+delete	DELETE a FROM
+
+# --- triggers
+trigger	CREATE TRIGGER tr AFTER INSERT ON t DO INSERT INTO log VALUES (1)
+trigger	CREATE TRIGGER tr BEFORE UPDATE ON t REFERENCING NEW TABLE AS n OLD TABLE AS o DO SELECT * FROM n
+trigger	CREATE TRIGGER tr AFTER DELETE ON t DO DELETE FROM u WHERE a > 1
+trigger	CREATE TRIGGER tr AFTER DELETE ON t DO UPDATE u SET a = 1
+trigger	CREATE TRIGGER tr DURING INSERT ON t DO SELECT a FROM t
+trigger	CREATE TRIGGER tr AFTER INSERT ON t REFERENCING DO SELECT a FROM t
+dropTrigger	DROP TRIGGER tr
+dropTrigger	drop trigger
+
+# --- io: LOAD DATA and ... INTO OUTFILE
+io	LOAD DATA INFILE "f.csv" INTO TABLE t FIELDS TERMINATED BY ","
+io	SELECT a FROM t INTO OUTFILE "out.csv" FIELDS TERMINATED BY "|"
+io	WITH x AS (SELECT a FROM t) SELECT a FROM x INTO OUTFILE "o" FIELDS TERMINATED BY ","
+io	LOAD DATA INFILE f INTO TABLE t FIELDS TERMINATED BY ","
+io	SELECT a FROM t INTO OUTFILE "o"
+
+# --- user-defined functions
+udf	FUNCTION f(a, b) { c := a + b; c * 2 }
+udf	FUNCTION g() { 1 }
+udf	function h(x) { y := x; z := y; }
+udf	FUNCTION f(a) { }
+udfBody	x := 1
+udfBody	x + 1
+
+# --- verbatim q code
+verbatim	<q> t:([] a:1 2 3) </q>
+
+# --- program: one or more top-level statements (no WITH at the top
+# level here: those are rewritten by the string-constant pass, milestone 5)
+program	CREATE TABLE t (a INT) INSERT INTO t VALUES (1) SELECT a FROM t
+program	FUNCTION f(x) { x } SELECT f(a) FROM t
+program	SELECT a FROM t INTO OUTFILE "o" FIELDS TERMINATED BY "," SELECT b FROM u
+program	DROP TRIGGER x CREATE TRIGGER y AFTER INSERT ON t DO SELECT a FROM t
+program	<q> f:{x} </q> SHOW(SELECT a FROM t) UPDATE t SET a = 1 DELETE FROM t
+program	SELECT a FROM t garbage
+program	SELECT a FROM t WHERE
+program	
+
+# --- program with WITH: the string-constant rewrite (rewrite.q)
+program	WITH x AS (SELECT a, "weekly" FROM t) SELECT b, "it's x", "" FROM x
+program	WITH x AS (SELECT "only", "strings" FROM t) SELECT a FROM x
+program	WITH x AS (SELECT a FROM t) SELECT a, "a-b", "A B", "3x", "--", "a-b" FROM x
+program	WITH x AS (SELECT a FROM t) SELECT x("a") AS v, f(x("b"), 1) FROM x ASSUMING ASC x("a") WHERE x("c") IN (1, 2) GROUP BY a HAVING x("c") > 1
+program	WITH x AS (SELECT a FROM t) SELECT CASE WHEN a > 1 THEN -a ELSE f(a)[odd] END, "s" FROM x
+program	WITH x AS (SELECT a FROM f(x("q"))) y AS (SHOW(SELECT b FROM x)) SELECT a FROM x INNER JOIN y USING k
+program	WITH x AS (SELECT a FROM t) SELECT y("a"), x("a", "b"), x(a) FROM x
+program	SELECT a, "s" FROM t
+program	WITH x AS (SELECT a FROM t) SELECT a, "s" FROM x INTO OUTFILE "o" FIELDS TERMINATED BY ","
+program	WITH x AS (SELECT a, "one" FROM t) SELECT a, "one" FROM x WITH y AS (SELECT b, "two" FROM u) SELECT b, "one" FROM y

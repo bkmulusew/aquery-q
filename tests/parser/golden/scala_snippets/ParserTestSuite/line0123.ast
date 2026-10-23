@@ -1,0 +1,18 @@
+List
+  - Trigger @1:1
+    name: "trg_ins"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: []
+    body: Update @1:50
+      t: "orders"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: IntLit @1:74
+            v: 0
+      order: []
+      where: []
+      groupby: []
+      having: []

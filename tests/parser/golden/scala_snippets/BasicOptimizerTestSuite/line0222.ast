@@ -1,0 +1,28 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:15
+          n: "t"
+          alias: None
+        fs: List
+          - BinExpr @1:23
+            op: Gt
+            l: FunCall @1:23
+              f: "SUMS"
+              args: List
+                - Id @1:28
+                  v: "c1"
+            r: IntLit @1:34
+              v: 2
+          - BinExpr @1:40
+            op: Eq
+            l: Id @1:40
+              v: "c4"
+            r: IntLit @1:45
+              v: 2
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

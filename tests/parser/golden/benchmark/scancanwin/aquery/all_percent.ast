@@ -1,0 +1,145 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:15
+          n: "scanwin_idx_onepercent1"
+          alias: None
+        fs: List
+          - BinExpr @1:45
+            op: Eq
+            l: Id @1:45
+              v: "onepercent1"
+            r: IntLit @1:59
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @2:1
+    local: []
+    main: Project @2:1
+      t: Filter
+        t: Table @2:15
+          n: "employees"
+          alias: None
+        fs: List
+          - BinExpr @2:31
+            op: Eq
+            l: Id @2:31
+              v: "onepercent2"
+            r: IntLit @2:45
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @3:1
+    local: []
+    main: Project @3:1
+      t: Filter
+        t: Table @3:15
+          n: "scanwin_idx_fivepercent1"
+          alias: None
+        fs: List
+          - BinExpr @3:46
+            op: Eq
+            l: Id @3:46
+              v: "fivepercent1"
+            r: IntLit @3:61
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @4:1
+    local: []
+    main: Project @4:1
+      t: Filter
+        t: Table @4:15
+          n: "employees"
+          alias: None
+        fs: List
+          - BinExpr @4:31
+            op: Eq
+            l: Id @4:31
+              v: "fivepercent2"
+            r: IntLit @4:46
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @5:1
+    local: []
+    main: Project @5:1
+      t: Filter
+        t: Table @5:15
+          n: "scanwin_idx_tenpercent1"
+          alias: None
+        fs: List
+          - BinExpr @5:45
+            op: Eq
+            l: Id @5:45
+              v: "tenpercent1"
+            r: IntLit @5:59
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @6:1
+    local: []
+    main: Project @6:1
+      t: Filter
+        t: Table @6:15
+          n: "employees"
+          alias: None
+        fs: List
+          - BinExpr @6:31
+            op: Eq
+            l: Id @6:31
+              v: "tenpercent2"
+            r: IntLit @6:45
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @7:1
+    local: []
+    main: Project @7:1
+      t: Filter
+        t: Table @7:15
+          n: "scanwin_idx_twentypercent1"
+          alias: None
+        fs: List
+          - BinExpr @7:48
+            op: Eq
+            l: Id @7:48
+              v: "twentypercent1"
+            r: IntLit @7:65
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
+  - Query @8:1
+    local: []
+    main: Project @8:1
+      t: Filter
+        t: Table @8:15
+          n: "employees"
+          alias: None
+        fs: List
+          - BinExpr @8:31
+            op: Eq
+            l: Id @8:31
+              v: "twentypercent2"
+            r: IntLit @8:48
+              v: 5
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None

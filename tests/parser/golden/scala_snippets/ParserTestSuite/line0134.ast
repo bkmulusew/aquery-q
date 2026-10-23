@@ -1,0 +1,23 @@
+List
+  - Trigger @2:7
+    name: "trg_upd"
+    time: After
+    event: UpdateEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: OldTableRef
+        alias: "deleted"
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Query @5:10
+      local: []
+      main: Project @5:10
+        t: Table @5:24
+          n: "inserted"
+          alias: None
+        ps: List
+          - Tuple
+            _1: WildCard
+            _2: None

@@ -1,0 +1,136 @@
+List
+  - Create @1:1
+    n: "table1"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Create @2:1
+    n: "table2"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+        - Tuple
+          _1: "note"
+          _2: TypeString
+  - Insert @4:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @4:27
+          v: 1
+        - IntLit @4:30
+          v: 10
+        - StringLit @4:34
+          v: "src"
+  - Insert @5:1
+    n: "table1"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @5:27
+          v: 2
+        - IntLit @5:30
+          v: 20
+        - StringLit @5:34
+          v: "src2"
+  - Insert @7:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @7:27
+          v: 1
+        - IntLit @7:30
+          v: 0
+        - StringLit @7:33
+          v: "dest"
+  - Insert @8:1
+    n: "table2"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @8:27
+          v: 2
+        - IntLit @8:30
+          v: 0
+        - StringLit @8:33
+          v: "dest2"
+  - Trigger @10:1
+    name: "trg_sync_table2_expr"
+    time: After
+    event: UpdateEvent
+    table: "table1"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Update @13:4
+      t: "table2"
+      assigns: List
+        - Tuple
+          _1: "qty"
+          _2: BinExpr @14:14
+            op: Plus
+            l: ColumnAccess @14:14
+              t: "inserted"
+              c: "qty"
+            r: IntLit @14:29
+              v: 1
+        - Tuple
+          _1: "note"
+          _2: ColumnAccess @14:39
+            t: "inserted"
+            c: "note"
+      order: []
+      where: List
+        - BinExpr @15:10
+          op: Eq
+          l: ColumnAccess @15:10
+            t: "table2"
+            c: "id"
+          r: ColumnAccess @15:22
+            t: "inserted"
+            c: "id"
+      groupby: []
+      having: []
+  - Update @17:1
+    t: "table1"
+    assigns: List
+      - Tuple
+        _1: "qty"
+        _2: IntLit @18:11
+          v: 42
+      - Tuple
+        _1: "note"
+        _2: StringLit @18:22
+          v: "src_updated"
+    order: []
+    where: List
+      - BinExpr @19:7
+        op: Eq
+        l: Id @19:7
+          v: "id"
+        r: IntLit @19:12
+          v: 1
+    groupby: []
+    having: []
+  - VerbatimCode @21:1
+    c: "\nshow table1;\nshow table2;\n"

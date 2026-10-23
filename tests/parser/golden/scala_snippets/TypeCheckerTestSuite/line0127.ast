@@ -1,0 +1,29 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: Table @1:32
+          n: "t"
+          alias: None
+        fs: List
+          - BinExpr @1:40
+            op: Eq
+            l: Id @1:40
+              v: "c1"
+            r: IntLit @1:45
+              v: 2
+      ps: List
+        - Tuple
+          _1: BinExpr @1:8
+            op: Div
+            l: BinExpr @1:8
+              op: Times
+              l: Id @1:8
+                v: "c1"
+              r: IntLit @1:13
+                v: 2
+            r: StringLit @1:16
+              v: "a"
+          _2: Some
+            value: "bad"

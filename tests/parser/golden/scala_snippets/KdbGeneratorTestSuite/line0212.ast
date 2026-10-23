@@ -1,0 +1,85 @@
+List
+  - VerbatimCode @2:9
+    c: " base:([]c1:1000?100; c2:1000?100; c3:1000?100); "
+  - Create @4:9
+    n: "upd_t"
+    source: Right
+      value: Query @5:11
+        local: []
+        main: Project @5:11
+          t: Table @5:25
+            n: "base"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Create @7:9
+    n: "del_t"
+    source: Right
+      value: Query @8:11
+        local: []
+        main: Project @8:11
+          t: Table @8:25
+            n: "base"
+            alias: None
+          ps: List
+            - Tuple
+              _1: WildCard
+              _2: None
+  - Update @10:10
+    t: "upd_t"
+    assigns: List
+      - Tuple
+        _1: "c1"
+        _2: BinExpr @11:19
+          op: Times
+          l: Id @11:19
+            v: "c1"
+          r: IntLit @11:24
+            v: 2
+      - Tuple
+        _1: "c3"
+        _2: Case @11:32
+          cond: None
+          when: List
+            - IfThen
+              c: BinExpr @11:42
+                op: Gt
+                l: Id @11:42
+                  v: "c3"
+                r: IntLit @11:47
+                  v: 50
+              t: IntLit @11:55
+                v: 1
+          e: Some
+            value: IntLit @11:62
+              v: -1
+    order: List
+      - Tuple
+        _1: Asc
+        _2: Id @12:23
+          v: "c1"
+    where: []
+    groupby: []
+    having: []
+  - Delete @14:10
+    t: "del_t"
+    del: Right
+      value: []
+    order: []
+    groupby: List
+      - Id @14:37
+        v: "c1"
+    having: List
+      - BinExpr @14:47
+        op: Gt
+        l: FunCall @14:47
+          f: "COUNT"
+          args: List
+            - Id @14:53
+              v: "c2"
+        r: IntLit @14:59
+          v: 4
+  - VerbatimCode @16:9
+    c: ".aq.c1:{upd_t}; .aq.c2:{del_t};"

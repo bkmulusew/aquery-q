@@ -1,0 +1,57 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: Filter
+        t: SortBy
+          t: Table @1:45
+            n: "t"
+            alias: None
+          os: List
+            - Tuple
+              _1: Asc
+              _2: Id @1:60
+                v: "c2"
+        fs: List
+          - BinExpr @1:69
+            op: Gt
+            l: FunCall @1:69
+              f: "SUMS"
+              args: List
+                - Id @1:74
+                  v: "c5"
+            r: IntLit @1:80
+              v: 2
+          - BinExpr @1:86
+            op: Lt
+            l: Id @1:86
+              v: "c6"
+            r: IntLit @1:91
+              v: 2
+      ps: List
+        - Tuple
+          _1: Id @1:8
+            v: "c1"
+          _2: None
+        - Tuple
+          _1: BinExpr @1:12
+            op: Times
+            l: Id @1:12
+              v: "c2"
+            r: FunCall @1:17
+              f: "SUMS"
+              args: List
+                - BinExpr @1:22
+                  op: Times
+                  l: Id @1:22
+                    v: "c4"
+                  r: Id @1:27
+                    v: "c3"
+          _2: None
+        - Tuple
+          _1: FunCall @1:32
+            f: "SUM"
+            args: List
+              - Id @1:36
+                v: "c7"
+          _2: None

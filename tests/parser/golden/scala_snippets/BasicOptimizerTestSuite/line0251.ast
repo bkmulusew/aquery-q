@@ -1,0 +1,42 @@
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: SortBy
+        t: Join @1:39
+          jt: Cross
+          l: Table @1:39
+            n: "t"
+            alias: None
+          r: Table @1:42
+            n: "other"
+            alias: Some
+              value: "o"
+          cond: []
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @1:63
+              v: "c2"
+      ps: List
+        - Tuple
+          _1: Id @1:8
+            v: "c1"
+          _2: None
+        - Tuple
+          _1: BinExpr @1:12
+            op: Times
+            l: ColumnAccess @1:12
+              t: "t"
+              c: "c2"
+            r: FunCall @1:19
+              f: "SUM"
+              args: List
+                - BinExpr @1:23
+                  op: Times
+                  l: Id @1:23
+                    v: "c4"
+                  r: ColumnAccess @1:28
+                    t: "o"
+                    c: "c2"
+          _2: None

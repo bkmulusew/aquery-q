@@ -1,0 +1,17 @@
+List
+  - Create @1:1
+    n: "item"
+    source: Left
+      value: List
+        - Tuple
+          _1: "itemnum"
+          _2: TypeInt
+        - Tuple
+          _1: "price"
+          _2: TypeFloat
+  - Load @6:1
+    file: "/Users/tianxin/projects/nyu/ms1/research/dbtunning_experiements/data_generation/store/item_10_8.csv"
+    t: "item"
+    sep: ","
+  - VerbatimCode @10:1
+    c: "\nshow item;\n"

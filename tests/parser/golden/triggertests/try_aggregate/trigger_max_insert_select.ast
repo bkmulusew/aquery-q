@@ -1,0 +1,70 @@
+List
+  - Create @1:1
+    n: "orders"
+    source: Left
+      value: List
+        - Tuple
+          _1: "id"
+          _2: TypeInt
+        - Tuple
+          _1: "qty"
+          _2: TypeInt
+  - Create @2:1
+    n: "max_log"
+    source: Left
+      value: List
+        - Tuple
+          _1: "max_qty"
+          _2: TypeInt
+  - Trigger @4:1
+    name: "trg_max_after_insert"
+    time: After
+    event: InsertEvent
+    table: "orders"
+    refs: List
+      - TriggerRef
+        kind: NewTableRef
+        alias: "inserted"
+    body: Insert @7:4
+      n: "max_log"
+      order: []
+      modifier: List
+        - "max_qty"
+      src: Right
+        value: Query @8:4
+          local: []
+          main: Project @8:4
+            t: Table @9:9
+              n: "inserted"
+              alias: None
+            ps: List
+              - Tuple
+                _1: FunCall @8:11
+                  f: "MAX"
+                  args: List
+                    - Id @8:15
+                      v: "qty"
+                _2: Some
+                  value: "max_qty"
+  - Insert @12:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @12:27
+          v: 1
+        - IntLit @12:30
+          v: 10
+  - Insert @13:1
+    n: "orders"
+    order: []
+    modifier: []
+    src: Left
+      value: List
+        - IntLit @13:27
+          v: 2
+        - IntLit @13:30
+          v: 20
+  - VerbatimCode @15:1
+    c: "\nshow orders;\nshow max_log;\n"

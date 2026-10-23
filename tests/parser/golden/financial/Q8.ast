@@ -1,0 +1,241 @@
+List
+  - UDF @1:1
+    n: "covariance"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Left
+        value: Assign
+          n: "xmean"
+          e: FunCall @2:12
+            f: "AVG"
+            args: List
+              - Id @2:16
+                v: "x"
+      - Left
+        value: Assign
+          n: "ymean"
+          e: FunCall @3:12
+            f: "AVG"
+            args: List
+              - Id @3:16
+                v: "y"
+      - Right
+        value: FunCall @4:3
+          f: "AVG"
+          args: List
+            - BinExpr @4:7
+              op: Times
+              l: BinExpr @4:8
+                op: Minus
+                l: Id @4:8
+                  v: "x"
+                r: Id @4:12
+                  v: "xmean"
+              r: BinExpr @4:22
+                op: Minus
+                l: Id @4:22
+                  v: "y"
+                r: Id @4:26
+                  v: "ymean"
+  - UDF @7:1
+    n: "sd"
+    args: List
+      - "x"
+    cs: List
+      - Right
+        value: FunCall @8:3
+          f: "SQRT"
+          args: List
+            - FunCall @8:8
+              f: "covariance"
+              args: List
+                - Id @8:19
+                  v: "x"
+                - Id @8:22
+                  v: "x"
+  - UDF @11:1
+    n: "pairCorr"
+    args: List
+      - "x"
+      - "y"
+    cs: List
+      - Right
+        value: BinExpr @12:3
+          op: Div
+          l: FunCall @12:3
+            f: "covariance"
+            args: List
+              - Id @12:14
+                v: "x"
+              - Id @12:17
+                v: "y"
+          r: BinExpr @12:23
+            op: Times
+            l: FunCall @12:23
+              f: "sd"
+              args: List
+                - Id @12:26
+                  v: "x"
+            r: FunCall @12:31
+              f: "sd"
+              args: List
+                - Id @12:34
+                  v: "y"
+  - VerbatimCode @15:1
+    c: "pairCorrEach:pairCorr'"
+  - VerbatimCode @17:1
+    c: "\n/ Original Q8 time window. Restore these predicates if you want the old\n/ benchmark range:\n/   AND TradeDate >= startYear10\n/   AND TradeDate <= startYear10 + 365 * 2\n"
+  - Query
+    local: List
+      - Tuple
+        _1: "stocksGrouped"
+        _2: List
+          - "Id"
+          - "ClosePrice"
+        _3: Project
+          t: GroupBy
+            t: Filter
+              t: SortBy
+                t: Table @27:10
+                  n: "price"
+                  alias: None
+                os: List
+                  - Tuple
+                    _1: Asc
+                    _2: Id @28:18
+                      v: "Id"
+                  - Tuple
+                    _1: Asc
+                    _2: Id @28:26
+                      v: "TradeDate"
+              fs: List
+                - FunCall
+                  f: "IN"
+                  args: List
+                    - Id @29:11
+                      v: "Id"
+                    - Id @29:17
+                      v: "stock10"
+                - BinExpr
+                  op: Ge
+                  l: Id @30:11
+                    v: "TradeDate"
+                  r: Id @30:24
+                    v: "startPeriod"
+                - BinExpr
+                  op: Le
+                  l: Id @31:11
+                    v: "TradeDate"
+                  r: BinExpr
+                    op: Plus
+                    l: Id @31:24
+                      v: "startPeriod"
+                    r: IntLit @31:38
+                      v: 3
+            gs: List
+              - Tuple
+                _1: Id @32:14
+                  v: "Id"
+                _2: None
+            having: []
+          ps: List
+            - Tuple
+              _1: Id @26:12
+                v: "Id"
+              _2: None
+            - Tuple
+              _1: Id @26:16
+                v: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "pairsGrouped"
+        _2: List
+          - "Id1"
+          - "Id2"
+          - "ClosePrice1"
+          - "ClosePrice2"
+        _3: Project
+          t: Join
+            jt: Cross
+            l: Table @41:10
+              n: "stocksGrouped"
+              alias: Some
+                value: "st1"
+            r: Table @41:29
+              n: "stocksGrouped"
+              alias: Some
+                value: "st2"
+            cond: []
+          ps: List
+            - Tuple
+              _1: ColumnAccess @37:7
+                t: "st1"
+                c: "Id"
+              _2: None
+            - Tuple
+              _1: ColumnAccess @38:7
+                t: "st2"
+                c: "Id"
+              _2: None
+            - Tuple
+              _1: ColumnAccess @39:7
+                t: "st1"
+                c: "ClosePrice"
+              _2: None
+            - Tuple
+              _1: ColumnAccess @40:7
+                t: "st2"
+                c: "ClosePrice"
+              _2: None
+      - Tuple
+        _1: "corrTable"
+        _2: List
+          - "Id1"
+          - "Id2"
+          - "corrCoeff"
+        _3: Project
+          t: Filter
+            t: Table @46:10
+              n: "pairsGrouped"
+              alias: None
+            fs: List
+              - BinExpr
+                op: Neq
+                l: Id @47:11
+                  v: "Id1"
+                r: Id @47:18
+                  v: "Id2"
+          ps: List
+            - Tuple
+              _1: Id @45:12
+                v: "Id1"
+              _2: None
+            - Tuple
+              _1: Id @45:17
+                v: "Id2"
+              _2: None
+            - Tuple
+              _1: FunCall
+                f: "pairCorrEach"
+                args: List
+                  - Id @45:35
+                    v: "ClosePrice1"
+                  - Id @45:48
+                    v: "ClosePrice2"
+              _2: None
+    main: Project
+      t: SortBy
+        t: Table @51:6
+          n: "corrTable"
+          alias: None
+        os: List
+          - Tuple
+            _1: Asc
+            _2: Id @52:14
+              v: "corrCoeff"
+      ps: List
+        - Tuple
+          _1: WildCard
+          _2: None
