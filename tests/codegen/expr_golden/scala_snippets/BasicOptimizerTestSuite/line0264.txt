@@ -1,0 +1,10 @@
+--- FunCall(COUNT,List(WildCard))
+plain	(.aq.count;`i)
+grouped	(.aq.count';`i)
+nameAsVar	(.aq.count;`i)
+udf	(.aq.count;`i)
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

@@ -1,0 +1,35 @@
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- BinExpr(Gt,ColumnAccess(t,c1),IntLit(100))
+plain	(>; {x^.aq.cd x} `t.c1; 100)
+grouped	(>; {x^.aq.cd x} `t.c1; 100)
+nameAsVar	(>; {x^.aq.cd x} `t.c1; 100)
+udf	(>; {x^.aq.cd x} `t.c1; 100)
+--- ColumnAccess(t,c1)
+plain	{x^.aq.cd x} `t.c1
+grouped	{x^.aq.cd x} `t.c1
+nameAsVar	{x^.aq.cd x} `t.c1
+udf	{x^.aq.cd x} `t.c1
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- ColumnAccess(t,c2)
+plain	{x^.aq.cd x} `t.c2
+grouped	{x^.aq.cd x} `t.c2
+nameAsVar	{x^.aq.cd x} `t.c2
+udf	{x^.aq.cd x} `t.c2
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3

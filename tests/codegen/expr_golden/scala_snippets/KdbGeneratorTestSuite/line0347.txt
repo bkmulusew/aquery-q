@@ -1,0 +1,25 @@
+--- ColumnAccess(deleted,qty)
+plain	{x^.aq.cd x} `deleted.qty
+grouped	{x^.aq.cd x} `deleted.qty
+nameAsVar	{x^.aq.cd x} `deleted.qty
+udf	{x^.aq.cd x} `deleted.qty
+--- ColumnAccess(deleted,note)
+plain	{x^.aq.cd x} `deleted.note
+grouped	{x^.aq.cd x} `deleted.note
+nameAsVar	{x^.aq.cd x} `deleted.note
+udf	{x^.aq.cd x} `deleted.note
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(deleted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(deleted,id)
+plain	{x^.aq.cd x} `deleted.id
+grouped	{x^.aq.cd x} `deleted.id
+nameAsVar	{x^.aq.cd x} `deleted.id
+udf	{x^.aq.cd x} `deleted.id

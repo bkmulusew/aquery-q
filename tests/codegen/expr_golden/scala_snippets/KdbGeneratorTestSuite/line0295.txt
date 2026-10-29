@@ -1,0 +1,45 @@
+--- BinExpr(Plus,ColumnAccess(table2,qty),ColumnAccess(inserted,delta))
+plain	(+; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.delta)
+grouped	(+; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.delta)
+nameAsVar	(+; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.delta)
+udf	(+; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.delta)
+--- ColumnAccess(table2,qty)
+plain	{x^.aq.cd x} `table2.qty
+grouped	{x^.aq.cd x} `table2.qty
+nameAsVar	{x^.aq.cd x} `table2.qty
+udf	{x^.aq.cd x} `table2.qty
+--- ColumnAccess(inserted,delta)
+plain	{x^.aq.cd x} `inserted.delta
+grouped	{x^.aq.cd x} `inserted.delta
+nameAsVar	{x^.aq.cd x} `inserted.delta
+udf	{x^.aq.cd x} `inserted.delta
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(inserted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(inserted,id)
+plain	{x^.aq.cd x} `inserted.id
+grouped	{x^.aq.cd x} `inserted.id
+nameAsVar	{x^.aq.cd x} `inserted.id
+udf	{x^.aq.cd x} `inserted.id
+--- BinExpr(Lt,ColumnAccess(table2,qty),ColumnAccess(inserted,limit))
+plain	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.limit)
+grouped	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.limit)
+nameAsVar	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.limit)
+udf	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `inserted.limit)
+--- ColumnAccess(table2,qty)
+plain	{x^.aq.cd x} `table2.qty
+grouped	{x^.aq.cd x} `table2.qty
+nameAsVar	{x^.aq.cd x} `table2.qty
+udf	{x^.aq.cd x} `table2.qty
+--- ColumnAccess(inserted,limit)
+plain	{x^.aq.cd x} `inserted.limit
+grouped	{x^.aq.cd x} `inserted.limit
+nameAsVar	{x^.aq.cd x} `inserted.limit
+udf	{x^.aq.cd x} `inserted.limit

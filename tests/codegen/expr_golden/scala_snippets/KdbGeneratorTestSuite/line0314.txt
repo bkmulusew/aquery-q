@@ -1,0 +1,30 @@
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(deleted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `deleted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(deleted,id)
+plain	{x^.aq.cd x} `deleted.id
+grouped	{x^.aq.cd x} `deleted.id
+nameAsVar	{x^.aq.cd x} `deleted.id
+udf	{x^.aq.cd x} `deleted.id
+--- BinExpr(Lt,ColumnAccess(table2,qty),ColumnAccess(deleted,limit))
+plain	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `deleted.limit)
+grouped	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `deleted.limit)
+nameAsVar	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `deleted.limit)
+udf	(<; {x^.aq.cd x} `table2.qty; {x^.aq.cd x} `deleted.limit)
+--- ColumnAccess(table2,qty)
+plain	{x^.aq.cd x} `table2.qty
+grouped	{x^.aq.cd x} `table2.qty
+nameAsVar	{x^.aq.cd x} `table2.qty
+udf	{x^.aq.cd x} `table2.qty
+--- ColumnAccess(deleted,limit)
+plain	{x^.aq.cd x} `deleted.limit
+grouped	{x^.aq.cd x} `deleted.limit
+nameAsVar	{x^.aq.cd x} `deleted.limit
+udf	{x^.aq.cd x} `deleted.limit

@@ -1,0 +1,20 @@
+--- BinExpr(Eq,Id(vendorid),StringLit(10))
+plain	(=; {x^.aq.cd x} `vendorid; `$\"10\")
+grouped	(=; {x^.aq.cd x} `vendorid; `$\"10\")
+nameAsVar	(=; vendorid; `$\"10\")
+udf	(=; .aq.funEnlist vendorid; `$\"10\")
+--- Id(vendorid)
+plain	{x^.aq.cd x} `vendorid
+grouped	{x^.aq.cd x} `vendorid
+nameAsVar	vendorid
+udf	.aq.funEnlist vendorid
+--- StringLit(10)
+plain	`$\"10\"
+grouped	`$\"10\"
+nameAsVar	`$\"10\"
+udf	`$\"10\"
+--- Id(amount)
+plain	{x^.aq.cd x} `amount
+grouped	{x^.aq.cd x} `amount
+nameAsVar	amount
+udf	.aq.funEnlist amount

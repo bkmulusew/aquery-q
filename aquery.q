@@ -5,10 +5,14 @@
 /   bin/l_m64 aquery.q -lex file.a        print the tokens of file.a, exit
 /   bin/l_m64 aquery.q -parse file.a      print the parse tree of file.a, exit
 /   bin/l_m64 aquery.q -p file.a          print file.a as a Graphviz graph, exit
+/   bin/l_m64 aquery.q -compile file.a    print the q code for file.a, exit
+/   bin/l_m64 aquery.q -compile -out out.q file.a
+/                                         write the q code for file.a to out.q
 
 / Version 1 is the lexer, version 2 the parser (both in src/parse/),
-/ version 3 the AST stage (src/ast/). Later versions add code generation,
-/ the runtime, and analysis and optimisation here.
+/ version 3 the AST stage (src/ast/), version 4 code generation
+/ (src/codegen/). Later versions add the runtime, and analysis and
+/ optimisation here.
 
 / Other scripts (e.g. the tests) can load this file with \l. They should set
 / .aqc.root to the folder containing aquery.q first, because .z.f (the path
@@ -40,6 +44,14 @@ if[not `root in key `.aqc;
 .aqc.loadFile "src/ast/nodes.q";
 .aqc.loadFile "src/ast/dot.q";
 
+/ Stage 4: code generation (parse tree -> q code), version 4.
+.aqc.loadFile "src/codegen/state.q";
+.aqc.loadFile "src/codegen/expr.q";
+.aqc.loadFile "src/codegen/plan.q";
+.aqc.loadFile "src/codegen/stmt.q";
+.aqc.loadFile "src/codegen/trigger.q";
+.aqc.loadFile "src/codegen/gen.q";
+
 
 / Command line: "-lex <file>" prints the file's tokens, one per line, in
 / the same format as tests/lexer/golden/*.tok, then exits.
@@ -58,4 +70,36 @@ if[(2 = count .z.x) and "-parse" ~ first .z.x;
 / then exits. Draw it with: dot -Tpdf out.dot -o out.pdf
 if[(2 = count .z.x) and "-p" ~ first .z.x;
   -1 each .aqc.dot.graphFile .z.x 1;
+  exit 0];
+
+/ Command line: "-compile [-silent] [-a 0] [-out out.q] <file>" compiles
+/ the file to q code, exactly as `aquery.jar -c` does, and prints it (or
+/ writes it to out.q), then exits. Options are read in any order; the file
+/ comes last.
+/ (-compile, not -c: L reads -c itself, as q's console size.)
+/ (-out and -silent, not the jar's -o and -s: L reads those too, as q's
+/ UTC offset and secondary threads.)
+/ The optimizer (-a 1, -opts) and type checking (-tc) come in version 6,
+/ so they stop with a message instead of silently doing nothing.
+/ (The arguments are compared as symbols: "-compile" in .z.x would test
+/ each character of "-compile" on its own.)
+if[(`$"-compile") in `$.z.x;
+  .aqc.cli.args:.z.x;
+  .aqc.cli.out:"";
+  .aqc.cli.input:"";
+  k:0;
+  while[k < count .aqc.cli.args;
+    a:`$.aqc.cli.args k;
+    $[a = `$"-out"; [.aqc.cli.out:.aqc.cli.args k + 1; k+:1];
+      a = `$"-a";
+        [if[not "0" ~ .aqc.cli.args k + 1;
+           -2 "-a ",(.aqc.cli.args k + 1),": optimizer not supported until v6";
+           exit 1];
+         k+:1];
+      a in `$("-opts";"-tc"); [-2 (string a),": not supported until v6"; exit 1];
+      a in `$("-compile";"-silent"); ::;
+      .aqc.cli.input:.aqc.cli.args k];
+    k+:1];
+  .aqc.cli.lines:.aqc.gen.compileFile .aqc.cli.input;
+  $[0 = count .aqc.cli.out; -1 each .aqc.cli.lines; (hsym `$.aqc.cli.out) 0: .aqc.cli.lines];
   exit 0];

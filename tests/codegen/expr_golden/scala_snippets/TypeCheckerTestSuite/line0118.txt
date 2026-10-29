@@ -1,0 +1,40 @@
+--- BinExpr(Gt,Id(c2),IntLit(3))
+plain	(>; {x^.aq.cd x} `c2; 3)
+grouped	(>; {x^.aq.cd x} `c2; 3)
+nameAsVar	(>; c2; 3)
+udf	(>; .aq.funEnlist c2; 3)
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- BinExpr(Times,FunCall(MAXS,List(Id(c1))),IntLit(2))
+plain	(*; (.aq.maxs1;{x^.aq.cd x} `c1); 2)
+grouped	(*; (.aq.maxs1';{x^.aq.cd x} `c1); 2)
+nameAsVar	(*; (.aq.maxs1;c1); 2)
+udf	(*; (.aq.maxs1;.aq.funEnlist c1); 2)
+--- FunCall(MAXS,List(Id(c1)))
+plain	(.aq.maxs1;{x^.aq.cd x} `c1)
+grouped	(.aq.maxs1';{x^.aq.cd x} `c1)
+nameAsVar	(.aq.maxs1;c1)
+udf	(.aq.maxs1;.aq.funEnlist c1)
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

@@ -1,0 +1,15 @@
+--- BinExpr(Times,ColumnAccess(t,c1),ColumnAccess(t,c2))
+plain	(*; {x^.aq.cd x} `t.c1; {x^.aq.cd x} `t.c2)
+grouped	(*; {x^.aq.cd x} `t.c1; {x^.aq.cd x} `t.c2)
+nameAsVar	(*; {x^.aq.cd x} `t.c1; {x^.aq.cd x} `t.c2)
+udf	(*; {x^.aq.cd x} `t.c1; {x^.aq.cd x} `t.c2)
+--- ColumnAccess(t,c1)
+plain	{x^.aq.cd x} `t.c1
+grouped	{x^.aq.cd x} `t.c1
+nameAsVar	{x^.aq.cd x} `t.c1
+udf	{x^.aq.cd x} `t.c1
+--- ColumnAccess(t,c2)
+plain	{x^.aq.cd x} `t.c2
+grouped	{x^.aq.cd x} `t.c2
+nameAsVar	{x^.aq.cd x} `t.c2
+udf	{x^.aq.cd x} `t.c2

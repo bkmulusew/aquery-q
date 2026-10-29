@@ -1,0 +1,45 @@
+--- ColumnAccess(t,c1)
+plain	{x^.aq.cd x} `t.c1
+grouped	{x^.aq.cd x} `t.c1
+nameAsVar	{x^.aq.cd x} `t.c1
+udf	{x^.aq.cd x} `t.c1
+--- BinExpr(Eq,FunCall(SUMS,List(Id(c1))),IntLit(10))
+plain	(=; (.aq.sums1;{x^.aq.cd x} `c1); 10)
+grouped	(=; (.aq.sums1';{x^.aq.cd x} `c1); 10)
+nameAsVar	(=; (.aq.sums1;c1); 10)
+udf	(=; (.aq.sums1;.aq.funEnlist c1); 10)
+--- FunCall(SUMS,List(Id(c1)))
+plain	(.aq.sums1;{x^.aq.cd x} `c1)
+grouped	(.aq.sums1';{x^.aq.cd x} `c1)
+nameAsVar	(.aq.sums1;c1)
+udf	(.aq.sums1;.aq.funEnlist c1)
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- BinExpr(Eq,Id(c2),IntLit(10))
+plain	(=; {x^.aq.cd x} `c2; 10)
+grouped	(=; {x^.aq.cd x} `c2; 10)
+nameAsVar	(=; c2; 10)
+udf	(=; .aq.funEnlist c2; 10)
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

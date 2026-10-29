@@ -1,0 +1,10 @@
+--- FunCall(MAXS,List(StringLit(a)))
+plain	(.aq.maxs1;`$\"a\")
+grouped	(.aq.maxs1';`$\"a\")
+nameAsVar	(.aq.maxs1;`$\"a\")
+udf	(.aq.maxs1;`$\"a\")
+--- StringLit(a)
+plain	`$\"a\"
+grouped	`$\"a\"
+nameAsVar	`$\"a\"
+udf	`$\"a\"

@@ -1,0 +1,180 @@
+--- IntLit(101)
+plain	101
+grouped	101
+nameAsVar	101
+udf	101
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- IntLit(102)
+plain	102
+grouped	102
+nameAsVar	102
+udf	102
+--- IntLit(7)
+plain	7
+grouped	7
+nameAsVar	7
+udf	7
+--- StringLit(V1)
+plain	`$\"V1\"
+grouped	`$\"V1\"
+nameAsVar	`$\"V1\"
+udf	`$\"V1\"
+--- IntLit(1000)
+plain	1000
+grouped	1000
+nameAsVar	1000
+udf	1000
+--- StringLit(V2)
+plain	`$\"V2\"
+grouped	`$\"V2\"
+nameAsVar	`$\"V2\"
+udf	`$\"V2\"
+--- IntLit(2000)
+plain	2000
+grouped	2000
+nameAsVar	2000
+udf	2000
+--- StringLit(S1)
+plain	`$\"S1\"
+grouped	`$\"S1\"
+nameAsVar	`$\"S1\"
+udf	`$\"S1\"
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- StringLit(S2)
+plain	`$\"S2\"
+grouped	`$\"S2\"
+nameAsVar	`$\"S2\"
+udf	`$\"S2\"
+--- IntLit(200)
+plain	200
+grouped	200
+nameAsVar	200
+udf	200
+--- BinExpr(Plus,Id(amount),ColumnAccess(inserted,lineAmount))
+plain	(+; {x^.aq.cd x} `amount; {x^.aq.cd x} `inserted.lineAmount)
+grouped	(+; {x^.aq.cd x} `amount; {x^.aq.cd x} `inserted.lineAmount)
+nameAsVar	(+; amount; {x^.aq.cd x} `inserted.lineAmount)
+udf	(+; .aq.funEnlist amount; {x^.aq.cd x} `inserted.lineAmount)
+--- Id(amount)
+plain	{x^.aq.cd x} `amount
+grouped	{x^.aq.cd x} `amount
+nameAsVar	amount
+udf	.aq.funEnlist amount
+--- ColumnAccess(inserted,lineAmount)
+plain	{x^.aq.cd x} `inserted.lineAmount
+grouped	{x^.aq.cd x} `inserted.lineAmount
+nameAsVar	{x^.aq.cd x} `inserted.lineAmount
+udf	{x^.aq.cd x} `inserted.lineAmount
+--- BinExpr(Eq,ColumnAccess(vendorOutstanding,vendorid),ColumnAccess(inserted,vendorid))
+plain	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+grouped	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+nameAsVar	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+udf	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+--- ColumnAccess(vendorOutstanding,vendorid)
+plain	{x^.aq.cd x} `vendorOutstanding.vendorid
+grouped	{x^.aq.cd x} `vendorOutstanding.vendorid
+nameAsVar	{x^.aq.cd x} `vendorOutstanding.vendorid
+udf	{x^.aq.cd x} `vendorOutstanding.vendorid
+--- ColumnAccess(inserted,vendorid)
+plain	{x^.aq.cd x} `inserted.vendorid
+grouped	{x^.aq.cd x} `inserted.vendorid
+nameAsVar	{x^.aq.cd x} `inserted.vendorid
+udf	{x^.aq.cd x} `inserted.vendorid
+--- BinExpr(Plus,Id(amount),ColumnAccess(inserted,lineAmount))
+plain	(+; {x^.aq.cd x} `amount; {x^.aq.cd x} `inserted.lineAmount)
+grouped	(+; {x^.aq.cd x} `amount; {x^.aq.cd x} `inserted.lineAmount)
+nameAsVar	(+; amount; {x^.aq.cd x} `inserted.lineAmount)
+udf	(+; .aq.funEnlist amount; {x^.aq.cd x} `inserted.lineAmount)
+--- Id(amount)
+plain	{x^.aq.cd x} `amount
+grouped	{x^.aq.cd x} `amount
+nameAsVar	amount
+udf	.aq.funEnlist amount
+--- ColumnAccess(inserted,lineAmount)
+plain	{x^.aq.cd x} `inserted.lineAmount
+grouped	{x^.aq.cd x} `inserted.lineAmount
+nameAsVar	{x^.aq.cd x} `inserted.lineAmount
+udf	{x^.aq.cd x} `inserted.lineAmount
+--- BinExpr(Eq,ColumnAccess(storeOutstanding,storeid),ColumnAccess(inserted,storeid))
+plain	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+grouped	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+nameAsVar	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+udf	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+--- ColumnAccess(storeOutstanding,storeid)
+plain	{x^.aq.cd x} `storeOutstanding.storeid
+grouped	{x^.aq.cd x} `storeOutstanding.storeid
+nameAsVar	{x^.aq.cd x} `storeOutstanding.storeid
+udf	{x^.aq.cd x} `storeOutstanding.storeid
+--- ColumnAccess(inserted,storeid)
+plain	{x^.aq.cd x} `inserted.storeid
+grouped	{x^.aq.cd x} `inserted.storeid
+nameAsVar	{x^.aq.cd x} `inserted.storeid
+udf	{x^.aq.cd x} `inserted.storeid
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(101)
+plain	101
+grouped	101
+nameAsVar	101
+udf	101
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- IntLit(15)
+plain	15
+grouped	15
+nameAsVar	15
+udf	15
+--- StringLit(S1)
+plain	`$\"S1\"
+grouped	`$\"S1\"
+nameAsVar	`$\"S1\"
+udf	`$\"S1\"
+--- StringLit(V1)
+plain	`$\"V1\"
+grouped	`$\"V1\"
+nameAsVar	`$\"V1\"
+udf	`$\"V1\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(102)
+plain	102
+grouped	102
+nameAsVar	102
+udf	102
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(14)
+plain	14
+grouped	14
+nameAsVar	14
+udf	14
+--- StringLit(S2)
+plain	`$\"S2\"
+grouped	`$\"S2\"
+nameAsVar	`$\"S2\"
+udf	`$\"S2\"
+--- StringLit(V2)
+plain	`$\"V2\"
+grouped	`$\"V2\"
+nameAsVar	`$\"V2\"
+udf	`$\"V2\"

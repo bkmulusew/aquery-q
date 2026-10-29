@@ -1,0 +1,85 @@
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Times,Id(c1),IntLit(2))
+plain	(*; {x^.aq.cd x} `c1; 2)
+grouped	(*; {x^.aq.cd x} `c1; 2)
+nameAsVar	(*; c1; 2)
+udf	(*; .aq.funEnlist c1; 2)
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- Case(None,List(IfThen(BinExpr(Gt,Id(c3),IntLit(50)),IntLit(1))),Some(IntLit(-1)))
+plain	(.aq.cond; ();(enlist;(enlist;(>; {x^.aq.cd x} `c3; 50); 1)); -1)
+grouped	(.aq.cond; ();(enlist;(enlist;(>; {x^.aq.cd x} `c3; 50); 1)); -1)
+nameAsVar	(.aq.cond; ();(enlist;(enlist;(>; c3; 50); 1)); -1)
+udf	(.aq.cond; ();(enlist;(enlist;(>; .aq.funEnlist c3; 50); 1)); -1)
+--- BinExpr(Gt,Id(c3),IntLit(50))
+plain	(>; {x^.aq.cd x} `c3; 50)
+grouped	(>; {x^.aq.cd x} `c3; 50)
+nameAsVar	(>; c3; 50)
+udf	(>; .aq.funEnlist c3; 50)
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- IntLit(50)
+plain	50
+grouped	50
+nameAsVar	50
+udf	50
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(-1)
+plain	-1
+grouped	-1
+nameAsVar	-1
+udf	-1
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- BinExpr(Gt,FunCall(COUNT,List(Id(c2))),IntLit(4))
+plain	(>; (.aq.count;{x^.aq.cd x} `c2); 4)
+grouped	(>; (.aq.count';{x^.aq.cd x} `c2); 4)
+nameAsVar	(>; (.aq.count;c2); 4)
+udf	(>; (.aq.count;.aq.funEnlist c2); 4)
+--- FunCall(COUNT,List(Id(c2)))
+plain	(.aq.count;{x^.aq.cd x} `c2)
+grouped	(.aq.count';{x^.aq.cd x} `c2)
+nameAsVar	(.aq.count;c2)
+udf	(.aq.count;.aq.funEnlist c2)
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- IntLit(4)
+plain	4
+grouped	4
+nameAsVar	4
+udf	4

@@ -1,0 +1,220 @@
+--- FunCall(s_asc,List(Id(v)))
+plain	(s_asc;{x^.aq.cd x} `v)
+grouped	(s_asc';{x^.aq.cd x} `v)
+nameAsVar	(s_asc;v)
+udf	(s_asc;.aq.funEnlist v)
+--- Id(v)
+plain	{x^.aq.cd x} `v
+grouped	{x^.aq.cd x} `v
+nameAsVar	v
+udf	.aq.funEnlist v
+--- FunCall(COUNT,List(Id(v)))
+plain	(.aq.count;{x^.aq.cd x} `v)
+grouped	(.aq.count';{x^.aq.cd x} `v)
+nameAsVar	(.aq.count;v)
+udf	(.aq.count;.aq.funEnlist v)
+--- Id(v)
+plain	{x^.aq.cd x} `v
+grouped	{x^.aq.cd x} `v
+nameAsVar	v
+udf	.aq.funEnlist v
+--- BinExpr(Minus,BinExpr(Div,BinExpr(Times,Id(pct),Id(n)),IntLit(100)),FloatLit(0.5))
+plain	(-; (%; (*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n); 100); 0.5)
+grouped	(-; (%; (*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n); 100); 0.5)
+nameAsVar	(-; (%; (*; pct; n); 100); 0.5)
+udf	(-; (%; (*; .aq.funEnlist pct; .aq.funEnlist n); 100); 0.5)
+--- BinExpr(Div,BinExpr(Times,Id(pct),Id(n)),IntLit(100))
+plain	(%; (*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n); 100)
+grouped	(%; (*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n); 100)
+nameAsVar	(%; (*; pct; n); 100)
+udf	(%; (*; .aq.funEnlist pct; .aq.funEnlist n); 100)
+--- BinExpr(Times,Id(pct),Id(n))
+plain	(*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n)
+grouped	(*; {x^.aq.cd x} `pct; {x^.aq.cd x} `n)
+nameAsVar	(*; pct; n)
+udf	(*; .aq.funEnlist pct; .aq.funEnlist n)
+--- Id(pct)
+plain	{x^.aq.cd x} `pct
+grouped	{x^.aq.cd x} `pct
+nameAsVar	pct
+udf	.aq.funEnlist pct
+--- Id(n)
+plain	{x^.aq.cd x} `n
+grouped	{x^.aq.cd x} `n
+nameAsVar	n
+udf	.aq.funEnlist n
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- FloatLit(0.5)
+plain	0.5
+grouped	0.5
+nameAsVar	0.5
+udf	0.5
+--- FunCall(floor,List(Id(ix)))
+plain	(floor;{x^.aq.cd x} `ix)
+grouped	(floor';{x^.aq.cd x} `ix)
+nameAsVar	(floor;ix)
+udf	(floor;.aq.funEnlist ix)
+--- Id(ix)
+plain	{x^.aq.cd x} `ix
+grouped	{x^.aq.cd x} `ix
+nameAsVar	ix
+udf	.aq.funEnlist ix
+--- FunCall(sorted_v,List(Id(i)))
+plain	(sorted_v;{x^.aq.cd x} `i)
+grouped	(sorted_v';{x^.aq.cd x} `i)
+nameAsVar	(sorted_v;i)
+udf	(sorted_v;.aq.funEnlist i)
+--- Id(i)
+plain	{x^.aq.cd x} `i
+grouped	{x^.aq.cd x} `i
+nameAsVar	i
+udf	.aq.funEnlist i
+--- BinExpr(Minus,Id(ix),Id(i))
+plain	(-; {x^.aq.cd x} `ix; {x^.aq.cd x} `i)
+grouped	(-; {x^.aq.cd x} `ix; {x^.aq.cd x} `i)
+nameAsVar	(-; ix; i)
+udf	(-; .aq.funEnlist ix; .aq.funEnlist i)
+--- Id(ix)
+plain	{x^.aq.cd x} `ix
+grouped	{x^.aq.cd x} `ix
+nameAsVar	ix
+udf	.aq.funEnlist ix
+--- Id(i)
+plain	{x^.aq.cd x} `i
+grouped	{x^.aq.cd x} `i
+nameAsVar	i
+udf	.aq.funEnlist i
+--- Case(None,List(IfThen(BinExpr(Neq,Id(f),IntLit(0)),BinExpr(Minus,BinExpr(Times,Id(f),FunCall(sorted_v,List(BinExpr(Plus,Id(i),IntLit(1))))),BinExpr(Times,Id(f),FunCall(sorted_v,List(Id(i))))))),Some(FloatLit(0.0)))
+plain	(.aq.cond; ();(enlist;(enlist;(<>; {x^.aq.cd x} `f; 0); (-; (*; {x^.aq.cd x} `f; (sorted_v;(+; {x^.aq.cd x} `i; 1))); (*; {x^.aq.cd x} `f; (sorted_v;{x^.aq.cd x} `i))))); 0.0)
+grouped	(.aq.cond; ();(enlist;(enlist;(<>; {x^.aq.cd x} `f; 0); (-; (*; {x^.aq.cd x} `f; (sorted_v';(+; {x^.aq.cd x} `i; 1))); (*; {x^.aq.cd x} `f; (sorted_v';{x^.aq.cd x} `i))))); 0.0)
+nameAsVar	(.aq.cond; ();(enlist;(enlist;(<>; f; 0); (-; (*; f; (sorted_v;(+; i; 1))); (*; f; (sorted_v;i))))); 0.0)
+udf	(.aq.cond; ();(enlist;(enlist;(<>; .aq.funEnlist f; 0); (-; (*; .aq.funEnlist f; (sorted_v;(+; .aq.funEnlist i; 1))); (*; .aq.funEnlist f; (sorted_v;.aq.funEnlist i))))); 0.0)
+--- BinExpr(Neq,Id(f),IntLit(0))
+plain	(<>; {x^.aq.cd x} `f; 0)
+grouped	(<>; {x^.aq.cd x} `f; 0)
+nameAsVar	(<>; f; 0)
+udf	(<>; .aq.funEnlist f; 0)
+--- Id(f)
+plain	{x^.aq.cd x} `f
+grouped	{x^.aq.cd x} `f
+nameAsVar	f
+udf	.aq.funEnlist f
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- BinExpr(Minus,BinExpr(Times,Id(f),FunCall(sorted_v,List(BinExpr(Plus,Id(i),IntLit(1))))),BinExpr(Times,Id(f),FunCall(sorted_v,List(Id(i)))))
+plain	(-; (*; {x^.aq.cd x} `f; (sorted_v;(+; {x^.aq.cd x} `i; 1))); (*; {x^.aq.cd x} `f; (sorted_v;{x^.aq.cd x} `i)))
+grouped	(-; (*; {x^.aq.cd x} `f; (sorted_v';(+; {x^.aq.cd x} `i; 1))); (*; {x^.aq.cd x} `f; (sorted_v';{x^.aq.cd x} `i)))
+nameAsVar	(-; (*; f; (sorted_v;(+; i; 1))); (*; f; (sorted_v;i)))
+udf	(-; (*; .aq.funEnlist f; (sorted_v;(+; .aq.funEnlist i; 1))); (*; .aq.funEnlist f; (sorted_v;.aq.funEnlist i)))
+--- BinExpr(Times,Id(f),FunCall(sorted_v,List(BinExpr(Plus,Id(i),IntLit(1)))))
+plain	(*; {x^.aq.cd x} `f; (sorted_v;(+; {x^.aq.cd x} `i; 1)))
+grouped	(*; {x^.aq.cd x} `f; (sorted_v';(+; {x^.aq.cd x} `i; 1)))
+nameAsVar	(*; f; (sorted_v;(+; i; 1)))
+udf	(*; .aq.funEnlist f; (sorted_v;(+; .aq.funEnlist i; 1)))
+--- Id(f)
+plain	{x^.aq.cd x} `f
+grouped	{x^.aq.cd x} `f
+nameAsVar	f
+udf	.aq.funEnlist f
+--- FunCall(sorted_v,List(BinExpr(Plus,Id(i),IntLit(1))))
+plain	(sorted_v;(+; {x^.aq.cd x} `i; 1))
+grouped	(sorted_v';(+; {x^.aq.cd x} `i; 1))
+nameAsVar	(sorted_v;(+; i; 1))
+udf	(sorted_v;(+; .aq.funEnlist i; 1))
+--- BinExpr(Plus,Id(i),IntLit(1))
+plain	(+; {x^.aq.cd x} `i; 1)
+grouped	(+; {x^.aq.cd x} `i; 1)
+nameAsVar	(+; i; 1)
+udf	(+; .aq.funEnlist i; 1)
+--- Id(i)
+plain	{x^.aq.cd x} `i
+grouped	{x^.aq.cd x} `i
+nameAsVar	i
+udf	.aq.funEnlist i
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- BinExpr(Times,Id(f),FunCall(sorted_v,List(Id(i))))
+plain	(*; {x^.aq.cd x} `f; (sorted_v;{x^.aq.cd x} `i))
+grouped	(*; {x^.aq.cd x} `f; (sorted_v';{x^.aq.cd x} `i))
+nameAsVar	(*; f; (sorted_v;i))
+udf	(*; .aq.funEnlist f; (sorted_v;.aq.funEnlist i))
+--- Id(f)
+plain	{x^.aq.cd x} `f
+grouped	{x^.aq.cd x} `f
+nameAsVar	f
+udf	.aq.funEnlist f
+--- FunCall(sorted_v,List(Id(i)))
+plain	(sorted_v;{x^.aq.cd x} `i)
+grouped	(sorted_v';{x^.aq.cd x} `i)
+nameAsVar	(sorted_v;i)
+udf	(sorted_v;.aq.funEnlist i)
+--- Id(i)
+plain	{x^.aq.cd x} `i
+grouped	{x^.aq.cd x} `i
+nameAsVar	i
+udf	.aq.funEnlist i
+--- FloatLit(0.0)
+plain	0.0
+grouped	0.0
+nameAsVar	0.0
+udf	0.0
+--- FunCall(LIST,List(BinExpr(Plus,Id(extra),Id(q_v))))
+plain	(.aq.list;(enlist;(+; {x^.aq.cd x} `extra; {x^.aq.cd x} `q_v)))
+grouped	(.aq.list';(enlist;(+; {x^.aq.cd x} `extra; {x^.aq.cd x} `q_v)))
+nameAsVar	(.aq.list;(enlist;(+; extra; q_v)))
+udf	(.aq.list;(enlist;(+; .aq.funEnlist extra; .aq.funEnlist q_v)))
+--- BinExpr(Plus,Id(extra),Id(q_v))
+plain	(+; {x^.aq.cd x} `extra; {x^.aq.cd x} `q_v)
+grouped	(+; {x^.aq.cd x} `extra; {x^.aq.cd x} `q_v)
+nameAsVar	(+; extra; q_v)
+udf	(+; .aq.funEnlist extra; .aq.funEnlist q_v)
+--- Id(extra)
+plain	{x^.aq.cd x} `extra
+grouped	{x^.aq.cd x} `extra
+nameAsVar	extra
+udf	.aq.funEnlist extra
+--- Id(q_v)
+plain	{x^.aq.cd x} `q_v
+grouped	{x^.aq.cd x} `q_v
+nameAsVar	q_v
+udf	.aq.funEnlist q_v
+--- FunCall(naive_quantile,List(Id(val), IntLit(95)))
+plain	(naive_quantile;{x^.aq.cd x} `val;95)
+grouped	(naive_quantile';{x^.aq.cd x} `val;95)
+nameAsVar	(naive_quantile;val;95)
+udf	(naive_quantile;.aq.funEnlist val;95)
+--- Id(val)
+plain	{x^.aq.cd x} `val
+grouped	{x^.aq.cd x} `val
+nameAsVar	val
+udf	.aq.funEnlist val
+--- IntLit(95)
+plain	95
+grouped	95
+nameAsVar	95
+udf	95
+--- FunCall(naive_quantile,List(Id(val), IntLit(5)))
+plain	(naive_quantile;{x^.aq.cd x} `val;5)
+grouped	(naive_quantile';{x^.aq.cd x} `val;5)
+nameAsVar	(naive_quantile;val;5)
+udf	(naive_quantile;.aq.funEnlist val;5)
+--- Id(val)
+plain	{x^.aq.cd x} `val
+grouped	{x^.aq.cd x} `val
+nameAsVar	val
+udf	.aq.funEnlist val
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5

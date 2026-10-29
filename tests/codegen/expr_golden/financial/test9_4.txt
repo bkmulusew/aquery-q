@@ -1,0 +1,120 @@
+--- FunCall(IN,List(Id(Id), Id(Russell2000)))
+plain	(.aq.in;{x^.aq.cd x} `Id;{x^.aq.cd x} `Russell2000)
+grouped	(.aq.in';{x^.aq.cd x} `Id;{x^.aq.cd x} `Russell2000)
+nameAsVar	(.aq.in;Id;Russell2000)
+udf	(.aq.in;.aq.funEnlist Id;.aq.funEnlist Russell2000)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(Russell2000)
+plain	{x^.aq.cd x} `Russell2000
+grouped	{x^.aq.cd x} `Russell2000
+nameAsVar	Russell2000
+udf	.aq.funEnlist Russell2000
+--- BinExpr(Ge,FunCall(getYear,List(Id(AnnounceDate))),FunCall(q9StartYear,List()))
+plain	(>=; (getYear;{x^.aq.cd x} `AnnounceDate); (q9StartYear;))
+grouped	(>=; (getYear';{x^.aq.cd x} `AnnounceDate); (q9StartYear';))
+nameAsVar	(>=; (getYear;AnnounceDate); (q9StartYear;))
+udf	(>=; (getYear;.aq.funEnlist AnnounceDate); (q9StartYear;))
+--- FunCall(getYear,List(Id(AnnounceDate)))
+plain	(getYear;{x^.aq.cd x} `AnnounceDate)
+grouped	(getYear';{x^.aq.cd x} `AnnounceDate)
+nameAsVar	(getYear;AnnounceDate)
+udf	(getYear;.aq.funEnlist AnnounceDate)
+--- Id(AnnounceDate)
+plain	{x^.aq.cd x} `AnnounceDate
+grouped	{x^.aq.cd x} `AnnounceDate
+nameAsVar	AnnounceDate
+udf	.aq.funEnlist AnnounceDate
+--- FunCall(q9StartYear,List())
+plain	(q9StartYear;)
+grouped	(q9StartYear';)
+nameAsVar	(q9StartYear;)
+udf	(q9StartYear;)
+--- FunCall(NOT,List(FunCall(IN,List(Id(Id), FunCall(q9SplitIds,List())))))
+plain	(.aq.not;(.aq.in;{x^.aq.cd x} `Id;(q9SplitIds;)))
+grouped	(.aq.not';(.aq.in';{x^.aq.cd x} `Id;(q9SplitIds';)))
+nameAsVar	(.aq.not;(.aq.in;Id;(q9SplitIds;)))
+udf	(.aq.not;(.aq.in;.aq.funEnlist Id;(q9SplitIds;)))
+--- FunCall(IN,List(Id(Id), FunCall(q9SplitIds,List())))
+plain	(.aq.in;{x^.aq.cd x} `Id;(q9SplitIds;))
+grouped	(.aq.in';{x^.aq.cd x} `Id;(q9SplitIds';))
+nameAsVar	(.aq.in;Id;(q9SplitIds;))
+udf	(.aq.in;.aq.funEnlist Id;(q9SplitIds;))
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- FunCall(q9SplitIds,List())
+plain	(q9SplitIds;)
+grouped	(q9SplitIds';)
+nameAsVar	(q9SplitIds;)
+udf	(q9SplitIds;)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- FunCall(getYear,List(Id(AnnounceDate)))
+plain	(getYear;{x^.aq.cd x} `AnnounceDate)
+grouped	(getYear';{x^.aq.cd x} `AnnounceDate)
+nameAsVar	(getYear;AnnounceDate)
+udf	(getYear;.aq.funEnlist AnnounceDate)
+--- Id(AnnounceDate)
+plain	{x^.aq.cd x} `AnnounceDate
+grouped	{x^.aq.cd x} `AnnounceDate
+nameAsVar	AnnounceDate
+udf	.aq.funEnlist AnnounceDate
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- FunCall(getYear,List(Id(AnnounceDate)))
+plain	(getYear;{x^.aq.cd x} `AnnounceDate)
+grouped	(getYear';{x^.aq.cd x} `AnnounceDate)
+nameAsVar	(getYear;AnnounceDate)
+udf	(getYear;.aq.funEnlist AnnounceDate)
+--- Id(AnnounceDate)
+plain	{x^.aq.cd x} `AnnounceDate
+grouped	{x^.aq.cd x} `AnnounceDate
+nameAsVar	AnnounceDate
+udf	.aq.funEnlist AnnounceDate
+--- FunCall(SUM,List(Id(DivAmt)))
+plain	(.aq.sum;{x^.aq.cd x} `DivAmt)
+grouped	(.aq.sum';{x^.aq.cd x} `DivAmt)
+nameAsVar	(.aq.sum;DivAmt)
+udf	(.aq.sum;.aq.funEnlist DivAmt)
+--- Id(DivAmt)
+plain	{x^.aq.cd x} `DivAmt
+grouped	{x^.aq.cd x} `DivAmt
+nameAsVar	DivAmt
+udf	.aq.funEnlist DivAmt
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(year)
+plain	{x^.aq.cd x} `year
+grouped	{x^.aq.cd x} `year
+nameAsVar	year
+udf	.aq.funEnlist year
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(year)
+plain	{x^.aq.cd x} `year
+grouped	{x^.aq.cd x} `year
+nameAsVar	year
+udf	.aq.funEnlist year
+--- Id(total_divs)
+plain	{x^.aq.cd x} `total_divs
+grouped	{x^.aq.cd x} `total_divs
+nameAsVar	total_divs
+udf	.aq.funEnlist total_divs

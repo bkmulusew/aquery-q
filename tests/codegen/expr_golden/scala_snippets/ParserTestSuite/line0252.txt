@@ -1,0 +1,85 @@
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- BinExpr(Gt,Id(a),IntLit(100))
+plain	(>; {x^.aq.cd x} `a; 100)
+grouped	(>; {x^.aq.cd x} `a; 100)
+nameAsVar	(>; a; 100)
+udf	(>; .aq.funEnlist a; 100)
+--- Id(a)
+plain	{x^.aq.cd x} `a
+grouped	{x^.aq.cd x} `a
+nameAsVar	a
+udf	.aq.funEnlist a
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- BinExpr(Lt,Id(b),IntLit(20))
+plain	(<; {x^.aq.cd x} `b; 20)
+grouped	(<; {x^.aq.cd x} `b; 20)
+nameAsVar	(<; b; 20)
+udf	(<; .aq.funEnlist b; 20)
+--- Id(b)
+plain	{x^.aq.cd x} `b
+grouped	{x^.aq.cd x} `b
+nameAsVar	b
+udf	.aq.funEnlist b
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- BinExpr(Times,Id(c),IntLit(10))
+plain	(*; {x^.aq.cd x} `c; 10)
+grouped	(*; {x^.aq.cd x} `c; 10)
+nameAsVar	(*; c; 10)
+udf	(*; .aq.funEnlist c; 10)
+--- Id(c)
+plain	{x^.aq.cd x} `c
+grouped	{x^.aq.cd x} `c
+nameAsVar	c
+udf	.aq.funEnlist c
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- BinExpr(Gt,FunCall(COUNT,List(Id(d))),IntLit(10))
+plain	(>; (.aq.count;{x^.aq.cd x} `d); 10)
+grouped	(>; (.aq.count';{x^.aq.cd x} `d); 10)
+nameAsVar	(>; (.aq.count;d); 10)
+udf	(>; (.aq.count;.aq.funEnlist d); 10)
+--- FunCall(COUNT,List(Id(d)))
+plain	(.aq.count;{x^.aq.cd x} `d)
+grouped	(.aq.count';{x^.aq.cd x} `d)
+nameAsVar	(.aq.count;d)
+udf	(.aq.count;.aq.funEnlist d)
+--- Id(d)
+plain	{x^.aq.cd x} `d
+grouped	{x^.aq.cd x} `d
+nameAsVar	d
+udf	.aq.funEnlist d
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- FunCall(SUM,List(Id(a)))
+plain	(.aq.sum;{x^.aq.cd x} `a)
+grouped	(.aq.sum';{x^.aq.cd x} `a)
+nameAsVar	(.aq.sum;a)
+udf	(.aq.sum;.aq.funEnlist a)
+--- Id(a)
+plain	{x^.aq.cd x} `a
+grouped	{x^.aq.cd x} `a
+nameAsVar	a
+udf	.aq.funEnlist a

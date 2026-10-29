@@ -1,0 +1,25 @@
+--- FunCall(g,List(IntLit(2)))
+plain	(g;2)
+grouped	(g';2)
+nameAsVar	(g;2)
+udf	(g;2)
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- BinExpr(Times,Id(z),IntLit(3))
+plain	(*; {x^.aq.cd x} `z; 3)
+grouped	(*; {x^.aq.cd x} `z; 3)
+nameAsVar	(*; z; 3)
+udf	(*; .aq.funEnlist z; 3)
+--- Id(z)
+plain	{x^.aq.cd x} `z
+grouped	{x^.aq.cd x} `z
+nameAsVar	z
+udf	.aq.funEnlist z
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3

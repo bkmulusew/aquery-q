@@ -1,0 +1,150 @@
+--- BinExpr(Minus,BinExpr(Times,IntLit(100),IntLit(2)),IntLit(3))
+plain	(-; (*; 100; 2); 3)
+grouped	(-; (*; 100; 2); 3)
+nameAsVar	(-; (*; 100; 2); 3)
+udf	(-; (*; 100; 2); 3)
+--- BinExpr(Times,IntLit(100),IntLit(2))
+plain	(*; 100; 2)
+grouped	(*; 100; 2)
+nameAsVar	(*; 100; 2)
+udf	(*; 100; 2)
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- BinExpr(Exp,Id(x),IntLit(3))
+plain	(.aq.pow; {x^.aq.cd x} `x; 3)
+grouped	(.aq.pow; {x^.aq.cd x} `x; 3)
+nameAsVar	(.aq.pow; x; 3)
+udf	(.aq.pow; .aq.funEnlist x; 3)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- FunCall(LIST,List(IntLit(1), IntLit(2), IntLit(3), IntLit(4), IntLit(5), IntLit(6)))
+plain	(.aq.list;(enlist;1;2;3;4;5;6))
+grouped	(.aq.list';(enlist;1;2;3;4;5;6))
+nameAsVar	(.aq.list;(enlist;1;2;3;4;5;6))
+udf	(.aq.list;(enlist;1;2;3;4;5;6))
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- IntLit(4)
+plain	4
+grouped	4
+nameAsVar	4
+udf	4
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- IntLit(6)
+plain	6
+grouped	6
+nameAsVar	6
+udf	6
+--- Case(Some(Id(l)),List(IfThen(IntLit(2),IntLit(-1)), IfThen(IntLit(3),IntLit(100))),Some(IntLit(200)))
+plain	(.aq.cond; {x^.aq.cd x} `l;(enlist;(enlist;2; -1);(enlist;3; 100)); 200)
+grouped	(.aq.cond; {x^.aq.cd x} `l;(enlist;(enlist;2; -1);(enlist;3; 100)); 200)
+nameAsVar	(.aq.cond; l;(enlist;(enlist;2; -1);(enlist;3; 100)); 200)
+udf	(.aq.cond; .aq.funEnlist l;(enlist;(enlist;2; -1);(enlist;3; 100)); 200)
+--- Id(l)
+plain	{x^.aq.cd x} `l
+grouped	{x^.aq.cd x} `l
+nameAsVar	l
+udf	.aq.funEnlist l
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(-1)
+plain	-1
+grouped	-1
+nameAsVar	-1
+udf	-1
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- IntLit(200)
+plain	200
+grouped	200
+nameAsVar	200
+udf	200
+--- FunCall(SUMS,List(IntLit(2), Id(l)))
+plain	(.aq.sums2;2;{x^.aq.cd x} `l)
+grouped	(.aq.sums2';2;{x^.aq.cd x} `l)
+nameAsVar	(.aq.sums2;2;l)
+udf	(.aq.sums2;2;.aq.funEnlist l)
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- Id(l)
+plain	{x^.aq.cd x} `l
+grouped	{x^.aq.cd x} `l
+nameAsVar	l
+udf	.aq.funEnlist l
+--- FunCall(LIST,List(FunCall(SQRT,List(Id(y))), Id(z), Id(w)))
+plain	(.aq.list;(enlist;(.aq.sqrt;{x^.aq.cd x} `y);{x^.aq.cd x} `z;{x^.aq.cd x} `w))
+grouped	(.aq.list';(enlist;(.aq.sqrt';{x^.aq.cd x} `y);{x^.aq.cd x} `z;{x^.aq.cd x} `w))
+nameAsVar	(.aq.list;(enlist;(.aq.sqrt;y);z;w))
+udf	(.aq.list;(enlist;(.aq.sqrt;.aq.funEnlist y);.aq.funEnlist z;.aq.funEnlist w))
+--- FunCall(SQRT,List(Id(y)))
+plain	(.aq.sqrt;{x^.aq.cd x} `y)
+grouped	(.aq.sqrt';{x^.aq.cd x} `y)
+nameAsVar	(.aq.sqrt;y)
+udf	(.aq.sqrt;.aq.funEnlist y)
+--- Id(y)
+plain	{x^.aq.cd x} `y
+grouped	{x^.aq.cd x} `y
+nameAsVar	y
+udf	.aq.funEnlist y
+--- Id(z)
+plain	{x^.aq.cd x} `z
+grouped	{x^.aq.cd x} `z
+nameAsVar	z
+udf	.aq.funEnlist z
+--- Id(w)
+plain	{x^.aq.cd x} `w
+grouped	{x^.aq.cd x} `w
+nameAsVar	w
+udf	.aq.funEnlist w

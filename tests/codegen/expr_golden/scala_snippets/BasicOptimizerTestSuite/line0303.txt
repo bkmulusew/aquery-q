@@ -1,0 +1,40 @@
+--- BinExpr(Plus,Id(x),Id(y))
+plain	(+; {x^.aq.cd x} `x; {x^.aq.cd x} `y)
+grouped	(+; {x^.aq.cd x} `x; {x^.aq.cd x} `y)
+nameAsVar	(+; x; y)
+udf	(+; .aq.funEnlist x; .aq.funEnlist y)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- Id(y)
+plain	{x^.aq.cd x} `y
+grouped	{x^.aq.cd x} `y
+nameAsVar	y
+udf	.aq.funEnlist y
+--- BinExpr(Div,FunCall(SUM,List(Id(x))),FunCall(COUNT,List(Id(x))))
+plain	(%; (.aq.sum;{x^.aq.cd x} `x); (.aq.count;{x^.aq.cd x} `x))
+grouped	(%; (.aq.sum';{x^.aq.cd x} `x); (.aq.count';{x^.aq.cd x} `x))
+nameAsVar	(%; (.aq.sum;x); (.aq.count;x))
+udf	(%; (.aq.sum;.aq.funEnlist x); (.aq.count;.aq.funEnlist x))
+--- FunCall(SUM,List(Id(x)))
+plain	(.aq.sum;{x^.aq.cd x} `x)
+grouped	(.aq.sum';{x^.aq.cd x} `x)
+nameAsVar	(.aq.sum;x)
+udf	(.aq.sum;.aq.funEnlist x)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- FunCall(COUNT,List(Id(x)))
+plain	(.aq.count;{x^.aq.cd x} `x)
+grouped	(.aq.count';{x^.aq.cd x} `x)
+nameAsVar	(.aq.count;x)
+udf	(.aq.count;.aq.funEnlist x)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x

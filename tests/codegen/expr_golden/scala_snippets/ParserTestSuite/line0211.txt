@@ -1,0 +1,20 @@
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- BinExpr(Times,Id(a),IntLit(100))
+plain	(*; {x^.aq.cd x} `a; 100)
+grouped	(*; {x^.aq.cd x} `a; 100)
+nameAsVar	(*; a; 100)
+udf	(*; .aq.funEnlist a; 100)
+--- Id(a)
+plain	{x^.aq.cd x} `a
+grouped	{x^.aq.cd x} `a
+nameAsVar	a
+udf	.aq.funEnlist a
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100

@@ -1,0 +1,10 @@
+--- Id(cx)
+plain	{x^.aq.cd x} `cx
+grouped	{x^.aq.cd x} `cx
+nameAsVar	cx
+udf	.aq.funEnlist cx
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

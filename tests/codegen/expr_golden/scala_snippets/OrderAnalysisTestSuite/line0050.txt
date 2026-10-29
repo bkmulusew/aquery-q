@@ -1,0 +1,30 @@
+--- FunCall(MAX,List(FunCall(SUMS,List(Id(x)))))
+plain	(.aq.max;(.aq.sums1;{x^.aq.cd x} `x))
+grouped	(.aq.max';(.aq.sums1';{x^.aq.cd x} `x))
+nameAsVar	(.aq.max;(.aq.sums1;x))
+udf	(.aq.max;(.aq.sums1;.aq.funEnlist x))
+--- FunCall(SUMS,List(Id(x)))
+plain	(.aq.sums1;{x^.aq.cd x} `x)
+grouped	(.aq.sums1';{x^.aq.cd x} `x)
+nameAsVar	(.aq.sums1;x)
+udf	(.aq.sums1;.aq.funEnlist x)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- BinExpr(Plus,Id(z),IntLit(2))
+plain	(+; {x^.aq.cd x} `z; 2)
+grouped	(+; {x^.aq.cd x} `z; 2)
+nameAsVar	(+; z; 2)
+udf	(+; .aq.funEnlist z; 2)
+--- Id(z)
+plain	{x^.aq.cd x} `z
+grouped	{x^.aq.cd x} `z
+nameAsVar	z
+udf	.aq.funEnlist z
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2

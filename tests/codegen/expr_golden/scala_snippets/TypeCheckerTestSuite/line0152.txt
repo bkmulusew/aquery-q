@@ -1,0 +1,40 @@
+--- ColumnAccess(bad,c1)
+plain	{x^.aq.cd x} `bad.c1
+grouped	{x^.aq.cd x} `bad.c1
+nameAsVar	{x^.aq.cd x} `bad.c1
+udf	{x^.aq.cd x} `bad.c1
+--- BinExpr(Times,ColumnAccess(some_t,c2),ColumnAccess(st,ok))
+plain	(*; {x^.aq.cd x} `some_t.c2; {x^.aq.cd x} `st.ok)
+grouped	(*; {x^.aq.cd x} `some_t.c2; {x^.aq.cd x} `st.ok)
+nameAsVar	(*; {x^.aq.cd x} `some_t.c2; {x^.aq.cd x} `st.ok)
+udf	(*; {x^.aq.cd x} `some_t.c2; {x^.aq.cd x} `st.ok)
+--- ColumnAccess(some_t,c2)
+plain	{x^.aq.cd x} `some_t.c2
+grouped	{x^.aq.cd x} `some_t.c2
+nameAsVar	{x^.aq.cd x} `some_t.c2
+udf	{x^.aq.cd x} `some_t.c2
+--- ColumnAccess(st,ok)
+plain	{x^.aq.cd x} `st.ok
+grouped	{x^.aq.cd x} `st.ok
+nameAsVar	{x^.aq.cd x} `st.ok
+udf	{x^.aq.cd x} `st.ok
+--- FunCall(f,List(BinExpr(Times,Id(c3),IntLit(2))))
+plain	(f;(*; {x^.aq.cd x} `c3; 2))
+grouped	(f';(*; {x^.aq.cd x} `c3; 2))
+nameAsVar	(f;(*; c3; 2))
+udf	(f;(*; .aq.funEnlist c3; 2))
+--- BinExpr(Times,Id(c3),IntLit(2))
+plain	(*; {x^.aq.cd x} `c3; 2)
+grouped	(*; {x^.aq.cd x} `c3; 2)
+nameAsVar	(*; c3; 2)
+udf	(*; .aq.funEnlist c3; 2)
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2

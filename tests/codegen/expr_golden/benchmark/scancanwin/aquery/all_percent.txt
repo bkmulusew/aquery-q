@@ -1,0 +1,160 @@
+--- BinExpr(Eq,Id(onepercent1),IntLit(5))
+plain	(=; {x^.aq.cd x} `onepercent1; 5)
+grouped	(=; {x^.aq.cd x} `onepercent1; 5)
+nameAsVar	(=; onepercent1; 5)
+udf	(=; .aq.funEnlist onepercent1; 5)
+--- Id(onepercent1)
+plain	{x^.aq.cd x} `onepercent1
+grouped	{x^.aq.cd x} `onepercent1
+nameAsVar	onepercent1
+udf	.aq.funEnlist onepercent1
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(onepercent2),IntLit(5))
+plain	(=; {x^.aq.cd x} `onepercent2; 5)
+grouped	(=; {x^.aq.cd x} `onepercent2; 5)
+nameAsVar	(=; onepercent2; 5)
+udf	(=; .aq.funEnlist onepercent2; 5)
+--- Id(onepercent2)
+plain	{x^.aq.cd x} `onepercent2
+grouped	{x^.aq.cd x} `onepercent2
+nameAsVar	onepercent2
+udf	.aq.funEnlist onepercent2
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(fivepercent1),IntLit(5))
+plain	(=; {x^.aq.cd x} `fivepercent1; 5)
+grouped	(=; {x^.aq.cd x} `fivepercent1; 5)
+nameAsVar	(=; fivepercent1; 5)
+udf	(=; .aq.funEnlist fivepercent1; 5)
+--- Id(fivepercent1)
+plain	{x^.aq.cd x} `fivepercent1
+grouped	{x^.aq.cd x} `fivepercent1
+nameAsVar	fivepercent1
+udf	.aq.funEnlist fivepercent1
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(fivepercent2),IntLit(5))
+plain	(=; {x^.aq.cd x} `fivepercent2; 5)
+grouped	(=; {x^.aq.cd x} `fivepercent2; 5)
+nameAsVar	(=; fivepercent2; 5)
+udf	(=; .aq.funEnlist fivepercent2; 5)
+--- Id(fivepercent2)
+plain	{x^.aq.cd x} `fivepercent2
+grouped	{x^.aq.cd x} `fivepercent2
+nameAsVar	fivepercent2
+udf	.aq.funEnlist fivepercent2
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(tenpercent1),IntLit(5))
+plain	(=; {x^.aq.cd x} `tenpercent1; 5)
+grouped	(=; {x^.aq.cd x} `tenpercent1; 5)
+nameAsVar	(=; tenpercent1; 5)
+udf	(=; .aq.funEnlist tenpercent1; 5)
+--- Id(tenpercent1)
+plain	{x^.aq.cd x} `tenpercent1
+grouped	{x^.aq.cd x} `tenpercent1
+nameAsVar	tenpercent1
+udf	.aq.funEnlist tenpercent1
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(tenpercent2),IntLit(5))
+plain	(=; {x^.aq.cd x} `tenpercent2; 5)
+grouped	(=; {x^.aq.cd x} `tenpercent2; 5)
+nameAsVar	(=; tenpercent2; 5)
+udf	(=; .aq.funEnlist tenpercent2; 5)
+--- Id(tenpercent2)
+plain	{x^.aq.cd x} `tenpercent2
+grouped	{x^.aq.cd x} `tenpercent2
+nameAsVar	tenpercent2
+udf	.aq.funEnlist tenpercent2
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(twentypercent1),IntLit(5))
+plain	(=; {x^.aq.cd x} `twentypercent1; 5)
+grouped	(=; {x^.aq.cd x} `twentypercent1; 5)
+nameAsVar	(=; twentypercent1; 5)
+udf	(=; .aq.funEnlist twentypercent1; 5)
+--- Id(twentypercent1)
+plain	{x^.aq.cd x} `twentypercent1
+grouped	{x^.aq.cd x} `twentypercent1
+nameAsVar	twentypercent1
+udf	.aq.funEnlist twentypercent1
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- BinExpr(Eq,Id(twentypercent2),IntLit(5))
+plain	(=; {x^.aq.cd x} `twentypercent2; 5)
+grouped	(=; {x^.aq.cd x} `twentypercent2; 5)
+nameAsVar	(=; twentypercent2; 5)
+udf	(=; .aq.funEnlist twentypercent2; 5)
+--- Id(twentypercent2)
+plain	{x^.aq.cd x} `twentypercent2
+grouped	{x^.aq.cd x} `twentypercent2
+nameAsVar	twentypercent2
+udf	.aq.funEnlist twentypercent2
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

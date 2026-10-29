@@ -1,0 +1,80 @@
+--- BinExpr(Plus,Id(amount),BinExpr(Times,ColumnAccess(inserted,quantity),ColumnAccess(inserted,price)))
+plain	(+; {x^.aq.cd x} `amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+grouped	(+; {x^.aq.cd x} `amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+nameAsVar	(+; amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+udf	(+; .aq.funEnlist amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+--- Id(amount)
+plain	{x^.aq.cd x} `amount
+grouped	{x^.aq.cd x} `amount
+nameAsVar	amount
+udf	.aq.funEnlist amount
+--- BinExpr(Times,ColumnAccess(inserted,quantity),ColumnAccess(inserted,price))
+plain	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+grouped	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+nameAsVar	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+udf	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+--- ColumnAccess(inserted,quantity)
+plain	{x^.aq.cd x} `inserted.quantity
+grouped	{x^.aq.cd x} `inserted.quantity
+nameAsVar	{x^.aq.cd x} `inserted.quantity
+udf	{x^.aq.cd x} `inserted.quantity
+--- ColumnAccess(inserted,price)
+plain	{x^.aq.cd x} `inserted.price
+grouped	{x^.aq.cd x} `inserted.price
+nameAsVar	{x^.aq.cd x} `inserted.price
+udf	{x^.aq.cd x} `inserted.price
+--- BinExpr(Eq,ColumnAccess(vendorOutstanding,vendorid),ColumnAccess(inserted,vendorid))
+plain	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+grouped	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+nameAsVar	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+udf	(=; {x^.aq.cd x} `vendorOutstanding.vendorid; {x^.aq.cd x} `inserted.vendorid)
+--- ColumnAccess(vendorOutstanding,vendorid)
+plain	{x^.aq.cd x} `vendorOutstanding.vendorid
+grouped	{x^.aq.cd x} `vendorOutstanding.vendorid
+nameAsVar	{x^.aq.cd x} `vendorOutstanding.vendorid
+udf	{x^.aq.cd x} `vendorOutstanding.vendorid
+--- ColumnAccess(inserted,vendorid)
+plain	{x^.aq.cd x} `inserted.vendorid
+grouped	{x^.aq.cd x} `inserted.vendorid
+nameAsVar	{x^.aq.cd x} `inserted.vendorid
+udf	{x^.aq.cd x} `inserted.vendorid
+--- BinExpr(Plus,Id(amount),BinExpr(Times,ColumnAccess(inserted,quantity),ColumnAccess(inserted,price)))
+plain	(+; {x^.aq.cd x} `amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+grouped	(+; {x^.aq.cd x} `amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+nameAsVar	(+; amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+udf	(+; .aq.funEnlist amount; (*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price))
+--- Id(amount)
+plain	{x^.aq.cd x} `amount
+grouped	{x^.aq.cd x} `amount
+nameAsVar	amount
+udf	.aq.funEnlist amount
+--- BinExpr(Times,ColumnAccess(inserted,quantity),ColumnAccess(inserted,price))
+plain	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+grouped	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+nameAsVar	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+udf	(*; {x^.aq.cd x} `inserted.quantity; {x^.aq.cd x} `inserted.price)
+--- ColumnAccess(inserted,quantity)
+plain	{x^.aq.cd x} `inserted.quantity
+grouped	{x^.aq.cd x} `inserted.quantity
+nameAsVar	{x^.aq.cd x} `inserted.quantity
+udf	{x^.aq.cd x} `inserted.quantity
+--- ColumnAccess(inserted,price)
+plain	{x^.aq.cd x} `inserted.price
+grouped	{x^.aq.cd x} `inserted.price
+nameAsVar	{x^.aq.cd x} `inserted.price
+udf	{x^.aq.cd x} `inserted.price
+--- BinExpr(Eq,ColumnAccess(storeOutstanding,storeid),ColumnAccess(inserted,storeid))
+plain	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+grouped	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+nameAsVar	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+udf	(=; {x^.aq.cd x} `storeOutstanding.storeid; {x^.aq.cd x} `inserted.storeid)
+--- ColumnAccess(storeOutstanding,storeid)
+plain	{x^.aq.cd x} `storeOutstanding.storeid
+grouped	{x^.aq.cd x} `storeOutstanding.storeid
+nameAsVar	{x^.aq.cd x} `storeOutstanding.storeid
+udf	{x^.aq.cd x} `storeOutstanding.storeid
+--- ColumnAccess(inserted,storeid)
+plain	{x^.aq.cd x} `inserted.storeid
+grouped	{x^.aq.cd x} `inserted.storeid
+nameAsVar	{x^.aq.cd x} `inserted.storeid
+udf	{x^.aq.cd x} `inserted.storeid

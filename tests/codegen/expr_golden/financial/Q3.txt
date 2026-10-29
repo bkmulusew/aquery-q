@@ -1,0 +1,40 @@
+--- FunCall(IN,List(Id(Id), Id(SP500)))
+plain	(.aq.in;{x^.aq.cd x} `Id;{x^.aq.cd x} `SP500)
+grouped	(.aq.in';{x^.aq.cd x} `Id;{x^.aq.cd x} `SP500)
+nameAsVar	(.aq.in;Id;SP500)
+udf	(.aq.in;.aq.funEnlist Id;.aq.funEnlist SP500)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(SP500)
+plain	{x^.aq.cd x} `SP500
+grouped	{x^.aq.cd x} `SP500
+nameAsVar	SP500
+udf	.aq.funEnlist SP500
+--- BinExpr(Eq,Id(TradeDate),Id(startPeriod))
+plain	(=; {x^.aq.cd x} `TradeDate; {x^.aq.cd x} `startPeriod)
+grouped	(=; {x^.aq.cd x} `TradeDate; {x^.aq.cd x} `startPeriod)
+nameAsVar	(=; TradeDate; startPeriod)
+udf	(=; .aq.funEnlist TradeDate; .aq.funEnlist startPeriod)
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- Id(startPeriod)
+plain	{x^.aq.cd x} `startPeriod
+grouped	{x^.aq.cd x} `startPeriod
+nameAsVar	startPeriod
+udf	.aq.funEnlist startPeriod
+--- FunCall(AVG,List(Id(ClosePrice)))
+plain	(.aq.avg;{x^.aq.cd x} `ClosePrice)
+grouped	(.aq.avg';{x^.aq.cd x} `ClosePrice)
+nameAsVar	(.aq.avg;ClosePrice)
+udf	(.aq.avg;.aq.funEnlist ClosePrice)
+--- Id(ClosePrice)
+plain	{x^.aq.cd x} `ClosePrice
+grouped	{x^.aq.cd x} `ClosePrice
+nameAsVar	ClosePrice
+udf	.aq.funEnlist ClosePrice

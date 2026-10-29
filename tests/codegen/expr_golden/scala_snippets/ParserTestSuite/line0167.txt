@@ -1,0 +1,50 @@
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- Id(c)
+plain	{x^.aq.cd x} `c
+grouped	{x^.aq.cd x} `c
+nameAsVar	c
+udf	.aq.funEnlist c
+--- BinExpr(Gt,Id(a),IntLit(10))
+plain	(>; {x^.aq.cd x} `a; 10)
+grouped	(>; {x^.aq.cd x} `a; 10)
+nameAsVar	(>; a; 10)
+udf	(>; .aq.funEnlist a; 10)
+--- Id(a)
+plain	{x^.aq.cd x} `a
+grouped	{x^.aq.cd x} `a
+nameAsVar	a
+udf	.aq.funEnlist a
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- Id(h)
+plain	{x^.aq.cd x} `h
+grouped	{x^.aq.cd x} `h
+nameAsVar	h
+udf	.aq.funEnlist h
+--- BinExpr(Gt,FunCall(SUMS,List(Id(a))),IntLit(10))
+plain	(>; (.aq.sums1;{x^.aq.cd x} `a); 10)
+grouped	(>; (.aq.sums1';{x^.aq.cd x} `a); 10)
+nameAsVar	(>; (.aq.sums1;a); 10)
+udf	(>; (.aq.sums1;.aq.funEnlist a); 10)
+--- FunCall(SUMS,List(Id(a)))
+plain	(.aq.sums1;{x^.aq.cd x} `a)
+grouped	(.aq.sums1';{x^.aq.cd x} `a)
+nameAsVar	(.aq.sums1;a)
+udf	(.aq.sums1;.aq.funEnlist a)
+--- Id(a)
+plain	{x^.aq.cd x} `a
+grouped	{x^.aq.cd x} `a
+nameAsVar	a
+udf	.aq.funEnlist a
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10

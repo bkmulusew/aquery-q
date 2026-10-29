@@ -1,0 +1,25 @@
+--- BinExpr(Plus,Id(x),BinExpr(Times,Id(y),Id(x)))
+plain	(+; {x^.aq.cd x} `x; (*; {x^.aq.cd x} `y; {x^.aq.cd x} `x))
+grouped	(+; {x^.aq.cd x} `x; (*; {x^.aq.cd x} `y; {x^.aq.cd x} `x))
+nameAsVar	(+; x; (*; y; x))
+udf	(+; .aq.funEnlist x; (*; .aq.funEnlist y; .aq.funEnlist x))
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- BinExpr(Times,Id(y),Id(x))
+plain	(*; {x^.aq.cd x} `y; {x^.aq.cd x} `x)
+grouped	(*; {x^.aq.cd x} `y; {x^.aq.cd x} `x)
+nameAsVar	(*; y; x)
+udf	(*; .aq.funEnlist y; .aq.funEnlist x)
+--- Id(y)
+plain	{x^.aq.cd x} `y
+grouped	{x^.aq.cd x} `y
+nameAsVar	y
+udf	.aq.funEnlist y
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x

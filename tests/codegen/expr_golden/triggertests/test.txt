@@ -1,0 +1,20 @@
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- BinExpr(Eq,Id(sym),StringLit(AAPL))
+plain	(=; {x^.aq.cd x} `sym; `$\"AAPL\")
+grouped	(=; {x^.aq.cd x} `sym; `$\"AAPL\")
+nameAsVar	(=; sym; `$\"AAPL\")
+udf	(=; .aq.funEnlist sym; `$\"AAPL\")
+--- Id(sym)
+plain	{x^.aq.cd x} `sym
+grouped	{x^.aq.cd x} `sym
+nameAsVar	sym
+udf	.aq.funEnlist sym
+--- StringLit(AAPL)
+plain	`$\"AAPL\"
+grouped	`$\"AAPL\"
+nameAsVar	`$\"AAPL\"
+udf	`$\"AAPL\"

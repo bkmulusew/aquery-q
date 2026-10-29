@@ -1,0 +1,35 @@
+--- BinExpr(Eq,ColumnAccess(L,l_orderkey),ColumnAccess(O,o_orderkey))
+plain	(=; {x^.aq.cd x} `L.l_orderkey; {x^.aq.cd x} `O.o_orderkey)
+grouped	(=; {x^.aq.cd x} `L.l_orderkey; {x^.aq.cd x} `O.o_orderkey)
+nameAsVar	(=; {x^.aq.cd x} `L.l_orderkey; {x^.aq.cd x} `O.o_orderkey)
+udf	(=; {x^.aq.cd x} `L.l_orderkey; {x^.aq.cd x} `O.o_orderkey)
+--- ColumnAccess(L,l_orderkey)
+plain	{x^.aq.cd x} `L.l_orderkey
+grouped	{x^.aq.cd x} `L.l_orderkey
+nameAsVar	{x^.aq.cd x} `L.l_orderkey
+udf	{x^.aq.cd x} `L.l_orderkey
+--- ColumnAccess(O,o_orderkey)
+plain	{x^.aq.cd x} `O.o_orderkey
+grouped	{x^.aq.cd x} `O.o_orderkey
+nameAsVar	{x^.aq.cd x} `O.o_orderkey
+udf	{x^.aq.cd x} `O.o_orderkey
+--- ColumnAccess(L,l_orderkey)
+plain	{x^.aq.cd x} `L.l_orderkey
+grouped	{x^.aq.cd x} `L.l_orderkey
+nameAsVar	{x^.aq.cd x} `L.l_orderkey
+udf	{x^.aq.cd x} `L.l_orderkey
+--- ColumnAccess(L,l_partkey)
+plain	{x^.aq.cd x} `L.l_partkey
+grouped	{x^.aq.cd x} `L.l_partkey
+nameAsVar	{x^.aq.cd x} `L.l_partkey
+udf	{x^.aq.cd x} `L.l_partkey
+--- ColumnAccess(O,o_orderdate)
+plain	{x^.aq.cd x} `O.o_orderdate
+grouped	{x^.aq.cd x} `O.o_orderdate
+nameAsVar	{x^.aq.cd x} `O.o_orderdate
+udf	{x^.aq.cd x} `O.o_orderdate
+--- ColumnAccess(O,o_orderstatus)
+plain	{x^.aq.cd x} `O.o_orderstatus
+grouped	{x^.aq.cd x} `O.o_orderstatus
+nameAsVar	{x^.aq.cd x} `O.o_orderstatus
+udf	{x^.aq.cd x} `O.o_orderstatus

@@ -1,0 +1,10 @@
+--- Id(dept)
+plain	{x^.aq.cd x} `dept
+grouped	{x^.aq.cd x} `dept
+nameAsVar	dept
+udf	.aq.funEnlist dept
+--- Id(ssnum)
+plain	{x^.aq.cd x} `ssnum
+grouped	{x^.aq.cd x} `ssnum
+nameAsVar	ssnum
+udf	.aq.funEnlist ssnum

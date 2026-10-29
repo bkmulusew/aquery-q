@@ -19,6 +19,8 @@ tests/parser/test_rules.q
 tests/parser/test_golden.q
 tests/ast/test_nodes.q
 tests/ast/test_dot.q
+tests/codegen/test_expr.q
+tests/codegen/test_codegen.q
 "
 
 status=0

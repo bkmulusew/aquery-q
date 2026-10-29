@@ -1,0 +1,20 @@
+--- BinExpr(Eq,Id(tenpercent1),IntLit(5))
+plain	(=; {x^.aq.cd x} `tenpercent1; 5)
+grouped	(=; {x^.aq.cd x} `tenpercent1; 5)
+nameAsVar	(=; tenpercent1; 5)
+udf	(=; .aq.funEnlist tenpercent1; 5)
+--- Id(tenpercent1)
+plain	{x^.aq.cd x} `tenpercent1
+grouped	{x^.aq.cd x} `tenpercent1
+nameAsVar	tenpercent1
+udf	.aq.funEnlist tenpercent1
+--- IntLit(5)
+plain	5
+grouped	5
+nameAsVar	5
+udf	5
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

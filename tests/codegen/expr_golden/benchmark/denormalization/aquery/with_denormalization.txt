@@ -1,0 +1,100 @@
+--- BinExpr(Eq,Id(r_region),StringLit(EUROPE))
+plain	(=; {x^.aq.cd x} `r_region; `$\"EUROPE\")
+grouped	(=; {x^.aq.cd x} `r_region; `$\"EUROPE\")
+nameAsVar	(=; r_region; `$\"EUROPE\")
+udf	(=; .aq.funEnlist r_region; `$\"EUROPE\")
+--- Id(r_region)
+plain	{x^.aq.cd x} `r_region
+grouped	{x^.aq.cd x} `r_region
+nameAsVar	r_region
+udf	.aq.funEnlist r_region
+--- StringLit(EUROPE)
+plain	`$\"EUROPE\"
+grouped	`$\"EUROPE\"
+nameAsVar	`$\"EUROPE\"
+udf	`$\"EUROPE\"
+--- Id(l_orderkey)
+plain	{x^.aq.cd x} `l_orderkey
+grouped	{x^.aq.cd x} `l_orderkey
+nameAsVar	l_orderkey
+udf	.aq.funEnlist l_orderkey
+--- Id(l_partkey)
+plain	{x^.aq.cd x} `l_partkey
+grouped	{x^.aq.cd x} `l_partkey
+nameAsVar	l_partkey
+udf	.aq.funEnlist l_partkey
+--- Id(l_suppkey)
+plain	{x^.aq.cd x} `l_suppkey
+grouped	{x^.aq.cd x} `l_suppkey
+nameAsVar	l_suppkey
+udf	.aq.funEnlist l_suppkey
+--- Id(l_linenumber)
+plain	{x^.aq.cd x} `l_linenumber
+grouped	{x^.aq.cd x} `l_linenumber
+nameAsVar	l_linenumber
+udf	.aq.funEnlist l_linenumber
+--- Id(l_quantity)
+plain	{x^.aq.cd x} `l_quantity
+grouped	{x^.aq.cd x} `l_quantity
+nameAsVar	l_quantity
+udf	.aq.funEnlist l_quantity
+--- Id(l_extendedprice)
+plain	{x^.aq.cd x} `l_extendedprice
+grouped	{x^.aq.cd x} `l_extendedprice
+nameAsVar	l_extendedprice
+udf	.aq.funEnlist l_extendedprice
+--- Id(l_discount)
+plain	{x^.aq.cd x} `l_discount
+grouped	{x^.aq.cd x} `l_discount
+nameAsVar	l_discount
+udf	.aq.funEnlist l_discount
+--- Id(l_tax)
+plain	{x^.aq.cd x} `l_tax
+grouped	{x^.aq.cd x} `l_tax
+nameAsVar	l_tax
+udf	.aq.funEnlist l_tax
+--- Id(l_returnflag)
+plain	{x^.aq.cd x} `l_returnflag
+grouped	{x^.aq.cd x} `l_returnflag
+nameAsVar	l_returnflag
+udf	.aq.funEnlist l_returnflag
+--- Id(l_linestatus)
+plain	{x^.aq.cd x} `l_linestatus
+grouped	{x^.aq.cd x} `l_linestatus
+nameAsVar	l_linestatus
+udf	.aq.funEnlist l_linestatus
+--- Id(l_shipdate)
+plain	{x^.aq.cd x} `l_shipdate
+grouped	{x^.aq.cd x} `l_shipdate
+nameAsVar	l_shipdate
+udf	.aq.funEnlist l_shipdate
+--- Id(l_commitdate)
+plain	{x^.aq.cd x} `l_commitdate
+grouped	{x^.aq.cd x} `l_commitdate
+nameAsVar	l_commitdate
+udf	.aq.funEnlist l_commitdate
+--- Id(l_receiptdate)
+plain	{x^.aq.cd x} `l_receiptdate
+grouped	{x^.aq.cd x} `l_receiptdate
+nameAsVar	l_receiptdate
+udf	.aq.funEnlist l_receiptdate
+--- Id(l_shipinstruct)
+plain	{x^.aq.cd x} `l_shipinstruct
+grouped	{x^.aq.cd x} `l_shipinstruct
+nameAsVar	l_shipinstruct
+udf	.aq.funEnlist l_shipinstruct
+--- Id(l_shipmode)
+plain	{x^.aq.cd x} `l_shipmode
+grouped	{x^.aq.cd x} `l_shipmode
+nameAsVar	l_shipmode
+udf	.aq.funEnlist l_shipmode
+--- Id(l_comment)
+plain	{x^.aq.cd x} `l_comment
+grouped	{x^.aq.cd x} `l_comment
+nameAsVar	l_comment
+udf	.aq.funEnlist l_comment
+--- Id(r_region)
+plain	{x^.aq.cd x} `r_region
+grouped	{x^.aq.cd x} `r_region
+nameAsVar	r_region
+udf	.aq.funEnlist r_region

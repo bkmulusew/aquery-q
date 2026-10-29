@@ -1,0 +1,35 @@
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- StringLit(c)
+plain	`$\"c\"
+grouped	`$\"c\"
+nameAsVar	`$\"c\"
+udf	`$\"c\"
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- StringLit(C)
+plain	`$\"C\"
+grouped	`$\"C\"
+nameAsVar	`$\"C\"
+udf	`$\"C\"
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

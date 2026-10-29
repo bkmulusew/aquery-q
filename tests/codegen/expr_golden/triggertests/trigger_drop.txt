@@ -1,0 +1,30 @@
+--- BinExpr(Plus,Id(qty),IntLit(1))
+plain	(+; {x^.aq.cd x} `qty; 1)
+grouped	(+; {x^.aq.cd x} `qty; 1)
+nameAsVar	(+; qty; 1)
+udf	(+; .aq.funEnlist qty; 1)
+--- Id(qty)
+plain	{x^.aq.cd x} `qty
+grouped	{x^.aq.cd x} `qty
+nameAsVar	qty
+udf	.aq.funEnlist qty
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- BinExpr(Eq,Id(id),IntLit(1))
+plain	(=; {x^.aq.cd x} `id; 1)
+grouped	(=; {x^.aq.cd x} `id; 1)
+nameAsVar	(=; id; 1)
+udf	(=; .aq.funEnlist id; 1)
+--- Id(id)
+plain	{x^.aq.cd x} `id
+grouped	{x^.aq.cd x} `id
+nameAsVar	id
+udf	.aq.funEnlist id
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1

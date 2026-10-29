@@ -1,0 +1,60 @@
+--- FunCall(IN,List(Id(Id), Id(Russell2000)))
+plain	(.aq.in;{x^.aq.cd x} `Id;{x^.aq.cd x} `Russell2000)
+grouped	(.aq.in';{x^.aq.cd x} `Id;{x^.aq.cd x} `Russell2000)
+nameAsVar	(.aq.in;Id;Russell2000)
+udf	(.aq.in;.aq.funEnlist Id;.aq.funEnlist Russell2000)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(Russell2000)
+plain	{x^.aq.cd x} `Russell2000
+grouped	{x^.aq.cd x} `Russell2000
+nameAsVar	Russell2000
+udf	.aq.funEnlist Russell2000
+--- BinExpr(Ge,FunCall(getYear,List(Id(SplitDate))),FunCall(q9StartYear,List()))
+plain	(>=; (getYear;{x^.aq.cd x} `SplitDate); (q9StartYear;))
+grouped	(>=; (getYear';{x^.aq.cd x} `SplitDate); (q9StartYear';))
+nameAsVar	(>=; (getYear;SplitDate); (q9StartYear;))
+udf	(>=; (getYear;.aq.funEnlist SplitDate); (q9StartYear;))
+--- FunCall(getYear,List(Id(SplitDate)))
+plain	(getYear;{x^.aq.cd x} `SplitDate)
+grouped	(getYear';{x^.aq.cd x} `SplitDate)
+nameAsVar	(getYear;SplitDate)
+udf	(getYear;.aq.funEnlist SplitDate)
+--- Id(SplitDate)
+plain	{x^.aq.cd x} `SplitDate
+grouped	{x^.aq.cd x} `SplitDate
+nameAsVar	SplitDate
+udf	.aq.funEnlist SplitDate
+--- FunCall(q9StartYear,List())
+plain	(q9StartYear;)
+grouped	(q9StartYear';)
+nameAsVar	(q9StartYear;)
+udf	(q9StartYear;)
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- FunCall(DISTINCT,List(Id(Id)))
+plain	(.aq.distinct;{x^.aq.cd x} `Id)
+grouped	(.aq.distinct';{x^.aq.cd x} `Id)
+nameAsVar	(.aq.distinct;Id)
+udf	(.aq.distinct;.aq.funEnlist Id)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(Dummy)
+plain	{x^.aq.cd x} `Dummy
+grouped	{x^.aq.cd x} `Dummy
+nameAsVar	Dummy
+udf	.aq.funEnlist Dummy
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id

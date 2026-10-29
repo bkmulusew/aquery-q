@@ -1,0 +1,35 @@
+--- BinExpr(Eq,Id(storeid),StringLit(10))
+plain	(=; {x^.aq.cd x} `storeid; `$\"10\")
+grouped	(=; {x^.aq.cd x} `storeid; `$\"10\")
+nameAsVar	(=; storeid; `$\"10\")
+udf	(=; .aq.funEnlist storeid; `$\"10\")
+--- Id(storeid)
+plain	{x^.aq.cd x} `storeid
+grouped	{x^.aq.cd x} `storeid
+nameAsVar	storeid
+udf	.aq.funEnlist storeid
+--- StringLit(10)
+plain	`$\"10\"
+grouped	`$\"10\"
+nameAsVar	`$\"10\"
+udf	`$\"10\"
+--- FunCall(SUM,List(BinExpr(Times,Id(quantity),Id(price))))
+plain	(.aq.sum;(*; {x^.aq.cd x} `quantity; {x^.aq.cd x} `price))
+grouped	(.aq.sum';(*; {x^.aq.cd x} `quantity; {x^.aq.cd x} `price))
+nameAsVar	(.aq.sum;(*; quantity; price))
+udf	(.aq.sum;(*; .aq.funEnlist quantity; .aq.funEnlist price))
+--- BinExpr(Times,Id(quantity),Id(price))
+plain	(*; {x^.aq.cd x} `quantity; {x^.aq.cd x} `price)
+grouped	(*; {x^.aq.cd x} `quantity; {x^.aq.cd x} `price)
+nameAsVar	(*; quantity; price)
+udf	(*; .aq.funEnlist quantity; .aq.funEnlist price)
+--- Id(quantity)
+plain	{x^.aq.cd x} `quantity
+grouped	{x^.aq.cd x} `quantity
+nameAsVar	quantity
+udf	.aq.funEnlist quantity
+--- Id(price)
+plain	{x^.aq.cd x} `price
+grouped	{x^.aq.cd x} `price
+nameAsVar	price
+udf	.aq.funEnlist price

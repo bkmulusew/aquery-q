@@ -1,0 +1,25 @@
+--- ColumnAccess(inserted,qty)
+plain	{x^.aq.cd x} `inserted.qty
+grouped	{x^.aq.cd x} `inserted.qty
+nameAsVar	{x^.aq.cd x} `inserted.qty
+udf	{x^.aq.cd x} `inserted.qty
+--- ColumnAccess(inserted,note)
+plain	{x^.aq.cd x} `inserted.note
+grouped	{x^.aq.cd x} `inserted.note
+nameAsVar	{x^.aq.cd x} `inserted.note
+udf	{x^.aq.cd x} `inserted.note
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(inserted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(inserted,id)
+plain	{x^.aq.cd x} `inserted.id
+grouped	{x^.aq.cd x} `inserted.id
+nameAsVar	{x^.aq.cd x} `inserted.id
+udf	{x^.aq.cd x} `inserted.id

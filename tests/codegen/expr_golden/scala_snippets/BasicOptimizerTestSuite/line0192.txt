@@ -1,0 +1,75 @@
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- BinExpr(Eq,ColumnAccess(t1,c1),IntLit(100))
+plain	(=; {x^.aq.cd x} `t1.c1; 100)
+grouped	(=; {x^.aq.cd x} `t1.c1; 100)
+nameAsVar	(=; {x^.aq.cd x} `t1.c1; 100)
+udf	(=; {x^.aq.cd x} `t1.c1; 100)
+--- ColumnAccess(t1,c1)
+plain	{x^.aq.cd x} `t1.c1
+grouped	{x^.aq.cd x} `t1.c1
+nameAsVar	{x^.aq.cd x} `t1.c1
+udf	{x^.aq.cd x} `t1.c1
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- BinExpr(Eq,ColumnAccess(t1,c2),ColumnAccess(t2,c2))
+plain	(=; {x^.aq.cd x} `t1.c2; {x^.aq.cd x} `t2.c2)
+grouped	(=; {x^.aq.cd x} `t1.c2; {x^.aq.cd x} `t2.c2)
+nameAsVar	(=; {x^.aq.cd x} `t1.c2; {x^.aq.cd x} `t2.c2)
+udf	(=; {x^.aq.cd x} `t1.c2; {x^.aq.cd x} `t2.c2)
+--- ColumnAccess(t1,c2)
+plain	{x^.aq.cd x} `t1.c2
+grouped	{x^.aq.cd x} `t1.c2
+nameAsVar	{x^.aq.cd x} `t1.c2
+udf	{x^.aq.cd x} `t1.c2
+--- ColumnAccess(t2,c2)
+plain	{x^.aq.cd x} `t2.c2
+grouped	{x^.aq.cd x} `t2.c2
+nameAsVar	{x^.aq.cd x} `t2.c2
+udf	{x^.aq.cd x} `t2.c2
+--- BinExpr(Eq,ColumnAccess(t1,c1),ColumnAccess(t3,c3))
+plain	(=; {x^.aq.cd x} `t1.c1; {x^.aq.cd x} `t3.c3)
+grouped	(=; {x^.aq.cd x} `t1.c1; {x^.aq.cd x} `t3.c3)
+nameAsVar	(=; {x^.aq.cd x} `t1.c1; {x^.aq.cd x} `t3.c3)
+udf	(=; {x^.aq.cd x} `t1.c1; {x^.aq.cd x} `t3.c3)
+--- ColumnAccess(t1,c1)
+plain	{x^.aq.cd x} `t1.c1
+grouped	{x^.aq.cd x} `t1.c1
+nameAsVar	{x^.aq.cd x} `t1.c1
+udf	{x^.aq.cd x} `t1.c1
+--- ColumnAccess(t3,c3)
+plain	{x^.aq.cd x} `t3.c3
+grouped	{x^.aq.cd x} `t3.c3
+nameAsVar	{x^.aq.cd x} `t3.c3
+udf	{x^.aq.cd x} `t3.c3
+--- BinExpr(Gt,Id(c4),IntLit(2))
+plain	(>; {x^.aq.cd x} `c4; 2)
+grouped	(>; {x^.aq.cd x} `c4; 2)
+nameAsVar	(>; c4; 2)
+udf	(>; .aq.funEnlist c4; 2)
+--- Id(c4)
+plain	{x^.aq.cd x} `c4
+grouped	{x^.aq.cd x} `c4
+nameAsVar	c4
+udf	.aq.funEnlist c4
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

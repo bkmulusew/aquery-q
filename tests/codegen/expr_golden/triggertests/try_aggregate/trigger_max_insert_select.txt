@@ -1,0 +1,30 @@
+--- FunCall(MAX,List(Id(qty)))
+plain	(.aq.max;{x^.aq.cd x} `qty)
+grouped	(.aq.max';{x^.aq.cd x} `qty)
+nameAsVar	(.aq.max;qty)
+udf	(.aq.max;.aq.funEnlist qty)
+--- Id(qty)
+plain	{x^.aq.cd x} `qty
+grouped	{x^.aq.cd x} `qty
+nameAsVar	qty
+udf	.aq.funEnlist qty
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20

@@ -1,0 +1,105 @@
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- StringLit(src)
+plain	`$\"src\"
+grouped	`$\"src\"
+nameAsVar	`$\"src\"
+udf	`$\"src\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- StringLit(src2)
+plain	`$\"src2\"
+grouped	`$\"src2\"
+nameAsVar	`$\"src2\"
+udf	`$\"src2\"
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- StringLit(dest)
+plain	`$\"dest\"
+grouped	`$\"dest\"
+nameAsVar	`$\"dest\"
+udf	`$\"dest\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- StringLit(dest2)
+plain	`$\"dest2\"
+grouped	`$\"dest2\"
+nameAsVar	`$\"dest2\"
+udf	`$\"dest2\"
+--- ColumnAccess(inserted,qty)
+plain	{x^.aq.cd x} `inserted.qty
+grouped	{x^.aq.cd x} `inserted.qty
+nameAsVar	{x^.aq.cd x} `inserted.qty
+udf	{x^.aq.cd x} `inserted.qty
+--- ColumnAccess(inserted,note)
+plain	{x^.aq.cd x} `inserted.note
+grouped	{x^.aq.cd x} `inserted.note
+nameAsVar	{x^.aq.cd x} `inserted.note
+udf	{x^.aq.cd x} `inserted.note
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(inserted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(inserted,id)
+plain	{x^.aq.cd x} `inserted.id
+grouped	{x^.aq.cd x} `inserted.id
+nameAsVar	{x^.aq.cd x} `inserted.id
+udf	{x^.aq.cd x} `inserted.id
+--- IntLit(42)
+plain	42
+grouped	42
+nameAsVar	42
+udf	42
+--- BinExpr(Eq,Id(id),IntLit(1))
+plain	(=; {x^.aq.cd x} `id; 1)
+grouped	(=; {x^.aq.cd x} `id; 1)
+nameAsVar	(=; id; 1)
+udf	(=; .aq.funEnlist id; 1)
+--- Id(id)
+plain	{x^.aq.cd x} `id
+grouped	{x^.aq.cd x} `id
+nameAsVar	id
+udf	.aq.funEnlist id
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1

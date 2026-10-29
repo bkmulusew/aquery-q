@@ -1,0 +1,75 @@
+--- FunCall(getYear,List(BinExpr(Minus,FunCall(MAX,List(Id(TradeDate))),BinExpr(Times,IntLit(365),IntLit(3)))))
+plain	(getYear;(-; (.aq.max;{x^.aq.cd x} `TradeDate); (*; 365; 3)))
+grouped	(getYear';(-; (.aq.max';{x^.aq.cd x} `TradeDate); (*; 365; 3)))
+nameAsVar	(getYear;(-; (.aq.max;TradeDate); (*; 365; 3)))
+udf	(getYear;(-; (.aq.max;.aq.funEnlist TradeDate); (*; 365; 3)))
+--- BinExpr(Minus,FunCall(MAX,List(Id(TradeDate))),BinExpr(Times,IntLit(365),IntLit(3)))
+plain	(-; (.aq.max;{x^.aq.cd x} `TradeDate); (*; 365; 3))
+grouped	(-; (.aq.max';{x^.aq.cd x} `TradeDate); (*; 365; 3))
+nameAsVar	(-; (.aq.max;TradeDate); (*; 365; 3))
+udf	(-; (.aq.max;.aq.funEnlist TradeDate); (*; 365; 3))
+--- FunCall(MAX,List(Id(TradeDate)))
+plain	(.aq.max;{x^.aq.cd x} `TradeDate)
+grouped	(.aq.max';{x^.aq.cd x} `TradeDate)
+nameAsVar	(.aq.max;TradeDate)
+udf	(.aq.max;.aq.funEnlist TradeDate)
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- BinExpr(Times,IntLit(365),IntLit(3))
+plain	(*; 365; 3)
+grouped	(*; 365; 3)
+nameAsVar	(*; 365; 3)
+udf	(*; 365; 3)
+--- IntLit(365)
+plain	365
+grouped	365
+nameAsVar	365
+udf	365
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- BinExpr(Minus,FunCall(MAX,List(Id(TradeDate))),BinExpr(Times,IntLit(365),IntLit(3)))
+plain	(-; (.aq.max;{x^.aq.cd x} `TradeDate); (*; 365; 3))
+grouped	(-; (.aq.max';{x^.aq.cd x} `TradeDate); (*; 365; 3))
+nameAsVar	(-; (.aq.max;TradeDate); (*; 365; 3))
+udf	(-; (.aq.max;.aq.funEnlist TradeDate); (*; 365; 3))
+--- FunCall(MAX,List(Id(TradeDate)))
+plain	(.aq.max;{x^.aq.cd x} `TradeDate)
+grouped	(.aq.max';{x^.aq.cd x} `TradeDate)
+nameAsVar	(.aq.max;TradeDate)
+udf	(.aq.max;.aq.funEnlist TradeDate)
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- BinExpr(Times,IntLit(365),IntLit(3))
+plain	(*; 365; 3)
+grouped	(*; 365; 3)
+nameAsVar	(*; 365; 3)
+udf	(*; 365; 3)
+--- IntLit(365)
+plain	365
+grouped	365
+nameAsVar	365
+udf	365
+--- IntLit(3)
+plain	3
+grouped	3
+nameAsVar	3
+udf	3
+--- Id(startYear)
+plain	{x^.aq.cd x} `startYear
+grouped	{x^.aq.cd x} `startYear
+nameAsVar	startYear
+udf	.aq.funEnlist startYear
+--- Id(startDate)
+plain	{x^.aq.cd x} `startDate
+grouped	{x^.aq.cd x} `startDate
+nameAsVar	startDate
+udf	.aq.funEnlist startDate

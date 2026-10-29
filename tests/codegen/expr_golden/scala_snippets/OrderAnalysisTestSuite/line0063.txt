@@ -1,0 +1,25 @@
+--- BinExpr(Plus,FunCall(h,List(Id(x))),FunCall(SUM,List(Id(x))))
+plain	(+; (h;{x^.aq.cd x} `x); (.aq.sum;{x^.aq.cd x} `x))
+grouped	(+; (h';{x^.aq.cd x} `x); (.aq.sum';{x^.aq.cd x} `x))
+nameAsVar	(+; (h;x); (.aq.sum;x))
+udf	(+; (h;.aq.funEnlist x); (.aq.sum;.aq.funEnlist x))
+--- FunCall(h,List(Id(x)))
+plain	(h;{x^.aq.cd x} `x)
+grouped	(h';{x^.aq.cd x} `x)
+nameAsVar	(h;x)
+udf	(h;.aq.funEnlist x)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x
+--- FunCall(SUM,List(Id(x)))
+plain	(.aq.sum;{x^.aq.cd x} `x)
+grouped	(.aq.sum';{x^.aq.cd x} `x)
+nameAsVar	(.aq.sum;x)
+udf	(.aq.sum;.aq.funEnlist x)
+--- Id(x)
+plain	{x^.aq.cd x} `x
+grouped	{x^.aq.cd x} `x
+nameAsVar	x
+udf	.aq.funEnlist x

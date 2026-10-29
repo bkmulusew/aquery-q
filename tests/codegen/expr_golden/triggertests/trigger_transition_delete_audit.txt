@@ -1,0 +1,60 @@
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- StringLit(src_old)
+plain	`$\"src_old\"
+grouped	`$\"src_old\"
+nameAsVar	`$\"src_old\"
+udf	`$\"src_old\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- StringLit(src2)
+plain	`$\"src2\"
+grouped	`$\"src2\"
+nameAsVar	`$\"src2\"
+udf	`$\"src2\"
+--- Id(id)
+plain	{x^.aq.cd x} `id
+grouped	{x^.aq.cd x} `id
+nameAsVar	id
+udf	.aq.funEnlist id
+--- Id(qty)
+plain	{x^.aq.cd x} `qty
+grouped	{x^.aq.cd x} `qty
+nameAsVar	qty
+udf	.aq.funEnlist qty
+--- Id(note)
+plain	{x^.aq.cd x} `note
+grouped	{x^.aq.cd x} `note
+nameAsVar	note
+udf	.aq.funEnlist note
+--- BinExpr(Eq,Id(id),IntLit(1))
+plain	(=; {x^.aq.cd x} `id; 1)
+grouped	(=; {x^.aq.cd x} `id; 1)
+nameAsVar	(=; id; 1)
+udf	(=; .aq.funEnlist id; 1)
+--- Id(id)
+plain	{x^.aq.cd x} `id
+grouped	{x^.aq.cd x} `id
+nameAsVar	id
+udf	.aq.funEnlist id
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1

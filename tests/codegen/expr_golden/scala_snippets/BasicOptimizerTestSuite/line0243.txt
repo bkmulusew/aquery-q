@@ -1,0 +1,85 @@
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- BinExpr(Gt,FunCall(SUMS,List(Id(c5))),IntLit(2))
+plain	(>; (.aq.sums1;{x^.aq.cd x} `c5); 2)
+grouped	(>; (.aq.sums1';{x^.aq.cd x} `c5); 2)
+nameAsVar	(>; (.aq.sums1;c5); 2)
+udf	(>; (.aq.sums1;.aq.funEnlist c5); 2)
+--- FunCall(SUMS,List(Id(c5)))
+plain	(.aq.sums1;{x^.aq.cd x} `c5)
+grouped	(.aq.sums1';{x^.aq.cd x} `c5)
+nameAsVar	(.aq.sums1;c5)
+udf	(.aq.sums1;.aq.funEnlist c5)
+--- Id(c5)
+plain	{x^.aq.cd x} `c5
+grouped	{x^.aq.cd x} `c5
+nameAsVar	c5
+udf	.aq.funEnlist c5
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- BinExpr(Lt,Id(c6),IntLit(2))
+plain	(<; {x^.aq.cd x} `c6; 2)
+grouped	(<; {x^.aq.cd x} `c6; 2)
+nameAsVar	(<; c6; 2)
+udf	(<; .aq.funEnlist c6; 2)
+--- Id(c6)
+plain	{x^.aq.cd x} `c6
+grouped	{x^.aq.cd x} `c6
+nameAsVar	c6
+udf	.aq.funEnlist c6
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- BinExpr(Times,Id(c2),FunCall(SUMS,List(BinExpr(Times,Id(c4),Id(c3)))))
+plain	(*; {x^.aq.cd x} `c2; (.aq.sums1;(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3)))
+grouped	(*; {x^.aq.cd x} `c2; (.aq.sums1';(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3)))
+nameAsVar	(*; c2; (.aq.sums1;(*; c4; c3)))
+udf	(*; .aq.funEnlist c2; (.aq.sums1;(*; .aq.funEnlist c4; .aq.funEnlist c3)))
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- FunCall(SUMS,List(BinExpr(Times,Id(c4),Id(c3))))
+plain	(.aq.sums1;(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3))
+grouped	(.aq.sums1';(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3))
+nameAsVar	(.aq.sums1;(*; c4; c3))
+udf	(.aq.sums1;(*; .aq.funEnlist c4; .aq.funEnlist c3))
+--- BinExpr(Times,Id(c4),Id(c3))
+plain	(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3)
+grouped	(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `c3)
+nameAsVar	(*; c4; c3)
+udf	(*; .aq.funEnlist c4; .aq.funEnlist c3)
+--- Id(c4)
+plain	{x^.aq.cd x} `c4
+grouped	{x^.aq.cd x} `c4
+nameAsVar	c4
+udf	.aq.funEnlist c4
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- FunCall(SUM,List(Id(c7)))
+plain	(.aq.sum;{x^.aq.cd x} `c7)
+grouped	(.aq.sum';{x^.aq.cd x} `c7)
+nameAsVar	(.aq.sum;c7)
+udf	(.aq.sum;.aq.funEnlist c7)
+--- Id(c7)
+plain	{x^.aq.cd x} `c7
+grouped	{x^.aq.cd x} `c7
+nameAsVar	c7
+udf	.aq.funEnlist c7

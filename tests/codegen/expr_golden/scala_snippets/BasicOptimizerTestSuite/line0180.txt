@@ -1,0 +1,15 @@
+--- ColumnAccess(t1,c1)
+plain	{x^.aq.cd x} `t1.c1
+grouped	{x^.aq.cd x} `t1.c1
+nameAsVar	{x^.aq.cd x} `t1.c1
+udf	{x^.aq.cd x} `t1.c1
+--- ColumnAccess(t1,c1)
+plain	{x^.aq.cd x} `t1.c1
+grouped	{x^.aq.cd x} `t1.c1
+nameAsVar	{x^.aq.cd x} `t1.c1
+udf	{x^.aq.cd x} `t1.c1
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

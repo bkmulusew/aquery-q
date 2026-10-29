@@ -1,0 +1,25 @@
+--- FunCall(BETWEEN,List(Id(lat), IntLit(150), IntLit(1150)))
+plain	(.aq.between;{x^.aq.cd x} `lat;150;1150)
+grouped	(.aq.between';{x^.aq.cd x} `lat;150;1150)
+nameAsVar	(.aq.between;lat;150;1150)
+udf	(.aq.between;.aq.funEnlist lat;150;1150)
+--- Id(lat)
+plain	{x^.aq.cd x} `lat
+grouped	{x^.aq.cd x} `lat
+nameAsVar	lat
+udf	.aq.funEnlist lat
+--- IntLit(150)
+plain	150
+grouped	150
+nameAsVar	150
+udf	150
+--- IntLit(1150)
+plain	1150
+grouped	1150
+nameAsVar	1150
+udf	1150
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

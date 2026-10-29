@@ -1,0 +1,70 @@
+--- BinExpr(Eq,ColumnAccess(t,c1),IntLit(100))
+plain	(=; {x^.aq.cd x} `t.c1; 100)
+grouped	(=; {x^.aq.cd x} `t.c1; 100)
+nameAsVar	(=; {x^.aq.cd x} `t.c1; 100)
+udf	(=; {x^.aq.cd x} `t.c1; 100)
+--- ColumnAccess(t,c1)
+plain	{x^.aq.cd x} `t.c1
+grouped	{x^.aq.cd x} `t.c1
+nameAsVar	{x^.aq.cd x} `t.c1
+udf	{x^.aq.cd x} `t.c1
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- BinExpr(Gt,Id(c2),IntLit(2))
+plain	(>; {x^.aq.cd x} `c2; 2)
+grouped	(>; {x^.aq.cd x} `c2; 2)
+nameAsVar	(>; c2; 2)
+udf	(>; .aq.funEnlist c2; 2)
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- BinExpr(Gt,FunCall(SUMS,List(Id(c3))),IntLit(2))
+plain	(>; (.aq.sums1;{x^.aq.cd x} `c3); 2)
+grouped	(>; (.aq.sums1';{x^.aq.cd x} `c3); 2)
+nameAsVar	(>; (.aq.sums1;c3); 2)
+udf	(>; (.aq.sums1;.aq.funEnlist c3); 2)
+--- FunCall(SUMS,List(Id(c3)))
+plain	(.aq.sums1;{x^.aq.cd x} `c3)
+grouped	(.aq.sums1';{x^.aq.cd x} `c3)
+nameAsVar	(.aq.sums1;c3)
+udf	(.aq.sums1;.aq.funEnlist c3)
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- FunCall(NOT,List(FunCall(NULL,List(Id(c4)))))
+plain	(.aq.not;(.aq.null;{x^.aq.cd x} `c4))
+grouped	(.aq.not';(.aq.null';{x^.aq.cd x} `c4))
+nameAsVar	(.aq.not;(.aq.null;c4))
+udf	(.aq.not;(.aq.null;.aq.funEnlist c4))
+--- FunCall(NULL,List(Id(c4)))
+plain	(.aq.null;{x^.aq.cd x} `c4)
+grouped	(.aq.null';{x^.aq.cd x} `c4)
+nameAsVar	(.aq.null;c4)
+udf	(.aq.null;.aq.funEnlist c4)
+--- Id(c4)
+plain	{x^.aq.cd x} `c4
+grouped	{x^.aq.cd x} `c4
+nameAsVar	c4
+udf	.aq.funEnlist c4
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

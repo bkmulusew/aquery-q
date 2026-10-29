@@ -1,0 +1,20 @@
+--- BinExpr(Eq,Id(ssnum),IntLit(150))
+plain	(=; {x^.aq.cd x} `ssnum; 150)
+grouped	(=; {x^.aq.cd x} `ssnum; 150)
+nameAsVar	(=; ssnum; 150)
+udf	(=; .aq.funEnlist ssnum; 150)
+--- Id(ssnum)
+plain	{x^.aq.cd x} `ssnum
+grouped	{x^.aq.cd x} `ssnum
+nameAsVar	ssnum
+udf	.aq.funEnlist ssnum
+--- IntLit(150)
+plain	150
+grouped	150
+nameAsVar	150
+udf	150
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)

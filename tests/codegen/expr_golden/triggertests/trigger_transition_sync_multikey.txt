@@ -1,0 +1,200 @@
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(100)
+plain	100
+grouped	100
+nameAsVar	100
+udf	100
+--- StringLit(src_a)
+plain	`$\"src_a\"
+grouped	`$\"src_a\"
+nameAsVar	`$\"src_a\"
+udf	`$\"src_a\"
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- IntLit(200)
+plain	200
+grouped	200
+nameAsVar	200
+udf	200
+--- StringLit(src_b)
+plain	`$\"src_b\"
+grouped	`$\"src_b\"
+nameAsVar	`$\"src_b\"
+udf	`$\"src_b\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(300)
+plain	300
+grouped	300
+nameAsVar	300
+udf	300
+--- StringLit(src_c)
+plain	`$\"src_c\"
+grouped	`$\"src_c\"
+nameAsVar	`$\"src_c\"
+udf	`$\"src_c\"
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- StringLit(dest_a)
+plain	`$\"dest_a\"
+grouped	`$\"dest_a\"
+nameAsVar	`$\"dest_a\"
+udf	`$\"dest_a\"
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- IntLit(20)
+plain	20
+grouped	20
+nameAsVar	20
+udf	20
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- StringLit(dest_b)
+plain	`$\"dest_b\"
+grouped	`$\"dest_b\"
+nameAsVar	`$\"dest_b\"
+udf	`$\"dest_b\"
+--- IntLit(2)
+plain	2
+grouped	2
+nameAsVar	2
+udf	2
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- IntLit(0)
+plain	0
+grouped	0
+nameAsVar	0
+udf	0
+--- StringLit(dest_c)
+plain	`$\"dest_c\"
+grouped	`$\"dest_c\"
+nameAsVar	`$\"dest_c\"
+udf	`$\"dest_c\"
+--- ColumnAccess(inserted,qty)
+plain	{x^.aq.cd x} `inserted.qty
+grouped	{x^.aq.cd x} `inserted.qty
+nameAsVar	{x^.aq.cd x} `inserted.qty
+udf	{x^.aq.cd x} `inserted.qty
+--- ColumnAccess(inserted,note)
+plain	{x^.aq.cd x} `inserted.note
+grouped	{x^.aq.cd x} `inserted.note
+nameAsVar	{x^.aq.cd x} `inserted.note
+udf	{x^.aq.cd x} `inserted.note
+--- BinExpr(Eq,ColumnAccess(table2,id),ColumnAccess(inserted,id))
+plain	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+grouped	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+nameAsVar	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+udf	(=; {x^.aq.cd x} `table2.id; {x^.aq.cd x} `inserted.id)
+--- ColumnAccess(table2,id)
+plain	{x^.aq.cd x} `table2.id
+grouped	{x^.aq.cd x} `table2.id
+nameAsVar	{x^.aq.cd x} `table2.id
+udf	{x^.aq.cd x} `table2.id
+--- ColumnAccess(inserted,id)
+plain	{x^.aq.cd x} `inserted.id
+grouped	{x^.aq.cd x} `inserted.id
+nameAsVar	{x^.aq.cd x} `inserted.id
+udf	{x^.aq.cd x} `inserted.id
+--- BinExpr(Eq,ColumnAccess(table2,subid),ColumnAccess(inserted,subid))
+plain	(=; {x^.aq.cd x} `table2.subid; {x^.aq.cd x} `inserted.subid)
+grouped	(=; {x^.aq.cd x} `table2.subid; {x^.aq.cd x} `inserted.subid)
+nameAsVar	(=; {x^.aq.cd x} `table2.subid; {x^.aq.cd x} `inserted.subid)
+udf	(=; {x^.aq.cd x} `table2.subid; {x^.aq.cd x} `inserted.subid)
+--- ColumnAccess(table2,subid)
+plain	{x^.aq.cd x} `table2.subid
+grouped	{x^.aq.cd x} `table2.subid
+nameAsVar	{x^.aq.cd x} `table2.subid
+udf	{x^.aq.cd x} `table2.subid
+--- ColumnAccess(inserted,subid)
+plain	{x^.aq.cd x} `inserted.subid
+grouped	{x^.aq.cd x} `inserted.subid
+nameAsVar	{x^.aq.cd x} `inserted.subid
+udf	{x^.aq.cd x} `inserted.subid
+--- IntLit(111)
+plain	111
+grouped	111
+nameAsVar	111
+udf	111
+--- StringLit(src_a_updated)
+plain	`$\"src_a_updated\"
+grouped	`$\"src_a_updated\"
+nameAsVar	`$\"src_a_updated\"
+udf	`$\"src_a_updated\"
+--- BinExpr(Eq,Id(id),IntLit(1))
+plain	(=; {x^.aq.cd x} `id; 1)
+grouped	(=; {x^.aq.cd x} `id; 1)
+nameAsVar	(=; id; 1)
+udf	(=; .aq.funEnlist id; 1)
+--- Id(id)
+plain	{x^.aq.cd x} `id
+grouped	{x^.aq.cd x} `id
+nameAsVar	id
+udf	.aq.funEnlist id
+--- IntLit(1)
+plain	1
+grouped	1
+nameAsVar	1
+udf	1
+--- BinExpr(Eq,Id(subid),IntLit(10))
+plain	(=; {x^.aq.cd x} `subid; 10)
+grouped	(=; {x^.aq.cd x} `subid; 10)
+nameAsVar	(=; subid; 10)
+udf	(=; .aq.funEnlist subid; 10)
+--- Id(subid)
+plain	{x^.aq.cd x} `subid
+grouped	{x^.aq.cd x} `subid
+nameAsVar	subid
+udf	.aq.funEnlist subid
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10

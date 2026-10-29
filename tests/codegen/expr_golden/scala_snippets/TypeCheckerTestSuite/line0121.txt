@@ -1,0 +1,25 @@
+--- Id(c3)
+plain	{x^.aq.cd x} `c3
+grouped	{x^.aq.cd x} `c3
+nameAsVar	c3
+udf	.aq.funEnlist c3
+--- FunCall(SUMS,List(Id(c4)))
+plain	(.aq.sums1;{x^.aq.cd x} `c4)
+grouped	(.aq.sums1';{x^.aq.cd x} `c4)
+nameAsVar	(.aq.sums1;c4)
+udf	(.aq.sums1;.aq.funEnlist c4)
+--- Id(c4)
+plain	{x^.aq.cd x} `c4
+grouped	{x^.aq.cd x} `c4
+nameAsVar	c4
+udf	.aq.funEnlist c4
+--- FunCall(SUM,List(Id(c2)))
+plain	(.aq.sum;{x^.aq.cd x} `c2)
+grouped	(.aq.sum';{x^.aq.cd x} `c2)
+nameAsVar	(.aq.sum;c2)
+udf	(.aq.sum;.aq.funEnlist c2)
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2

@@ -1,0 +1,39 @@
+# divergences.txt - programs whose golden file (tests/reference_q/PATH.q)
+# the q code generator no longer matches ON PURPOSE, because it fixes a
+# bug in the jar (each fix is marked FIXED in src/codegen/). test_codegen.q
+# skips them; unit checks in test_expr.q and test_codegen.q cover the
+# fixed output instead.
+#
+# Format: one path per line, relative to tests/inputs/, then "#" and the
+# reason. Blank lines and lines starting with "#" are ignored.
+#
+# The four jar bugs:
+#  1. -x is written (.aq.neg}; x), with a stray "}": no golden file has one.
+#  2. Timestamp literals become symbols: already a v1 divergence (our parser
+#     makes TimestampLit, written "P"$"..."); no golden file has one.
+#  3. SELECT u.c with no AS names the column t.c (the letter t, not the
+#     table): the files marked "t.c" below.
+#  4. A trigger whose statement does not end with ";" (an INSERT, an
+#     UPDATE or DELETE, a query) runs together with the " ctx" line after
+#     it: the files marked "ctx" below.
+
+scala_snippets/KdbGeneratorTestSuite/line0379.a          # ctx: INSERT ... SELECT trigger
+scala_snippets/ParserTestSuite/line0123.a                # ctx: UPDATE trigger
+scala_snippets/ParserTestSuite/line0134.a                # ctx: query trigger
+triggertests/trigger_drop.a                              # ctx: UPDATE trigger
+triggertests/trigger_sync_tables.a                       # ctx: UPDATE trigger
+triggertests/trigger_transition_delete_audit.a           # ctx: INSERT ... SELECT trigger
+triggertests/try_aggregate/trigger_avg_insert_select.a   # ctx: INSERT ... SELECT trigger
+triggertests/try_aggregate/trigger_count_insert_select.a # ctx: INSERT ... SELECT trigger
+triggertests/try_aggregate/trigger_max_insert_select.a   # ctx: INSERT ... SELECT trigger
+triggertests/try_aggregate/trigger_min_insert_select.a   # ctx: INSERT ... SELECT trigger
+triggertests/try_aggregate/trigger_sum_insert_select.a   # ctx: INSERT ... SELECT trigger
+AQuery2/join/aquery_kdb/two_way_join.a                   # t.c: L.l_orderkey, O.o_orderdate, ...
+benchmark/denormalization/aquery/create_lineitemdenormalized.a # t.c: L.l_orderkey, ...
+benchmark/denormalization/aquery/without_denormalization.a # t.c: L.l_orderkey, ..., R.r_name
+financial/Q8.a                                           # t.c: st1.Id and st2.Id (the jar named both t.Id)
+resources/fintime.a                                      # t.c: st1.Id and st2.Id, as Q8
+scala_snippets/BasicOptimizerTestSuite/line0175.a        # t.c: GROUP BY t1.c1
+scala_snippets/BasicOptimizerTestSuite/line0180.a        # t.c: GROUP BY t1.c1
+scala_snippets/BasicOptimizerTestSuite/line0182.a        # t.c: GROUP BY t1.c1
+scala_snippets/TypeCheckerTestSuite/line0152.a           # t.c: bad.c1

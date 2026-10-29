@@ -1,0 +1,145 @@
+--- BinExpr(Eq,ColumnAccess(L,l_suppkey),ColumnAccess(S,s_suppkey))
+plain	(=; {x^.aq.cd x} `L.l_suppkey; {x^.aq.cd x} `S.s_suppkey)
+grouped	(=; {x^.aq.cd x} `L.l_suppkey; {x^.aq.cd x} `S.s_suppkey)
+nameAsVar	(=; {x^.aq.cd x} `L.l_suppkey; {x^.aq.cd x} `S.s_suppkey)
+udf	(=; {x^.aq.cd x} `L.l_suppkey; {x^.aq.cd x} `S.s_suppkey)
+--- ColumnAccess(L,l_suppkey)
+plain	{x^.aq.cd x} `L.l_suppkey
+grouped	{x^.aq.cd x} `L.l_suppkey
+nameAsVar	{x^.aq.cd x} `L.l_suppkey
+udf	{x^.aq.cd x} `L.l_suppkey
+--- ColumnAccess(S,s_suppkey)
+plain	{x^.aq.cd x} `S.s_suppkey
+grouped	{x^.aq.cd x} `S.s_suppkey
+nameAsVar	{x^.aq.cd x} `S.s_suppkey
+udf	{x^.aq.cd x} `S.s_suppkey
+--- BinExpr(Eq,ColumnAccess(S,s_nationkey),ColumnAccess(N,n_nationkey))
+plain	(=; {x^.aq.cd x} `S.s_nationkey; {x^.aq.cd x} `N.n_nationkey)
+grouped	(=; {x^.aq.cd x} `S.s_nationkey; {x^.aq.cd x} `N.n_nationkey)
+nameAsVar	(=; {x^.aq.cd x} `S.s_nationkey; {x^.aq.cd x} `N.n_nationkey)
+udf	(=; {x^.aq.cd x} `S.s_nationkey; {x^.aq.cd x} `N.n_nationkey)
+--- ColumnAccess(S,s_nationkey)
+plain	{x^.aq.cd x} `S.s_nationkey
+grouped	{x^.aq.cd x} `S.s_nationkey
+nameAsVar	{x^.aq.cd x} `S.s_nationkey
+udf	{x^.aq.cd x} `S.s_nationkey
+--- ColumnAccess(N,n_nationkey)
+plain	{x^.aq.cd x} `N.n_nationkey
+grouped	{x^.aq.cd x} `N.n_nationkey
+nameAsVar	{x^.aq.cd x} `N.n_nationkey
+udf	{x^.aq.cd x} `N.n_nationkey
+--- BinExpr(Eq,ColumnAccess(N,n_regionkey),ColumnAccess(R,r_regionkey))
+plain	(=; {x^.aq.cd x} `N.n_regionkey; {x^.aq.cd x} `R.r_regionkey)
+grouped	(=; {x^.aq.cd x} `N.n_regionkey; {x^.aq.cd x} `R.r_regionkey)
+nameAsVar	(=; {x^.aq.cd x} `N.n_regionkey; {x^.aq.cd x} `R.r_regionkey)
+udf	(=; {x^.aq.cd x} `N.n_regionkey; {x^.aq.cd x} `R.r_regionkey)
+--- ColumnAccess(N,n_regionkey)
+plain	{x^.aq.cd x} `N.n_regionkey
+grouped	{x^.aq.cd x} `N.n_regionkey
+nameAsVar	{x^.aq.cd x} `N.n_regionkey
+udf	{x^.aq.cd x} `N.n_regionkey
+--- ColumnAccess(R,r_regionkey)
+plain	{x^.aq.cd x} `R.r_regionkey
+grouped	{x^.aq.cd x} `R.r_regionkey
+nameAsVar	{x^.aq.cd x} `R.r_regionkey
+udf	{x^.aq.cd x} `R.r_regionkey
+--- BinExpr(Eq,ColumnAccess(R,r_name),StringLit(EUROPE))
+plain	(=; {x^.aq.cd x} `R.r_name; `$\"EUROPE\")
+grouped	(=; {x^.aq.cd x} `R.r_name; `$\"EUROPE\")
+nameAsVar	(=; {x^.aq.cd x} `R.r_name; `$\"EUROPE\")
+udf	(=; {x^.aq.cd x} `R.r_name; `$\"EUROPE\")
+--- ColumnAccess(R,r_name)
+plain	{x^.aq.cd x} `R.r_name
+grouped	{x^.aq.cd x} `R.r_name
+nameAsVar	{x^.aq.cd x} `R.r_name
+udf	{x^.aq.cd x} `R.r_name
+--- StringLit(EUROPE)
+plain	`$\"EUROPE\"
+grouped	`$\"EUROPE\"
+nameAsVar	`$\"EUROPE\"
+udf	`$\"EUROPE\"
+--- ColumnAccess(L,l_orderkey)
+plain	{x^.aq.cd x} `L.l_orderkey
+grouped	{x^.aq.cd x} `L.l_orderkey
+nameAsVar	{x^.aq.cd x} `L.l_orderkey
+udf	{x^.aq.cd x} `L.l_orderkey
+--- ColumnAccess(L,l_partkey)
+plain	{x^.aq.cd x} `L.l_partkey
+grouped	{x^.aq.cd x} `L.l_partkey
+nameAsVar	{x^.aq.cd x} `L.l_partkey
+udf	{x^.aq.cd x} `L.l_partkey
+--- ColumnAccess(L,l_suppkey)
+plain	{x^.aq.cd x} `L.l_suppkey
+grouped	{x^.aq.cd x} `L.l_suppkey
+nameAsVar	{x^.aq.cd x} `L.l_suppkey
+udf	{x^.aq.cd x} `L.l_suppkey
+--- ColumnAccess(L,l_linenumber)
+plain	{x^.aq.cd x} `L.l_linenumber
+grouped	{x^.aq.cd x} `L.l_linenumber
+nameAsVar	{x^.aq.cd x} `L.l_linenumber
+udf	{x^.aq.cd x} `L.l_linenumber
+--- ColumnAccess(L,l_quantity)
+plain	{x^.aq.cd x} `L.l_quantity
+grouped	{x^.aq.cd x} `L.l_quantity
+nameAsVar	{x^.aq.cd x} `L.l_quantity
+udf	{x^.aq.cd x} `L.l_quantity
+--- ColumnAccess(L,l_extendedprice)
+plain	{x^.aq.cd x} `L.l_extendedprice
+grouped	{x^.aq.cd x} `L.l_extendedprice
+nameAsVar	{x^.aq.cd x} `L.l_extendedprice
+udf	{x^.aq.cd x} `L.l_extendedprice
+--- ColumnAccess(L,l_discount)
+plain	{x^.aq.cd x} `L.l_discount
+grouped	{x^.aq.cd x} `L.l_discount
+nameAsVar	{x^.aq.cd x} `L.l_discount
+udf	{x^.aq.cd x} `L.l_discount
+--- ColumnAccess(L,l_tax)
+plain	{x^.aq.cd x} `L.l_tax
+grouped	{x^.aq.cd x} `L.l_tax
+nameAsVar	{x^.aq.cd x} `L.l_tax
+udf	{x^.aq.cd x} `L.l_tax
+--- ColumnAccess(L,l_returnflag)
+plain	{x^.aq.cd x} `L.l_returnflag
+grouped	{x^.aq.cd x} `L.l_returnflag
+nameAsVar	{x^.aq.cd x} `L.l_returnflag
+udf	{x^.aq.cd x} `L.l_returnflag
+--- ColumnAccess(L,l_linestatus)
+plain	{x^.aq.cd x} `L.l_linestatus
+grouped	{x^.aq.cd x} `L.l_linestatus
+nameAsVar	{x^.aq.cd x} `L.l_linestatus
+udf	{x^.aq.cd x} `L.l_linestatus
+--- ColumnAccess(L,l_shipdate)
+plain	{x^.aq.cd x} `L.l_shipdate
+grouped	{x^.aq.cd x} `L.l_shipdate
+nameAsVar	{x^.aq.cd x} `L.l_shipdate
+udf	{x^.aq.cd x} `L.l_shipdate
+--- ColumnAccess(L,l_commitdate)
+plain	{x^.aq.cd x} `L.l_commitdate
+grouped	{x^.aq.cd x} `L.l_commitdate
+nameAsVar	{x^.aq.cd x} `L.l_commitdate
+udf	{x^.aq.cd x} `L.l_commitdate
+--- ColumnAccess(L,l_receiptdate)
+plain	{x^.aq.cd x} `L.l_receiptdate
+grouped	{x^.aq.cd x} `L.l_receiptdate
+nameAsVar	{x^.aq.cd x} `L.l_receiptdate
+udf	{x^.aq.cd x} `L.l_receiptdate
+--- ColumnAccess(L,l_shipinstruct)
+plain	{x^.aq.cd x} `L.l_shipinstruct
+grouped	{x^.aq.cd x} `L.l_shipinstruct
+nameAsVar	{x^.aq.cd x} `L.l_shipinstruct
+udf	{x^.aq.cd x} `L.l_shipinstruct
+--- ColumnAccess(L,l_shipmode)
+plain	{x^.aq.cd x} `L.l_shipmode
+grouped	{x^.aq.cd x} `L.l_shipmode
+nameAsVar	{x^.aq.cd x} `L.l_shipmode
+udf	{x^.aq.cd x} `L.l_shipmode
+--- ColumnAccess(L,l_comment)
+plain	{x^.aq.cd x} `L.l_comment
+grouped	{x^.aq.cd x} `L.l_comment
+nameAsVar	{x^.aq.cd x} `L.l_comment
+udf	{x^.aq.cd x} `L.l_comment
+--- ColumnAccess(R,r_name)
+plain	{x^.aq.cd x} `R.r_name
+grouped	{x^.aq.cd x} `R.r_name
+nameAsVar	{x^.aq.cd x} `R.r_name
+udf	{x^.aq.cd x} `R.r_name

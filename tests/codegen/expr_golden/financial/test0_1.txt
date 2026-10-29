@@ -1,0 +1,105 @@
+--- FunCall(IN,List(Id(Id), Id(stock10)))
+plain	(.aq.in;{x^.aq.cd x} `Id;{x^.aq.cd x} `stock10)
+grouped	(.aq.in';{x^.aq.cd x} `Id;{x^.aq.cd x} `stock10)
+nameAsVar	(.aq.in;Id;stock10)
+udf	(.aq.in;.aq.funEnlist Id;.aq.funEnlist stock10)
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(stock10)
+plain	{x^.aq.cd x} `stock10
+grouped	{x^.aq.cd x} `stock10
+nameAsVar	stock10
+udf	.aq.funEnlist stock10
+--- BinExpr(Ge,Id(TradeDate),Id(startYear10))
+plain	(>=; {x^.aq.cd x} `TradeDate; {x^.aq.cd x} `startYear10)
+grouped	(>=; {x^.aq.cd x} `TradeDate; {x^.aq.cd x} `startYear10)
+nameAsVar	(>=; TradeDate; startYear10)
+udf	(>=; .aq.funEnlist TradeDate; .aq.funEnlist startYear10)
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- Id(startYear10)
+plain	{x^.aq.cd x} `startYear10
+grouped	{x^.aq.cd x} `startYear10
+nameAsVar	startYear10
+udf	.aq.funEnlist startYear10
+--- BinExpr(Le,Id(TradeDate),BinExpr(Plus,Id(startYear10),BinExpr(Times,IntLit(365),IntLit(10))))
+plain	(<=; {x^.aq.cd x} `TradeDate; (+; {x^.aq.cd x} `startYear10; (*; 365; 10)))
+grouped	(<=; {x^.aq.cd x} `TradeDate; (+; {x^.aq.cd x} `startYear10; (*; 365; 10)))
+nameAsVar	(<=; TradeDate; (+; startYear10; (*; 365; 10)))
+udf	(<=; .aq.funEnlist TradeDate; (+; .aq.funEnlist startYear10; (*; 365; 10)))
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- BinExpr(Plus,Id(startYear10),BinExpr(Times,IntLit(365),IntLit(10)))
+plain	(+; {x^.aq.cd x} `startYear10; (*; 365; 10))
+grouped	(+; {x^.aq.cd x} `startYear10; (*; 365; 10))
+nameAsVar	(+; startYear10; (*; 365; 10))
+udf	(+; .aq.funEnlist startYear10; (*; 365; 10))
+--- Id(startYear10)
+plain	{x^.aq.cd x} `startYear10
+grouped	{x^.aq.cd x} `startYear10
+nameAsVar	startYear10
+udf	.aq.funEnlist startYear10
+--- BinExpr(Times,IntLit(365),IntLit(10))
+plain	(*; 365; 10)
+grouped	(*; 365; 10)
+nameAsVar	(*; 365; 10)
+udf	(*; 365; 10)
+--- IntLit(365)
+plain	365
+grouped	365
+nameAsVar	365
+udf	365
+--- IntLit(10)
+plain	10
+grouped	10
+nameAsVar	10
+udf	10
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- Id(ClosePrice)
+plain	{x^.aq.cd x} `ClosePrice
+grouped	{x^.aq.cd x} `ClosePrice
+nameAsVar	ClosePrice
+udf	.aq.funEnlist ClosePrice
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- Id(Id)
+plain	{x^.aq.cd x} `Id
+grouped	{x^.aq.cd x} `Id
+nameAsVar	Id
+udf	.aq.funEnlist Id
+--- Id(TradeDate)
+plain	{x^.aq.cd x} `TradeDate
+grouped	{x^.aq.cd x} `TradeDate
+nameAsVar	TradeDate
+udf	.aq.funEnlist TradeDate
+--- Id(ClosePrice)
+plain	{x^.aq.cd x} `ClosePrice
+grouped	{x^.aq.cd x} `ClosePrice
+nameAsVar	ClosePrice
+udf	.aq.funEnlist ClosePrice

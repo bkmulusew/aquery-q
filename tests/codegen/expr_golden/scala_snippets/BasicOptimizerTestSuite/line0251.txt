@@ -1,0 +1,40 @@
+--- Id(c2)
+plain	{x^.aq.cd x} `c2
+grouped	{x^.aq.cd x} `c2
+nameAsVar	c2
+udf	.aq.funEnlist c2
+--- Id(c1)
+plain	{x^.aq.cd x} `c1
+grouped	{x^.aq.cd x} `c1
+nameAsVar	c1
+udf	.aq.funEnlist c1
+--- BinExpr(Times,ColumnAccess(t,c2),FunCall(SUM,List(BinExpr(Times,Id(c4),ColumnAccess(o,c2)))))
+plain	(*; {x^.aq.cd x} `t.c2; (.aq.sum;(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2)))
+grouped	(*; {x^.aq.cd x} `t.c2; (.aq.sum';(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2)))
+nameAsVar	(*; {x^.aq.cd x} `t.c2; (.aq.sum;(*; c4; {x^.aq.cd x} `o.c2)))
+udf	(*; {x^.aq.cd x} `t.c2; (.aq.sum;(*; .aq.funEnlist c4; {x^.aq.cd x} `o.c2)))
+--- ColumnAccess(t,c2)
+plain	{x^.aq.cd x} `t.c2
+grouped	{x^.aq.cd x} `t.c2
+nameAsVar	{x^.aq.cd x} `t.c2
+udf	{x^.aq.cd x} `t.c2
+--- FunCall(SUM,List(BinExpr(Times,Id(c4),ColumnAccess(o,c2))))
+plain	(.aq.sum;(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2))
+grouped	(.aq.sum';(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2))
+nameAsVar	(.aq.sum;(*; c4; {x^.aq.cd x} `o.c2))
+udf	(.aq.sum;(*; .aq.funEnlist c4; {x^.aq.cd x} `o.c2))
+--- BinExpr(Times,Id(c4),ColumnAccess(o,c2))
+plain	(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2)
+grouped	(*; {x^.aq.cd x} `c4; {x^.aq.cd x} `o.c2)
+nameAsVar	(*; c4; {x^.aq.cd x} `o.c2)
+udf	(*; .aq.funEnlist c4; {x^.aq.cd x} `o.c2)
+--- Id(c4)
+plain	{x^.aq.cd x} `c4
+grouped	{x^.aq.cd x} `c4
+nameAsVar	c4
+udf	.aq.funEnlist c4
+--- ColumnAccess(o,c2)
+plain	{x^.aq.cd x} `o.c2
+grouped	{x^.aq.cd x} `o.c2
+nameAsVar	{x^.aq.cd x} `o.c2
+udf	{x^.aq.cd x} `o.c2

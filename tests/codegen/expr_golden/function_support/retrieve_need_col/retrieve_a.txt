@@ -1,0 +1,30 @@
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- Id(l_orderkey)
+plain	{x^.aq.cd x} `l_orderkey
+grouped	{x^.aq.cd x} `l_orderkey
+nameAsVar	l_orderkey
+udf	.aq.funEnlist l_orderkey
+--- Id(l_partkey)
+plain	{x^.aq.cd x} `l_partkey
+grouped	{x^.aq.cd x} `l_partkey
+nameAsVar	l_partkey
+udf	.aq.funEnlist l_partkey
+--- Id(l_suppkey)
+plain	{x^.aq.cd x} `l_suppkey
+grouped	{x^.aq.cd x} `l_suppkey
+nameAsVar	l_suppkey
+udf	.aq.funEnlist l_suppkey
+--- Id(l_shipdate)
+plain	{x^.aq.cd x} `l_shipdate
+grouped	{x^.aq.cd x} `l_shipdate
+nameAsVar	l_shipdate
+udf	.aq.funEnlist l_shipdate
+--- Id(l_commitdate)
+plain	{x^.aq.cd x} `l_commitdate
+grouped	{x^.aq.cd x} `l_commitdate
+nameAsVar	l_commitdate
+udf	.aq.funEnlist l_commitdate

@@ -1,0 +1,185 @@
+--- Id(bool_arr)
+plain	{x^.aq.cd x} `bool_arr
+grouped	{x^.aq.cd x} `bool_arr
+nameAsVar	bool_arr
+udf	.aq.funEnlist bool_arr
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- FunCall(AVG,List(Id(value1)))
+plain	(.aq.avg;{x^.aq.cd x} `value1)
+grouped	(.aq.avg';{x^.aq.cd x} `value1)
+nameAsVar	(.aq.avg;value1)
+udf	(.aq.avg;.aq.funEnlist value1)
+--- Id(value1)
+plain	{x^.aq.cd x} `value1
+grouped	{x^.aq.cd x} `value1
+nameAsVar	value1
+udf	.aq.funEnlist value1
+--- FunCall(var,List(Id(value1)))
+plain	(var;{x^.aq.cd x} `value1)
+grouped	(var';{x^.aq.cd x} `value1)
+nameAsVar	(var;value1)
+udf	(var;.aq.funEnlist value1)
+--- Id(value1)
+plain	{x^.aq.cd x} `value1
+grouped	{x^.aq.cd x} `value1
+nameAsVar	value1
+udf	.aq.funEnlist value1
+--- FunCall(SUM,List(Id(value3)))
+plain	(.aq.sum;{x^.aq.cd x} `value3)
+grouped	(.aq.sum';{x^.aq.cd x} `value3)
+nameAsVar	(.aq.sum;value3)
+udf	(.aq.sum;.aq.funEnlist value3)
+--- Id(value3)
+plain	{x^.aq.cd x} `value3
+grouped	{x^.aq.cd x} `value3
+nameAsVar	value3
+udf	.aq.funEnlist value3
+--- Id(val)
+plain	{x^.aq.cd x} `val
+grouped	{x^.aq.cd x} `val
+nameAsVar	val
+udf	.aq.funEnlist val
+--- Id(kval)
+plain	{x^.aq.cd x} `kval
+grouped	{x^.aq.cd x} `kval
+nameAsVar	kval
+udf	.aq.funEnlist kval
+--- FunCall(COUNT,List(Id(val)))
+plain	(.aq.count;{x^.aq.cd x} `val)
+grouped	(.aq.count';{x^.aq.cd x} `val)
+nameAsVar	(.aq.count;val)
+udf	(.aq.count;.aq.funEnlist val)
+--- Id(val)
+plain	{x^.aq.cd x} `val
+grouped	{x^.aq.cd x} `val
+nameAsVar	val
+udf	.aq.funEnlist val
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- FunCall(SUM,List(Id(data1)))
+plain	(.aq.sum;{x^.aq.cd x} `data1)
+grouped	(.aq.sum';{x^.aq.cd x} `data1)
+nameAsVar	(.aq.sum;data1)
+udf	(.aq.sum;.aq.funEnlist data1)
+--- Id(data1)
+plain	{x^.aq.cd x} `data1
+grouped	{x^.aq.cd x} `data1
+nameAsVar	data1
+udf	.aq.funEnlist data1
+--- Id(mdf1)
+plain	{x^.aq.cd x} `mdf1
+grouped	{x^.aq.cd x} `mdf1
+nameAsVar	mdf1
+udf	.aq.funEnlist mdf1
+--- Id(mdf2)
+plain	{x^.aq.cd x} `mdf2
+grouped	{x^.aq.cd x} `mdf2
+nameAsVar	mdf2
+udf	.aq.funEnlist mdf2
+--- WildCard
+plain	(.aq.wildCard aq__t0)
+grouped	(.aq.wildCard aq__t0)
+nameAsVar	(.aq.wildCard aq__t0)
+udf	(.aq.wildCard aq__t0)
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- Id(key1)
+plain	{x^.aq.cd x} `key1
+grouped	{x^.aq.cd x} `key1
+nameAsVar	key1
+udf	.aq.funEnlist key1
+--- Id(key2)
+plain	{x^.aq.cd x} `key2
+grouped	{x^.aq.cd x} `key2
+nameAsVar	key2
+udf	.aq.funEnlist key2
+--- Id(A)
+plain	{x^.aq.cd x} `A
+grouped	{x^.aq.cd x} `A
+nameAsVar	A
+udf	.aq.funEnlist A
+--- Id(B)
+plain	{x^.aq.cd x} `B
+grouped	{x^.aq.cd x} `B
+nameAsVar	B
+udf	.aq.funEnlist B
+--- Id(C)
+plain	{x^.aq.cd x} `C
+grouped	{x^.aq.cd x} `C
+nameAsVar	C
+udf	.aq.funEnlist C
+--- Id(D)
+plain	{x^.aq.cd x} `D
+grouped	{x^.aq.cd x} `D
+nameAsVar	D
+udf	.aq.funEnlist D
+--- Id(data1)
+plain	{x^.aq.cd x} `data1
+grouped	{x^.aq.cd x} `data1
+nameAsVar	data1
+udf	.aq.funEnlist data1
+--- Id(data2)
+plain	{x^.aq.cd x} `data2
+grouped	{x^.aq.cd x} `data2
+nameAsVar	data2
+udf	.aq.funEnlist data2
+--- FunCall(dev,List(Id(val)))
+plain	(dev;{x^.aq.cd x} `val)
+grouped	(dev';{x^.aq.cd x} `val)
+nameAsVar	(dev;val)
+udf	(dev;.aq.funEnlist val)
+--- Id(val)
+plain	{x^.aq.cd x} `val
+grouped	{x^.aq.cd x} `val
+nameAsVar	val
+udf	.aq.funEnlist val
