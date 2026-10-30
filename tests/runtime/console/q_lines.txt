@@ -1,0 +1,39 @@
+1+1
+a:5
+a
+a+:1
+a
+b:1;2
+3;
+f:{x*2}
+f 4
+::
+t:([]x:1 2;y:`a`b)
+t
+show t
+1 2 3
+"abc"
+`s
+'oops
+1+`a
+-1 "hi";
+-1 "hi"
+{x}
+
+  7
+2#t
+enlist 1
+(1;`a)
+\d .probe
+\d
+\d .
+count 1 2 3
+first `a`b
+til 3
+a-:1
+a
+neg 2
+g:{x+y}
+g[1;2]
+`p`q!1 2
+7

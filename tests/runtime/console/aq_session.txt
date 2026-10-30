@@ -1,0 +1,15 @@
+t:([] a:1 2 3; b:10 20 30)
+\aq SELECT a, b FROM t WHERE a > 1
+\aq SELECT a FROM t WHERE b = 20
+\aq CREATE TABLE s (id INT, p INT)
+\aq INSERT INTO s VALUES(1, 10)
+\aq INSERT INTO s VALUES(2, 20) INSERT INTO s VALUES(1, 5)
+\aq SELECT id, sum(p) AS tot FROM s GROUP BY id
+count s
+\aq
+\aq SELECT FROM t
+\aq SELECT a FROM nosuch
+\aq FUNCTION dbl(x) { x * 2 }
+dbl 21
+\aq SELECT dbl(a) AS d FROM t
+1+1

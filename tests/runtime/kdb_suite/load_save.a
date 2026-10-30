@@ -1,0 +1,12 @@
+CREATE TABLE t (c1 INT, c2 INT, c3 STRING)
+INSERT INTO t VALUES(1, 2, "c")
+INSERT INTO t VALUES(10, 20, "C")
+
+SELECT * FROM t
+INTO OUTFILE "my_test_file.csv" FIELDS TERMINATED BY ","
+
+CREATE TABLE t2(c1 INT, c2 INT, c3 STRING)
+LOAD DATA INFILE "my_test_file.csv"
+INTO TABLE t2 FIELDS TERMINATED BY ","
+
+<q> .aq.q0:{t2}; system "rm -f my_test_file.csv" </q>

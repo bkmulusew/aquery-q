@@ -119,17 +119,23 @@
 / lit[e]
 /   A literal (Scala: genLit).
 /     1.5          is "1.5"         (Java's number format, see src/parse/ast.q)
-/     "IBM"        is "`$\"IBM\""   (strings become symbols)
+/     "IBM"        is "(enlist `$\"IBM\")"   (strings become symbols)
 /     '2020-01-02' is "\"D\"$\"2020-01-02\""
 /     TRUE         is "1b"
 /   SCALA QUIRK: the text of a string is not escaped, so a " inside it
 /   ends the q string early.
 /   Timestamps: the Scala parser makes them strings (so the jar writes a
 /   symbol); our parser makes TimestampLit, which becomes "P"$"...".
+/   FIXED (found in version 5): Scala writes a string as `$"IBM". The code
+/   is part of a q parse tree, which is run with eval, and eval reads a
+/   symbol atom as the NAME of a variable: WHERE ID = "IBM" looked for a
+/   variable IBM and failed with 'IBM. A one-item list holding the symbol
+/   is how a parse tree writes the constant `IBM, so we write
+/   (enlist `$"IBM").
 .aqc.gen.lit:{[e]
   n:e`node;
   v:e`v;
-  if[n = `StringLit; :"`$\"",(.aqc.gen.str v),"\""];
+  if[n = `StringLit; :"(enlist `$\"",(.aqc.gen.str v),"\")"];
   if[n = `DateLit; :"\"D\"$\"",(.aqc.gen.str v),"\""];
   if[n = `TimestampLit; :"\"P\"$\"",(.aqc.gen.str v),"\""];
   if[n = `BooleanLit; :.aqc.gen.bool v];

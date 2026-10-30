@@ -1,9 +1,20 @@
-# src/codegen — q code generation (planned, last stage)
+# src/codegen — q code generation (version 4)
 
-Empty in version 1. Will port:
+Ports `aquery-master/src/main/scala/edu/nyu/aquery/codegen/KdbGenerator.scala`
+(AST to q code) and the `-c` part of the driver `Aquery.scala`, whose role
+`aquery.q -compile` takes over. Namespace `.aqc.gen`; `.aqc.compile` is the
+entry point at the L prompt.
 
-- `aquery-master/src/main/scala/edu/nyu/aquery/codegen/KdbGenerator.scala` (1460 lines): AST -> q code
-- `aquery-master/src/main/scala/edu/nyu/aquery/codegen/BackEnd.scala` (11), `aquery-master/src/main/scala/edu/nyu/aquery/codegen/SimpleState.scala` (25)
-- the command-line driver `aquery-master/src/main/scala/edu/nyu/aquery/Aquery.scala` (130), whose role `aquery.q` takes over
+| q file | what it generates |
+|---|---|
+| `state.q` | the generator's state (Scala's `CodeState`): one global dictionary `.aqc.gen.st` |
+| `expr.q` | expressions: literals, columns, operators, function calls, CASE |
+| `plan.q` | query plans: FROM, WHERE, SELECT list, GROUP BY, ASSUMING, joins, WITH |
+| `stmt.q` | CREATE, INSERT, UPDATE, DELETE, LOAD, SAVE, FUNCTION |
+| `trigger.q` | CREATE TRIGGER, DROP TRIGGER |
+| `gen.q` | whole programs: `.aqc.gen.statements`, `.aqc.gen.program`, `.aqc.compile` |
 
-Expected output for every input is in `tests/reference_q/`.
+The output matches the jar's byte for byte, except for the five jar bugs
+fixed on purpose (marked `FIXED` in the code, listed in
+`tests/codegen/divergences.txt`). Expected output for every input is in
+`tests/reference_q/`. Running the code is version 5 (`src/runtime/`).

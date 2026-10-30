@@ -5,11 +5,19 @@ running on L (an open-source q implementation). The folder is
 self-contained: the L runtime, the original compiler (as a jar, used only
 to make test data), all test inputs and the original Scala tests are inside.
 
-**Versions so far:** v1 = the lexer (token for token like Scala,
-including its odd corners, see "Scala quirks" below); v2 = the parser
-(`src/parse/README.md`); v3 = the AST stage: tree helpers and
-the `-p` graph (`src/ast/README.md`). Code generation, the runtime, and analysis and
-optimisation come in later versions.
+**Versions so far:**
+
+- v1 = the lexer (token for token like Scala, including its odd corners,
+  see "Scala quirks" below)
+- v2 = the parser (`src/parse/README.md`)
+- v3 = the AST stage: tree helpers and the `-p` graph (`src/ast/README.md`)
+- v4 = code generation: AQuery to q code, like `aquery.jar -c`
+  (`src/codegen/README.md`)
+- v5 = the runtime: AQuery runs inside L, and `\aq` at the L prompt
+  (`src/runtime/README.md`)
+
+Type checking, analysis and the optimiser (the jar's `-tc` and `-a 1`)
+come in version 6.
 
 ## Quick start
 
@@ -18,15 +26,30 @@ sh tests/run_tests.sh                              # all tests (needs only bin/l
 bin/l_m64 aquery.q -lex tests/inputs/financial/Q1.a   # print tokens of a file
 bin/l_m64 aquery.q -parse tests/inputs/financial/Q1.a # print its parse tree
 bin/l_m64 aquery.q -p tests/inputs/financial/Q1.a     # print it as a Graphviz graph
-bin/l_m64 aquery.q                                 # load the compiler, stay in L
+bin/l_m64 aquery.q -compile tests/inputs/financial/Q1.a  # print its q code
+bin/l_m64 aquery.q                                 # load everything, stay in L
 ```
 
-In L, after loading `aquery.q`:
+At the L prompt, after `bin/l_m64 aquery.q`, type AQuery after `\aq`;
+every other line is ordinary q:
+
+```
+l>t:([] a:1 2 3; b:10 20 30)
+l>\aq SELECT a, b FROM t WHERE a > 1
+a b
+----
+2 20
+3 30
+```
+
+The same from q code, and the earlier stages:
 
 ```q
-.aqc.lex.tokens "SELECT a FROM t"           / table: kind, text, line, col
-.aqc.lex.formatTokens .aqc.lex.tokens "x"    / lines in the golden-file format
-.aqc.lex.lexFile "tests/inputs/financial/Q1.a"
+.aqc.run "SELECT a FROM t WHERE a > 1"      / the result table
+.aqc.runFile "query.a"                       / a whole AQuery file
+-1 .aqc.lastCode                             / the q code that just ran
+-1 .aqc.compile "SELECT a FROM t"            / q code, without running it
+.aqc.lex.tokens "SELECT a FROM t"            / table: kind, text, line, col
 ```
 
 ## Folder layout
@@ -39,15 +62,17 @@ aquery-q/
 ├── src/
 │   ├── parse/             v1: util.q, keywords.q, jdate.q, lex.q  (parser in v2)
 │   ├── ast/               v3: nodes.q (tree helpers), dot.q (-p graph)
-│   ├── analysis/          planned
-│   ├── optimization/      planned
-│   ├── codegen/           planned
-│   └── runtime/base.q     q support library, copied UNCHANGED from aquery-master
+│   ├── analysis/          planned (v6)
+│   ├── optimization/      planned (v6)
+│   ├── codegen/           v4: state.q, expr.q, plan.q, stmt.q, trigger.q, gen.q
+│   └── runtime/           v5: base.q (copied UNCHANGED from aquery-master),
+│                          base_l.q (the copy L loads), run.q (.aqc.run),
+│                          console.q (the \aq command)
 ├── tests/
 │   ├── run_tests.sh       runs every test file in L; exit 1 on any failure
 │   ├── lib/testing.q      tiny test library (.test.check, .test.finish)
 │   ├── lexer/             v1: test_lexer.q (unit), test_golden.q, golden/*.tok
-│   ├── parser/ (v2), ast/ (v3); analysis/ optimization/ codegen/ planned
+│   ├── parser/ (v2), ast/ (v3), codegen/ (v4), runtime/ (v5)
 │   ├── inputs/            every .a from aquery-master/src/test, Scala test
 │   │                      snippets (scala_snippets/), edge cases (edge_cases/)
 │   ├── reference_q/       the jar's compiled q output for every input
@@ -164,6 +189,18 @@ compiler's entry point should call it, the lexer itself does not.
   in L, so the code avoids them.
 - In a script, a top-level expression that is not an assignment prints its
   result in L, so such lines end with `;`.
+- Two more built-in names that cannot be variable names in L: `differ`
+  and `all`. When in doubt, pick a longer name.
+- `value` on a string is not the same as loading it as a script: a line
+  break is just a blank, so two statements on two lines without `;` run
+  together. `.aqc.run` therefore cuts code into script statements first
+  (`src/runtime/run.q`).
+- `eval` reads a symbol atom in a parse tree as a variable name: the
+  constant `` `IBM `` must be written `` enlist `IBM `` (jar bug 5,
+  `tests/codegen/divergences.txt`).
+- L sends every line typed at the prompt to `.z.pi` when it is defined;
+  that is how `\aq` works (`src/runtime/console.q`). Unknown backslash
+  commands otherwise go to the shell.
 
 ## Regenerating test data
 

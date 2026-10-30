@@ -11,8 +11,15 @@
 
 / Version 1 is the lexer, version 2 the parser (both in src/parse/),
 / version 3 the AST stage (src/ast/), version 4 code generation
-/ (src/codegen/). Later versions add the runtime, and analysis and
-/ optimisation here.
+/ (src/codegen/), version 5 the runtime (src/runtime/). Version 6 adds
+/ analysis and optimisation.
+
+/ At the L prompt (version 5), run AQuery on your own tables:
+/   t:([] a:1 2 3; b:10 20 30)
+/   \aq SELECT a FROM t WHERE a > 1
+/ or from q code:
+/   .aqc.run "SELECT a FROM t WHERE a > 1"
+/   .aqc.runFile "query.a"
 
 / Other scripts (e.g. the tests) can load this file with \l. They should set
 / .aqc.root to the folder containing aquery.q first, because .z.f (the path
@@ -51,6 +58,15 @@ if[not `root in key `.aqc;
 .aqc.loadFile "src/codegen/stmt.q";
 .aqc.loadFile "src/codegen/trigger.q";
 .aqc.loadFile "src/codegen/gen.q";
+
+/ Version 5: the runtime. base_l.q is the library the generated q code
+/ calls (base.q with one parameter renamed so that L can load it, see
+/ src/runtime/README.md); run.q runs AQuery text in this L process.
+.aqc.loadFile "src/runtime/base_l.q";
+.aqc.loadFile "src/runtime/run.q";
+
+/ The \aq command at the L prompt (src/runtime/console.q).
+.aqc.loadFile "src/runtime/console.q";
 
 
 / Command line: "-lex <file>" prints the file's tokens, one per line, in

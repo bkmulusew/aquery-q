@@ -53,11 +53,12 @@
   if[n = `DropTrigger; :.aqc.gen.dropTrigger x];
   '"codegen: not supported yet: ",string n};
 
-/ program[prog]
-/   PUBLIC. The q code for a parsed program (a list of statements), without
-/   base.q: each statement starts from a clean state (only the query
-/   number carries over) and the statements are separated by a blank line.
-.aqc.gen.program:{[prog]
+/ statements[prog]
+/   PUBLIC. The q code for each statement of a parsed program (a list of
+/   statements), as a list of strings, without base.q. Each statement
+/   starts from a clean state (only the query number carries over).
+/   .aqc.run (src/runtime/run.q) runs these strings one at a time.
+.aqc.gen.statements:{[prog]
   .aqc.gen.st:.aqc.gen.fresh[];
   parts:();
   k:0;
@@ -65,7 +66,12 @@
     .aqc.gen.cleanTopEnv[];
     parts,:enlist .aqc.gen.topLevel prog k;
     k+:1];
-  .aqc.gen.join["\n\n"; parts]};
+  parts};
+
+/ program[prog]
+/   PUBLIC. The q code for a parsed program, without base.q: the code of
+/   each statement, separated by a blank line.
+.aqc.gen.program:{[prog] .aqc.gen.join["\n\n"; .aqc.gen.statements prog]};
 
 / generate[prog]
 /   PUBLIC. The whole output of -c for a parsed program (Scala: generate):

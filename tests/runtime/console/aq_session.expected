@@ -1,0 +1,26 @@
+l>l>a b 
+----
+2 20
+3 30
+l>a
+-
+2
+l>`s
+l>`s
+l>`s
+l>id tot
+------
+1  15 
+2  20 
+l>3
+l>l>'aq: parse error at 1:8: identifier expected
+l>'nosuch
+  (the q code of this query: -1 .aqc.lastCode)
+l>l>42
+l>d
+-
+2
+4
+6
+l>2
+l>

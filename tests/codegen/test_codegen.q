@@ -18,6 +18,7 @@
 .aqc.root:".";
 \l aquery.q
 \l tests/lib/testing.q
+\l tests/lib/jar_fixes.q
 
 
 / A few hand-written checks on small programs.
@@ -37,6 +38,18 @@ code:{[text] .aqc.compile text};
 .test.check["FIXED: u.c is named u.c (the jar says t.c)";
   (.aqc.gen.lines code "SELECT t.a, u.c FROM t, u") 5;
   " aq__t2:?[aq__t2;();0b;((`t.a);(`u.c))!({x^.aq.cd x} `t.a;{x^.aq.cd x} `u.c)];"];
+.test.check["FIXED: a string literal is an enlisted symbol";
+  (.aqc.gen.lines code "SELECT a FROM t WHERE b = \"x\"") 3;
+  " aq__t0:?[aq__t0;enlist ((=; {x^.aq.cd x} `b; (enlist `$\"x\")));0b;()];"];
+.test.check["jarFix.stringLits";
+  .jarFix.stringLits["\""; "(=; a; `$\"IBM\"; `$\"x\")"];
+  "(=; a; (enlist `$\"IBM\"); (enlist `$\"x\"))"];
+.test.check["jarFix.stringLits: escaped quotes";
+  .jarFix.stringLits["\\\""; "(=; a; `$\\\"IBM\\\")"];
+  "(=; a; (enlist `$\\\"IBM\\\"))"];
+.test.check["jarFix.stringLits: a file name after hsym is not changed";
+  .jarFix.stringLits["\""; ".aq.load[hsym `$\"f.csv\";\",\";`t]"]; ".aq.load[hsym `$\"f.csv\";\",\";`t]"];
+.test.check["jarFix.stringLits: no literal"; .jarFix.stringLits["\""; "a+1"]; "a+1"];
 .test.check["lines";
   .aqc.gen.lines "a\n\nb\n"; (enlist "a";"";enlist "b")];
 .test.check["lines: one-character line, no final break";
@@ -78,7 +91,7 @@ lineBeforeCtx:{[text] lines:.aqc.gen.lines code text; lines (lines ? " ctx") - 1
 
 .test.checkLines["statements: tests/codegen/stmt_cases.a";
   .aqc.gen.lines .aqc.compile .aqc.util.readFile "tests/codegen/stmt_cases.a";
-  read0 hsym `$"tests/codegen/stmt_cases.q"];
+  .jarFix.stringLits["\""] each read0 hsym `$"tests/codegen/stmt_cases.q"];
 
 
 / The golden files: every tests/reference_q/<path>.q except <path>.opt.q
@@ -102,7 +115,9 @@ while[i < count goldens;
     $["codegen: not supported yet" ~ 26#actual 1;
       skipped,:enlist inputPath;
       .test.check[inputPath; actual 1; "no error"]];
-    .test.checkLines[inputPath; actual; base,read0 hsym `$goldenPath]];
+    / bug 5 (string literals) is fixed in the expected text, see
+    / tests/lib/jar_fixes.q
+    .test.checkLines[inputPath; actual; base,.jarFix.stringLits["\""] each read0 hsym `$goldenPath]];
   i+:1];
 -1 "skipped (statements not supported yet): ",string count skipped;
 

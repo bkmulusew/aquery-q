@@ -17,6 +17,7 @@
 .aqc.root:".";
 \l aquery.q
 \l tests/lib/testing.q
+\l tests/lib/jar_fixes.q
 
 
 / ---------------------------------------------------------------------------
@@ -56,7 +57,7 @@ gen:{[e] .aqc.gen.st:.aqc.gen.fresh[]; .aqc.gen.expr e};
 .test.check["IntLit"; gen int 42; "42"];
 .test.check["negative IntLit"; gen int -3; "-3"];
 .test.check["FloatLit"; gen .aqc.ast.lit[`FloatLit; 100f]; "100.0"];
-.test.check["StringLit is a symbol"; gen .aqc.ast.lit[`StringLit; "IBM"]; "`$\"IBM\""];
+.test.check["FIXED: StringLit is an enlisted symbol"; gen .aqc.ast.lit[`StringLit; "IBM"]; "(enlist `$\"IBM\")"];
 .test.check["DateLit"; gen .aqc.ast.lit[`DateLit; "01/02/2020"]; "\"D\"$\"01/02/2020\""];
 .test.check["TimestampLit"; gen .aqc.ast.lit[`TimestampLit; "01/02/2020D10:00:00"]; "\"P\"$\"01/02/2020D10:00:00\""];
 .test.check["BooleanLit"; gen .aqc.ast.lit[`BooleanLit; 0b]; "0b"];
@@ -192,7 +193,8 @@ i:0;
 while[i < count goldens;
   goldenPath:goldens i;
   inputPath:inputFor goldenPath;
-  expected:read0 hsym `$goldenPath;
+  / the golden code is escaped, so its strings look like `$\"IBM\"
+  expected:.jarFix.stringLits["\\\""] each read0 hsym `$goldenPath;
   .test.checkLines[inputPath; .exprTest.programLines inputPath; expected];
   i+:1];
 

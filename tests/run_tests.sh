@@ -4,8 +4,9 @@
 # Usage (from anywhere):   sh tests/run_tests.sh
 # Exit status: 0 if every test file passed, 1 otherwise.
 #
-# Each test file is a q script that prints its own results and exits with
-# status 0 (all passed) or 1 (something failed). Add new test files to the
+# Each test file is a q script (or, for the console, a shell script) that
+# prints its own results and exits with status 0 (all passed) or 1
+# (something failed). Add new test files to the
 # list below as later versions add stages (parser, ast, ...).
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
@@ -21,15 +22,26 @@ tests/ast/test_nodes.q
 tests/ast/test_dot.q
 tests/codegen/test_expr.q
 tests/codegen/test_codegen.q
+tests/runtime/test_console.sh
+tests/runtime/test_kdb_suite.q
+tests/runtime/test_run.q
 "
 
 status=0
 for t in $TEST_FILES; do
     echo "== $t"
-    # </dev/null: if a script stops early, L would otherwise wait for input
-    if ! bin/l_m64 "$t" < /dev/null; then
-        status=1
-    fi
+    case "$t" in
+        *.sh)
+            # a shell script that runs L itself (it feeds L its own input)
+            if ! sh "$t"; then
+                status=1
+            fi ;;
+        *)
+            # </dev/null: if a script stops early, L would otherwise wait for input
+            if ! bin/l_m64 "$t" < /dev/null; then
+                status=1
+            fi ;;
+    esac
 done
 
 if [ "$status" -eq 0 ]; then

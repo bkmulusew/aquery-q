@@ -1,0 +1,27 @@
+1+1
+a:5
+a
+a+:1
+a
+b:1;2
+3;
+f:{x*2}
+f 4
+::
+t:([]x:1 2;y:`a`b)
+t
+show t
+1 2 3
+"abc"
+`s
+'oops
+1+`a
+-1 "hi";
+-1 "hi"
+{x}
+
+  7
+2#t
+`k xkey t
+enlist 1
+(1;`a)

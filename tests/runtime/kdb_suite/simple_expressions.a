@@ -1,0 +1,13 @@
+FUNCTION f(){
+  x := 100 * 2 - 3;
+  y := x ^ 3;
+  l := LIST(1,2,3,4,5,6);
+  z :=
+    CASE l
+      WHEN 2 THEN -1
+      WHEN 3 THEN 100
+      ELSE 200
+    END;
+  w := sums(2, l);
+  LIST(sqrt(y), z, w)}
+  <q> .aq.f:f; </q>

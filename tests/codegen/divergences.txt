@@ -16,6 +16,13 @@
 #  4. A trigger whose statement does not end with ";" (an INSERT, an
 #     UPDATE or DELETE, a query) runs together with the " ctx" line after
 #     it: the files marked "ctx" below.
+#  5. (found in version 5) A string literal is written `$"x", which eval
+#     reads as the variable x. Fixed to (enlist `$"x"). It is in 26
+#     programs, so they are not skipped: the tests apply the same fix to
+#     the expected text (tests/lib/jar_fixes.q) and compare the rest.
+#     That fix cannot tell a literal from the same text inside <q> code,
+#     so the program marked "q code" below is skipped (it is still run and
+#     checked in tests/runtime/test_kdb_suite.q).
 
 scala_snippets/KdbGeneratorTestSuite/line0379.a          # ctx: INSERT ... SELECT trigger
 scala_snippets/ParserTestSuite/line0123.a                # ctx: UPDATE trigger
@@ -37,3 +44,4 @@ scala_snippets/BasicOptimizerTestSuite/line0175.a        # t.c: GROUP BY t1.c1
 scala_snippets/BasicOptimizerTestSuite/line0180.a        # t.c: GROUP BY t1.c1
 scala_snippets/BasicOptimizerTestSuite/line0182.a        # t.c: GROUP BY t1.c1
 scala_snippets/TypeCheckerTestSuite/line0152.a           # t.c: bad.c1
+resources/pandas.a                                       # q code: <q> block has `$"c", which is not a string literal

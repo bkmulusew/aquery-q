@@ -1,0 +1,192 @@
+== A: unknown backslash command, no hook defined (pipe)
+l>2
+l>sh: aq: command not found
+'2026.10.29T10:21:47.576 os
+l>4
+l>== B: .z.pi console hook (pipe)
+hook set
+l>PI got: "1+1"
+PI value: 2
+l>PI got: "\\aq SELECT a FROM t"
+sh: aq: command not found
+PI value: "value failed: os"
+l>PI got: "2+2"
+PI value: 4
+l>== B2: .z.pi console hook (real terminal via script)
+^D1+1
+\aq SELECT a FROM t
+2+2
+hook set
+l>== C: language prefixes aq) and s) with .aq.e and .s.e
+language hooks set
+l>'2026.10.29T10:21:48.162 )
+l>S.E got: "SELECT b FROM t"
+43
+l>4
+l>== D: base.q with the cols parameter renamed to cs
+201,202c201,202
+< .trg.kdbDeleteColsStmt:{[tbl;cols]
+<   .trg.kfunctional["!"; string tbl; ""; ""; .trg.symCode cols]
+---
+> .trg.kdbDeleteColsStmt:{[tbl;cs]
+>   .trg.kfunctional["!"; string tbl; ""; ""; .trg.symCode cs]
+whole-file load: ok
+.aq names: 89
+.trg names: 80
+top-level chunks: 198
+failing chunks: 1
+  line 1: nyu.edu | /
+== E: compile and run queries
+base loaded, .aq names: 89
+---- simple select
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;enlist ((>; {x^.aq.cd x} `a; 1));0b;()];
+ aq__t0:?[aq__t0;();0b;((`a);(`b))!({x^.aq.cd x} `a;{x^.aq.cd x} `b)];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+a b 
+----
+2 20
+3 30
++`a`b!(2 3;20 30)
+\l result: `loaded
+---- group by
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;();(enlist[{x^.aq.cd x} `a]!enlist {x^.aq.cd x} `a);({x^.aq.cd x} `a) _ (.aq.wildCard aq__t0)];
+ aq__t0:?[aq__t0;();0b;((`a);(`s))!({x^.aq.cd x} `a;(.aq.sum';{x^.aq.cd x} `b))];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+a s 
+----
+1 10
+2 20
+3 30
++`a`s!(1 2 3;10 20 30)
+\l result: `loaded
+---- assuming asc
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:.aq.sort[aq__t0;enlist ((iasc;{x^.aq.cd x} `a));((.aq.wildCard aq__t0))];
+ aq__t0:?[aq__t0;();0b;((`a);(`r))!({x^.aq.cd x} `a;(.aq.sums1;{x^.aq.cd x} `b))];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+a r 
+----
+1 10
+2 30
+3 60
++`a`r!(1 2 3;10 30 60)
+\l result: `loaded
+---- create insert select
+.aq.show `s set ([]id:"j"$();p:"j"$());
+
+.aq.insert[`s;s;();eval (enlist;1;10)]
+
+.aq.insert[`s;s;();eval (enlist;2;20)]
+
+.aq.insert[`s;s;();eval (enlist;1;5)]
+
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[s;"s";0b];
+ aq__t0:?[aq__t0;();(enlist[{x^.aq.cd x} `id]!enlist {x^.aq.cd x} `id);({x^.aq.cd x} `id) _ (.aq.wildCard aq__t0)];
+ aq__t0:?[aq__t0;();0b;((`id);(`tot))!({x^.aq.cd x} `id;(.aq.sum';{x^.aq.cd x} `p))];
+ aq__t0
+ };
+.aq.q0[]
+`s
+value result type 10:
+"value failed: type"
+`s
+`s
+`s
+`s
++`id`tot!(1 2;15 20)
+\l result: `loaded
+---- update
+{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ 
+ .aq.update[`t;aq__t0;enlist ((>; {x^.aq.cd x} `a; 1));0b;(enlist[{x^.aq.cd x} `b]!enlist (+; {x^.aq.cd x} `b; 1))]
+ }[];
+
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;();0b;(.aq.wildCard aq__t0)];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+a b 
+----
+1 10
+2 21
+3 31
++`a`b!(`s#1 2 3;10 22 32)
+\l result: `loaded
+---- delete
+{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ 
+ .aq.deleteRows[`t;aq__t0;enlist ((=; {x^.aq.cd x} `a; 1))]
+ }[];
+
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;();0b;(.aq.wildCard aq__t0)];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+a b 
+----
+2 22
+3 32
++`a`b!(2 3;22 32)
+\l result: `loaded
+---- udf
+f:{[x]
+ eval (*; .aq.funEnlist x; 2)
+ };
+
+.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;();0b;(enlist[`d]!enlist (f;{x^.aq.cd x} `b))];
+ aq__t0
+ };
+.aq.q0[]
+value result type 98:
+d 
+--
+44
+64
++(,`d)!,44 64
+\l result: `loaded
+---- join
+COMPILE FAILED: parse error at 1:37: ``using'' expected but `ON' found
+value result type 10:
+"value failed: '"
+\l result: "\\l failed: '"
+---- parse error
+COMPILE FAILED: parse error at 1:8: identifier expected
+value result type 10:
+"value failed: 8:"
+\l result: "\\l failed: 8:"
+Q functions: ``sx`ajf0`gc`trp`sbt`k`host`addr`w`res`addmonths`Cf`f`fmt`ff`fl`opt`def`qt`v`qp`V`ft`ord`tx`tt`fk`t`ty`nct`fu`fc`A`a`n`nA`an`b6`id`j10`x10`j12`x12`l`dd`d0`p1`sp`p2`p`pp`view`L`cx`cn`pcnt`dt`ind`fp`foo`nn`nf`fa`a1`a0`a2`qb`qd`xy`IN`mh`xl`qk`qa`qn`x1`ms`MQ`xs`xw`xm`x0`x2`ua`q0`qe`fo`mo`mph`pl`pfk`pm`ev`pgf`pmg`ps`en`pk`px`par`qm`po`pw`dpt`dpft`hdpf`fs`dsftg`M`chk`sw`tab`t0`s1`s2`S`s`xget`xcnt`xcol`pqm`pqs
+== done

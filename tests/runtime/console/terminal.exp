@@ -1,0 +1,18 @@
+# terminal.exp - type into L through a real terminal, as a person would.
+# expect (installed with macOS) runs L in a pseudo-terminal, sends the
+# keys, and waits for the text it expects. Used by tests/runtime/test_console.sh.
+set timeout 20
+spawn bin/l_m64 aquery.q
+expect "l>"
+send {t:([] a:1 2 3)}
+send "\r"
+expect "l>"
+send {\aq SELECT a FROM t WHERE a > 1}
+send "\r"
+expect {
+  -re "a\r\n-\r\n2\r\n3\r\n" { puts "\npassed: \\aq in a real terminal" }
+  timeout { puts "\nFAILED: \\aq in a real terminal (no result within 20 s)"; exit 1 }
+}
+expect "l>"
+send "exit 0\r"
+expect eof
