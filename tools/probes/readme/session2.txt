@@ -1,0 +1,5 @@
+u:([] a:3 1 2; b:30 10 20)
+\aq SELECT a, b, sums(b) AS running, prev(b) AS earlier, next(b) AS later FROM u ASSUMING ASC a
+\aq SELECT a, b FROM u ASSUMING DESC a
+.aqc.lex.tokens "SELECT a FROM t"
+-1 .aqc.compile "SELECT a FROM t";

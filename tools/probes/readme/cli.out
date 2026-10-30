@@ -1,0 +1,119 @@
+== -lex
+Keyword	SELECT	1:1
+Identifier	a	1:8
+Keyword	,	1:9
+Keyword	sum	1:11
+Keyword	(	1:14
+Identifier	b	1:15
+Keyword	)	1:16
+Keyword	AS	1:18
+Identifier	total	1:21
+Keyword	FROM	2:1
+Identifier	t	2:6
+Keyword	WHERE	3:1
+Identifier	a	3:7
+Keyword	>	3:9
+NumericLit	1	3:11
+Keyword	GROUP	4:1
+Keyword	BY	4:7
+Identifier	a	4:10
+EOF		5:1
+== -parse
+List
+  - Query @1:1
+    local: []
+    main: Project @1:1
+      t: GroupBy
+        t: Filter
+          t: Table @2:6
+            n: "t"
+            alias: None
+          fs: List
+            - BinExpr @3:7
+              op: Gt
+              l: Id @3:7
+                v: "a"
+              r: IntLit @3:11
+                v: 1
+        gs: List
+          - Tuple
+            _1: Id @4:10
+              v: "a"
+            _2: None
+        having: []
+      ps: List
+        - Tuple
+          _1: Id @1:8
+            v: "a"
+          _2: None
+        - Tuple
+          _1: FunCall @1:11
+            f: "SUM"
+            args: List
+              - Id @1:15
+                v: "b"
+          _2: Some
+            value: "total"
+== -p
+'2026.10.30T10:19:07.620 domain
+== -compile
+/
+  Base library for aquery code, version 1.0
+  Please report any bugs to jpc485@nyu.edu
+\
+
+// Translation utilities
+// initialize state
+.aq.initQueryState:{.aq.cd:s!s:`$(); .aq.pc:s;};
+
+// Generate column dictionary
+.aq.gencd:{[t;sn;rename]
+  prefix:$[rename;sn,"__";""];
+  $[0=count sn;
+    c!c:cols t;
+    ((`$(sn,"."),/:sc),c)!(2*count c)#`$prefix,/:sc:string c:cols t
+    ]
+   };
+
+// rename columns using a dictionary
+.aq.drcols:{[t;d](c^d c:cols t) xcol t};
+// rename columns using a prefix
+.aq.rcols:{[t;p] $[0=count p; t; .aq.drcols[t;c!`$(p,"__"),/:string c:cols t]]};
+
+// initialize table and add to relevant global info
+.aq.initTable:{[t;nm;rename]
+   // given tables column dictionary
+   tc:.aq.gencd[t;nm;rename];
+   //drop ambiguous cols from map
+   .aq.cd:{(key[y] inter .aq.pc) _ x,y}[.aq.cd;tc];
+   // add original columns to .aq.pc
+   .aq.pc:.aq.pc union cols t;
+   // return table w/ renamed columns
+   $[rename;.aq.rcols[t;nm];t]
+ };
+
+.aq.initState:{.aq.gencd:{x!x}`$(); .aq.pc:`$();};
+
+// sort column names by attribute
+.aq.scbix:{[m] iasc `s`p`g`u?exec c!a from m};
+.aq.swix0:{[c;w]
+  w iasc min each c?fw@'where each type[`]=(type each) each fw:(raze/) each w
+ };
+// reorder where clauses based on indices
+.aq.reorderFilter:{[v;w]
+ // no point in reording if we don't have attributes
+ // otherwise reorder locally between aggregates according to safe principle
+ $[exec all null a from m:meta v; w; .aq.swix0[.aq.scbix m;w]]
+ };
+
+// sort a table by direction-column tuples d and sort only columns c
+.aq.sort:{[t;d;c]
+ if[0h<>type first d;'"must be list of tuples of direction and column"];
+ ix:{[t;ix;dc] ix dc[0] (t dc[1]) ix}[t;;]/[::;reverse d];
+ cl:(),c;
+ @[t;cl inter $[99h=type t;key t;cl];@[;ix]]
+ }
+
+// sort a table when it is grouped (handles group columns appropriately)
+.aq.sortGrouped:{[tg;d;c]
+  k:keys tg;

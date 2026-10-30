@@ -1,0 +1,25 @@
+l>l>a b  running earlier later
+--------------------------
+1 10 10              20   
+2 20 30      10      30   
+3 30 60      20           
+l>a b 
+----
+3 30
+2 20
+1 10
+l>kind       text     line col
+----------------------------
+Keyword    "SELECT" 1    1  
+Identifier ,"a"     1    8  
+Keyword    "FROM"   1    10 
+Identifier ,"t"     1    15 
+EOF        ""       1    16 
+l>.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;();0b;(enlist[`a]!enlist {x^.aq.cd x} `a)];
+ aq__t0
+ };
+.aq.q0[]
+l>

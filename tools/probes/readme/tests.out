@@ -1,0 +1,83 @@
+== tests/lexer/test_lexer.q
+107 passed, 0 failed
+== tests/lexer/test_golden.q
+golden files: 350
+skipped (listed in tests/lexer/divergences.txt): 4
+346 passed, 0 failed
+== tests/parser/test_parser.q
+56 passed, 0 failed
+== tests/parser/test_rules.q
+rule cases: 139
+139 passed, 0 failed
+== tests/parser/test_golden.q
+golden files: 350
+skipped (listed in tests/parser/divergences.txt): 0
+350 passed, 0 failed
+== tests/ast/test_nodes.q
+helper cases: 36
+45 passed, 0 failed
+== tests/ast/test_dot.q
+golden files: 170
+skipped (listed in tests/ast/divergences.txt): 0
+171 passed, 0 failed
+== tests/codegen/test_expr.q
+golden files: 170
+225 passed, 0 failed
+== tests/codegen/test_codegen.q
+golden files: 170
+not compared (jar bugs fixed, see tests/codegen/divergences.txt): 21
+skipped (statements not supported yet): 0
+175 passed, 0 failed
+== tests/runtime/test_run.q
+`s
+`t
+`:/tmp/aqc_test_run.csv
+`w
+`w
+47 passed, 0 failed
+== tests/runtime/test_kdb_suite.q
+== simple expressions/UDF
+== create
+`aq_t1
+`aq_t2
+== insert
+`t
+== load/save
+`t
+`:my_test_file.csv
+`t2
+`t2
+== update/delete
+`upd_t
+`del_t
+== simple queries
+`upd_t
+`del_t
+== simple.a
+`aq_t1
+`aq_tu1
+`aq_tu2
+`aq_td1
+`aq_td2
+`aq_td2
+== monetdb.a
+== pandas.a
+== fintime.a
+  known failure: fintime.a q0: string constant in a grouped WITH query gives a list per group (same code as the jar)
+40 passed, 0 failed
+== tests/runtime/test_console.sh
+passed: q lines print as in L's own console
+passed: AQuery session
+spawn bin/l_m64 aquery.q
+l>t:([] a:1 2 3)
+l>\aq SELECT a FROM t WHERE a > 1
+a
+-
+2
+3
+l>
+passed: \aq in a real terminal
+exit 0
+console: all passed
+ALL TESTS PASSED
+exit 0

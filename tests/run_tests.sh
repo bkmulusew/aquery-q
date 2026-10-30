@@ -22,9 +22,9 @@ tests/ast/test_nodes.q
 tests/ast/test_dot.q
 tests/codegen/test_expr.q
 tests/codegen/test_codegen.q
-tests/runtime/test_console.sh
-tests/runtime/test_kdb_suite.q
 tests/runtime/test_run.q
+tests/runtime/test_kdb_suite.q
+tests/runtime/test_console.sh
 "
 
 status=0

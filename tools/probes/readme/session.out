@@ -1,0 +1,82 @@
+l>l>a b 
+----
+2 20
+3 30
+l>s 
+--
+11
+22
+33
+l>a big
+-----
+1 0  
+2 1  
+3 1  
+l>l>v
+-
+1
+3
+l>k s
+---
+x 4
+y 2
+l>k s
+---
+x 4
+l>l>'aq: parse error at 1:45: identifier expected
+l>a avg2
+------
+1 10  
+2 15  
+3 25  
+l>l>a b  c
+------
+1 10 p
+2 20 q
+l>total
+-----
+50   
+l>`s
+l>`s
+l>`s
+l>l>id p 
+-----
+1  10
+2  21
+1  5 
+l>l>id p 
+-----
+1  10
+2  21
+l>l>a twice
+-------
+1 20   
+2 40   
+3 60   
+l>42
+l>l>0 1 2
+l>`orders
+l>`audit
+l>l>'type
+  (the q code of this query: -1 .aqc.lastCode)
+l>id qty
+------
+l>a
+-
+2
+3
+l>.aq.q0:{
+ .aq.initQueryState[];
+ aq__t0:.aq.initTable[t;"t";0b];
+ aq__t0:?[aq__t0;enlist ((>; {x^.aq.cd x} `a; 1));0b;()];
+ aq__t0:?[aq__t0;();0b;(enlist[`a]!enlist {x^.aq.cd x} `a)];
+ aq__t0
+ };
+.aq.q0[]
+l>a
+-
+3
+l>'aq: parse error at 1:8: identifier expected
+l>'nosuch
+  (the q code of this query: -1 .aqc.lastCode)
+l>

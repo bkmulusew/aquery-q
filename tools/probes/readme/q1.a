@@ -1,0 +1,4 @@
+SELECT a, sum(b) AS total
+FROM t
+WHERE a > 1
+GROUP BY a

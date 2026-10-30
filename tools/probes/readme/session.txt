@@ -1,0 +1,36 @@
+t:([] a:1 2 3; b:10 20 30)
+\aq SELECT a, b FROM t WHERE a > 1
+\aq SELECT a + b AS s FROM t
+\aq SELECT a, CASE WHEN b > 15 THEN 1 ELSE 0 END AS big FROM t
+g:([] k:`x`y`x; v:1 2 3)
+\aq SELECT v FROM g WHERE k = "x"
+\aq SELECT k, sum(v) AS s FROM g GROUP BY k
+\aq SELECT k, sum(v) AS s FROM g GROUP BY k HAVING sum(v) > 3
+u:([] a:3 1 2; b:30 10 20)
+\aq SELECT a, b, sums(b) AS running, prev(b) AS before FROM u ASSUMING ASC a
+\aq SELECT a, avgs(2, b) AS avg2 FROM u ASSUMING ASC a
+v:([] a:1 2 4; c:`p`q`r)
+\aq SELECT a, b, c FROM t INNER JOIN v USING a
+\aq WITH big AS (SELECT a, b FROM t WHERE b > 15) SELECT sum(b) AS total FROM big
+\aq CREATE TABLE s (id INT, p INT)
+\aq INSERT INTO s VALUES(1, 10)
+\aq INSERT INTO s VALUES(2, 20) INSERT INTO s VALUES(1, 5)
+\aq UPDATE s SET p = p + 1 WHERE id = 2
+s
+\aq DELETE FROM s WHERE p < 10
+s
+\aq FUNCTION dbl(x) { x * 2 }
+\aq SELECT a, dbl(b) AS twice FROM t
+dbl 21
+\aq <q> z:til 3 </q>
+z
+\aq CREATE TABLE orders (id INT, qty INT)
+\aq CREATE TABLE audit (id INT, qty INT)
+\aq CREATE TRIGGER log_orders AFTER INSERT ON orders REFERENCING NEW TABLE AS added DO INSERT INTO audit SELECT id, qty FROM added
+\aq INSERT INTO orders VALUES(7, 3)
+audit
+\aq SELECT a FROM t WHERE a > 1
+-1 .aqc.lastCode;
+.aqc.run "SELECT a FROM t WHERE a > 2"
+\aq SELECT FROM t
+\aq SELECT a FROM nosuch

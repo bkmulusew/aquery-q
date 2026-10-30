@@ -1,37 +1,8 @@
-# aquery-q: the AQuery compiler, rewritten in q for L
+# aquery-q
 
-A port of the Scala AQuery compiler (`AQueryKDB/aquery-master`) to q,
-running on L (an open-source q implementation). The folder is
-self-contained: the L runtime, the original compiler (as a jar, used only
-to make test data), all test inputs and the original Scala tests are inside.
+> An AQuery compiler written in q. Type SQL-like queries at the q prompt and get tables back.
 
-**Versions so far:**
-
-- v1 = the lexer (token for token like Scala, including its odd corners,
-  see "Scala quirks" below)
-- v2 = the parser (`src/parse/README.md`)
-- v3 = the AST stage: tree helpers and the `-p` graph (`src/ast/README.md`)
-- v4 = code generation: AQuery to q code, like `aquery.jar -c`
-  (`src/codegen/README.md`)
-- v5 = the runtime: AQuery runs inside L, and `\aq` at the L prompt
-  (`src/runtime/README.md`)
-
-Type checking, analysis and the optimiser (the jar's `-tc` and `-a 1`)
-come in version 6.
-
-## Quick start
-
-```sh
-sh tests/run_tests.sh                              # all tests (needs only bin/l_m64)
-bin/l_m64 aquery.q -lex tests/inputs/financial/Q1.a   # print tokens of a file
-bin/l_m64 aquery.q -parse tests/inputs/financial/Q1.a # print its parse tree
-bin/l_m64 aquery.q -p tests/inputs/financial/Q1.a     # print it as a Graphviz graph
-bin/l_m64 aquery.q -compile tests/inputs/financial/Q1.a  # print its q code
-bin/l_m64 aquery.q                                 # load everything, stay in L
-```
-
-At the L prompt, after `bin/l_m64 aquery.q`, type AQuery after `\aq`;
-every other line is ordinary q:
+[AQuery](https://github.com/josepablocam/aquery) is a SQL dialect for ordered data. You say how the rows are sorted (`ASSUMING ASC date`), and then running totals, moving averages and "previous row" questions become one-liners. **aquery-q** compiles AQuery into q code and runs it inside [L](#requirements), an open-source q implementation. Compiling and running happen in the same process, so a query works on the tables you already have.
 
 ```
 l>t:([] a:1 2 3; b:10 20 30)
@@ -42,169 +13,251 @@ a b
 3 30
 ```
 
-The same from q code, and the earlier stages:
+## Features
 
-```q
-.aqc.run "SELECT a FROM t WHERE a > 1"      / the result table
-.aqc.runFile "query.a"                       / a whole AQuery file
--1 .aqc.lastCode                             / the q code that just ran
--1 .aqc.compile "SELECT a FROM t"            / q code, without running it
-.aqc.lex.tokens "SELECT a FROM t"            / table: kind, text, line, col
+- **Query from the q prompt.** Start a line with `\aq` and the rest is AQuery. Every other line is plain q.
+- **Ordered queries.** `ASSUMING ASC/DESC` sorts the input first, so `sums`, `avgs`, `prev`, `next` and friends follow that order.
+- **Most of SQL.** `WHERE`, `GROUP BY ... HAVING`, `CASE`, `WITH` sub-queries and `JOIN ... USING`.
+- **Tables you can change.** `CREATE TABLE`, `INSERT`, `UPDATE`, `DELETE`, and CSV files via `LOAD DATA INFILE` and `INTO OUTFILE`.
+- **Your own functions.** An AQuery `FUNCTION` becomes an ordinary q function, which you can call from queries and from q.
+- **Embedded q.** Anything between `<q>` and `</q>` runs as it is.
+- **See every stage.** Turn a `.a` file into a q script, or print its tokens and parse tree along the way.
+
+## Requirements
+
+- A Mac with Apple silicon. The L binary that ships in `bin/l_m64` is built for macOS arm64.
+- Nothing else to install. (Java is only needed to rebuild the expected test outputs in `tools/`.)
+
+## Getting started
+
+```sh
+git clone <this repository> aquery-q
+cd aquery-q
+bin/l_m64 aquery.q
 ```
 
-## Folder layout
+This loads the compiler and its runtime, then leaves you at the `l>` prompt. Make a table in q and query it with `\aq`:
+
+```
+l>t:([] a:1 2 3; b:10 20 30)
+l>\aq SELECT a + b AS s FROM t
+s 
+--
+11
+22
+33
+```
+
+> [!TIP]
+> Not sure what a query turned into? `-1 .aqc.lastCode;` prints the q code that just ran.
+
+## Usage
+
+### At the prompt
+
+| You type | What happens |
+|---|---|
+| `\aq <AQuery>` | compiles and runs one line of AQuery, and prints the result |
+| any other line | runs as ordinary q, printed the way L prints it |
+
+`\aq` takes one line, but that line can hold several statements (`INSERT ... INSERT ...`). Only the last statement's result is printed.
+
+### From q code
+
+```q
+.aqc.run "SELECT a FROM t WHERE a > 1"    / run AQuery text, returns the result
+.aqc.runFile "query.a"                     / run a whole AQuery file
+-1 .aqc.lastCode;                          / the q code of the last run
+-1 .aqc.compile "SELECT a FROM t";         / the q code, without running it
+.aqc.lex.tokens "SELECT a FROM t"          / the tokens, as a table
+```
+
+### From the command line
+
+| Command | Prints |
+|---|---|
+| `bin/l_m64 aquery.q` | nothing: it loads everything and stays at the prompt |
+| `bin/l_m64 aquery.q -compile file.a` | the q code for `file.a` |
+| `bin/l_m64 aquery.q -compile -out out.q file.a` | writes the q code to `out.q` instead |
+| `bin/l_m64 aquery.q -parse file.a` | the parse tree |
+| `bin/l_m64 aquery.q -lex file.a` | the tokens: kind, text, line:column |
+
+The generated file starts with the AQuery runtime library (`base.q`) and is meant to be loaded in kdb+. Inside L, use `\aq` or `.aqc.run` instead: they use a copy of the library that L can load.
+
+> [!NOTE]
+> The flags are spelled out (`-compile`, `-out`) because L keeps the short ones (`-c`, `-o`, `-s`, `-p`) for its own options.
+
+## Examples
+
+Each block is a real L session. The `l>` lines are what you type.
+
+**Filter, compute and name columns**
+
+```
+l>\aq SELECT a, CASE WHEN b > 15 THEN 1 ELSE 0 END AS big FROM t
+a big
+-----
+1 0  
+2 1  
+3 1  
+```
+
+**Group and filter groups.** Strings in double quotes compare with q symbols.
+
+```
+l>g:([] k:`x`y`x; v:1 2 3)
+l>\aq SELECT v FROM g WHERE k = "x"
+v
+-
+1
+3
+l>\aq SELECT k, sum(v) AS s FROM g GROUP BY k HAVING sum(v) > 3
+k s
+---
+x 4
+```
+
+**Ordered data.** `ASSUMING ASC a` sorts by `a` first, so running totals and "previous/next row" follow that order. `avgs(2, b)` is a moving average over 2 rows.
+
+```
+l>u:([] a:3 1 2; b:30 10 20)
+l>\aq SELECT a, b, sums(b) AS running, prev(b) AS earlier, next(b) AS later FROM u ASSUMING ASC a
+a b  running earlier later
+--------------------------
+1 10 10              20   
+2 20 30      10      30   
+3 30 60      20           
+l>\aq SELECT a, avgs(2, b) AS avg2 FROM u ASSUMING ASC a
+a avg2
+------
+1 10  
+2 15  
+3 25  
+```
+
+**Joins and sub-queries**
+
+```
+l>v:([] a:1 2 4; c:`p`q`r)
+l>\aq SELECT a, b, c FROM t INNER JOIN v USING a
+a b  c
+------
+1 10 p
+2 20 q
+l>\aq WITH big AS (SELECT a, b FROM t WHERE b > 15) SELECT sum(b) AS total FROM big
+total
+-----
+50   
+```
+
+**Create and change tables**
+
+```
+l>\aq CREATE TABLE s (id INT, p INT)
+`s
+l>\aq INSERT INTO s VALUES(1, 10) INSERT INTO s VALUES(2, 20) INSERT INTO s VALUES(1, 5)
+`s
+l>\aq UPDATE s SET p = p + 1 WHERE id = 2
+l>\aq DELETE FROM s WHERE p < 10
+l>s
+id p 
+-----
+1  10
+2  21
+```
+
+**Functions and embedded q**
+
+```
+l>\aq FUNCTION dbl(x) { x * 2 }
+l>\aq SELECT a, dbl(b) AS twice FROM t
+a twice
+-------
+1 20   
+2 40   
+3 60   
+l>dbl 21
+42
+l>\aq <q> z:til 3 </q>
+l>z
+0 1 2
+```
+
+**Errors** say where the problem is:
+
+```
+l>\aq SELECT FROM t
+'aq: parse error at 1:8: identifier expected
+```
+
+More AQuery programs, from small snippets to full benchmarks, are in [`tests/inputs/`](tests/inputs).
+
+## Known limitations
+
+> [!WARNING]
+> - **Triggers don't run yet.** `CREATE TRIGGER` compiles, but the next `INSERT` into its table fails in L with `'type`.
+> - **The `-p` graph flag doesn't work in L.** L reads `-p` as its port option. The graph code itself (`src/ast/dot.q`) is tested.
+> - **No type checker or query optimizer yet.** Both are planned for the next version.
+> - Joins are `JOIN ... USING` only, and keywords must be all upper or all lower case (`SELECT` or `select`, not `Select`). Words like `before` are keywords and can't be column names.
+> - Timestamps can't have fractions of a second.
+
+## How it works
+
+A query goes through five stages. Each was built and tested as its own version:
+
+| Stage | What it does | Code |
+|---|---|---|
+| v1 Lexer | text → tokens (`SELECT`, `a`, `>`, `1`) | [`src/parse/`](src/parse) |
+| v2 Parser | tokens → a parse tree | [`src/parse/`](src/parse) |
+| v3 AST | helpers to walk and rebuild trees, and the Graphviz graph | [`src/ast/`](src/ast) |
+| v4 Code generation | tree → q code | [`src/codegen/`](src/codegen) |
+| v5 Runtime | runs that code in L, and the `\aq` prompt | [`src/runtime/`](src/runtime) |
+
+[`aquery.q`](aquery.q) loads all the stages in order. Each folder has a README that explains its files.
 
 ```
 aquery-q/
-├── README.md
-├── aquery.q               entry point: loads every stage; "-lex file.a" prints tokens
-├── bin/l_m64              L runtime (copy of AQueryKDB/l-runtime/l_m64)
-├── src/
-│   ├── parse/             v1: util.q, keywords.q, jdate.q, lex.q  (parser in v2)
-│   ├── ast/               v3: nodes.q (tree helpers), dot.q (-p graph)
-│   ├── analysis/          planned (v6)
-│   ├── optimization/      planned (v6)
-│   ├── codegen/           v4: state.q, expr.q, plan.q, stmt.q, trigger.q, gen.q
-│   └── runtime/           v5: base.q (copied UNCHANGED from aquery-master),
-│                          base_l.q (the copy L loads), run.q (.aqc.run),
-│                          console.q (the \aq command)
-├── tests/
-│   ├── run_tests.sh       runs every test file in L; exit 1 on any failure
-│   ├── lib/testing.q      tiny test library (.test.check, .test.finish)
-│   ├── lexer/             v1: test_lexer.q (unit), test_golden.q, golden/*.tok
-│   ├── parser/ (v2), ast/ (v3), codegen/ (v4), runtime/ (v5)
-│   ├── inputs/            every .a from aquery-master/src/test, Scala test
-│   │                      snippets (scala_snippets/), edge cases (edge_cases/)
-│   ├── reference_q/       the jar's compiled q output for every input
-│   └── scala/             the 6 original Scala test suites, as-is
-└── tools/
-    ├── aquery.jar         the original compiler (reference only)
-    ├── TokenDump.java     prints the Scala lexer's tokens for one file
-    ├── HelperDump.java    prints what the Scala AST helpers return (tests/ast)
-    ├── gen_dot_golden.sh  regenerates tests/ast/golden/ (the jar's -p graphs)
-    ├── gen_golden.sh      regenerates tests/lexer/golden/ (needs a JDK)
-    └── gen_reference_q.sh regenerates tests/reference_q/  (needs a JDK)
+├── aquery.q      entry point: loads every stage, handles the command-line flags
+├── bin/l_m64     the L runtime
+├── src/          the compiler, one folder per stage
+├── tests/        all tests, inputs and expected outputs
+└── tools/        scripts that rebuild the expected test outputs
 ```
 
-Only `bin/`, `aquery.q`, `src/` and `tests/` are needed to run the compiler
-and its tests. `tools/` needs Java and is only for regenerating test data.
-
-## How the lexer is tested
-
-1. **Unit tests** (`tests/lexer/test_lexer.q`): short strings, one group
-   per token kind.
-2. **Golden files** (`tests/lexer/test_golden.q`): `tools/TokenDump.java`
-   runs the real Scala lexer from `aquery.jar` on every file in
-   `tests/inputs/` and saves the tokens in `tests/lexer/golden/`. The q
-   lexer must produce exactly the same lines, except for the inputs listed
-   in `tests/lexer/divergences.txt` (see "Intentional divergences").
-   Golden files are never edited by hand; if the Scala output looks
-   wrong, the q lexer still matches it and the oddity is listed below.
-
-The Scala test suites have no lexer-level tests (they test lexer and parser
-together), which is why version 1 relies on golden files.
-
-## Scala quirks the q lexer copies on purpose
-
-1. *(Timestamps: no longer copied, see "Intentional divergences" below.)*
-2. **Keywords must be all upper or all lower case.** `SELECT` and `select`
-   are keywords; `Select` is an identifier. `INT FLOAT STRING BOOLEAN DATE
-   TIMESTAMP` are keywords only in capitals (`int` is an identifier).
-3. **Delimiters are `Keyword` tokens** (`(`, `<=`, ...), as in Scala.
-4. **Numbers:** `1.` is a number; `.5` is `.` then `5`; `007` keeps its
-   zeros; `1.2.3` is `1.2`, `.`, `3`.
-5. **Strings** have no escape sequences and cannot contain a newline.
-6. **An unclosed `/*` is not a comment**: its `/` and `*` are lexed as
-   delimiters and the rest as normal tokens.
-7. **Error recovery skips a character.** On an error Scala reports the
-   position where its furthest alternative gave up, then restarts one
-   character after that. So `!x` gives an error mentioning `x` and `x`
-   itself is skipped; `'1/2/2020' AND` loses the `A` (giving `ND`).
-8. **Dates are read in a fixed-width window** (10 characters after the
-   quote, 19 for timestamps), even when fields are short. Positions after
-   a date near the end of input can point past the end, e.g. `2:4` in a
-   one-line file.
-9. **Dates are parsed like Java's `SimpleDateFormat`** and re-printed:
-   `'1/02/20201'` gives `Date 01/02/20201`; spaces before a number are
-   skipped (`' 1/02/2020'` is a date); a number may use an exponent
-   (`'1/2/1E3'` is year 1000) and is cut to a 32-bit int, so `2E10` wraps
-   to a negative (invalid) year. Validation follows Java's default
-   calendar: Julian before 15 Oct 1582 (`02/29/1500` is valid), 5–14 Oct
-   1582 do not exist, years run from 1 to 292278994.
-10. **Invalid dates** give an error after the opening quote; the digits
-    and slashes are then lexed as ordinary tokens, and the closing quote
-    gives a second error.
-11. **Verbatim `<q>...</q>`** reads `<` together with the next character,
-    so `<</q>` does not close the block. An unclosed `<q>` is lexed as
-    `<`, `q`, `>`, ...
-12. **Error messages** are Scala's exact text, e.g.
-    ``*** error: `"' expected but \n found``, `*** error: end of input`,
-    `*** error: unclosed/invalid date/timestamp`.
-13. **Character 26 (0x1A)** is Scala's end-of-file marker. A real 0x1A
-    byte in the source becomes an `EOF` token with text `<eof>` and lexing
-    carries on after it. It is not whitespace, and it ends a string, a
-    `//` comment and a `/* */` comment (which is then unclosed, see 6);
-    inside `<q>...</q>` it is an ordinary character.
-
-## Intentional divergences from Scala
-
-1. **Timestamps are their own token kind.** `'01/02/2020D10:11:12'`
-   gives `Timestamp 01/02/2020D10:11:12`. Scala gives a `StringLit`, so
-   its parser's timestamp rule (`lexical.Timestamp`) can never match.
-2. **No fraction of a second (for now).** The closing quote must follow
-   the seconds: `'01/02/2020D10:11:12.5'` is an error at the `.`, as if
-   Scala's `('.' ~> rep(digit)).?` were not there. Scala accepted
-   fractions and copied them into the `StringLit`.
-
-How this is tested: `tools/TokenDump.java` prints a Scala `StringLit`
-that starts with `'` as `Timestamp` (only timestamps can). Inputs with a
-fraction have no correct Scala output any more; they are listed in
-`tests/lexer/divergences.txt`, `test_golden.q` skips them (and prints how
-many), and unit tests in `test_lexer.q` cover them instead. No input
-outside `tests/inputs/edge_cases/` contains a timestamp.
-
-Not modelled (no test input needs them): Unicode letters/digits in names
-(all inputs are ASCII); a timestamp inside a daylight-saving gap of the
-machine's time zone, which Java rejects.
-
-Note for version 2: `tools/TokenDump.java`, `.aqc.lex.lexFile` and the
-golden tests lex the raw bytes of a file. The real compiler (`Aquery.scala`)
-first reads the file with `getLines().mkString("\n")`, which turns `\r\n`
-and `\r` into `\n` and drops the final newline (so its EOF position can be
-one line earlier). `.aqc.util.normalizeLines` does exactly that; the
-compiler's entry point should call it, the lexer itself does not.
-
-## q / L notes for readers new to q
-
-- q evaluates **right to left** and `and`/`or` evaluate both sides.
-- A line containing only `/` (even with trailing spaces) **starts a
-  multi-line comment** that runs until a line containing only `\`. The
-  source files therefore never use a bare `/` line.
-- L rejects q built-in names as parameters or locals (`cols`, `count`,
-  `next`, `type`, `key`, `value`, ...). That is why `src/runtime/base.q`
-  does not fully load in L (see `src/runtime/README.md`).
-- `"x"` (one character) is a char atom, not a string; `(),x` makes it a
-  1-character string. `_` cannot be used in names (it is the drop operator).
-- L differences found so far: `"," sv strings` and `-3!` on atoms fail
-  in L, so the code avoids them.
-- In a script, a top-level expression that is not an assignment prints its
-  result in L, so such lines end with `;`.
-- Two more built-in names that cannot be variable names in L: `differ`
-  and `all`. When in doubt, pick a longer name.
-- `value` on a string is not the same as loading it as a script: a line
-  break is just a blank, so two statements on two lines without `;` run
-  together. `.aqc.run` therefore cuts code into script statements first
-  (`src/runtime/run.q`).
-- `eval` reads a symbol atom in a parse tree as a variable name: the
-  constant `` `IBM `` must be written `` enlist `IBM `` (jar bug 5,
-  `tests/codegen/divergences.txt`).
-- L sends every line typed at the prompt to `.z.pi` when it is defined;
-  that is how `\aq` works (`src/runtime/console.q`). Unknown backslash
-  commands otherwise go to the shell.
-
-## Regenerating test data
+## Running the tests
 
 ```sh
-sh tools/gen_golden.sh         # ~1 minute; rewrites tests/lexer/golden/
-sh tools/gen_reference_q.sh    # several minutes; rewrites tests/reference_q/
+sh tests/run_tests.sh
 ```
+
+The script runs all 12 test files in L and ends with `ALL TESTS PASSED` (exit status 0) or lists what failed. There are about 1,700 checks:
+
+| Level | What is compared | Checks |
+|---|---|---|
+| Lexer | tokens of every input file vs the expected tokens | 107 unit + 346 files |
+| Parser | parse trees vs the expected trees | 195 unit + 350 files |
+| AST | tree helpers and graphs vs expected results | 45 + 171 |
+| Code generation | generated q vs the expected q, byte for byte | 225 unit + 175 files |
+| Runtime | query results vs tables written by hand; whole programs vs hand-written q; `\aq` typed into a real terminal | 47 + 40 + 3 |
+
+Expected outputs are generated, never edited by hand. To rebuild them, use the scripts in [`tools/`](tools) (they need a JDK).
+
+> [!NOTE]
+> One check, `fintime.a` query 0, is a known failure: a string constant in a grouped `WITH` query gives a list per group. `fintime.a` also needs a 90 MB data file, so it is skipped when that file isn't found (set `$AQUERY_DATA` to its folder).
+
+## Troubleshooting
+
+L is close to q but not identical. These are the differences you're most likely to hit when you write q next to AQuery:
+
+- **Built-in names can't be variables or parameters** in L: `cols`, `count`, `next`, `type`, `key`, `value`, `differ`, `all` and others. When in doubt, pick a longer name.
+- **A line with only `/` starts a block comment** that runs until a line with only `\`, and everything in between is silently skipped.
+- **`"x"` is one character, not a string.** Use `(),"x"` or `enlist "x"` when you need a one-character string.
+- **Unknown backslash commands go to the shell.** If `\aq` gives `sh: aq: command not found`, the compiler isn't loaded: start L with `bin/l_m64 aquery.q`.
+
+## Credits
+
+This project builds on:
+
+- [josepablocam/aquery](https://github.com/josepablocam/aquery): the AQuery language and its q runtime library (`src/runtime/base.q`).
+- [pequeniajugar/AQueryKDB](https://github.com/pequeniajugar/AQueryKDB): AQuery on kdb+, including the test programs and benchmarks in `tests/inputs/`.
+- L, an open-source implementation of q, which runs everything here.
