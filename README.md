@@ -31,7 +31,7 @@ a b
 ## Getting started
 
 ```sh
-git clone <this repository> aquery-q
+git clone git@github.com:bkmulusew/aquery-q.git
 cd aquery-q
 bin/l_m64 aquery.q
 ```
@@ -41,7 +41,7 @@ This loads the compiler and its runtime, then leaves you at the `l>` prompt. Mak
 ```
 l>t:([] a:1 2 3; b:10 20 30)
 l>\aq SELECT a + b AS s FROM t
-s 
+s
 --
 11
 22
@@ -55,10 +55,10 @@ s
 
 ### At the prompt
 
-| You type | What happens |
-|---|---|
+| You type       | What happens                                                |
+| -------------- | ----------------------------------------------------------- |
 | `\aq <AQuery>` | compiles and runs one line of AQuery, and prints the result |
-| any other line | runs as ordinary q, printed the way L prints it |
+| any other line | runs as ordinary q, printed the way L prints it             |
 
 `\aq` takes one line, but that line can hold several statements (`INSERT ... INSERT ...`). Only the last statement's result is printed.
 
@@ -74,13 +74,13 @@ s
 
 ### From the command line
 
-| Command | Prints |
-|---|---|
-| `bin/l_m64 aquery.q` | nothing: it loads everything and stays at the prompt |
-| `bin/l_m64 aquery.q -compile file.a` | the q code for `file.a` |
-| `bin/l_m64 aquery.q -compile -out out.q file.a` | writes the q code to `out.q` instead |
-| `bin/l_m64 aquery.q -parse file.a` | the parse tree |
-| `bin/l_m64 aquery.q -lex file.a` | the tokens: kind, text, line:column |
+| Command                                         | Prints                                               |
+| ----------------------------------------------- | ---------------------------------------------------- |
+| `bin/l_m64 aquery.q`                            | nothing: it loads everything and stays at the prompt |
+| `bin/l_m64 aquery.q -compile file.a`            | the q code for `file.a`                              |
+| `bin/l_m64 aquery.q -compile -out out.q file.a` | writes the q code to `out.q` instead                 |
+| `bin/l_m64 aquery.q -parse file.a`              | the parse tree                                       |
+| `bin/l_m64 aquery.q -lex file.a`                | the tokens: kind, text, line:column                  |
 
 The generated file starts with the AQuery runtime library (`base.q`) and is meant to be loaded in kdb+. Inside L, use `\aq` or `.aqc.run` instead: they use a copy of the library that L can load.
 
@@ -97,9 +97,9 @@ Each block is a real L session. The `l>` lines are what you type.
 l>\aq SELECT a, CASE WHEN b > 15 THEN 1 ELSE 0 END AS big FROM t
 a big
 -----
-1 0  
-2 1  
-3 1  
+1 0
+2 1
+3 1
 ```
 
 **Group and filter groups.** Strings in double quotes compare with q symbols.
@@ -124,15 +124,15 @@ l>u:([] a:3 1 2; b:30 10 20)
 l>\aq SELECT a, b, sums(b) AS running, prev(b) AS earlier, next(b) AS later FROM u ASSUMING ASC a
 a b  running earlier later
 --------------------------
-1 10 10              20   
-2 20 30      10      30   
-3 30 60      20           
+1 10 10              20
+2 20 30      10      30
+3 30 60      20
 l>\aq SELECT a, avgs(2, b) AS avg2 FROM u ASSUMING ASC a
 a avg2
 ------
-1 10  
-2 15  
-3 25  
+1 10
+2 15
+3 25
 ```
 
 **Joins and sub-queries**
@@ -147,7 +147,7 @@ a b  c
 l>\aq WITH big AS (SELECT a, b FROM t WHERE b > 15) SELECT sum(b) AS total FROM big
 total
 -----
-50   
+50
 ```
 
 **Create and change tables**
@@ -160,7 +160,7 @@ l>\aq INSERT INTO s VALUES(1, 10) INSERT INTO s VALUES(2, 20) INSERT INTO s VALU
 l>\aq UPDATE s SET p = p + 1 WHERE id = 2
 l>\aq DELETE FROM s WHERE p < 10
 l>s
-id p 
+id p
 -----
 1  10
 2  21
@@ -173,9 +173,9 @@ l>\aq FUNCTION dbl(x) { x * 2 }
 l>\aq SELECT a, dbl(b) AS twice FROM t
 a twice
 -------
-1 20   
-2 40   
-3 60   
+1 20
+2 40
+3 60
 l>dbl 21
 42
 l>\aq <q> z:til 3 </q>
@@ -195,6 +195,7 @@ More AQuery programs, from small snippets to full benchmarks, are in [`tests/inp
 ## Known limitations
 
 > [!WARNING]
+>
 > - **Triggers don't run yet.** `CREATE TRIGGER` compiles, but the next `INSERT` into its table fails in L with `'type`.
 > - **The `-p` graph flag doesn't work in L.** L reads `-p` as its port option. The graph code itself (`src/ast/dot.q`) is tested.
 > - **No type checker or query optimizer yet.** Both are planned for the next version.
@@ -205,13 +206,13 @@ More AQuery programs, from small snippets to full benchmarks, are in [`tests/inp
 
 A query goes through five stages. Each was built and tested as its own version:
 
-| Stage | What it does | Code |
-|---|---|---|
-| v1 Lexer | text → tokens (`SELECT`, `a`, `>`, `1`) | [`src/parse/`](src/parse) |
-| v2 Parser | tokens → a parse tree | [`src/parse/`](src/parse) |
-| v3 AST | helpers to walk and rebuild trees, and the Graphviz graph | [`src/ast/`](src/ast) |
-| v4 Code generation | tree → q code | [`src/codegen/`](src/codegen) |
-| v5 Runtime | runs that code in L, and the `\aq` prompt | [`src/runtime/`](src/runtime) |
+| Stage              | What it does                                              | Code                          |
+| ------------------ | --------------------------------------------------------- | ----------------------------- |
+| v1 Lexer           | text → tokens (`SELECT`, `a`, `>`, `1`)                   | [`src/parse/`](src/parse)     |
+| v2 Parser          | tokens → a parse tree                                     | [`src/parse/`](src/parse)     |
+| v3 AST             | helpers to walk and rebuild trees, and the Graphviz graph | [`src/ast/`](src/ast)         |
+| v4 Code generation | tree → q code                                             | [`src/codegen/`](src/codegen) |
+| v5 Runtime         | runs that code in L, and the `\aq` prompt                 | [`src/runtime/`](src/runtime) |
 
 [`aquery.q`](aquery.q) loads all the stages in order. Each folder has a README that explains its files.
 
@@ -232,13 +233,13 @@ sh tests/run_tests.sh
 
 The script runs all 12 test files in L and ends with `ALL TESTS PASSED` (exit status 0) or lists what failed. There are about 1,700 checks:
 
-| Level | What is compared | Checks |
-|---|---|---|
-| Lexer | tokens of every input file vs the expected tokens | 107 unit + 346 files |
-| Parser | parse trees vs the expected trees | 195 unit + 350 files |
-| AST | tree helpers and graphs vs expected results | 45 + 171 |
-| Code generation | generated q vs the expected q, byte for byte | 225 unit + 175 files |
-| Runtime | query results vs tables written by hand; whole programs vs hand-written q; `\aq` typed into a real terminal | 47 + 40 + 3 |
+| Level           | What is compared                                                                                            | Checks               |
+| --------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- |
+| Lexer           | tokens of every input file vs the expected tokens                                                           | 107 unit + 346 files |
+| Parser          | parse trees vs the expected trees                                                                           | 195 unit + 350 files |
+| AST             | tree helpers and graphs vs expected results                                                                 | 45 + 171             |
+| Code generation | generated q vs the expected q, byte for byte                                                                | 225 unit + 175 files |
+| Runtime         | query results vs tables written by hand; whole programs vs hand-written q; `\aq` typed into a real terminal | 47 + 40 + 3          |
 
 Expected outputs are generated, never edited by hand. To rebuild them, use the scripts in [`tools/`](tools) (they need a JDK).
 
