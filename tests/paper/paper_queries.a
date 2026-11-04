@@ -1,0 +1,754 @@
+// paper_queries.a - the AQuery examples from the AQueryKDB paper, as a test.
+//
+// The file is cut into parts. A line starting with "// === " begins a part:
+//   // === setup: ...    creates the tables the queries after it use
+//   // === query: ...    one query from the paper
+//   // === skipped: ...  kept for later, not run
+// Under a query, a line "// expect: <q code>" gives the right answer as a q
+// value. tests/paper/run_paper.q runs a part and compares its result with it.
+//
+// Run it in L, from the aquery-q folder:
+//   bin/l_m64 aquery.q
+//   \l tests/paper/run_paper.q
+//   .paper.list[]       / the parts
+//   .paper.run 4        / run part 4 (and the setup above it)
+//   .paper.runAll[]     / run every part, one row per part
+//
+// Where the paper's text has a mistake, the part "as printed" keeps the
+// paper's text and the next part "(fixed)" has the corrected query.
+// The paper writes quotes as LaTeX ``IBM''; here they are "IBM".
+// Dates in AQuery are written 'MM/DD/YYYY' in single quotes.
+
+// === setup: Section 3.1 tables prices, sales, dividends ===
+// Three small tables for the join examples. Only dividends has no date,
+// so the first join is by Id and the second by TradeDate.
+CREATE TABLE prices (TradeDate DATE, price FLOAT)
+INSERT INTO prices VALUES('01/02/2014', 100.0)
+INSERT INTO prices VALUES('01/03/2014', 101.0)
+INSERT INTO prices VALUES('01/06/2014', 99.5)
+
+CREATE TABLE sales (Id STRING, TradeDate DATE, volume INT)
+INSERT INTO sales VALUES("A", '01/02/2014', 10)
+INSERT INTO sales VALUES("B", '01/02/2014', 20)
+INSERT INTO sales VALUES("A", '01/03/2014', 30)
+INSERT INTO sales VALUES("C", '01/06/2014', 40)
+
+CREATE TABLE dividends (Id STRING, DivAmt FLOAT)
+INSERT INTO dividends VALUES("A", 0.5)
+INSERT INTO dividends VALUES("B", 0.25)
+
+// === query: Section 3.1, three-way join (as printed) ===
+// The paper nests the joins: sales with dividends first, then prices.
+// AQuery's grammar only chains joins left to right, so this does not parse.
+SELECT *
+FROM
+prices INNER JOIN
+     sales INNER JOIN dividends USING Id
+USING TradeDate
+
+// === query: Section 3.1, three-way join (fixed) ===
+// The same join chained left to right. sales row C has no dividend, so
+// 3 rows remain: (A, 01/02, 10), (B, 01/02, 20), (A, 01/03, 30), each with
+// its dividend and that day's price.
+SELECT *
+FROM prices INNER JOIN sales USING TradeDate INNER JOIN dividends USING Id
+// expect: 3
+
+// === query: Section 3.1, join written as a cross product ===
+// Same 3 rows as the fixed join above.
+SELECT *
+FROM prices, sales, dividends
+WHERE sales.Id = dividends.Id AND prices.TradeDate = sales.TradeDate
+// expect: 3
+
+// === setup: Section 3.2 and 3.4 table network (Figure 2) ===
+// The 4 rows of Figure 2. 04/01/15 is April 1, 2015.
+CREATE TABLE network (base_station INT, date DATE, hour_stamp INT, num_conns INT)
+INSERT INTO network VALUES(1, '04/01/2015', 1, 10)
+INSERT INTO network VALUES(1, '04/01/2015', 2, 20)
+INSERT INTO network VALUES(2, '04/01/2015', 1, 30)
+INSERT INTO network VALUES(2, '04/01/2015', 2, 40)
+
+// === query: Figure 1, moving average (as printed) ===
+// avgs takes the window size first: avgs(24, num_conns). Written this way,
+// the column is used as the window size.
+SELECT avgs(num_conns, 24)
+FROM network
+ASSUMING ASC date, ASC hour_stamp
+WHERE base_station=1
+
+// === query: Figure 1, moving average (fixed) ===
+// Station 1 has 10 then 20 connections: the averages are 10 and 15.
+SELECT avgs(24, num_conns)
+FROM network
+ASSUMING ASC date, ASC hour_stamp
+WHERE base_station=1
+// expect: ([] m:10 15f)
+
+// === query: Section 3.4, GROUP BY makes a nested table (Figure 2) ===
+// One row per station; the other columns become lists, as in Figure 2.
+SELECT base_station, date, hour_stamp, num_conns
+FROM network
+GROUP BY base_station
+// expect: ([] base_station:1 2; date:(2#2015.04.01;2#2015.04.01); hour_stamp:(1 2;1 2); num_conns:(10 20;30 40))
+
+// === query: Figure 3, HAVING ===
+// Station 1 has 10+20=30 connections, station 2 has 30+40=70.
+// Only station 2 has at least 50. The paper's answer: station 2, count 2.
+SELECT base_station,
+COUNT(*) as ct
+FROM network
+GROUP BY base_station
+HAVING sum(num_conns) >= 50
+// expect: ([] base_station:enlist 2; ct:enlist 2)
+
+// === setup: Section 3.3 table stocks ===
+// The paper's 3 rows (ticker, date, price). The paper gives no volume; we
+// add one so the two queries below give different answers.
+CREATE TABLE stocks (ticker STRING, TradeDate DATE, price INT, volume INT)
+INSERT INTO stocks VALUES("HP", '11/16/2015', 100, 500)
+INSERT INTO stocks VALUES("IBM", '11/17/2015', 150, 900)
+INSERT INTO stocks VALUES("IBM", '11/18/2015', 170, 300)
+
+// === query: Section 3.3, ticker test first ===
+// First keep the IBM rows (150, 170); then price > prev(price) keeps only
+// 170, because the first IBM row has no previous row. max(volume) = 300.
+// That is the paper's answer. q (kdb+ and L) gives 900: there the first
+// row's prev is a null, and q counts a null as smaller than every number,
+// so 150 > null is true and both IBM rows stay.
+SELECT max(volume)
+FROM stocks
+ASSUMING ASC TradeDate
+WHERE
+ticker = "IBM" AND price>prev(price)
+// expect: ([] m:enlist 900)
+
+// === query: Section 3.3, price test first ===
+// First price > prev(price) keeps 150 and 170; both are IBM.
+// max(volume) = 900.
+SELECT max(volume)
+FROM stocks
+ASSUMING ASC TradeDate
+WHERE
+price>prev(price) AND ticker = "IBM"
+// expect: ([] m:enlist 900)
+
+// === setup: Section 3.6 tables sales and prices for WITH ===
+// New sales and prices tables (different columns from Section 3.1).
+CREATE TABLE sales (Id STRING, TradeDate DATE, volume INT)
+INSERT INTO sales VALUES("A", '12/20/2013', 800)
+INSERT INTO sales VALUES("A", '03/15/2014', 100)
+INSERT INTO sales VALUES("B", '06/30/2014', 200)
+INSERT INTO sales VALUES("A", '12/31/2014', 50)
+INSERT INTO sales VALUES("B", '01/05/2015', 400)
+
+CREATE TABLE prices (Id STRING, price FLOAT)
+INSERT INTO prices VALUES("A", 150.0)
+INSERT INTO prices VALUES("B", 90.0)
+
+// === query: Section 3.6, WITH (as printed) ===
+// The dates are in double quotes, so they are text, not dates, and q
+// cannot compare a date column with text.
+WITH
+  y14 AS (
+       SELECT *
+       FROM sales
+       WHERE TradeDate BETWEEN "01/01/2014" AND "12/31/2014"
+       )
+
+SELECT sum(volume)
+FROM y14 INNER JOIN prices USING Id
+WHERE price > 100
+
+// === query: Section 3.6, WITH (fixed) ===
+// 2014 sales: A 100, B 200, A 50. Only A's price is over 100: 100+50 = 150.
+WITH
+  y14 AS (
+       SELECT *
+       FROM sales
+       WHERE TradeDate BETWEEN '01/01/2014' AND '12/31/2014'
+       )
+
+SELECT sum(volume)
+FROM y14 INNER JOIN prices USING Id
+WHERE price > 100
+// expect: ([] s:enlist 150)
+
+// === setup: Section 3.6 table prices for EXEC ARRAYS ===
+// Rows are inserted out of date order, so ASSUMING has work to do.
+CREATE TABLE prices (TradeDate DATE, px FLOAT)
+INSERT INTO prices VALUES('01/03/2014', 12.0)
+INSERT INTO prices VALUES('01/01/2014', 10.0)
+INSERT INTO prices VALUES('01/04/2014', 13.0)
+INSERT INTO prices VALUES('01/02/2014', 11.0)
+
+// === query: Section 3.6, EXEC ARRAYS (as printed) ===
+// Two problems: EXEC ARRAYS needs the query in parentheses, and avgs
+// takes the window size first.
+EXEC ARRAYS
+SELECT avgs(px, 7) as moving_average
+FROM prices
+ASSUMING ASC TradeDate
+
+// === query: Section 3.6, EXEC ARRAYS (fixed) ===
+// Makes the q variable moving_average. Sorted px is 10 11 12 13, so the
+// running averages are 10 10.5 11 11.5. The <q> line shows the variable.
+EXEC ARRAYS (
+SELECT avgs(7, px) as moving_average
+FROM prices
+ASSUMING ASC TradeDate
+)
+<q> moving_average </q>
+// expect: 10 10.5 11 11.5
+
+// === skipped: Section 3.7, trigger ===
+// Triggers compile but fail at runtime in L for now. The paper's trigger,
+// with the tables of Figure 4, kept here for later:
+//
+// CREATE TABLE orders (ordernum INT, itemnum INT, quantity INT, price FLOAT, storeid STRING, vendorid INT)
+// INSERT INTO orders VALUES(1, 10, 2, 5.0, "s1", 10)
+// INSERT INTO orders VALUES(2, 11, 3, 4.0, "s2", 10)
+// INSERT INTO orders VALUES(3, 12, 1, 7.0, "s1", 20)
+// CREATE TABLE vendorOutstanding (vendorid INT, amount FLOAT)
+// INSERT INTO vendorOutstanding VALUES(10, 22.0)
+// INSERT INTO vendorOutstanding VALUES(20, 7.0)
+//
+// CREATE TRIGGER updateVendorOutstanding
+// AFTER INSERT ON orders
+// REFERENCING NEW TABLE AS inserted
+// DO UPDATE vendorOutstanding
+//    SET amount = amount + inserted.quantity * inserted.price
+//    WHERE vendorOutstanding.vendorid = inserted.vendorid
+//
+// INSERT INTO orders VALUES(4, 13, 5, 6.0, "s3", 10)
+// Expected (Figure 5): vendor 10 has 52.0, vendor 20 still 7.0.
+
+// === setup: Appendix A, benchmark tables and settings ===
+// Small made-up data with the columns of Appendix A, Table 1: 4 stocks
+// (A, B, C, D), 13 trading days each (ten in August 2016, two in 2015, one
+// in 2017) plus 23 June 2016 days for A, 2 splits and 4 dividends.
+CREATE TABLE base (Id STRING, Ex STRING, Descr STRING, SIC STRING, SPR STRING, Cu STRING, CreateDate DATE)
+INSERT INTO base VALUES("A", "NYSE", "Stock A", "1000", "SP", "USD", '01/02/2010')
+INSERT INTO base VALUES("B", "NYSE", "Stock B", "2000", "SP", "USD", '01/02/2010')
+INSERT INTO base VALUES("C", "NASDAQ", "Stock C", "3000", "R", "USD", '01/02/2010')
+INSERT INTO base VALUES("D", "NASDAQ", "Stock D", "4000", "R", "USD", '01/02/2010')
+
+// HighPrice = close + 1, LowPrice = close - 1, OpenPrice = close - 0.5.
+CREATE TABLE price (Id STRING, TradeDate DATE, HighPrice FLOAT, LowPrice FLOAT, ClosePrice FLOAT, OpenPrice FLOAT, Volume INT)
+INSERT INTO price VALUES("A", '08/03/2015', 9.0, 7.0, 8.0, 7.5, 800)
+INSERT INTO price VALUES("A", '12/01/2015', 10.0, 8.0, 9.0, 8.5, 900)
+// A also trades every weekday in June 2016 (23 days, 6.0 rising to 10.4),
+// so Q7's 21-day and 160-day averages differ and can cross.
+INSERT INTO price VALUES("A", '06/01/2016', 7.0, 5.0, 6.0, 5.5, 600)
+INSERT INTO price VALUES("A", '06/02/2016', 7.2, 5.2, 6.2, 5.7, 620)
+INSERT INTO price VALUES("A", '06/03/2016', 7.4, 5.4, 6.4, 5.9, 640)
+INSERT INTO price VALUES("A", '06/06/2016', 7.6, 5.6, 6.6, 6.1, 660)
+INSERT INTO price VALUES("A", '06/07/2016', 7.8, 5.8, 6.8, 6.3, 680)
+INSERT INTO price VALUES("A", '06/08/2016', 8.0, 6.0, 7.0, 6.5, 700)
+INSERT INTO price VALUES("A", '06/09/2016', 8.2, 6.2, 7.2, 6.7, 720)
+INSERT INTO price VALUES("A", '06/10/2016', 8.4, 6.4, 7.4, 6.9, 740)
+INSERT INTO price VALUES("A", '06/13/2016', 8.6, 6.6, 7.6, 7.1, 760)
+INSERT INTO price VALUES("A", '06/14/2016', 8.8, 6.8, 7.8, 7.3, 780)
+INSERT INTO price VALUES("A", '06/15/2016', 9.0, 7.0, 8.0, 7.5, 800)
+INSERT INTO price VALUES("A", '06/16/2016', 9.2, 7.2, 8.2, 7.7, 820)
+INSERT INTO price VALUES("A", '06/17/2016', 9.4, 7.4, 8.4, 7.9, 840)
+INSERT INTO price VALUES("A", '06/20/2016', 9.6, 7.6, 8.6, 8.1, 860)
+INSERT INTO price VALUES("A", '06/21/2016', 9.8, 7.8, 8.8, 8.3, 880)
+INSERT INTO price VALUES("A", '06/22/2016', 10.0, 8.0, 9.0, 8.5, 900)
+INSERT INTO price VALUES("A", '06/23/2016', 10.2, 8.2, 9.2, 8.7, 920)
+INSERT INTO price VALUES("A", '06/24/2016', 10.4, 8.4, 9.4, 8.9, 940)
+INSERT INTO price VALUES("A", '06/27/2016', 10.6, 8.6, 9.6, 9.1, 960)
+INSERT INTO price VALUES("A", '06/28/2016', 10.8, 8.8, 9.8, 9.3, 980)
+INSERT INTO price VALUES("A", '06/29/2016', 11.0, 9.0, 10.0, 9.5, 1000)
+INSERT INTO price VALUES("A", '06/30/2016', 11.2, 9.2, 10.2, 9.7, 1020)
+INSERT INTO price VALUES("A", '07/01/2016', 11.4, 9.4, 10.4, 9.9, 1040)
+INSERT INTO price VALUES("A", '08/01/2016', 11.0, 9.0, 10.0, 9.5, 1000)
+INSERT INTO price VALUES("A", '08/02/2016', 12.0, 10.0, 11.0, 10.5, 1100)
+INSERT INTO price VALUES("A", '08/03/2016', 13.0, 11.0, 12.0, 11.5, 1200)
+INSERT INTO price VALUES("A", '08/04/2016', 14.0, 12.0, 13.0, 12.5, 1300)
+INSERT INTO price VALUES("A", '08/05/2016', 15.0, 13.0, 14.0, 13.5, 1400)
+INSERT INTO price VALUES("A", '08/08/2016', 14.0, 12.0, 13.0, 12.5, 1300)
+INSERT INTO price VALUES("A", '08/09/2016', 13.0, 11.0, 12.0, 11.5, 1200)
+INSERT INTO price VALUES("A", '08/10/2016', 12.0, 10.0, 11.0, 10.5, 1100)
+INSERT INTO price VALUES("A", '08/11/2016', 11.0, 9.0, 10.0, 9.5, 1000)
+INSERT INTO price VALUES("A", '08/12/2016', 10.0, 8.0, 9.0, 8.5, 900)
+INSERT INTO price VALUES("A", '02/01/2017', 16.0, 14.0, 15.0, 14.5, 1500)
+INSERT INTO price VALUES("B", '08/03/2015', 23.0, 21.0, 22.0, 21.5, 2200)
+INSERT INTO price VALUES("B", '12/01/2015', 22.0, 20.0, 21.0, 20.5, 2100)
+INSERT INTO price VALUES("B", '08/01/2016', 21.0, 19.0, 20.0, 19.5, 2000)
+INSERT INTO price VALUES("B", '08/02/2016', 20.0, 18.0, 19.0, 18.5, 1900)
+INSERT INTO price VALUES("B", '08/03/2016', 19.0, 17.0, 18.0, 17.5, 1800)
+INSERT INTO price VALUES("B", '08/04/2016', 18.0, 16.0, 17.0, 16.5, 1700)
+INSERT INTO price VALUES("B", '08/05/2016', 17.0, 15.0, 16.0, 15.5, 1600)
+INSERT INTO price VALUES("B", '08/08/2016', 18.0, 16.0, 17.0, 16.5, 1700)
+INSERT INTO price VALUES("B", '08/09/2016', 19.0, 17.0, 18.0, 17.5, 1800)
+INSERT INTO price VALUES("B", '08/10/2016', 20.0, 18.0, 19.0, 18.5, 1900)
+INSERT INTO price VALUES("B", '08/11/2016', 21.0, 19.0, 20.0, 19.5, 2000)
+INSERT INTO price VALUES("B", '08/12/2016', 22.0, 20.0, 21.0, 20.5, 2100)
+INSERT INTO price VALUES("B", '02/01/2017', 24.0, 22.0, 23.0, 22.5, 2300)
+INSERT INTO price VALUES("C", '08/03/2015', 29.0, 27.0, 28.0, 27.5, 2800)
+INSERT INTO price VALUES("C", '12/01/2015', 30.0, 28.0, 29.0, 28.5, 2900)
+INSERT INTO price VALUES("C", '08/01/2016', 31.0, 29.0, 30.0, 29.5, 3000)
+INSERT INTO price VALUES("C", '08/02/2016', 31.5, 29.5, 30.5, 30.0, 3050)
+INSERT INTO price VALUES("C", '08/03/2016', 32.0, 30.0, 31.0, 30.5, 3100)
+INSERT INTO price VALUES("C", '08/04/2016', 31.0, 29.0, 30.0, 29.5, 3000)
+INSERT INTO price VALUES("C", '08/05/2016', 30.0, 28.0, 29.0, 28.5, 2900)
+INSERT INTO price VALUES("C", '08/08/2016', 30.5, 28.5, 29.5, 29.0, 2950)
+INSERT INTO price VALUES("C", '08/09/2016', 31.0, 29.0, 30.0, 29.5, 3000)
+INSERT INTO price VALUES("C", '08/10/2016', 32.0, 30.0, 31.0, 30.5, 3100)
+INSERT INTO price VALUES("C", '08/11/2016', 33.0, 31.0, 32.0, 31.5, 3200)
+INSERT INTO price VALUES("C", '08/12/2016', 32.0, 30.0, 31.0, 30.5, 3100)
+INSERT INTO price VALUES("C", '02/01/2017', 34.0, 32.0, 33.0, 32.5, 3300)
+INSERT INTO price VALUES("D", '08/03/2015', 39.0, 37.0, 38.0, 37.5, 3800)
+INSERT INTO price VALUES("D", '12/01/2015', 40.0, 38.0, 39.0, 38.5, 3900)
+INSERT INTO price VALUES("D", '08/01/2016', 41.0, 39.0, 40.0, 39.5, 4000)
+INSERT INTO price VALUES("D", '08/02/2016', 42.0, 40.0, 41.0, 40.5, 4100)
+INSERT INTO price VALUES("D", '08/03/2016', 41.0, 39.0, 40.0, 39.5, 4000)
+INSERT INTO price VALUES("D", '08/04/2016', 42.0, 40.0, 41.0, 40.5, 4100)
+INSERT INTO price VALUES("D", '08/05/2016', 41.0, 39.0, 40.0, 39.5, 4000)
+INSERT INTO price VALUES("D", '08/08/2016', 42.0, 40.0, 41.0, 40.5, 4100)
+INSERT INTO price VALUES("D", '08/09/2016', 41.0, 39.0, 40.0, 39.5, 4000)
+INSERT INTO price VALUES("D", '08/10/2016', 42.0, 40.0, 41.0, 40.5, 4100)
+INSERT INTO price VALUES("D", '08/11/2016', 41.0, 39.0, 40.0, 39.5, 4000)
+INSERT INTO price VALUES("D", '08/12/2016', 42.0, 40.0, 41.0, 40.5, 4100)
+INSERT INTO price VALUES("D", '02/01/2017', 43.0, 41.0, 42.0, 41.5, 4200)
+
+CREATE TABLE split (Id STRING, SplitDate DATE, EntryDate DATE, SplitFactor INT)
+INSERT INTO split VALUES("A", '08/05/2016', '07/20/2016', 2)
+INSERT INTO split VALUES("C", '08/10/2016', '07/25/2016', 3)
+
+CREATE TABLE dividend (Id STRING, XdivDate DATE, DivAmt FLOAT, AnnounceDate DATE)
+INSERT INTO dividend VALUES("B", '12/01/2015', 0.4, '11/15/2015')
+INSERT INTO dividend VALUES("B", '08/03/2016', 0.5, '07/15/2016')
+INSERT INTO dividend VALUES("A", '08/09/2016', 0.3, '07/28/2016')
+INSERT INTO dividend VALUES("D", '08/08/2016', 1.0, '07/25/2016')
+
+// The benchmark settings are plain q variables, not tables, so they are set
+// in a <q> block, as in the paper's own loader (financial/load.a). Its
+// values are random; ours are fixed so the answers never change.
+<q>
+/ the stock sets: a list of Ids each (` makes a symbol, `A`B`C is 3 of them)
+stock10:`A`B`C;
+stock1000:`A`B`C;
+SP500:`A`B;
+Russell2000:`B`C`D;
+
+/ the dates (q writes dates as year.month.day)
+startYear10:2015.08.03;
+start300Days:2016.08.01;
+startPeriod:2016.08.01;
+endPeriod:2016.08.12;
+start6Mo:2016.08.01;
+maxTradeDate:exec max TradeDate from price;
+maxTradeDateMinus3Years:maxTradeDate-3*365;
+
+/ helpers from load.a, copied as they are:
+/ getMonth: month number 1..12;  getYear: the year as a number
+getMonth:{1 + (`month$x) mod 12};
+getYear:{`year$x};
+/ firstDateOfYear and getWeek: week number counted from the start of the year
+firstDateOfYear:{`date$`month$d-30*-1+getMonth d:`date$`month$x};
+getWeek:{1 + floor (x - firstDateOfYear x)%7};
+/ float: turn a number into a float
+float:{`float$x};
+</q>
+
+// === query: Appendix B, Q0 ===
+// Copied from AQueryKDB src/test/financial/Q0.a (same as the paper).
+<q>
+constWeekly:{(count x)#`weekly};
+constMonthly:{(count x)#`monthly};
+constYearly:{(count x)#`yearly};
+</q>
+
+
+WITH
+ // our main source of information, localized, avoiding rerunning for each aggregation
+ Target(Id, TradeDate, ClosePrice)  AS (select
+ Id, TradeDate,ClosePrice
+ FROM price
+ where Id in stock10 and TradeDate >= startYear10 and TradeDate <= startYear10 + 365 * 10)
+
+  weekly(Id, bucket, name, low, high, mean) AS (select
+    Id,
+    timeBucket,
+    constWeekly(Id),
+    min(ClosePrice),
+	  max(ClosePrice), avg(ClosePrice)
+  	from Target group by Id, getWeek(TradeDate) as timeBucket)
+
+  monthly(Id, bucket, name, low, high, mean) AS (select
+    Id,
+    timeBucket,
+    constMonthly(Id),
+     min(ClosePrice),
+	   max(ClosePrice),
+     avg(ClosePrice)
+  	 from Target group by Id, getMonth(TradeDate) as timeBucket)
+
+  yearly(Id, bucket, name, low, high, mean) AS (select
+    Id,
+    timeBucket,
+    constYearly(Id),
+     min(ClosePrice),
+	   max(ClosePrice),
+     avg(ClosePrice)
+  	 from Target group by Id, getYear(TradeDate) as timeBucket)
+
+select Id, bucket, name, low, high, mean from CONCATENATE(weekly, monthly, yearly)
+    assuming asc Id, asc name, asc bucket
+// Rows: one per stock and week, month or year it trades in: 41,
+// counted separately with plain q.
+// expect: 41
+
+// === query: Appendix B, Q1 ===
+// Copied from AQueryKDB src/test/financial/Q1.a (same as the paper).
+WITH
+  pxdata(Id, TradeDate, HighPrice, LowPrice, ClosePrice, OpenPrice, Volume) AS (
+    SELECT Id, TradeDate, HighPrice, LowPrice, ClosePrice, OpenPrice, Volume
+    FROM price
+    WHERE Id IN stock1000
+      AND TradeDate >= start300Days
+      AND TradeDate <= start300Days + 300
+  )
+
+  splitdata(Id, SplitDate, SplitFactor) AS (
+    SELECT Id, SplitDate, SplitFactor
+    FROM split
+    WHERE Id IN stock1000
+      AND SplitDate >= start300Days
+  )
+
+  adjdata(Id, TradeDate, AdjFactor) AS (
+    SELECT Id, TradeDate, prd(SplitFactor)
+    FROM pxdata INNER JOIN splitdata USING Id
+    WHERE TradeDate < SplitDate
+    GROUP BY Id, TradeDate
+  )
+
+SELECT
+  Id,
+  TradeDate,
+  HighPrice * fill(1, AdjFactor),
+  LowPrice * fill(1, AdjFactor),
+  ClosePrice * fill(1, AdjFactor),
+  OpenPrice * fill(1, AdjFactor),
+  Volume / fill(1, AdjFactor)
+FROM pxdata FULL OUTER JOIN adjdata USING (Id, TradeDate)
+ASSUMING ASC Id, ASC TradeDate
+// stock1000 is A, B, C: 11 days each from 08/01/2016 to 02/01/2017.
+// A's prices before its split (08/05/2016) are doubled, C's before
+// 08/10/2016 tripled; volumes are divided the same way.
+// expect: 33
+
+// === query: Appendix B, Q2 ===
+// Copied from AQueryKDB src/test/financial/Q2.a (same as the paper).
+WITH
+  pxdata(Id, TradeDate, HighPrice, LowPrice) AS (
+    SELECT Id, TradeDate, HighPrice, LowPrice
+    FROM price
+    WHERE Id IN stock1000
+      AND TradeDate BETWEEN startPeriod AND endPeriod
+  )
+
+  splitdata(Id, TradeDate, SplitFactor) AS (
+    SELECT Id, SplitDate, SplitFactor
+    FROM split
+    WHERE Id IN stock1000
+      AND SplitDate BETWEEN startPeriod AND endPeriod
+  )
+
+SELECT Id, TradeDate, HighPrice - LowPrice AS MaxDiff
+FROM pxdata INNER JOIN splitdata USING (Id, TradeDate)
+ASSUMING ASC Id, ASC TradeDate
+// The split days: A on 08/05/2016 and C on 08/10/2016, High - Low = 2.
+// expect: ([] Id:`A`C; TradeDate:2016.08.05 2016.08.10; MaxDiff:2 2f)
+
+// === query: Appendix B, Q3 ===
+// Copied from AQueryKDB src/test/financial/Q3.a (same as the paper).
+SELECT avg(ClosePrice) AS avg_close_price
+FROM price
+WHERE Id IN SP500
+  AND TradeDate = startPeriod
+// SP500 is A, B. On 08/01/2016 they close at 10 and 20: average 15.
+// expect: ([] a:enlist 15f)
+
+// === query: Appendix B, Q4 ===
+// Copied from AQueryKDB src/test/financial/Q4.a (same as the paper).
+SELECT avg(ClosePrice) AS avg_close_price
+FROM price
+WHERE Id IN Russell2000
+  AND TradeDate = startPeriod
+// Russell2000 is B, C, D. On 08/01/2016: 20, 30, 40, average 30.
+// expect: ([] a:enlist 30f)
+
+// === query: Appendix B, Q5 ===
+// Copied from AQueryKDB src/test/financial/Q5.a (same as the paper).
+WITH
+  pxdata(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, ClosePrice
+    FROM price
+    WHERE Id IN stock1000
+      AND TradeDate >= start6Mo
+      AND TradeDate < start6Mo + 31 * 6
+  )
+
+  splitdata(Id, SplitDate, SplitFactor) AS (
+    SELECT Id, SplitDate, SplitFactor
+    FROM split
+    WHERE Id IN stock1000
+      AND SplitDate >= start6Mo
+  )
+
+  splitadj(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, first(ClosePrice * prd(SplitFactor))
+    FROM pxdata INNER JOIN splitdata USING Id
+    WHERE TradeDate < SplitDate
+    GROUP BY Id, TradeDate
+  )
+
+  avgInfo(Id, TradeDate, ClosePrice, m21, m5) AS (
+    SELECT
+      Id,
+      TradeDate,
+      fill(pxdata.ClosePrice, splitadj.ClosePrice),
+      avgs(21, fill(pxdata.ClosePrice, splitadj.ClosePrice)),
+      avgs(5, fill(pxdata.ClosePrice, splitadj.ClosePrice))
+    FROM pxdata FULL OUTER JOIN splitadj USING (Id, TradeDate)
+    ASSUMING ASC Id, ASC TradeDate
+    GROUP BY Id
+  )
+
+SELECT *
+FROM FLATTEN(avgInfo)
+ASSUMING ASC Id, ASC TradeDate
+// expect: 33
+
+// === query: Appendix B, Q6 ===
+// Copied from AQueryKDB src/test/financial/Q6.a (same as the paper).
+WITH
+  pxdata(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, ClosePrice
+    FROM price
+    WHERE Id IN stock1000
+      AND TradeDate >= start6Mo
+      AND TradeDate < start6Mo + 31 * 6
+  )
+
+  splitdata(Id, SplitDate, SplitFactor) AS (
+    SELECT Id, SplitDate, SplitFactor
+    FROM split
+    WHERE Id IN stock1000
+      AND SplitDate >= start6Mo
+  )
+
+  splitadj(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, first(ClosePrice * prd(SplitFactor))
+    FROM pxdata INNER JOIN splitdata USING Id
+    WHERE TradeDate < SplitDate
+    GROUP BY Id, TradeDate
+  )
+
+  avgInfo(Id, TradeDate, ClosePrice, m21, m5) AS (
+    SELECT
+      Id,
+      TradeDate,
+      fill(pxdata.ClosePrice, splitadj.ClosePrice),
+      avgs(21, fill(pxdata.ClosePrice, splitadj.ClosePrice)),
+      avgs(5, fill(pxdata.ClosePrice, splitadj.ClosePrice))
+    FROM pxdata FULL OUTER JOIN splitadj USING (Id, TradeDate)
+    ASSUMING ASC Id, ASC TradeDate
+    GROUP BY Id
+  )
+
+SELECT Id, TradeDate AS CrossDate, ClosePrice
+FROM FLATTEN(avgInfo)
+WHERE Id = prev(Id)
+  AND or(
+    prev(m5) <= prev(m21) & m5 > m21,
+    prev(m5) >= prev(m21) & m5 < m21
+  )
+// Checked by hand: the 5-row average first drops below the 21-row
+// average on these days (and for B rises above it again on 08/12).
+// expect: ([] Id:`A`B`B`C; CrossDate:2016.08.08 2016.08.08 2016.08.12 2016.08.09; ClosePrice:13 17 21 90f)
+
+// === query: Appendix B, Q7 ===
+// Copied from AQueryKDB src/test/financial/Q7.a (same as the paper).
+FUNCTION executeStrategy(alloc, mavgday, mavgmonth, px) {
+  buySignal := mavgday > mavgmonth;
+  alloc * prd(
+    CASE maxs(buySignal)
+      WHEN TRUE THEN
+        CASE buySignal
+          WHEN TRUE THEN 1 / px
+          ELSE px
+        END
+      ELSE 1
+    END
+  )
+}
+
+WITH
+  pxdata(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, ClosePrice
+    FROM price
+    WHERE Id IN stock10
+      AND TradeDate >= max(TradeDate) - 365
+  )
+
+  splitdata(Id, SplitDate, SplitFactor) AS (
+    SELECT Id, SplitDate, SplitFactor
+    FROM split
+    WHERE Id IN stock10
+      AND SplitDate >= max(SplitDate) - 365
+  )
+
+  splitadj(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, first(ClosePrice * prd(SplitFactor))
+    FROM pxdata INNER JOIN splitdata USING Id
+    WHERE TradeDate < SplitDate
+    GROUP BY Id, TradeDate
+  )
+
+  adjpxdata(Id, TradeDate, ClosePrice) AS (
+    SELECT Id, TradeDate, fill(pxdata.ClosePrice, splitadj.ClosePrice) AS ClosePrice
+    FROM pxdata FULL OUTER JOIN splitadj USING (Id, TradeDate)
+  )
+
+  movingAvgs(Id, TradeDate, ClosePrice, m21day, m5month) AS (
+    SELECT
+      Id,
+      TradeDate,
+      ClosePrice,
+      avgs(21, ClosePrice),
+      avgs(160, ClosePrice)
+    FROM adjpxdata
+    ASSUMING ASC Id, ASC TradeDate
+    GROUP BY Id
+  )
+
+  simulated(Id, result, stillInvested) AS (
+    SELECT
+      Id,
+      executeStrategy(10000, m21day, m5month, ClosePrice),
+      last(m21day) > last(m5month)
+    FROM FLATTEN(movingAvgs)
+    WHERE Id = prev(Id)
+      AND or(
+        prev(m5month) <= prev(m21day) & m5month > m21day,
+        prev(m5month) >= prev(m21day) & m5month < m21day
+      )
+    GROUP BY Id
+  )
+
+  latestPxs AS (
+    SELECT *
+    FROM adjpxdata
+    WHERE TradeDate = max(TradeDate)
+  )
+
+SELECT sum(fill(10000, result * CASE WHEN stillInvested THEN ClosePrice ELSE 1 END)) AS stock_value
+FROM latestPxs FULL OUTER JOIN simulated USING Id
+// Checked against the authors' own hand-written q for Q7
+// (financial/l_query/Q7_1.q, .kdb.q7) run on the same data.
+// (27352.94 on this data.)
+// expect: {system "l ",.aqc.root,"/tests/paper/kdb_q7_reference.q"; .kdb.q7[]}[]
+
+// === query: Appendix B, Q8 ===
+// Copied from AQueryKDB src/test/financial/Q8.a (same as the paper).
+FUNCTION covariance(x, y) {
+  xmean := avg(x);
+  ymean := avg(y);
+  avg((x - xmean) * (y - ymean))
+}
+
+FUNCTION sd(x) {
+  sqrt(covariance(x, x))
+}
+
+FUNCTION pairCorr(x, y) {
+  covariance(x, y) / (sd(x) * sd(y))
+}
+
+<q>pairCorrEach:pairCorr'</q>
+
+<q>
+/ Original Q8 time window. Restore these predicates if you want the old
+/ benchmark range:
+/   AND TradeDate >= startYear10
+/   AND TradeDate <= startYear10 + 365 * 2
+</q>
+
+WITH
+  stocksGrouped(Id, ClosePrice) AS (
+    SELECT Id, ClosePrice
+    FROM price
+    ASSUMING ASC Id, ASC TradeDate
+    WHERE Id IN stock10
+      AND TradeDate >= startPeriod
+      AND TradeDate <= startPeriod + 3
+    GROUP BY Id
+  )
+
+  pairsGrouped(Id1, Id2, ClosePrice1, ClosePrice2) AS (
+    SELECT
+      st1.Id,
+      st2.Id,
+      st1.ClosePrice,
+      st2.ClosePrice
+    FROM stocksGrouped st1, stocksGrouped st2
+  )
+
+  corrTable(Id1, Id2, corrCoeff) AS (
+    SELECT Id1, Id2, pairCorrEach(ClosePrice1, ClosePrice2)
+    FROM pairsGrouped
+    WHERE Id1 != Id2
+  )
+
+SELECT *
+FROM corrTable
+ASSUMING ASC corrCoeff
+// 3 stocks give 6 ordered pairs. A rises while B falls: -1.
+// expect: 6
+
+// === query: Appendix B, Q9 ===
+// Copied from AQueryKDB src/test/financial/Q9.a (same as the paper).
+<q>
+q9StartDate:{maxTradeDateMinus3Years};
+q9StartYear:{getYear maxTradeDateMinus3Years};
+q9SplitIds:{exec distinct Id from split where Id in Russell2000, getYear[SplitDate] >= getYear maxTradeDateMinus3Years};
+</q>
+
+WITH
+
+  nosplit_avgpx(Id, year, avg_px) AS (
+    SELECT Id, year, avg(ClosePrice)
+    FROM price
+    WHERE Id IN Russell2000
+      AND TradeDate >= q9StartDate()
+      AND Id NOT IN q9SplitIds()
+    GROUP BY Id, getYear(TradeDate)
+      AS year
+  )
+
+  divdata(Id, year, total_divs) AS (
+    SELECT Id, year, sum(DivAmt)
+    FROM dividend
+    WHERE Id IN Russell2000
+      AND getYear(AnnounceDate) >= q9StartYear()
+      AND Id NOT IN q9SplitIds()
+    GROUP BY Id, getYear(AnnounceDate)
+      AS year
+  )
+
+SELECT
+  Id,
+  year,
+  float(avg_px) AS avg_px,
+  float(total_divs) AS total_divs,
+  float(total_divs / avg_px) AS yield
+FROM nosplit_avgpx INNER JOIN divdata USING (Id, year)
+// C split, so only B and D remain. Matches on (Id, year):
+// B 2015 (avg 21.5, divs 0.4), B 2016 (18.5, 0.5), D 2016 (40.5, 1.0).
+// expect: 3
+

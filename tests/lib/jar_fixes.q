@@ -36,3 +36,46 @@
       done:before,literal;
       done:before,"(enlist ",literal,")"];
     rest:stop _ rest]};
+
+
+/ zeroArgCalls[line]
+/   Fix 6 (paper test) in one line of jar output: a call with no
+/   arguments, (f;) or (f';), becomes (f;()), as .aqc.gen.funCall writes
+/   it now.
+/     zeroArgCalls "(>=; a; (q9StartDate;))"   is   "(>=; a; (q9StartDate;()))"
+.jarFix.zeroArgCalls:{[line]
+  nameChars:.Q.an,".'";        / letters, digits, _ . and ' (each)
+  done:"";
+  rest:line;
+  while[1b;
+    found:rest ss ";)";
+    if[0 = count found; :done,rest];
+    i:first found;
+    before:i # rest;
+    / the name is the run of name characters just before ";)"
+    nameLength:(reverse before) ? first (reverse before) except nameChars;
+    nameStart:i - nameLength;
+    isCall:(nameLength > 0) and "(" ~ before nameStart - 1;
+    $[isCall;
+      [name:nameLength # nameStart _ rest;
+       if["'" ~ last name; name:-1 _ name];
+       done,:(nameStart # rest),name,";())"];
+      done,:before,";)"];
+    rest:(i + 2) _ rest]};
+
+/ groupedCount[line]
+/   Fix 7 (paper test): COUNT(*) after GROUP BY. (.aq.count';`i) becomes
+/   .aqc.gen.groupedCountStar of the line's table (the name before ":" in
+/   " aq__t3:...", or aq__t0, the table the expression goldens use).
+.jarFix.groupedCount:{[line]
+  old:"(.aq.count';`i)";
+  if[0 = count line ss old; :line];
+  t:$[" aq__t" ~ 6 # line; 1 _ (line ? ":") # line; "aq__t0"];
+  ssr[line; old; .aqc.gen.groupedCountStar t]};
+
+/ apply[quote; lines]
+/   Every fix above, applied to the lines of a golden file.
+.jarFix.apply:{[quote; lines]
+  fixed:.jarFix.stringLits[quote] each lines;
+  fixed:.jarFix.zeroArgCalls each fixed;
+  .jarFix.groupedCount each fixed};

@@ -50,6 +50,21 @@ code:{[text] .aqc.compile text};
 .test.check["jarFix.stringLits: a file name after hsym is not changed";
   .jarFix.stringLits["\""; ".aq.load[hsym `$\"f.csv\";\",\";`t]"]; ".aq.load[hsym `$\"f.csv\";\",\";`t]"];
 .test.check["jarFix.stringLits: no literal"; .jarFix.stringLits["\""; "a+1"]; "a+1"];
+.test.check["FIXED: f() is called with ()";
+  (.aqc.gen.lines code "SELECT a FROM t WHERE a > f()") 3;
+  " aq__t0:?[aq__t0;enlist ((>; {x^.aq.cd x} `a; (f;())));0b;()];"];
+.test.check["FIXED: COUNT(*) after GROUP BY counts the group's rows";
+  (.aqc.gen.lines code "SELECT k, COUNT(*) AS n FROM t GROUP BY k") 4;
+  " aq__t0:?[aq__t0;();0b;((`k);(`n))!({x^.aq.cd x} `k;",(.aqc.gen.groupedCountStar "aq__t0"),")];"];
+.test.check["groupedCountStar picks a list column";
+  {[t] nested:c where 0h = type each (0!t) c:cols t; $[count nested; first nested; `i]} ([k:1 2] v:(1 2;3 4 5));
+  `v];
+.test.check["jarFix.zeroArgCalls";
+  .jarFix.zeroArgCalls "(>=; a; (q9StartDate;)); (g';); (enlist;1)";
+  "(>=; a; (q9StartDate;())); (g;()); (enlist;1)"];
+.test.check["jarFix.groupedCount";
+  .jarFix.groupedCount " aq__t2:?[aq__t2;();0b;(enlist[`n]!enlist (.aq.count';`i))];";
+  " aq__t2:?[aq__t2;();0b;(enlist[`n]!enlist ",(.aqc.gen.groupedCountStar "aq__t2"),")];"];
 .test.check["lines";
   .aqc.gen.lines "a\n\nb\n"; (enlist "a";"";enlist "b")];
 .test.check["lines: one-character line, no final break";
@@ -91,7 +106,7 @@ lineBeforeCtx:{[text] lines:.aqc.gen.lines code text; lines (lines ? " ctx") - 1
 
 .test.checkLines["statements: tests/codegen/stmt_cases.a";
   .aqc.gen.lines .aqc.compile .aqc.util.readFile "tests/codegen/stmt_cases.a";
-  .jarFix.stringLits["\""] each read0 hsym `$"tests/codegen/stmt_cases.q"];
+  .jarFix.apply["\""; read0 hsym `$"tests/codegen/stmt_cases.q"]];
 
 
 / The golden files: every tests/reference_q/<path>.q except <path>.opt.q
@@ -115,9 +130,9 @@ while[i < count goldens;
     $["codegen: not supported yet" ~ 26#actual 1;
       skipped,:enlist inputPath;
       .test.check[inputPath; actual 1; "no error"]];
-    / bug 5 (string literals) is fixed in the expected text, see
+    / bugs 5 to 8 are fixed in the expected text, see
     / tests/lib/jar_fixes.q
-    .test.checkLines[inputPath; actual; base,.jarFix.stringLits["\""] each read0 hsym `$goldenPath]];
+    .test.checkLines[inputPath; actual; base,.jarFix.apply["\""; read0 hsym `$goldenPath]]];
   i+:1];
 -1 "skipped (statements not supported yet): ",string count skipped;
 

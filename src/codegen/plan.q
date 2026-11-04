@@ -141,7 +141,8 @@
 
 / filter[source; fs]
 /   WHERE fs on plan source (Scala: genFilter): one select that keeps the
-/   rows where every condition in fs holds.
+/   rows where every condition in fs holds. (q runs the conditions one
+/   after another, each on the rows the ones before it kept; L does too.)
 .aqc.gen.filter:{[source;fs]
   before:.aqc.gen.plan source;
   t:.aqc.gen.get `currTable;

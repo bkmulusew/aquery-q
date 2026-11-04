@@ -88,7 +88,7 @@ gen:{[e] .aqc.gen.st:.aqc.gen.fresh[]; .aqc.gen.expr e};
 / Function calls
 .test.check["FunCall"; gen .aqc.ast.funCall["f"; (id "a"; int 2)]; "(f;{x^.aq.cd x} `a;2)"];
 .test.check["FunCall: built-in"; gen .aqc.ast.funCall["SUM"; .aqc.nodes.one id "a"]; "(.aq.sum;{x^.aq.cd x} `a)"];
-.test.check["FunCall: no arguments"; gen .aqc.ast.funCall["f"; ()]; "(f;)"];
+.test.check["FIXED: FunCall with no arguments is called with ()"; gen .aqc.ast.funCall["f"; ()]; "(f;())"];
 .test.check["COUNT(*) counts ROWID"; gen .aqc.ast.funCall["COUNT"; enlist `WildCard]; "(.aq.count;`i)"];
 .test.check["variadic call"; gen .aqc.ast.funCall["concatenate"; (id "a"; id "b")];
   "(.aq.concatenate;(enlist;{x^.aq.cd x} `a;{x^.aq.cd x} `b))"];
@@ -194,7 +194,7 @@ while[i < count goldens;
   goldenPath:goldens i;
   inputPath:inputFor goldenPath;
   / the golden code is escaped, so its strings look like `$\"IBM\"
-  expected:.jarFix.stringLits["\\\""] each read0 hsym `$goldenPath;
+  expected:.jarFix.apply["\\\""; read0 hsym `$goldenPath];
   .test.checkLines[inputPath; .exprTest.programLines inputPath; expected];
   i+:1];
 

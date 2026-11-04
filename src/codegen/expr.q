@@ -177,8 +177,19 @@
 .aqc.gen.funCall:{[e]
   f:e`f;
   args:e`args;
+  / FIXED: f() with no arguments. The jar writes (f;), which q reads as a
+  / list with an empty slot, not as a call. (f;()) calls f once with an
+  / empty list (as the authors' newer compiler does), also when grouped.
+  /   q9StartDate()   is   "(q9StartDate;())"
+  if[0 = count args; :"(",(.aqc.gen.funName[f; 0]),";())"];
   isCount:.aqc.gen.sameName[f; "count"];
   isIn:.aqc.gen.sameName[f; "in"];
+  / FIXED: COUNT(*) after GROUP BY. The jar writes (.aq.count';`i), but
+  / in a grouped table i is the row number of each group (one number), so
+  / every group counted 1. groupedCountStar counts a column that holds
+  / the group's rows instead.
+  if[isCount and (.aqc.gen.get `grouped) and (1 = count args) and `WildCard ~ first args;
+    :.aqc.gen.groupedCountStar .aqc.gen.get `currTable];
   codes:();
   k:0;
   while[k < count args;
@@ -231,6 +242,20 @@
 /     exprList[(<a>; <b>); 1b]   is "({x^.aq.cd x} `a;{x^.aq.cd x} `b)"
 /     exprList[enlist <a>; 1b]   is "enlist ({x^.aq.cd x} `a)"
 /     exprList[(<a>; <b>); 0b]   is "{x^.aq.cd x} `a;{x^.aq.cd x} `b"
+/ groupedCountStar[t]
+/   COUNT(*) for each group of the grouped table named t, as a parse tree:
+/     groupedCountStar "aq__t0"
+/   is
+/     "(.aq.count';{[t] nested:c where 0h = type each (0!t) c:cols t; $[count nested; first nested; `i]} aq__t0)"
+/   After GROUP BY, every column that is not a group column holds one
+/   list per group (type 0h, a general list), and those lists are as long
+/   as the group. The small function picks the first such column when the
+/   query runs (0! turns the keyed grouped table into a plain one). If the
+/   table has only group columns, it falls back to `i, like the jar.
+.aqc.gen.groupedCountStar:{[t]
+  pick:"{[t] nested:c where 0h = type each (0!t) c:cols t; $[count nested; first nested; `i]}";
+  "(.aq.count';",pick," ",t,")"};
+
 .aqc.gen.exprList:{[es;wrap]
   if[0 = count es; :"()"];
   codes:();
