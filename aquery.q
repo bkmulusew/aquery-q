@@ -8,11 +8,14 @@
 /   bin/l_m64 aquery.q -compile file.a    print the q code for file.a, exit
 /   bin/l_m64 aquery.q -compile -out out.q file.a
 /                                         write the q code for file.a to out.q
+/   bin/l_m64 aquery.q -compile -tc file.a
+/                                         type check file.a first: print its
+/                                         errors and stop, or compile it
 
 / Version 1 is the lexer, version 2 the parser (both in src/parse/),
 / version 3 the AST stage (src/ast/), version 4 code generation
-/ (src/codegen/), version 5 the runtime (src/runtime/). Version 6 adds
-/ analysis and optimisation.
+/ (src/codegen/), version 5 the runtime (src/runtime/), version 6 the type
+/ checker (src/analysis/). The optimizer comes later.
 
 / At the L prompt (version 5), run AQuery on your own tables:
 /   t:([] a:1 2 3; b:10 20 30)
@@ -68,6 +71,14 @@ if[not `root in key `.aqc;
 / The \aq command at the L prompt (src/runtime/console.q).
 .aqc.loadFile "src/runtime/console.q";
 
+/ Version 6: the type checker (src/analysis/). types.q has the type tags,
+/ functions.q what the checker knows about each function, errors.q the
+/ error messages, typecheck.q the checks.
+.aqc.loadFile "src/analysis/types.q";
+.aqc.loadFile "src/analysis/functions.q";
+.aqc.loadFile "src/analysis/errors.q";
+.aqc.loadFile "src/analysis/typecheck.q";
+
 
 / Command line: "-lex <file>" prints the file's tokens, one per line, in
 / the same format as tests/lexer/golden/*.tok, then exits.
@@ -95,27 +106,37 @@ if[(2 = count .z.x) and "-p" ~ first .z.x;
 / (-compile, not -c: L reads -c itself, as q's console size.)
 / (-out and -silent, not the jar's -o and -s: L reads those too, as q's
 / UTC offset and secondary threads.)
-/ The optimizer (-a 1, -opts) and type checking (-tc) come in version 6,
-/ so they stop with a message instead of silently doing nothing.
+/ With -tc the file is type checked first (version 6), as `aquery.jar -tc`
+/ does: if there are errors they are printed, one per line, and nothing is
+/ compiled (exit status 1). "-tc <file>" alone also compiles, like the jar.
+/ The optimizer (-a 1, -opts) is not written yet, so it stops with a
+/ message instead of silently doing nothing.
 / (The arguments are compared as symbols: "-compile" in .z.x would test
 / each character of "-compile" on its own.)
-if[(`$"-compile") in `$.z.x;
+if[any (`$("-compile"; "-tc")) in `$.z.x;
   .aqc.cli.args:.z.x;
   .aqc.cli.out:"";
   .aqc.cli.input:"";
+  .aqc.cli.tc:0b;
   k:0;
   while[k < count .aqc.cli.args;
     a:`$.aqc.cli.args k;
     $[a = `$"-out"; [.aqc.cli.out:.aqc.cli.args k + 1; k+:1];
       a = `$"-a";
         [if[not "0" ~ .aqc.cli.args k + 1;
-           -2 "-a ",(.aqc.cli.args k + 1),": optimizer not supported until v6";
+           -2 "-a ",(.aqc.cli.args k + 1),": optimizer not supported yet";
            exit 1];
          k+:1];
-      a in `$("-opts";"-tc"); [-2 (string a),": not supported until v6"; exit 1];
+      a = `$"-opts"; [-2 "-opts: optimizer not supported yet"; exit 1];
+      a = `$"-tc"; .aqc.cli.tc:1b;
       a in `$("-compile";"-silent"); ::;
       .aqc.cli.input:.aqc.cli.args k];
     k+:1];
+  / -tc: type check first. A file that does not parse is left to
+  / compileFile, which reports the parse error as before.
+  if[.aqc.cli.tc;
+    .aqc.cli.errors:@[.aqc.typecheck; .aqc.util.readFile .aqc.cli.input; {()}];
+    if[0 < count .aqc.cli.errors; -1 each .aqc.cli.errors; exit 1]];
   .aqc.cli.lines:.aqc.gen.compileFile .aqc.cli.input;
   $[0 = count .aqc.cli.out; -1 each .aqc.cli.lines; (hsym `$.aqc.cli.out) 0: .aqc.cli.lines];
   exit 0];

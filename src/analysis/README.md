@@ -1,11 +1,60 @@
-# src/analysis — semantic analysis (planned, after the parser)
+# src/analysis — the type checker (version 6)
 
-Empty in version 1. Will port:
+The type checker reads the AST from the parser and lists the mistakes it
+can find before any q code runs, for example `WHERE a + 1` (a number where
+a boolean is needed), `sums(1, 2, 3)` (wrong number of arguments) or
+`SELECT x.c FROM t` (no table called `x`). It is a port of the Scala
+`TypeChecker.scala`, and it prints the same messages as `aquery.jar -tc`.
 
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/TypeChecker.scala` (373 lines)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/OrderAnalysis.scala` (338)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/JoinAnalysis.scala` (141)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/FunctionInfo.scala` (101)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/errors.scala` (100)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/AnalysisTypes.scala` (41)
-- `aquery-master/src/main/scala/edu/nyu/aquery/analysis/functionSummaries.scala` (40)
+It does not change the AST and does not know column types: a column is
+always "unknown", which agrees with every type (the Scala checker does
+the same).
+
+Files, in load order:
+
+- `types.q` (`.aqc.tc`): the six type tags (`numeric`, `boolean`,
+  `string`, `unit`, `table`, `unknown`) and `consistent`, the rule for
+  when one tag may stand where another is expected (`unknown` fits
+  everywhere).
+- `functions.q` (`.aqc.fn`): the table of built-in functions. Each row has
+  the function's signatures (q functions under `.aqc.fn.sig` that take the
+  argument tags and return the result tag, or `` `bad ``), its argument
+  count, and the order flags the optimizer will need later
+  (`orderDependent`, `remOrderDependence`, `usesAggregate`).
+  `.aqc.fn.env prog` adds the program's own functions (UDFs), which are
+  checked only for their number of arguments.
+- `errors.q` (`.aqc.tc.err`): one maker per kind of error (type error,
+  bad call, duplicate table, unknown correlation name, ambiguous column,
+  illegal expression). An error is a dict `` `kind`args`pos`pos2 ``;
+  `.aqc.tc.err.message` turns it into the jar's text, such as
+  `Type Error: expected boolean found numeric at [1,23]`.
+- `typecheck.q` (`.aqc.tc`): the checker. The first half checks
+  expressions (`.aqc.tc.expr` returns the tag and the errors); the second
+  half checks queries, UPDATE, DELETE, INSERT, functions and triggers, and
+  `.aqc.tc.program` checks a whole program and sorts the errors by
+  position.
+
+Ways to call it:
+
+- `.aqc.typecheck "SELECT a FROM t WHERE 1"` returns the messages as a
+  list of strings (empty when there are none).
+- `l aquery.q -tc file.a` (or `-compile -tc file.a`) prints the messages
+  and stops with exit code 1, or compiles the file when there are none.
+  Without `-tc` the CLI does not check, like the jar.
+- `.aqc.run`, `.aqc.runFile` and `\aq` check by default and refuse to run
+  a program with type errors (`'type errors: ...`). Set `.aqc.tc.on:0b`
+  to turn this off.
+
+Where q differs from the jar on purpose (each one is in
+`tests/analysis/divergences.txt`):
+
+1. A CASE with two or more WHENs crashes the jar (`scala.MatchError`);
+   q checks every THEN against the first one.
+2. `*` and ROWID have no position in the q tree, so an error about them
+   gives the position of the nearest enclosing expression, or `[0,0]`.
+3. LOAD, SAVE, CREATE TRIGGER and DROP TRIGGER crash the jar's checker.
+   In q the first, second and last have no errors, and a trigger checks
+   the statement after DO, with its REFERENCING names usable as tables.
+
+Still to port (later versions): `OrderAnalysis.scala` and
+`JoinAnalysis.scala` (version 7), then the optimizer (version 8).

@@ -1,0 +1,5 @@
+CRASH	Load
+CRASH	Trigger
+CRASH	Trigger
+CRASH	DropTrigger
+ERROR	Type Error: expected boolean found numeric at [22,23]

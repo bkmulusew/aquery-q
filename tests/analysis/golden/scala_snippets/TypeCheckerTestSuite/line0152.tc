@@ -1,0 +1,2 @@
+ERROR	Table Error: Unknown correlation name in bad.c1 at [1,8]
+ERROR	Table Error: Unknown correlation name in some_t.c2 at [1,16]

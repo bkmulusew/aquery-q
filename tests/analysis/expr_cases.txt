@@ -1,0 +1,150 @@
+# expr_cases.txt - expressions for tests/analysis/test_expr.q.
+# One case per line: the grammar rule, a TAB, then the AQuery text.
+#   expr       an expression: operators, calls, CASE (& is AND, | is OR)
+#   predicate  an expression with IN, BETWEEN, LIKE or IS [NOT] NULL
+# tools/gen_type_golden.sh runs each one through the Scala type checker
+# (tools/TypeDump.java) and saves its type and errors in
+# tests/analysis/expr_golden.txt.
+# Lines starting with # and blank lines are skipped.
+
+# literals and names
+expr	1
+expr	1.5
+expr	"a"
+expr	TRUE
+expr	FALSE
+expr	2016-01-01
+expr	x
+expr	t.x
+expr	ROWID
+
+# & (and) and | (or): both sides boolean
+expr	TRUE & FALSE
+expr	x & y
+expr	1 & TRUE
+expr	TRUE | "a"
+expr	1 | 2
+expr	a > 1 & b < 2 | c = 3
+
+# comparisons: both sides numeric
+expr	1 < 2
+expr	x <= y
+expr	"a" < 2
+expr	1 >= "b"
+expr	TRUE > 1
+expr	2016-01-01 < 2016-02-01
+
+# equality: the right side has the left side's type
+expr	1 = 1
+expr	1 = "a"
+expr	"a" = 1
+expr	x = "a"
+expr	"a" != y
+expr	TRUE = FALSE
+expr	TRUE = 1
+expr	1 != 2
+
+# arithmetic: numeric or boolean
+expr	1 + 2
+expr	2 * 3 / "a"
+expr	x ^ TRUE
+expr	x + y / z
+expr	a + "x"
+expr	"a" * "b"
+expr	TRUE - FALSE
+expr	(1 < 2) + 3
+
+# NOT and minus
+expr	NOT(TRUE)
+expr	NOT(1)
+expr	NOT(x)
+expr	-x
+expr	-FALSE
+expr	-"a"
+expr	-(1 + 2)
+
+# built-in calls
+expr	abs(x)
+expr	abs("a")
+expr	sqrt(1, 2)
+expr	sqrt(TRUE)
+expr	sum(TRUE)
+expr	sum("a")
+expr	avg(x)
+expr	count(x)
+expr	count(x, y)
+expr	max(TRUE, FALSE)
+expr	max(TRUE, 1)
+expr	max("a")
+expr	min(1)
+expr	sums(x)
+expr	sums(2, x)
+expr	sums(2, "a")
+expr	avgs("a", x)
+expr	first(x)
+expr	first(2, "a")
+expr	first("a", "b")
+expr	last(3, x)
+expr	prev(x)
+expr	next(x, y, z)
+expr	drop(2, x)
+expr	drop("a", x)
+expr	fills(1, 2)
+expr	fills(1, "a")
+expr	fill(x, 0)
+expr	fill(1, "a")
+expr	deltas(x)
+expr	deltas("a")
+expr	maxs(TRUE)
+expr	maxs(2, "a")
+expr	prds(x)
+expr	vars(1)
+expr	show(x)
+expr	list(1, "a")
+expr	abs(1 + "a")
+expr	max(sums("a"))
+
+# UDF calls: unknown to a checker with only built-ins
+expr	f(x)
+expr	f(1, "a" + 1)
+
+# array indexing
+expr	x[EVEN]
+expr	("a" + 1)[ODD]
+expr	x[EVERY 2]
+
+# CASE
+expr	CASE f(c1) WHEN TRUE THEN 1 ELSE 2 END
+expr	CASE f(c1) WHEN TRUE THEN 1 ELSE TRUE END
+expr	CASE WHEN c1 > 2 THEN 1 ELSE 2 END
+expr	CASE WHEN 1 THEN 1 END
+expr	CASE max(c2) * 1 WHEN "a" THEN 1 END
+expr	CASE "a" WHEN 1 THEN 2 END
+expr	CASE f(c1) WHEN TRUE THEN CASE WHEN c1 > 2 THEN 1 ELSE 2 END ELSE TRUE END
+expr	CASE WHEN x THEN y ELSE "a" END
+expr	CASE WHEN "a" THEN 1 ELSE 2 + "b" END
+
+# CASE with two or more WHEN branches: the Scala checker crashes
+expr	CASE WHEN x THEN 1 WHEN y THEN "a" END
+expr	CASE 1 WHEN 2 THEN "a" WHEN 3 THEN "b" ELSE "c" END
+expr	CASE WHEN x THEN 1 WHEN y THEN 2 END
+
+# predicates
+predicate	x IN (1, 2, 3)
+predicate	x IN ("a", "b")
+predicate	1 IN (1, "a")
+predicate	"a" IN (1, 2)
+predicate	x NOT IN (1, 2)
+predicate	x BETWEEN 1 AND 10
+predicate	x BETWEEN "a" AND 10
+predicate	x LIKE "a%"
+predicate	1 LIKE "a"
+predicate	x IS NULL
+predicate	x IS NOT NULL
+predicate	x IS TRUE
+predicate	1 IS FALSE
+
+# not allowed outside a query (the PROHIBITED lines)
+expr	t.c + 1
+expr	f(ROWID)
+expr	max(x, t.y)

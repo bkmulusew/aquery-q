@@ -1,0 +1,22 @@
+// stmt_crash_cases.a - statements the Scala type checker crashes on
+// (scala.MatchError: it has no case for LOAD, SAVE, CREATE TRIGGER and
+// DROP TRIGGER). The q checker gives LOAD, SAVE and DROP TRIGGER no errors
+// and checks the statement after DO in a trigger, with the REFERENCING
+// names counted as tables. Expected q output:
+// tests/analysis/divergences.txt.
+
+LOAD DATA INFILE "x.csv" INTO TABLE t FIELDS TERMINATED BY ","
+
+CREATE TRIGGER tr1 AFTER INSERT ON orders
+REFERENCING NEW TABLE AS ins
+DO
+UPDATE v SET amount = amount + ins.x WHERE v.id = ins.id
+
+CREATE TRIGGER tr2 AFTER INSERT ON orders
+REFERENCING NEW TABLE AS ins
+DO
+UPDATE v SET amount = amount + "x" WHERE q.id = 1 AND 2
+
+DROP TRIGGER tr1
+
+SELECT a FROM t WHERE 1

@@ -72,17 +72,19 @@
 
 / aq[text]
 /   Run the AQuery text after "\aq" and print its result. A parse error
-/   prints as 'aq: parse error at line:col: message; a q error while running
-/   the query prints as 'message, with a hint to look at the q code.
+/   prints as 'aq: parse error at line:col: message, type errors as
+/   'aq: type errors: and one line per error; a q error while running the
+/   query prints as 'message, with a hint to look at the q code.
 .aqc.console.aq:{[text]
   / outcome is (1b; the result), or (0b; the error message)
   outcome:@[{[t] (1b; .aqc.run t)}; text; {[msg] (0b; msg)}];
   if[first outcome; :.aqc.console.print outcome 1];
   msg:outcome 1;
-  $["parse error" ~ 11 # msg;
+  / both prefixes are 11 characters long
+  $[any (11 # msg) ~/: ("parse error"; "type errors");
     -1 "'aq: ",msg;
     [-1 "'",msg;
-     -1 "  (the q code of this query: -1 .aqc.lastCode)"]];
+      -1 "  (the q code of this query: -1 .aqc.lastCode)"]];
   };
 
 / isAq[line]

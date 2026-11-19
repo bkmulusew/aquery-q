@@ -1,0 +1,285 @@
+=== expr	1
+TYPE	numeric
+=== expr	1.5
+TYPE	numeric
+=== expr	"a"
+TYPE	string
+=== expr	TRUE
+TYPE	boolean
+=== expr	FALSE
+TYPE	boolean
+=== expr	2016-01-01
+TYPE	numeric
+=== expr	x
+TYPE	unknown
+=== expr	t.x
+TYPE	unknown
+PROHIBITED	Expr Error: Illegal expression in t.x at [1,1]
+=== expr	ROWID
+TYPE	numeric
+PROHIBITED	Expr Error: Illegal expression in ROWID at [1,1]
+=== expr	TRUE & FALSE
+TYPE	boolean
+=== expr	x & y
+TYPE	boolean
+=== expr	1 & TRUE
+TYPE	boolean
+ERROR	Type Error: expected boolean found numeric at [1,1]
+=== expr	TRUE | "a"
+TYPE	boolean
+ERROR	Type Error: expected boolean found string at [1,8]
+=== expr	1 | 2
+TYPE	boolean
+ERROR	Type Error: expected boolean found numeric at [1,1]
+ERROR	Type Error: expected boolean found numeric at [1,5]
+=== expr	a > 1 & b < 2 | c = 3
+TYPE	boolean
+=== expr	1 < 2
+TYPE	boolean
+=== expr	x <= y
+TYPE	boolean
+=== expr	"a" < 2
+TYPE	boolean
+ERROR	Type Error: expected numeric found string at [1,1]
+=== expr	1 >= "b"
+TYPE	boolean
+ERROR	Type Error: expected numeric found string at [1,6]
+=== expr	TRUE > 1
+TYPE	boolean
+ERROR	Type Error: expected numeric found boolean at [1,1]
+=== expr	2016-01-01 < 2016-02-01
+TYPE	boolean
+=== expr	1 = 1
+TYPE	boolean
+=== expr	1 = "a"
+TYPE	boolean
+ERROR	Type Error: expected numeric found string at [1,5]
+=== expr	"a" = 1
+TYPE	boolean
+ERROR	Type Error: expected string found numeric at [1,7]
+=== expr	x = "a"
+TYPE	boolean
+=== expr	"a" != y
+TYPE	boolean
+=== expr	TRUE = FALSE
+TYPE	boolean
+=== expr	TRUE = 1
+TYPE	boolean
+ERROR	Type Error: expected boolean found numeric at [1,8]
+=== expr	1 != 2
+TYPE	boolean
+=== expr	1 + 2
+TYPE	numeric
+=== expr	2 * 3 / "a"
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,9]
+=== expr	x ^ TRUE
+TYPE	numeric
+=== expr	x + y / z
+TYPE	numeric
+=== expr	a + "x"
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,5]
+=== expr	"a" * "b"
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,1]
+ERROR	Type Error: expected numeric found string at [1,7]
+=== expr	TRUE - FALSE
+TYPE	numeric
+=== expr	(1 < 2) + 3
+TYPE	numeric
+=== expr	NOT(TRUE)
+TYPE	boolean
+=== expr	NOT(1)
+TYPE	unknown
+ERROR	Call Error: bad call to NOT at [1,1]
+=== expr	NOT(x)
+TYPE	boolean
+=== expr	-x
+TYPE	numeric
+=== expr	-FALSE
+TYPE	numeric
+ERROR	Type Error: expected numeric found boolean at [1,2]
+=== expr	-"a"
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,2]
+=== expr	-(1 + 2)
+TYPE	numeric
+=== expr	abs(x)
+TYPE	numeric
+=== expr	abs("a")
+TYPE	unknown
+ERROR	Call Error: bad call to ABS at [1,1]
+=== expr	sqrt(1, 2)
+TYPE	unknown
+ERROR	Call Error: bad call to SQRT at [1,1]
+=== expr	sqrt(TRUE)
+TYPE	unknown
+ERROR	Call Error: bad call to SQRT at [1,1]
+=== expr	sum(TRUE)
+TYPE	numeric
+=== expr	sum("a")
+TYPE	unknown
+ERROR	Call Error: bad call to SUM at [1,1]
+=== expr	avg(x)
+TYPE	numeric
+=== expr	count(x)
+TYPE	numeric
+=== expr	count(x, y)
+TYPE	unknown
+ERROR	Call Error: bad call to COUNT at [1,1]
+=== expr	max(TRUE, FALSE)
+TYPE	boolean
+=== expr	max(TRUE, 1)
+TYPE	numeric
+=== expr	max("a")
+TYPE	unknown
+ERROR	Call Error: bad call to MAX at [1,1]
+=== expr	min(1)
+TYPE	numeric
+=== expr	sums(x)
+TYPE	numeric
+=== expr	sums(2, x)
+TYPE	numeric
+=== expr	sums(2, "a")
+TYPE	unknown
+ERROR	Call Error: bad call to SUMS at [1,1]
+=== expr	avgs("a", x)
+TYPE	unknown
+ERROR	Call Error: bad call to AVGS at [1,1]
+=== expr	first(x)
+TYPE	unknown
+=== expr	first(2, "a")
+TYPE	string
+=== expr	first("a", "b")
+TYPE	unknown
+ERROR	Call Error: bad call to FIRST at [1,1]
+=== expr	last(3, x)
+TYPE	unknown
+=== expr	prev(x)
+TYPE	unknown
+=== expr	next(x, y, z)
+TYPE	unknown
+ERROR	Call Error: bad call to NEXT at [1,1]
+=== expr	drop(2, x)
+TYPE	unknown
+=== expr	drop("a", x)
+TYPE	unknown
+ERROR	Call Error: bad call to DROP at [1,1]
+=== expr	fills(1, 2)
+TYPE	numeric
+=== expr	fills(1, "a")
+TYPE	unknown
+ERROR	Call Error: bad call to FILLS at [1,1]
+=== expr	fill(x, 0)
+TYPE	numeric
+=== expr	fill(1, "a")
+TYPE	unknown
+ERROR	Call Error: bad call to FILL at [1,1]
+=== expr	deltas(x)
+TYPE	numeric
+=== expr	deltas("a")
+TYPE	unknown
+ERROR	Call Error: bad call to DELTAS at [1,1]
+=== expr	maxs(TRUE)
+TYPE	boolean
+=== expr	maxs(2, "a")
+TYPE	unknown
+ERROR	Call Error: bad call to MAXS at [1,1]
+=== expr	prds(x)
+TYPE	numeric
+=== expr	vars(1)
+TYPE	numeric
+=== expr	show(x)
+TYPE	unit
+=== expr	list(1, "a")
+TYPE	unknown
+=== expr	abs(1 + "a")
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,9]
+=== expr	max(sums("a"))
+TYPE	boolean
+ERROR	Call Error: bad call to SUMS at [1,5]
+=== expr	f(x)
+TYPE	unknown
+=== expr	f(1, "a" + 1)
+TYPE	unknown
+ERROR	Type Error: expected numeric found string at [1,6]
+=== expr	x[EVEN]
+TYPE	unknown
+=== expr	("a" + 1)[ODD]
+TYPE	unknown
+ERROR	Type Error: expected numeric found string at [1,2]
+=== expr	x[EVERY 2]
+TYPE	unknown
+=== expr	CASE f(c1) WHEN TRUE THEN 1 ELSE 2 END
+TYPE	numeric
+=== expr	CASE f(c1) WHEN TRUE THEN 1 ELSE TRUE END
+TYPE	numeric
+ERROR	Type Error: expected numeric found boolean at [1,34]
+=== expr	CASE WHEN c1 > 2 THEN 1 ELSE 2 END
+TYPE	numeric
+=== expr	CASE WHEN 1 THEN 1 END
+TYPE	numeric
+ERROR	Type Error: expected boolean found numeric at [1,11]
+=== expr	CASE max(c2) * 1 WHEN "a" THEN 1 END
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,23]
+=== expr	CASE "a" WHEN 1 THEN 2 END
+TYPE	numeric
+ERROR	Type Error: expected string found numeric at [1,15]
+=== expr	CASE f(c1) WHEN TRUE THEN CASE WHEN c1 > 2 THEN 1 ELSE 2 END ELSE TRUE END
+TYPE	numeric
+ERROR	Type Error: expected numeric found boolean at [1,67]
+=== expr	CASE WHEN x THEN y ELSE "a" END
+TYPE	unknown
+=== expr	CASE WHEN "a" THEN 1 ELSE 2 + "b" END
+TYPE	numeric
+ERROR	Type Error: expected boolean found string at [1,11]
+ERROR	Type Error: expected numeric found string at [1,31]
+=== expr	CASE WHEN x THEN 1 WHEN y THEN "a" END
+CRASH	scala.MatchError
+=== expr	CASE 1 WHEN 2 THEN "a" WHEN 3 THEN "b" ELSE "c" END
+CRASH	scala.MatchError
+=== expr	CASE WHEN x THEN 1 WHEN y THEN 2 END
+CRASH	scala.MatchError
+=== predicate	x IN (1, 2, 3)
+TYPE	boolean
+=== predicate	x IN ("a", "b")
+TYPE	boolean
+=== predicate	1 IN (1, "a")
+TYPE	unknown
+ERROR	Call Error: bad call to IN at [1,1]
+=== predicate	"a" IN (1, 2)
+TYPE	unknown
+ERROR	Call Error: bad call to IN at [1,1]
+=== predicate	x NOT IN (1, 2)
+TYPE	boolean
+=== predicate	x BETWEEN 1 AND 10
+TYPE	boolean
+=== predicate	x BETWEEN "a" AND 10
+TYPE	unknown
+ERROR	Call Error: bad call to BETWEEN at [1,1]
+=== predicate	x LIKE "a%"
+TYPE	boolean
+=== predicate	1 LIKE "a"
+TYPE	unknown
+ERROR	Call Error: bad call to LIKE at [1,1]
+=== predicate	x IS NULL
+TYPE	boolean
+=== predicate	x IS NOT NULL
+TYPE	boolean
+=== predicate	x IS TRUE
+TYPE	boolean
+=== predicate	1 IS FALSE
+TYPE	boolean
+ERROR	Type Error: expected numeric found boolean at [1,6]
+=== expr	t.c + 1
+TYPE	numeric
+PROHIBITED	Expr Error: Illegal expression in t.c at [1,1]
+=== expr	f(ROWID)
+TYPE	unknown
+PROHIBITED	Expr Error: Illegal expression in ROWID at [1,3]
+=== expr	max(x, t.y)
+TYPE	boolean
+PROHIBITED	Expr Error: Illegal expression in t.y at [1,8]

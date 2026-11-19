@@ -380,11 +380,11 @@
     r:.aqc.lex.nextToken[src;pos];
     $[r`ok;
       [kinds,:r`kind; texts,:enlist r`text; offsets,:pos;
-       pos:r`next];
+        pos:r`next];
       [kinds,:`ErrorToken; texts,:enlist "*** error: ",r`msg; offsets,:r`at;
-       / Scala restarts one character after the error, unless that is
-       / already the end of the input
-       pos:$[(r`at) < n; 1 + r`at; r`at]]];
+        / Scala restarts one character after the error, unless that is
+        / already the end of the input
+        pos:$[(r`at) < n; 1 + r`at; r`at]]];
     pos:.aqc.lex.skipWhitespace[src;pos]];
   kinds,:`EOF; texts,:enlist ""; offsets,:pos;
   lineCol:.aqc.util.lineCol[src;offsets];

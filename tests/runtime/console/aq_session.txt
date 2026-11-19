@@ -13,3 +13,4 @@ count s
 dbl 21
 \aq SELECT dbl(a) AS d FROM t
 1+1
+\aq SELECT a FROM t WHERE 1

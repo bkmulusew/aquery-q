@@ -25,6 +25,10 @@ tests/codegen/test_codegen.q
 tests/runtime/test_run.q
 tests/runtime/test_kdb_suite.q
 tests/runtime/test_console.sh
+tests/analysis/test_functions.q
+tests/analysis/test_expr.q
+tests/analysis/test_program.q
+tests/analysis/test_cli.sh
 "
 
 status=0

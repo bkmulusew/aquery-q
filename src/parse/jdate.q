@@ -99,13 +99,13 @@
     $[-11h = type step;
       / a field: skip spaces and tabs, then read a number
       [while[(i < count txt) and txt[i] in " \t"; i+:1];
-       r:.aqc.jdate.readNumber[txt;i];
-       if[not r`ok; :()];
-       fields[step]:r`number;
-       i:r`next];
+        r:.aqc.jdate.readNumber[txt;i];
+        if[not r`ok; :()];
+        fields[step]:r`number;
+        i:r`next];
       / a literal character
       [if[(i >= count txt) or step <> txt i; :()];
-       i+:1]];
+        i+:1]];
     k+:1];
   fields};
 

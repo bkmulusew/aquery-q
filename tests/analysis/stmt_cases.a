@@ -1,0 +1,83 @@
+// stmt_cases.a - statements with type errors, for tests/analysis/test_program.q.
+// tools/gen_program_golden.sh checks this file with the Scala type checker
+// (tools/TypeDump.java, mode program) and saves the errors, sorted by
+// position, in tests/analysis/golden/stmt_cases.tc.
+
+// WHERE conditions must be boolean
+SELECT a FROM t WHERE 1
+SELECT a FROM t WHERE a > 1 AND sqrt("x") > 2
+SELECT * FROM t WHERE c2 > 3 AND maxs(c1) * 2
+
+// HAVING must be boolean. Scala checks HAVING twice, so errors inside it
+// show up twice.
+SELECT a FROM t GROUP BY a HAVING 1
+SELECT a FROM t GROUP BY a HAVING sqrt("x") > 1
+
+// SELECT and GROUP BY expressions
+SELECT a + "x", abs("y") AS b FROM t
+SELECT a FROM t GROUP BY a + "x"
+
+// ASSUMING: plain columns only
+SELECT a FROM t ASSUMING ASC a + 1
+SELECT a FROM t ASSUMING ASC t.a, DESC b
+SELECT a FROM t ASSUMING ASC f(a), DESC -b
+
+// the same table twice
+SELECT a FROM t, t
+SELECT a FROM t x, s x
+SELECT a FROM t x, t y
+SELECT a FROM t x, t x
+SELECT a FROM t AS x, s, t AS x, s
+
+// t.c must name a table of the query
+SELECT q.a FROM t
+SELECT t.a FROM t x
+SELECT x.a FROM t x
+SELECT t.a FROM t, t
+SELECT q.a, q.b, q.a FROM t
+SELECT a FROM t x INNER JOIN s y USING ID WHERE z.c > 1
+// only the top plan node and its children are searched for t.c, so an
+// unknown name in WHERE under a GROUP BY is not reported
+SELECT a FROM t WHERE q.b > 1 GROUP BY a
+
+// joins
+SELECT a FROM t INNER JOIN s USING ID WHERE a + "x" > 1
+SELECT a FROM t FULL OUTER JOIN t USING (ID, d)
+
+// WITH local queries are checked too
+WITH w(a) AS (SELECT a + "x" FROM t WHERE 1) SELECT a FROM w WHERE q.a > 1
+
+// FROM a function and SHOW etc.
+SELECT a FROM FLATTEN(w) WHERE 1
+
+// UPDATE
+UPDATE t SET a = a + "x" WHERE 1
+UPDATE t SET a = 1 ASSUMING ASC a + 1 WHERE a > 1
+UPDATE t SET a = 1 WHERE s.a > 1
+UPDATE t SET a = 1 WHERE a > 1 GROUP BY a HAVING 2
+UPDATE t SET a = 1 WHERE t.a > 1
+
+// DELETE
+DELETE FROM t WHERE 1
+DELETE FROM t ASSUMING ASC a * 2 WHERE a > 1
+DELETE FROM t WHERE s.b = 1
+DELETE FROM t WHERE a > 1 GROUP BY a HAVING "z"
+DELETE b FROM t
+
+// CREATE
+CREATE TABLE n1 SELECT a FROM t WHERE 1
+CREATE TABLE n2(a INT, b STRING)
+
+// INSERT
+INSERT INTO t VALUES(1 + "a", t.b, 3)
+INSERT INTO t ASSUMING ASC a + 1 SELECT * FROM s
+INSERT INTO t SELECT a FROM s WHERE 1
+
+// UDFs: bodies are checked, and calls check the number of arguments
+FUNCTION f(x, y) { maxs("a") }
+FUNCTION g(x) { z := t.a; z + "b" }
+FUNCTION h() { 2 }
+SELECT f(a), g(a, b), h(1), f(1, 2), g(1), h() FROM t
+
+// q code is not checked
+<q> x:1 + `a </q>

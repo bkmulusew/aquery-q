@@ -163,4 +163,22 @@ query:"SELECT a FROM t WHERE a > 1";
 .test.check["isAssignment: 1+1 is not"; .aqc.console.isAssignment "1+1"; 0b];
 .test.check["isAssignment: a line that does not parse"; .aqc.console.isAssignment "1+"; 0b];
 
+
+/ Version 6: .aqc.run type checks the program first (src/analysis/).
+t6:([] a:1 2 3);
+r6:@[.aqc.run; "SELECT a FROM t6 WHERE 1"; {x}];    / {x}: the error message
+.test.check["type errors stop the program"; r6;
+  "type errors:\nType Error: expected boolean found numeric at [1,24]"];
+.test.check["no type errors: the program runs"; .aqc.run "SELECT a FROM t6 WHERE a > 1"; ([] a:2 3)];
+/ with the checker off, the same program is not stopped by it (it may
+/ still fail in q, which is fine here)
+.aqc.tc.on:0b;
+r6:@[.aqc.run; "SELECT a FROM t6 WHERE 1"; {x}];
+.aqc.tc.on:1b;
+.test.check["with .aqc.tc.on:0b there is no type check";
+  $[10h = type r6; not "type errors" ~ 11 # r6; 1b]; 1b];
+.test.check[".aqc.typecheck: no errors"; .aqc.typecheck "SELECT a FROM t6"; ()];
+.test.check[".aqc.typecheck: one error"; .aqc.typecheck "SELECT a FROM t6 WHERE 1";
+  enlist "Type Error: expected boolean found numeric at [1,24]"];
+
 .test.finish[];

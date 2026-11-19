@@ -46,12 +46,19 @@
   / (), keeps a one-character statement a string, not a character atom
   {[part] (),.aqc.gen.join["\n"; part]} each starts cut kept};
 
+/ Type check every program before running it (version 6)? Set it to 0b
+/ to run programs even when the type checker finds errors:
+/   .aqc.tc.on:0b
+.aqc.tc.on:1b;
+
 / run[text]
 /   PUBLIC. Compile the AQuery program in text and run it, one statement
 /   at a time. Returns the result of the last statement (for a SELECT, the
 /   result table).
-/   Signals "parse error at line:col: message" if text does not parse; a q
-/   error while running a statement is signalled as it is. Empty text
+/   Signals "parse error at line:col: message" if text does not parse, and
+/   "type errors:" followed by one line per error if the type checker
+/   finds any (unless .aqc.tc.on is 0b); nothing runs then. A q error
+/   while running a statement is signalled as it is. Empty text
 /   (or only blanks) returns :: (nothing).
 /     .aqc.run "CREATE TABLE s (id INT)\nINSERT INTO s VALUES(1)\nSELECT * FROM s"
 /   creates the global table s, inserts a row, and returns ([] id:enlist 1).
@@ -59,7 +66,13 @@
   / The parser needs at least one statement, so text that is empty or only
   / blanks is not passed to it: there is nothing to run.
   if[all text in " \t\r\n"; :(::)];
-  codes:.aqc.gen.statements .aqc.gen.parseText text;
+  prog:.aqc.gen.parseText text;
+  / Version 6: type check first (src/analysis/typecheck.q). Any error
+  / stops the program before anything runs, like aquery.jar -tc.
+  if[.aqc.tc.on;
+    problems:.aqc.tc.err.message each .aqc.tc.program prog;
+    if[0 < count problems; '"type errors:\n",.aqc.gen.join["\n"; problems]]];
+  codes:.aqc.gen.statements prog;
   .aqc.lastCode:.aqc.gen.join["\n\n"; codes];
   pieces:raze .aqc.rt.scriptStatements each codes;
   result:(::);                     / no result until a statement runs

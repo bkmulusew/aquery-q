@@ -23,4 +23,6 @@ l>d
 4
 6
 l>2
+l>'aq: type errors:
+Type Error: expected boolean found numeric at [1,23]
 l>

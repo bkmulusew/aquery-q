@@ -1,0 +1,42 @@
+# divergences.txt - where the q type checker deliberately differs from the
+# Scala one. Each block replaces the block with the same "===" line in a
+# golden file (expr_golden.txt), and says what q prints instead.
+# Lines starting with # are comments; a blank line ends a block.
+
+# 1. CASE with two or more WHEN branches. Scala checks the later branches
+#    as whole IfThen nodes instead of their THEN expressions and crashes
+#    with scala.MatchError (also under aquery.jar -tc on a whole program).
+#    q checks their THENs against the first THEN's type, as Scala meant.
+=== expr	CASE WHEN x THEN 1 WHEN y THEN "a" END
+TYPE	numeric
+ERROR	Type Error: expected numeric found string at [1,32]
+
+=== expr	CASE 1 WHEN 2 THEN "a" WHEN 3 THEN "b" ELSE "c" END
+TYPE	string
+
+=== expr	CASE WHEN x THEN 1 WHEN y THEN 2 END
+TYPE	numeric
+
+# 2. The position of * and ROWID. Scala's * and ROWID are single shared
+#    objects that keep the position of the first one ever parsed, so their
+#    position in an error is not reliable. The q tree gives them no
+#    position, so q reports the position of the nearest enclosing node
+#    that has one, or [0,0] if there is none.
+=== expr	ROWID
+TYPE	numeric
+PROHIBITED	Expr Error: Illegal expression in ROWID at [0,0]
+
+=== expr	f(ROWID)
+TYPE	unknown
+PROHIBITED	Expr Error: Illegal expression in ROWID at [1,1]
+
+# 3. Statements Scala has no case for (it crashes with scala.MatchError).
+#    q: LOAD, SAVE and DROP TRIGGER have no errors; CREATE TRIGGER checks
+#    the statement after DO, with the REFERENCING names (here ins) usable
+#    as t in t.c. The errors on line 18 are what Scala reports for that
+#    UPDATE on its own.
+=== program	tests/analysis/stmt_crash_cases.a
+ERROR	Type Error: expected numeric found string at [18,32]
+ERROR	Table Error: Unknown correlation name in q.id at [18,42]
+ERROR	Type Error: expected boolean found numeric at [18,55]
+ERROR	Type Error: expected boolean found numeric at [22,23]
