@@ -1,4 +1,4 @@
-# src/analysis — the type checker (version 6)
+# src/analysis — the type checker (version 6) and the order and join analysis (version 7)
 
 The type checker reads the AST from the parser and lists the mistakes it
 can find before any q code runs, for example `WHERE a + 1` (a number where
@@ -56,5 +56,45 @@ Where q differs from the jar on purpose (each one is in
    In q the first, second and last have no errors, and a trigger checks
    the statement after DO, with its REFERENCING names usable as tables.
 
-Still to port (later versions): `OrderAnalysis.scala` and
-`JoinAnalysis.scala` (version 7), then the optimizer (version 8).
+## The order and join analysis (version 7)
+
+Two more files answer the questions the optimizer (version 8) will ask
+before it rewrites a query. They are ports of the Scala
+`OrderAnalysis.scala` and `JoinAnalysis.scala`, and they also do not
+change the AST: they only look at it. Nothing calls them yet except the
+tests.
+
+- `order.q` (`.aqc.order`): which functions, expressions and columns
+  depend on the order of the rows.
+  - `.aqc.order.env prog`: the function table with the program's UDFs
+    added one by one, so a UDF is judged with only the UDFs defined
+    before it (as Scala does). Each row has `orderDependent`
+    (e.g. `sums`), `remOrderDependence` (e.g. `sum` after `sums`) and
+    `usesAggregate` (e.g. `max`). An unknown function counts as
+    order-dependent and aggregating.
+  - `hasOrderDependence`, `usesAggregate`, and the `udf...` versions for
+    a whole function.
+  - Column sets: a set of columns is a sorted symbol list of keys such as
+    `` `$"Id(c1)" `` or `` `$"ColumnAccess(t,c1)" `` (`allCols`,
+    `merge`). `colsToSort` gives the columns a query really needs
+    sorted: the ones used in an order-dependent expression, plus the ones
+    that meet them in the same expression (`interactions`, `indirect`).
+  - `hasSortBy`, `getSort` and `isPrefixSort` look at the ASSUMING ORDER
+    part of a plan.
+- `join.q` (`.aqc.join`): which tables each part of a plan reads, and
+  where a WHERE condition can go.
+  - `tablesUsed e`: the tables an expression names (`t` in `t.c1`), or
+    `` `unknown `` if it uses a plain column like `c1`.
+  - `tablesAvailable`, `hasJoin`, and `annotate`, which stores on every
+    plan node the tables below it (attribute `TABLES_AVAIL`).
+  - `placeFilter[plan; cond]`: the plan with `cond` placed as deep as
+    the tables it names allow, e.g. `t1.c1 > 1` goes on `t1` before
+    `t1` is joined with `t2`.
+
+Where q differs from the jar on purpose here (part 4 of
+`tests/analysis/divergences.txt`): Scala's `placeFilter` drops a
+condition that names a table not in the FROM clause (or a table known
+only by its alias), and copies a condition with no columns (`1 = 1`)
+onto every table. q places both once, on top of the join.
+
+Still to port: the optimizer (version 8, `src/optimization`).

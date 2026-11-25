@@ -1,0 +1,137 @@
+=== expr	c1 = 2
+USED	unknown
+EQSEL	1
+=== expr	not(f(c1))
+USED	unknown
+EQSEL	0
+=== expr	not(not(c1 = c2 * 3))
+USED	unknown
+EQSEL	1
+=== expr	f(c4 = 5)
+USED	unknown
+EQSEL	0
+=== expr	f(c1) != not(g(c2))
+USED	unknown
+EQSEL	1
+=== from	t1 as t_one, t2 INNER JOIN t3 USING cx
+HASJOIN	1
+AVAIL	t2 t3 t_one
+Join InnerJoinUsing	avail=t2 t3 t_one
+  Join Cross	avail=t2 t_one
+    Table t1 AS t_one	avail=t_one
+    Table t2	avail=t2
+  Table t3	avail=t3
+=== expr	f(c1) * t.c1
+USED	unknown
+EQSEL	0
+=== expr	t.c1 * t.c2 / h(ot.c3)
+USED	ot t
+EQSEL	0
+=== expr	f(1, t.c1 / h(ot.c5 + t2.h))
+USED	ot t t2
+EQSEL	0
+=== place	t1 as t_one, t2 INNER JOIN t3 USING cx, t4	t_one.c1 = t2.c1 ; t2.cx IS NOT NULL ; t_one.c3 + t3.c1 = 0 ; c1 = t.c2 ; t2.c3 > 100 ; t_one.c = 100
+Filter #4	avail=t2 t3 t4 t_one
+  Join Cross	avail=t2 t3 t4 t_one
+    Filter #3	avail=t2 t3 t_one
+      Join InnerJoinUsing	avail=t2 t3 t_one
+        Filter #1	avail=t2 t_one
+          Join Cross	avail=t2 t_one
+            Filter #6	avail=t_one
+              Table t1 AS t_one	avail=t_one
+            Filter #2	avail=t2
+              Filter #5	avail=t2
+                Table t2	avail=t2
+        Table t3	avail=t3
+    Table t4	avail=t4
+=== place	t	t.c1 > 100
+ERROR	Requires rel alg op with join
+=== expr	1 + 2
+USED	
+EQSEL	0
+=== expr	count(*)
+USED	unknown
+EQSEL	0
+=== expr	t.c1 + ROWID
+USED	unknown
+EQSEL	0
+=== expr	CASE WHEN t.c1 > 0 THEN u.c2 ELSE 0 END
+USED	t u
+EQSEL	0
+=== expr	-(c1 = 2)
+USED	unknown
+EQSEL	0
+=== expr	c1 < 2
+USED	unknown
+EQSEL	0
+=== predicate	t.c1 IN (1, 2)
+USED	t
+EQSEL	0
+=== predicate	t.c1 BETWEEN u.c1 AND 3
+USED	t u
+EQSEL	0
+=== predicate	c1 NOT IN (1)
+USED	unknown
+EQSEL	0
+=== from	t
+HASJOIN	0
+AVAIL	t
+Table t	avail=t
+=== from	t1, t2
+HASJOIN	1
+AVAIL	t1 t2
+Join Cross	avail=t1 t2
+  Table t1	avail=t1
+  Table t2	avail=t2
+=== from	t1 AS a, t1 AS b
+HASJOIN	1
+AVAIL	a b
+Join Cross	avail=a b
+  Table t1 AS a	avail=a
+  Table t1 AS b	avail=b
+=== from	t1 FULL OUTER JOIN t2 USING c1
+HASJOIN	1
+AVAIL	t1 t2
+Join FullOuterJoinUsing	avail=t1 t2
+  Table t1	avail=t1
+  Table t2	avail=t2
+=== from	f(1)
+HASJOIN	0
+AVAIL	
+BottomApply	avail=
+=== place	t1, t2	t1.c1 > 1 ; t2.c1 > 1 ; t1.c1 = t2.c1
+Filter #3	avail=t1 t2
+  Join Cross	avail=t1 t2
+    Filter #1	avail=t1
+      Table t1	avail=t1
+    Filter #2	avail=t2
+      Table t2	avail=t2
+=== place	t1, t2 INNER JOIN t3 USING c1	t3.c2 = 1 ; t1.c1 = t3.c1
+Filter #2	avail=t1 t2 t3
+  Join InnerJoinUsing	avail=t1 t2 t3
+    Join Cross	avail=t1 t2
+      Table t1	avail=t1
+      Table t2	avail=t2
+    Filter #1	avail=t3
+      Table t3	avail=t3
+=== place	t1 AS a, t2 AS b	a.c1 = b.c1 ; t1.c1 > 0
+Filter #1	avail=a b
+  Join Cross	avail=a b
+    Table t1 AS a	avail=a
+    Table t2 AS b	avail=b
+=== place	t1, t2	1 = 1
+Join Cross	avail=t1 t2
+  Filter #1	avail=t1
+    Table t1	avail=t1
+  Filter #1	avail=t2
+    Table t2	avail=t2
+=== place	t1, t2	zz.c2 > 1
+Join Cross	avail=t1 t2
+  Table t1	avail=t1
+  Table t2	avail=t2
+=== place	t1, t2	c1 > 0 ; t1.c1 > 0
+Filter #1	avail=t1 t2
+  Join Cross	avail=t1 t2
+    Filter #2	avail=t1
+      Table t1	avail=t1
+    Table t2	avail=t2

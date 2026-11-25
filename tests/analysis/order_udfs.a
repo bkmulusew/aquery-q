@@ -1,0 +1,18 @@
+FUNCTION later(x) { notYet(x) }
+FUNCTION notYet(x) { x + 1 }
+FUNCTION callsLater(x) { notYet(x) }
+FUNCTION rec(x) { rec(x) + 1 }
+FUNCTION lits() { 1 + 2.5 }
+FUNCTION star(x) { count(*) }
+FUNCTION shadow(x) { x := max(x); x * 2 }
+FUNCTION colAcc(x) { t.c1 + 1 }
+FUNCTION caseF(x) { CASE WHEN x > 1 THEN sum(x) ELSE 0 END }
+FUNCTION usesAvg(x) { avg(x) }
+FUNCTION useRowid() { ROWID }
+FUNCTION neg(x) { -max(x) }
+FUNCTION qfun(x) { til(x) }
+FUNCTION notYet(x) { sums(x) }
+FUNCTION afterRedef(x) { notYet(x) }
+FUNCTION a(x) { y := sums(x); z := max(y); z }
+FUNCTION b(x) { y := sums(x); z := max(y); y }
+SELECT a(c1) FROM t

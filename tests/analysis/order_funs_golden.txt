@@ -1,0 +1,83 @@
+=== tests/inputs/financial/Q7.a
+FUN	executeStrategy	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/financial/Q8.a
+FUN	covariance	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	sd	orderDependent=0 remOrderDependence=0 usesAggregate=1
+FUN	pairCorr	orderDependent=0 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/resources/fintime.a
+FUN	executeStrategy	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	covariance	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	sd	orderDependent=0 remOrderDependence=0 usesAggregate=1
+FUN	pairCorr	orderDependent=0 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/resources/monetdb.a
+FUN	naive_quantile	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/resources/simple.a
+FUN	pythag	orderDependent=0 remOrderDependence=0 usesAggregate=0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0282.a
+FUN	add	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	myAvg	orderDependent=0 remOrderDependence=1 usesAggregate=1
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0303.a
+FUN	add	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	myAvg	orderDependent=0 remOrderDependence=1 usesAggregate=1
+=== tests/inputs/scala_snippets/KdbGeneratorTestSuite/line0090.a
+FUN	f	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0015.a
+FUN	f	orderDependent=1 remOrderDependence=1 usesAggregate=1
+FUN	g	orderDependent=1 remOrderDependence=1 usesAggregate=1
+FUN	h	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	add	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	myMax	orderDependent=0 remOrderDependence=1 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0035.a
+FUN	f	orderDependent=1 remOrderDependence=1 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0037.a
+FUN	f	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0050.a
+FUN	f	orderDependent=1 remOrderDependence=1 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0054.a
+FUN	f	orderDependent=0 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0058.a
+FUN	f	orderDependent=0 remOrderDependence=0 usesAggregate=0
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0063.a
+FUN	myFun	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0066.a
+FUN	myFun	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/ParserTestSuite/line0209.a
+FUN	f	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/ParserTestSuite/line0210.a
+FUN	g	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/ParserTestSuite/line0211.a
+FUN	f	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0097.a
+FUN	f	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0098.a
+FUN	g	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0099.a
+FUN	h	orderDependent=0 remOrderDependence=1 usesAggregate=0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0107.a
+FUN	f	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0110.a
+FUN	f	orderDependent=0 remOrderDependence=0 usesAggregate=0
+=== tests/analysis/order_udfs.a
+FUN	later	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	notYet	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	callsLater	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	rec	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	lits	orderDependent=0 remOrderDependence=1 usesAggregate=0
+FUN	star	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	shadow	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	colAcc	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	caseF	orderDependent=0 remOrderDependence=0 usesAggregate=1
+FUN	usesAvg	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	useRowid	orderDependent=0 remOrderDependence=1 usesAggregate=0
+FUN	neg	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	qfun	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	notYet	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	afterRedef	orderDependent=1 remOrderDependence=0 usesAggregate=1
+FUN	a	orderDependent=1 remOrderDependence=1 usesAggregate=1
+FUN	b	orderDependent=1 remOrderDependence=0 usesAggregate=1
+=== tests/analysis/order_context.a
+FUN	f	orderDependent=1 remOrderDependence=1 usesAggregate=1
+FUN	g	orderDependent=1 remOrderDependence=1 usesAggregate=1
+FUN	h	orderDependent=0 remOrderDependence=1 usesAggregate=1
+FUN	add	orderDependent=0 remOrderDependence=0 usesAggregate=0
+FUN	myMax	orderDependent=0 remOrderDependence=1 usesAggregate=1

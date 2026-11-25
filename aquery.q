@@ -79,6 +79,13 @@ if[not `root in key `.aqc;
 .aqc.loadFile "src/analysis/errors.q";
 .aqc.loadFile "src/analysis/typecheck.q";
 
+/ Version 7: the analyses the optimizer will use. order.q answers whether
+/ an expression depends on the order of the rows.
+.aqc.loadFile "src/analysis/order.q";
+/ join.q works out which tables each part of a plan sees, and where a
+/ WHERE condition can be placed in a join.
+.aqc.loadFile "src/analysis/join.q";
+
 
 / Command line: "-lex <file>" prints the file's tokens, one per line, in
 / the same format as tests/lexer/golden/*.tok, then exits.

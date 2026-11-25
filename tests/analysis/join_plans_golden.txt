@@ -1,0 +1,499 @@
+=== tests/inputs/AQuery2/join/aquery_kdb/two_way_join.a
+PLAN	1 main
+AVAIL	L O
+Project	avail=L O
+  Filter -	avail=L O
+    Join Cross	avail=L O
+      Table lineitem AS L	avail=L
+      Table orders AS O	avail=O
+PLACE	1
+Filter #1	avail=L O
+  Join Cross	avail=L O
+    Table lineitem AS L	avail=L
+    Table orders AS O	avail=O
+=== tests/inputs/benchmark/denormalization/aquery/create_lineitemdenormalized.a
+PLAN	1 main
+AVAIL	L N R S
+Project	avail=L N R S
+  Filter -,-,-	avail=L N R S
+    Join Cross	avail=L N R S
+      Join Cross	avail=L N S
+        Join Cross	avail=L S
+          Table lineitem AS L	avail=L
+          Table supplier AS S	avail=S
+        Table nation AS N	avail=N
+      Table region AS R	avail=R
+PLACE	1
+Filter #3	avail=L N R S
+  Join Cross	avail=L N R S
+    Filter #2	avail=L N S
+      Join Cross	avail=L N S
+        Filter #1	avail=L S
+          Join Cross	avail=L S
+            Table lineitem AS L	avail=L
+            Table supplier AS S	avail=S
+        Table nation AS N	avail=N
+    Table region AS R	avail=R
+=== tests/inputs/benchmark/denormalization/aquery/without_denormalization.a
+PLAN	1 main
+AVAIL	L N R S
+Project	avail=L N R S
+  Filter -,-,-,-	avail=L N R S
+    Join Cross	avail=L N R S
+      Join Cross	avail=L N S
+        Join Cross	avail=L S
+          Table lineitem AS L	avail=L
+          Table supplier AS S	avail=S
+        Table nation AS N	avail=N
+      Table region AS R	avail=R
+PLACE	1
+Filter #3	avail=L N R S
+  Join Cross	avail=L N R S
+    Filter #2	avail=L N S
+      Join Cross	avail=L N S
+        Filter #1	avail=L S
+          Join Cross	avail=L S
+            Table lineitem AS L	avail=L
+            Table supplier AS S	avail=S
+        Table nation AS N	avail=N
+    Filter #4	avail=R
+      Table region AS R	avail=R
+=== tests/inputs/financial/Q1.a
+PLAN	1 local adjdata
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	1 main
+AVAIL	adjdata pxdata
+Project	avail=adjdata pxdata
+  SortBy	avail=adjdata pxdata
+    Join FullOuterJoinUsing	avail=adjdata pxdata
+      Table pxdata	avail=pxdata
+      Table adjdata	avail=adjdata
+=== tests/inputs/financial/Q2.a
+PLAN	1 main
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  SortBy	avail=pxdata splitdata
+    Join InnerJoinUsing	avail=pxdata splitdata
+      Table pxdata	avail=pxdata
+      Table splitdata	avail=splitdata
+=== tests/inputs/financial/Q5.a
+PLAN	1 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	1 local avgInfo
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  GroupBy	avail=pxdata splitadj
+    SortBy	avail=pxdata splitadj
+      Join FullOuterJoinUsing	avail=pxdata splitadj
+        Table pxdata	avail=pxdata
+        Table splitadj	avail=splitadj
+=== tests/inputs/financial/Q6.a
+PLAN	1 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	1 local avgInfo
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  GroupBy	avail=pxdata splitadj
+    SortBy	avail=pxdata splitadj
+      Join FullOuterJoinUsing	avail=pxdata splitadj
+        Table pxdata	avail=pxdata
+        Table splitadj	avail=splitadj
+=== tests/inputs/financial/Q7.a
+PLAN	2 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	2 local adjpxdata
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  Join FullOuterJoinUsing	avail=pxdata splitadj
+    Table pxdata	avail=pxdata
+    Table splitadj	avail=splitadj
+PLAN	2 main
+AVAIL	latestPxs simulated
+Project	avail=latestPxs simulated
+  Join FullOuterJoinUsing	avail=latestPxs simulated
+    Table latestPxs	avail=latestPxs
+    Table simulated	avail=simulated
+=== tests/inputs/financial/Q8.a
+PLAN	6 local pairsGrouped
+AVAIL	st1 st2
+Project	avail=st1 st2
+  Join Cross	avail=st1 st2
+    Table stocksGrouped AS st1	avail=st1
+    Table stocksGrouped AS st2	avail=st2
+=== tests/inputs/financial/Q9.a
+PLAN	2 main
+AVAIL	divdata nosplit_avgpx
+Project	avail=divdata nosplit_avgpx
+  Join InnerJoinUsing	avail=divdata nosplit_avgpx
+    Table nosplit_avgpx	avail=nosplit_avgpx
+    Table divdata	avail=divdata
+=== tests/inputs/financial/test9_5.a
+PLAN	2 main
+AVAIL	divdata nosplit_avgpx
+Project	avail=divdata nosplit_avgpx
+  SortBy	avail=divdata nosplit_avgpx
+    Join InnerJoinUsing	avail=divdata nosplit_avgpx
+      Table nosplit_avgpx	avail=nosplit_avgpx
+      Table divdata	avail=divdata
+=== tests/inputs/function_support/distinct/distinct_a.a
+PLAN	2 main
+AVAIL	employee techdept
+Project	avail=employee techdept
+  Join InnerJoinUsing	avail=employee techdept
+    Table employee	avail=employee
+    Table techdept	avail=techdept
+=== tests/inputs/resources/fintime.a
+PLAN	3 local adjdata
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	3 main
+AVAIL	adjdata pxdata
+Project	avail=adjdata pxdata
+  SortBy	avail=adjdata pxdata
+    Join FullOuterJoinUsing	avail=adjdata pxdata
+      Table pxdata	avail=pxdata
+      Table adjdata	avail=adjdata
+PLAN	4 main
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  SortBy	avail=pxdata splitdata
+    Join InnerJoinUsing	avail=pxdata splitdata
+      Table pxdata	avail=pxdata
+      Table splitdata	avail=splitdata
+PLAN	7 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	7 local avgInfo
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  GroupBy	avail=pxdata splitadj
+    SortBy	avail=pxdata splitadj
+      Join FullOuterJoinUsing	avail=pxdata splitadj
+        Table pxdata	avail=pxdata
+        Table splitadj	avail=splitadj
+PLAN	8 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	8 local avgInfo
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  GroupBy	avail=pxdata splitadj
+    SortBy	avail=pxdata splitadj
+      Join FullOuterJoinUsing	avail=pxdata splitadj
+        Table pxdata	avail=pxdata
+        Table splitadj	avail=splitadj
+PLAN	10 local splitadj
+AVAIL	pxdata splitdata
+Project	avail=pxdata splitdata
+  GroupBy	avail=pxdata splitdata
+    Filter -	avail=pxdata splitdata
+      Join InnerJoinUsing	avail=pxdata splitdata
+        Table pxdata	avail=pxdata
+        Table splitdata	avail=splitdata
+PLACE	1
+Filter #1	avail=pxdata splitdata
+  Join InnerJoinUsing	avail=pxdata splitdata
+    Table pxdata	avail=pxdata
+    Table splitdata	avail=splitdata
+PLAN	10 local adjpxdata
+AVAIL	pxdata splitadj
+Project	avail=pxdata splitadj
+  Join FullOuterJoinUsing	avail=pxdata splitadj
+    Table pxdata	avail=pxdata
+    Table splitadj	avail=splitadj
+PLAN	10 main
+AVAIL	latestPxs simulated
+Project	avail=latestPxs simulated
+  Join FullOuterJoinUsing	avail=latestPxs simulated
+    Table latestPxs	avail=latestPxs
+    Table simulated	avail=simulated
+PLAN	15 local pairsGrouped
+AVAIL	st1 st2
+Project	avail=st1 st2
+  Join Cross	avail=st1 st2
+    Table stocksGrouped AS st1	avail=st1
+    Table stocksGrouped AS st2	avail=st2
+PLAN	16 main
+AVAIL	divdata nosplit_avgpx
+Project	avail=divdata nosplit_avgpx
+  Join InnerJoinUsing	avail=divdata nosplit_avgpx
+    Table nosplit_avgpx	avail=nosplit_avgpx
+    Table divdata	avail=divdata
+=== tests/inputs/resources/pandas.a
+PLAN	7 main
+AVAIL	df_join df_multi_join
+Project	avail=df_join df_multi_join
+  Join InnerJoinUsing	avail=df_join df_multi_join
+    Table df_join	avail=df_join
+    Table df_multi_join	avail=df_multi_join
+=== tests/inputs/resources/simple.a
+PLAN	6 main
+AVAIL	p t
+Project	avail=p t
+  GroupBy	avail=p t
+    SortBy	avail=p t
+      Join InnerJoinUsing	avail=p t
+        Table Ticks AS t	avail=t
+        Table Portfolio AS p	avail=p
+PLAN	9 main
+AVAIL	hq ts
+Project	avail=hq ts
+  GroupBy	avail=hq ts
+    SortBy	avail=hq ts
+      Join InnerJoinUsing	avail=hq ts
+        Table TradedStocks AS ts	avail=ts
+        Table HistoricQuotes AS hq	avail=hq
+PLAN	10 main
+AVAIL	b t
+Project	avail=b t
+  Filter -	avail=b t
+    SortBy	avail=b t
+      Join InnerJoinUsing	avail=b t
+        Table Ticks AS t	avail=t
+        Table base AS b	avail=b
+PLACE	1
+SortBy	avail=b t
+  Filter #1	avail=b t
+    Join InnerJoinUsing	avail=b t
+      Table Ticks AS t	avail=t
+      Table base AS b	avail=b
+PLAN	11 main
+AVAIL	p t
+Project	avail=p t
+  Filter -	avail=p t
+    Join InnerJoinUsing	avail=p t
+      Table TicksWithAttr AS t	avail=t
+      Table Portfolio AS p	avail=p
+PLACE	1
+Filter #1	avail=p t
+  Join InnerJoinUsing	avail=p t
+    Table TicksWithAttr AS t	avail=t
+    Table Portfolio AS p	avail=p
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0040.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  SortBy	avail=t1 t2
+    Join InnerJoinUsing	avail=t1 t2
+      Table t1	avail=t1
+      Table t2	avail=t2
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0175.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  GroupBy	avail=t1 t2
+    SortBy	avail=t1 t2
+      Join Cross	avail=t1 t2
+        Table t1	avail=t1
+        Table t2	avail=t2
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0180.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  GroupBy	avail=t1 t2
+    SortBy	avail=t1 t2
+      Join Cross	avail=t1 t2
+        Table t1	avail=t1
+        Table t2	avail=t2
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0182.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  GroupBy	avail=t1 t2
+    Join Cross	avail=t1 t2
+      Table t1	avail=t1
+      Table t2	avail=t2
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0192.a
+PLAN	1 main
+AVAIL	t1 t2 t3
+Project	avail=t1 t2 t3
+  Filter -,-,-,-	avail=t1 t2 t3
+    Join InnerJoinUsing	avail=t1 t2 t3
+      Join InnerJoinUsing	avail=t1 t2
+        Table t1	avail=t1
+        Table t2	avail=t2
+      Table t3	avail=t3
+PLACE	1
+Filter #4	avail=t1 t2 t3
+  Filter #3	avail=t1 t2 t3
+    Join InnerJoinUsing	avail=t1 t2 t3
+      Filter #2	avail=t1 t2
+        Join InnerJoinUsing	avail=t1 t2
+          Filter #1	avail=t1
+            Table t1	avail=t1
+          Table t2	avail=t2
+      Table t3	avail=t3
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0251.a
+PLAN	1 main
+AVAIL	o t
+Project	avail=o t
+  SortBy	avail=o t
+    Join Cross	avail=o t
+      Table t	avail=t
+      Table other AS o	avail=o
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0282.a
+PLAN	3 main
+AVAIL	t temp1
+Project	avail=t temp1
+  GroupBy	avail=t temp1
+    Filter -,-,-	avail=t temp1
+      SortBy	avail=t temp1
+        Join InnerJoinUsing	avail=t temp1
+          Table temp1	avail=temp1
+          Table t	avail=t
+PLACE	1
+SortBy	avail=t temp1
+  Filter #3	avail=t temp1
+    Join InnerJoinUsing	avail=t temp1
+      Filter #2	avail=temp1
+        Table temp1	avail=temp1
+      Filter #1	avail=t
+        Table t	avail=t
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0015.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  Join Cross	avail=t1 t2
+    Table t1	avail=t1
+    Table t2	avail=t2
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0017.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  Join InnerJoinUsing	avail=t1 t2
+    Table t1	avail=t1
+    Table t2	avail=t2
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0255.a
+PLAN	1 main
+AVAIL	t t1 t2
+Project	avail=t t1 t2
+  Filter -	avail=t t1 t2
+    SortBy	avail=t t1 t2
+      Join InnerJoinUsing	avail=t t1 t2
+        Join Cross	avail=t t1
+          Table t	avail=t
+          Table t1	avail=t1
+        Table t2	avail=t2
+PLACE	1
+SortBy	avail=t t1 t2
+  Filter #1	avail=t t1 t2
+    Join InnerJoinUsing	avail=t t1 t2
+      Join Cross	avail=t t1
+        Table t	avail=t
+        Table t1	avail=t1
+      Table t2	avail=t2
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0140.a
+PLAN	1 main
+AVAIL	t1 t2
+Project	avail=t1 t2
+  Join InnerJoinUsing	avail=t1 t2
+    Join Cross	avail=t1 t2
+      Table t1	avail=t1
+      Table t2	avail=t2
+    Table t1	avail=t1
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0143.a
+PLAN	1 main
+AVAIL	bad t1
+Project	avail=bad t1
+  Join Cross	avail=bad t1
+    Join Cross	avail=bad t1
+      Table t1	avail=t1
+      Table t2 AS bad	avail=bad
+    Table t3 AS bad	avail=bad
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0147.a
+PLAN	1 main
+AVAIL	firstT1 other_t2 t2
+Project	avail=firstT1 other_t2 t2
+  Join InnerJoinUsing	avail=firstT1 other_t2 t2
+    Join Cross	avail=firstT1 t2
+      Table t1 AS firstT1	avail=firstT1
+      Table t2	avail=t2
+    Table t2 AS other_t2	avail=other_t2
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0157.a
+PLAN	1 main
+AVAIL	first_t second_t
+Project	avail=first_t second_t
+  Join Cross	avail=first_t second_t
+    Table t AS first_t	avail=first_t
+    Table t AS second_t	avail=second_t
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0167.a
+PLAN	1 main
+AVAIL	first_t second_t
+Project	avail=first_t second_t
+  Join Cross	avail=first_t second_t
+    Table t AS first_t	avail=first_t
+    Table t AS second_t	avail=second_t

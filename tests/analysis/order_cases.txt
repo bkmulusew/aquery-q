@@ -1,0 +1,60 @@
+# order_cases.txt - expressions and UDFs for tests/analysis/test_order_funs.q
+# (and, from milestone 2, test_order.q).
+# One case per line: context, a TAB, rule, a TAB, the AQuery text.
+#   context  "-" (only built-in functions known) or a program whose UDFs
+#            are known (tests/analysis/order_context.a holds the five UDFs
+#            of OrderAnalysisTestSuite.scala)
+#   rule     expr, predicate or udf
+# tools/gen_order_golden.sh runs each one through the Scala order analysis
+# (tools/OrderDump.java, mode cases) and writes order_golden.txt.
+
+# OrderAnalysisTestSuite.scala, test "order-dependence"
+-	expr	c1 * sum(c1 + max(sums(c2)))
+-	expr	c1 + f(1)
+-	expr	c1 + max(c4 * abs(-1))
+-	udf	FUNCTION f(x) { z := 2; max(sums(z) * 2) }
+-	udf	FUNCTION f(x) { z := g(2); z * 3 }
+tests/analysis/order_context.a	expr	c1 * max(100, h())
+tests/analysis/order_context.a	expr	c1 + min(100, 10, g())
+tests/analysis/order_context.a	expr	c0 * f(max(h()))
+
+# OrderAnalysisTestSuite.scala, test "removing order dependence"
+-	udf	FUNCTION f(x, y) { z := max(sums(x)); z + 2 }
+-	udf	FUNCTION f(x, y) { z := x + sum(y); x * z }
+-	udf	FUNCTION f(x, y) { x + y * x }
+tests/analysis/order_context.a	udf	FUNCTION myFun(x) { h(x) + sum(x) }
+tests/analysis/order_context.a	udf	FUNCTION myFun(x) { g() }
+
+# more expressions
+-	expr	c1 + 2
+-	expr	avg(c1)
+-	expr	deltas(c1) > 0
+-	expr	SUM(c1)
+-	expr	fills(c1)
+-	expr	-prev(c1)
+-	expr	count(*)
+-	expr	t.c1 * ROWID
+-	expr	myq(c1)
+-	expr	not(c1 = 2)
+-	expr	CASE WHEN c1 > 0 THEN sums(c2) ELSE 0 END
+-	expr	CASE c1 WHEN 1 THEN 2 ELSE max(c3) END
+-	predicate	c1 IN (1, 2, 3)
+-	predicate	c1 BETWEEN 1 AND sum(c2)
+-	predicate	c1 LIKE "a%"
+-	predicate	c1 IS NULL
+-	predicate	c1 NOT IN (first(c2))
+tests/analysis/order_context.a	expr	add(c1, c2)
+tests/analysis/order_context.a	expr	myMax(c1) + f(c2)
+tests/analysis/order_context.a	expr	h(c1)
+
+# more UDFs
+-	udf	FUNCTION k(x) { x := sums(x); max(x) }
+-	udf	FUNCTION k(x) { y := max(x); x + y }
+-	udf	FUNCTION k() { 1 }
+-	udf	FUNCTION k(x) { ROWID }
+-	udf	FUNCTION k(x) { t.c1 }
+-	udf	FUNCTION k(x) { z }
+-	udf	FUNCTION k(x) { z := 1; z }
+-	udf	FUNCTION k(x) { count(*) }
+tests/analysis/order_context.a	udf	FUNCTION k(x) { add(x, 1) }
+tests/analysis/order_context.a	udf	FUNCTION k(x) { myMax(x) * f(x) }

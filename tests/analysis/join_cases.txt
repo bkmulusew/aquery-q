@@ -1,0 +1,48 @@
+# join_cases.txt - cases for tests/analysis/test_join.q (the join analysis,
+# src/analysis/join.q). One case per line: a rule, a TAB, the AQuery text.
+#   expr, predicate   an expression: which tables it names, and whether
+#                     its top is an = or != test
+#   from              a FROM clause: its tables, and every node's tables
+#   place             a FROM clause, a TAB, then WHERE conditions separated
+#                     by ";": place each one, in order, with placeFilter
+# tools/gen_order_golden.sh runs each one through the Scala join analysis
+# (tools/OrderDump.java, mode joincases) and writes join_golden.txt.
+
+# JoinAnalysisTestSuite.scala, test "query/filter type"
+expr	c1 = 2
+expr	not(f(c1))
+expr	not(not(c1 = c2 * 3))
+expr	f(c4 = 5)
+expr	f(c1) != not(g(c2))
+
+# test "tables used/available"
+from	t1 as t_one, t2 INNER JOIN t3 USING cx
+expr	f(c1) * t.c1
+expr	t.c1 * t.c2 / h(ot.c3)
+expr	f(1, t.c1 / h(ot.c5 + t2.h))
+
+# test "place filter" (and its failing case: no join)
+place	t1 as t_one, t2 INNER JOIN t3 USING cx, t4	t_one.c1 = t2.c1 ; t2.cx IS NOT NULL ; t_one.c3 + t3.c1 = 0 ; c1 = t.c2 ; t2.c3 > 100 ; t_one.c = 100
+place	t	t.c1 > 100
+
+# more
+expr	1 + 2
+expr	count(*)
+expr	t.c1 + ROWID
+expr	CASE WHEN t.c1 > 0 THEN u.c2 ELSE 0 END
+expr	-(c1 = 2)
+expr	c1 < 2
+predicate	t.c1 IN (1, 2)
+predicate	t.c1 BETWEEN u.c1 AND 3
+predicate	c1 NOT IN (1)
+from	t
+from	t1, t2
+from	t1 AS a, t1 AS b
+from	t1 FULL OUTER JOIN t2 USING c1
+from	f(1)
+place	t1, t2	t1.c1 > 1 ; t2.c1 > 1 ; t1.c1 = t2.c1
+place	t1, t2 INNER JOIN t3 USING c1	t3.c2 = 1 ; t1.c1 = t3.c1
+place	t1 AS a, t2 AS b	a.c1 = b.c1 ; t1.c1 > 0
+place	t1, t2	1 = 1
+place	t1, t2	zz.c2 > 1
+place	t1, t2	c1 > 0 ; t1.c1 > 0

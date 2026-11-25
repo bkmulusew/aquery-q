@@ -1,0 +1,771 @@
+=== tests/inputs/AQuery2/join/aquery_kdb/two_way_join.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/denormalization/aquery/create_lineitemdenormalized.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/denormalization/aquery/with_denormalization.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/denormalization/aquery/without_denormalization.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/multipoint/aquery/hash.a
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/multipoint/aquery/noindex.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/multipoint/aquery/sorted.a
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/point/aquery/hash.a
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/point/aquery/noindex.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/hashvssorted/point/aquery/sorted.a
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/benchmark/range_noindex/aquery/noindex.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/all_percent.a
+PLAN	1 main
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+PLAN	3 main
+HASSORT	0
+PLAN	4 main
+HASSORT	0
+PLAN	5 main
+HASSORT	0
+PLAN	6 main
+HASSORT	0
+PLAN	7 main
+HASSORT	0
+PLAN	8 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/fivepercent_index.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/fivepercent_scan.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/onepercent_index.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/onepercent_scan.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/tenpercent_index.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/tenpercent_scan.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/twentypercent_index.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/scancanwin/aquery/twentypercent_scan.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/select_all/aquery/all.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/trigger/aquery/queries/with_trigger_store.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/trigger/aquery/queries/with_trigger_vendor.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/trigger/aquery/queries/without_trigger_store.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/benchmark/trigger/aquery/queries/without_trigger_vendor.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/financial/Q0.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local weekly
+HASSORT	0
+PLAN	2 local monthly
+HASSORT	0
+PLAN	2 local yearly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(name), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+=== tests/inputs/financial/Q1.a
+PLAN	1 local pxdata
+HASSORT	0
+PLAN	1 local splitdata
+HASSORT	0
+PLAN	1 local adjdata
+HASSORT	0
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(AdjFactor) Id(ClosePrice) Id(HighPrice) Id(Id) Id(LowPrice) Id(OpenPrice) Id(TradeDate) Id(Volume)
+ABOVEALL	Id(AdjFactor) Id(ClosePrice) Id(HighPrice) Id(Id) Id(LowPrice) Id(OpenPrice) Id(TradeDate) Id(Volume)
+=== tests/inputs/financial/Q2.a
+PLAN	1 local pxdata
+HASSORT	0
+PLAN	1 local splitdata
+HASSORT	0
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(HighPrice) Id(Id) Id(LowPrice) Id(TradeDate)
+ABOVEALL	Id(HighPrice) Id(Id) Id(LowPrice) Id(TradeDate)
+=== tests/inputs/financial/Q3.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/financial/Q4.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/financial/Q5.a
+PLAN	1 local pxdata
+HASSORT	0
+PLAN	1 local splitdata
+HASSORT	0
+PLAN	1 local splitadj
+HASSORT	0
+PLAN	1 local avgInfo
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/financial/Q6.a
+PLAN	1 local pxdata
+HASSORT	0
+PLAN	1 local splitdata
+HASSORT	0
+PLAN	1 local splitadj
+HASSORT	0
+PLAN	1 local avgInfo
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/financial/Q7.a
+PLAN	2 local pxdata
+HASSORT	0
+PLAN	2 local splitdata
+HASSORT	0
+PLAN	2 local splitadj
+HASSORT	0
+PLAN	2 local adjpxdata
+HASSORT	0
+PLAN	2 local movingAvgs
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	Id(ClosePrice) Id(Id) Id(TradeDate)
+PLAN	2 local simulated
+HASSORT	0
+PLAN	2 local latestPxs
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/financial/Q8.a
+PLAN	6 local stocksGrouped
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(ClosePrice) Id(Id) Id(TradeDate) Id(startPeriod) Id(stock10)
+ABOVEALL	Id(ClosePrice) Id(Id) Id(TradeDate) Id(startPeriod) Id(stock10)
+PLAN	6 local pairsGrouped
+HASSORT	0
+PLAN	6 local corrTable
+HASSORT	0
+PLAN	6 main
+HASSORT	1
+SORT	Asc Id(corrCoeff)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/financial/Q9.a
+PLAN	2 local nosplit_avgpx
+HASSORT	0
+PLAN	2 local divdata
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/financial/test0.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/financial/test0_1.a
+PLAN	1 local Target
+HASSORT	0
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	Id(ClosePrice) Id(Id) Id(TradeDate)
+=== tests/inputs/financial/test0_2.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local weekly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+=== tests/inputs/financial/test0_3.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local monthly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+=== tests/inputs/financial/test0_4.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local yearly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+=== tests/inputs/financial/test0_5.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local weekly
+HASSORT	0
+PLAN	2 local monthly
+HASSORT	0
+PLAN	2 local yearly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(name), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+=== tests/inputs/financial/test9_1.a
+PLAN	1 local DateInfo
+HASSORT	0
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/financial/test9_2.a
+PLAN	2 local splitdata
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/financial/test9_3.a
+PLAN	2 local nosplit_avgpx
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(year)
+ABOVE	Id(Id) Id(avg_px) Id(year)
+ABOVEALL	Id(Id) Id(avg_px) Id(year)
+=== tests/inputs/financial/test9_4.a
+PLAN	2 local divdata
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(year)
+ABOVE	Id(Id) Id(total_divs) Id(year)
+ABOVEALL	Id(Id) Id(total_divs) Id(year)
+=== tests/inputs/financial/test9_5.a
+PLAN	2 local nosplit_avgpx
+HASSORT	0
+PLAN	2 local divdata
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(year)
+ABOVE	Id(Id) Id(avg_px) Id(total_divs) Id(year)
+ABOVEALL	Id(Id) Id(avg_px) Id(total_divs) Id(year)
+=== tests/inputs/function_support/distinct/distinct_a.a
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/function_support/retrieve_need_col/retrieve_a.a
+PLAN	1 main
+HASSORT	0
+PLAN	2 main
+HASSORT	0
+=== tests/inputs/resources/fintime.a
+PLAN	2 local Target
+HASSORT	0
+PLAN	2 local weekly
+HASSORT	0
+PLAN	2 local monthly
+HASSORT	0
+PLAN	2 local yearly
+HASSORT	0
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(name), Asc Id(bucket)
+ABOVE	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+ABOVEALL	Id(Id) Id(bucket) Id(high) Id(low) Id(mean) Id(name)
+PLAN	3 local pxdata
+HASSORT	0
+PLAN	3 local splitdata
+HASSORT	0
+PLAN	3 local adjdata
+HASSORT	0
+PLAN	3 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(AdjFactor) Id(ClosePrice) Id(HighPrice) Id(Id) Id(LowPrice) Id(OpenPrice) Id(TradeDate) Id(Volume)
+ABOVEALL	Id(AdjFactor) Id(ClosePrice) Id(HighPrice) Id(Id) Id(LowPrice) Id(OpenPrice) Id(TradeDate) Id(Volume)
+PLAN	4 local pxdata
+HASSORT	0
+PLAN	4 local splitdata
+HASSORT	0
+PLAN	4 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(HighPrice) Id(Id) Id(LowPrice) Id(TradeDate)
+ABOVEALL	Id(HighPrice) Id(Id) Id(LowPrice) Id(TradeDate)
+PLAN	5 main
+HASSORT	0
+PLAN	6 main
+HASSORT	0
+PLAN	7 local pxdata
+HASSORT	0
+PLAN	7 local splitdata
+HASSORT	0
+PLAN	7 local splitadj
+HASSORT	0
+PLAN	7 local avgInfo
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+PLAN	7 main
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	WildCard
+ABOVEALL	WildCard
+PLAN	8 local pxdata
+HASSORT	0
+PLAN	8 local splitdata
+HASSORT	0
+PLAN	8 local splitadj
+HASSORT	0
+PLAN	8 local avgInfo
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	ColumnAccess(pxdata,ClosePrice) ColumnAccess(splitadj,ClosePrice) Id(Id) Id(TradeDate)
+PLAN	8 main
+HASSORT	0
+PLAN	10 local pxdata
+HASSORT	0
+PLAN	10 local splitdata
+HASSORT	0
+PLAN	10 local splitadj
+HASSORT	0
+PLAN	10 local adjpxdata
+HASSORT	0
+PLAN	10 local movingAvgs
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(ClosePrice) Id(Id) Id(TradeDate)
+ABOVEALL	Id(ClosePrice) Id(Id) Id(TradeDate)
+PLAN	10 local simulated
+HASSORT	0
+PLAN	10 local latestPxs
+HASSORT	0
+PLAN	10 main
+HASSORT	0
+PLAN	15 local stocksGrouped
+HASSORT	1
+SORT	Asc Id(Id), Asc Id(TradeDate)
+ABOVE	Id(ClosePrice) Id(Id) Id(TradeDate) Id(startYear10) Id(stock10)
+ABOVEALL	Id(ClosePrice) Id(Id) Id(TradeDate) Id(startYear10) Id(stock10)
+PLAN	15 local pairsGrouped
+HASSORT	0
+PLAN	15 local corrTable
+HASSORT	0
+PLAN	15 main
+HASSORT	1
+SORT	Asc Id(corrCoeff)
+ABOVE	WildCard
+ABOVEALL	WildCard
+PLAN	16 local DateInfo
+HASSORT	0
+PLAN	16 local splitdata
+HASSORT	0
+PLAN	16 local nosplit_avgpx
+HASSORT	0
+PLAN	16 local divdata
+HASSORT	0
+PLAN	16 main
+HASSORT	0
+=== tests/inputs/resources/monetdb.a
+PLAN	3 main
+HASSORT	0
+PLAN	4 main
+HASSORT	0
+=== tests/inputs/resources/pandas.a
+PLAN	2 main
+HASSORT	0
+PLAN	3 main
+HASSORT	0
+PLAN	4 main
+HASSORT	0
+PLAN	5 main
+HASSORT	0
+PLAN	6 main
+HASSORT	0
+PLAN	7 main
+HASSORT	0
+PLAN	8 main
+HASSORT	0
+=== tests/inputs/resources/simple.a
+PLAN	2 main
+HASSORT	1
+SORT	Asc Id(timestamp)
+ABOVE	Id(ID) Id(price)
+ABOVEALL	Id(ID) Id(price)
+PLAN	3 main
+HASSORT	1
+SORT	Asc Id(timestamp)
+ABOVE	Id(ID) Id(date) Id(pointDate) Id(price)
+ABOVEALL	Id(ID) Id(date) Id(pointDate) Id(price)
+PLAN	4 main
+HASSORT	1
+SORT	Asc Id(src), Desc Id(dest), Asc Id(timestamp)
+ABOVE	Id(dest) Id(src) Id(timestamp)
+ABOVEALL	Id(dest) Id(length) Id(src) Id(timestamp)
+PLAN	5 local averages
+HASSORT	1
+SORT	Asc Id(ID), Asc Id(timestamp)
+ABOVE	Id(ID) Id(date) Id(price) Id(timestamp)
+ABOVEALL	Id(ID) Id(date) Id(price) Id(timestamp)
+PLAN	5 main
+HASSORT	1
+SORT	Asc Id(ID), Asc Id(timestamp)
+ABOVE	Id(ID) Id(a21) Id(a5) Id(date)
+ABOVEALL	Id(ID) Id(a21) Id(a5) Id(date)
+PLAN	6 main
+HASSORT	1
+SORT	Asc Id(timestamp)
+ABOVE	ColumnAccess(t,ID) Id(price)
+ABOVEALL	ColumnAccess(t,ID) Id(price)
+PLAN	7 local OneDay
+HASSORT	1
+SORT	Asc Id(timestamp)
+ABOVE	Id(ID) Id(date) Id(pointDate) Id(price) Id(timestamp)
+ABOVEALL	Id(ID) Id(date) Id(pointDate) Id(price) Id(timestamp)
+PLAN	7 main
+HASSORT	1
+SORT	Asc Id(timestamp)
+ABOVE	Id(ID) RowId
+ABOVEALL	Id(ID) Id(timestamp) RowId
+PLAN	8 main
+HASSORT	1
+SORT	Asc Id(month)
+ABOVE	Id(month) Id(sales)
+ABOVEALL	Id(month) Id(sales)
+PLAN	9 main
+HASSORT	1
+SORT	Asc Id(date)
+ABOVE	ColumnAccess(hq,ClosePrice) Id(ID)
+ABOVEALL	ColumnAccess(hq,ClosePrice) Id(ID)
+PLAN	10 main
+HASSORT	1
+SORT	Asc Id(name), Asc Id(timestamp)
+ABOVE	Id(name) Id(price)
+ABOVEALL	Id(name) Id(price)
+PLAN	11 main
+HASSORT	0
+PLAN	18 main
+HASSORT	0
+PLAN	19 main
+HASSORT	0
+PLAN	21 main
+HASSORT	0
+PLAN	22 main
+HASSORT	0
+PLAN	24 main
+HASSORT	0
+PLAN	25 main
+HASSORT	0
+PLAN	27 main
+HASSORT	0
+PLAN	28 main
+HASSORT	0
+PLAN	30 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0034.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0037.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0040.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0052.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc ColumnAccess(t,c1), Desc Id(c2)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0055.a
+PLAN	1 main
+HASSORT	1
+SORT	Desc Id(c2)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0075.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1)
+ABOVE	Id(c0) Id(c2) Id(c5) Id(c7) WildCard
+ABOVEALL	Id(c0) Id(c2) Id(c5) Id(c7) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0091.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc ColumnAccess(t,c1)
+ABOVE	Id(c1) Id(c2) WildCard
+ABOVEALL	Id(c1) Id(c2) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0098.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc ColumnAccess(t,c1)
+ABOVE	Id(c1) Id(c5) WildCard
+ABOVEALL	Id(c1) Id(c2) Id(c5) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0106.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc ColumnAccess(t,c1), Desc Id(c2)
+ABOVE	Id(c1) Id(c2) Id(c6) WildCard
+ABOVEALL	Id(c1) Id(c2) Id(c6) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0127.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	Id(c3) WildCard
+ABOVEALL	Id(c3) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0135.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	Id(c1) Id(c2) Id(c4) WildCard
+ABOVEALL	Id(c1) Id(c2) Id(c4) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0140.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	ColumnAccess(t,c1) WildCard
+ABOVEALL	ColumnAccess(t,c1) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0157.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	Id(c3) WildCard
+ABOVEALL	Id(c3) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0162.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	Id(c1) Id(c2) WildCard
+ABOVEALL	Id(c1) Id(c2) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0164.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0167.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	ColumnAccess(t,c1) WildCard
+ABOVEALL	ColumnAccess(t,c1) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0175.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1)
+ABOVE	ColumnAccess(t1,c1) WildCard
+ABOVEALL	ColumnAccess(t1,c1) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0180.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc ColumnAccess(t1,c1)
+ABOVE	ColumnAccess(t1,c1) WildCard
+ABOVEALL	ColumnAccess(t1,c1) WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0182.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0192.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0214.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0222.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0227.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0243.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2)
+ABOVE	Id(c1) Id(c2) Id(c3) Id(c4) Id(c5) Id(c6)
+ABOVEALL	Id(c1) Id(c2) Id(c3) Id(c4) Id(c5) Id(c6) Id(c7)
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0251.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2)
+ABOVE	ColumnAccess(t,c2) Id(c1)
+ABOVEALL	ColumnAccess(o,c2) ColumnAccess(t,c2) Id(c1) Id(c4)
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0257.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2)
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0262.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2)
+ABOVE	
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0264.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/BasicOptimizerTestSuite/line0282.a
+PLAN	3 local temp1
+HASSORT	1
+SORT	Asc Id(c2), Asc Id(c1)
+ABOVE	Id(c0) Id(c1) Id(c2) Id(c3) Id(c6)
+ABOVEALL	Id(c0) Id(c1) Id(c2) Id(c3) Id(c6) Id(c8)
+PLAN	3 main
+HASSORT	1
+SORT	Asc Id(c1), Asc ColumnAccess(t,c2)
+ABOVE	ColumnAccess(t,c1) ColumnAccess(t,c3) ColumnAccess(temp1,c0) Id(c0) Id(c1) Id(c2) Id(c4) Id(myCol)
+ABOVEALL	ColumnAccess(t,c1) ColumnAccess(t,c3) ColumnAccess(temp1,c0) Id(c0) Id(c1) Id(c2) Id(c4) Id(myCol)
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0013.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0015.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0017.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/JoinAnalysisTestSuite/line0125.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2)
+ABOVE	ColumnAccess(t,c1) ColumnAccess(t,c2) Id(c1) Id(c3)
+ABOVEALL	ColumnAccess(t,c1) ColumnAccess(t,c2) Id(c1) Id(c3)
+=== tests/inputs/scala_snippets/KdbGeneratorTestSuite/line0126.a
+PLAN	3 main
+HASSORT	1
+SORT	Asc Id(c3)
+ABOVE	Id(c1) Id(c2)
+ABOVEALL	Id(c1) Id(c2) Id(c3)
+=== tests/inputs/scala_snippets/KdbGeneratorTestSuite/line0155.a
+PLAN	6 main
+HASSORT	0
+=== tests/inputs/scala_snippets/KdbGeneratorTestSuite/line0212.a
+PLAN	2 main
+HASSORT	0
+PLAN	3 main
+HASSORT	0
+=== tests/inputs/scala_snippets/KdbGeneratorTestSuite/line0397.a
+PLAN	2 main
+HASSORT	0
+PLAN	3 main
+HASSORT	0
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0246.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Desc ColumnAccess(t,c2)
+ABOVE	Id(c1) WildCard
+ABOVEALL	Id(c1) WildCard
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0250.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/OrderAnalysisTestSuite/line0255.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Desc ColumnAccess(t,c2)
+ABOVE	Id(c1) WildCard
+ABOVEALL	Id(c1) WildCard
+=== tests/inputs/scala_snippets/ParserTestSuite/line0116.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/ParserTestSuite/line0252.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c1), Asc Id(c2)
+ABOVE	Id(a) Id(b) Id(c)
+ABOVEALL	Id(a) Id(b) Id(c) Id(d)
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0118.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0121.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0127.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0131.a
+PLAN	1 local t1
+HASSORT	0
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0140.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0143.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0147.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0152.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0157.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0162.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0167.a
+PLAN	1 main
+HASSORT	0
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0171.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc <BinExpr>
+ABOVE	WildCard
+ABOVEALL	WildCard
+=== tests/inputs/scala_snippets/TypeCheckerTestSuite/line0174.a
+PLAN	1 main
+HASSORT	1
+SORT	Asc Id(c2), Desc ColumnAccess(t,c2)
+ABOVE	WildCard
+ABOVEALL	WildCard

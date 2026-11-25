@@ -1,0 +1,146 @@
+=== -	expr	c1 * sum(c1 + max(sums(c2)))
+OD	1
+AGG	1
+=== -	expr	c1 + f(1)
+OD	1
+AGG	1
+=== -	expr	c1 + max(c4 * abs(-1))
+OD	0
+AGG	1
+=== -	udf	FUNCTION f(x) { z := 2; max(sums(z) * 2) }
+OD	1
+REM	1
+AGG	1
+=== -	udf	FUNCTION f(x) { z := g(2); z * 3 }
+OD	1
+REM	0
+AGG	1
+=== tests/analysis/order_context.a	expr	c1 * max(100, h())
+OD	0
+AGG	1
+=== tests/analysis/order_context.a	expr	c1 + min(100, 10, g())
+OD	1
+AGG	1
+=== tests/analysis/order_context.a	expr	c0 * f(max(h()))
+OD	1
+AGG	1
+=== -	udf	FUNCTION f(x, y) { z := max(sums(x)); z + 2 }
+OD	1
+REM	1
+AGG	1
+=== -	udf	FUNCTION f(x, y) { z := x + sum(y); x * z }
+OD	0
+REM	0
+AGG	1
+=== -	udf	FUNCTION f(x, y) { x + y * x }
+OD	0
+REM	0
+AGG	0
+=== tests/analysis/order_context.a	udf	FUNCTION myFun(x) { h(x) + sum(x) }
+OD	0
+REM	1
+AGG	1
+=== tests/analysis/order_context.a	udf	FUNCTION myFun(x) { g() }
+OD	1
+REM	1
+AGG	1
+=== -	expr	c1 + 2
+OD	0
+AGG	0
+=== -	expr	avg(c1)
+OD	0
+AGG	1
+=== -	expr	deltas(c1) > 0
+OD	1
+AGG	1
+=== -	expr	SUM(c1)
+OD	0
+AGG	1
+=== -	expr	fills(c1)
+OD	1
+AGG	1
+=== -	expr	-prev(c1)
+OD	1
+AGG	1
+=== -	expr	count(*)
+OD	0
+AGG	1
+=== -	expr	t.c1 * ROWID
+OD	0
+AGG	0
+=== -	expr	myq(c1)
+OD	1
+AGG	1
+=== -	expr	not(c1 = 2)
+OD	0
+AGG	0
+=== -	expr	CASE WHEN c1 > 0 THEN sums(c2) ELSE 0 END
+OD	1
+AGG	1
+=== -	expr	CASE c1 WHEN 1 THEN 2 ELSE max(c3) END
+OD	0
+AGG	1
+=== -	predicate	c1 IN (1, 2, 3)
+OD	0
+AGG	0
+=== -	predicate	c1 BETWEEN 1 AND sum(c2)
+OD	0
+AGG	1
+=== -	predicate	c1 LIKE "a%"
+OD	0
+AGG	0
+=== -	predicate	c1 IS NULL
+OD	0
+AGG	0
+=== -	predicate	c1 NOT IN (first(c2))
+OD	1
+AGG	1
+=== tests/analysis/order_context.a	expr	add(c1, c2)
+OD	0
+AGG	0
+=== tests/analysis/order_context.a	expr	myMax(c1) + f(c2)
+OD	1
+AGG	1
+=== tests/analysis/order_context.a	expr	h(c1)
+OD	0
+AGG	1
+=== -	udf	FUNCTION k(x) { x := sums(x); max(x) }
+OD	1
+REM	1
+AGG	1
+=== -	udf	FUNCTION k(x) { y := max(x); x + y }
+OD	0
+REM	0
+AGG	1
+=== -	udf	FUNCTION k() { 1 }
+OD	0
+REM	1
+AGG	0
+=== -	udf	FUNCTION k(x) { ROWID }
+OD	0
+REM	1
+AGG	0
+=== -	udf	FUNCTION k(x) { t.c1 }
+OD	0
+REM	0
+AGG	0
+=== -	udf	FUNCTION k(x) { z }
+OD	0
+REM	0
+AGG	0
+=== -	udf	FUNCTION k(x) { z := 1; z }
+OD	0
+REM	1
+AGG	0
+=== -	udf	FUNCTION k(x) { count(*) }
+OD	0
+REM	1
+AGG	1
+=== tests/analysis/order_context.a	udf	FUNCTION k(x) { add(x, 1) }
+OD	0
+REM	0
+AGG	0
+=== tests/analysis/order_context.a	udf	FUNCTION k(x) { myMax(x) * f(x) }
+OD	1
+REM	1
+AGG	1

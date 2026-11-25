@@ -28,6 +28,9 @@ tests/runtime/test_console.sh
 tests/analysis/test_functions.q
 tests/analysis/test_expr.q
 tests/analysis/test_program.q
+tests/analysis/test_order_funs.q
+tests/analysis/test_order.q
+tests/analysis/test_join.q
 tests/analysis/test_cli.sh
 "
 
